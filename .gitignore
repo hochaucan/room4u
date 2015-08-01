@@ -4,3 +4,6 @@
 /build/
 /room4u-war/dist/
 /room4u-war/build/
+/room4u-war/nbproject/private/
+/nbproject/private/
+/room4u-ejb/nbproject/private/
