@@ -24,6 +24,7 @@ public class CustomerController {
      * Creates a new instance of CustomerController
      */
     public CustomerController() {
+        
     }
     
 }
