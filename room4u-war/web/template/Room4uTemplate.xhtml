@@ -6,6 +6,7 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
         <!--CSS-->
         <h:outputStylesheet  name="./css/bootstrap.min.css"/>
         <h:outputStylesheet name="./css/style.css"/>
@@ -15,6 +16,7 @@
         <h:outputScript name="./js/bootstrap.min.js"></h:outputScript>
 
         <title><ui:insert name="title"/></title>
+
     </h:head>
 
     <h:body>
@@ -27,7 +29,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand logo" href="#">Room4U</a>
+                    <a class="navbar-brand logo" href="#"></a>
                     <!--<img  src="resources/images/logo.png" alt=""/>-->
 
                 </div>
@@ -50,13 +52,8 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Dang nhap <span class="sr-only">(current)</span></a></li>
 
-                        <form class="navbar-form navbar-left" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search"/>
-                            </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
                     </ul>
                 </div>
             </div>
@@ -65,30 +62,48 @@
 
         <div class="container">
             <div class="row">
+                <!--                <div class="col-md-2 col-xs-12 homepage_logo">
+                                    <img  src="resources/images/logo3.png" alt=""/>
+                                </div>-->
+                <div class="col-md-9 col-xs-12"  >
+                    <div class="panel panel-default">
+                        <div class="panel-body" style="height: 193px;">
+                            <img  src="resources/images/logo3.png" alt=""/>
+                        </div>
+                    </div>
+                    <!--                    <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Searching</h3>
+                                            </div>
+                                            <div class="panel-body" style="height: 158px;">
+                                                <form class="navbar-form navbar-right" role="search">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Search"/>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-default">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>-->
+
+                </div>
                 <div class="col-md-3 col-xs-12">
                     <!--<img style="height:200px" src="resources/images/logo.png" alt=""/>-->
                     <div class="panel panel-default">
                         <div class="panel-heading">Calendar Booking</div>
                         <div class="panel-body">
-                            Panel content
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="badge">14</span>
+                                    Cras justo odio
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">2</span>
+                                    Dapibus ac facilisis in
+                                </li>
+
+                            </ul>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-9 col-xs-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Searching</h3>
-                        </div>
-                        <div class="panel-body">
-                            Searching
-                        </div>
-                    </div>
-                    <!--                    <div class="panel panel-default">
-                                            <div class="panel-heading">Panel heading</div>
-                                            <div class="panel-body">
-                                                Panel content
-                                            </div>
-                                        </div>-->
                 </div>
             </div>
 
@@ -114,15 +129,8 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="col-md-3 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/yosemite_national_park_yosemite_valley-t1.jpg" alt=""/>
-                        </div>
-                    </div>
-                </div>-->
             </div>
-              <div class="row">
+            <div class="row">
                 <div class="col-md-4 col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -144,35 +152,52 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="col-md-3 col-xs-12">
+
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/yosemite_national_park_yosemite_valley-t1.jpg" alt=""/>
+                            <img class="col-md-12" src="resources/images/upload/reading_a_book_under_a_tree-t1.jpg" alt=""/>
                         </div>
                     </div>
-                </div>-->
-            </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <img class="col-md-12" src="resources/images/upload/trees_20-t1.jpg" alt=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <img class="col-md-12" src="resources/images/upload/victorias_secret_models_2-t1.jpg" alt=""/>
+                        </div>
+                    </div>
+                </div>
 
-            <div id="top">
-
-                <ui:insert name="top">Top</ui:insert>
             </div>
-
-            <div id="content" class="center_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
+            <!--            <div id="top">
+            
+                            <ui:insert name="top">Top</ui:insert>
+                        </div>
+            
+                        <div id="content" class="center_content">
+                            <ui:insert name="content">Content</ui:insert>
+                        </div>-->
 
 
         </div>
-        <div id="bottom">
+        <div id="bottom" class="row">
+            <div class="col-md-12">
+                <blockquote class="pull-right">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+                </blockquote>
 
-            <div class="jumbotron">
-                <h1>Jumbotron</h1>
-                <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+                <!--<ui:insert name="bottom">Bottom</ui:insert>-->
             </div>
-
-            <!--<ui:insert name="bottom">Bottom</ui:insert>-->
         </div>
     </h:body>
 </html>
