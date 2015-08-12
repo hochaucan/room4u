@@ -10,13 +10,10 @@
         <!--CSS-->
         <h:outputStylesheet  name="./css/bootstrap.min.css"/>
         <h:outputStylesheet name="./css/style.css"/>
-
         <!--SCRIPT-->
         <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap.min.js"></h:outputScript>
-
         <title><ui:insert name="title"/></title>
-
     </h:head>
 
     <h:body>
@@ -55,7 +52,7 @@
                         <!--<button type="button" class="btn btn-primary" aria-label="Left Align">-->
 
                         <!--</button>-->
-                        <li class="glyphicon glyphicon-user" >
+                        <li >
                             <!--<span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>-->
                             <a  href="#">Dang nhap <span class="sr-only">(current)</span></a>
                         </li>
@@ -64,8 +61,6 @@
                 </div>
             </div>
         </nav>
-
-
         <div class="container">
             <div class="row">
                 <!--                <div class="col-md-2 col-xs-12 homepage_logo">
@@ -114,99 +109,9 @@
             </div>
 
             <!--index page-->
-            <div class="row">
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/reading_a_book_under_a_tree-t1.jpg" alt=""/>
-                            <p>Testing</p>
-                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/trees_20-t1.jpg" alt=""/>
-                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/victorias_secret_models_2-t1.jpg" alt=""/>
-                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
-                        </div>
-                    </div>
-                </div>
+            <div id="content" class="center_content">
+                <ui:insert name="content"></ui:insert>
             </div>
-            <div class="row">
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/reading_a_book_under_a_tree-t1.jpg" alt=""/>
-                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/trees_20-t1.jpg" alt=""/>
-                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/victorias_secret_models_2-t1.jpg" alt=""/>
-                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/reading_a_book_under_a_tree-t1.jpg" alt=""/>
-                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/trees_20-t1.jpg" alt=""/>
-                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img class="col-md-12" src="resources/images/upload/victorias_secret_models_2-t1.jpg" alt=""/>
-                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!--            <div id="top">
-            
-                            <ui:insert name="top">Top</ui:insert>
-                        </div>
-            
-                        <div id="content" class="center_content">
-                            <ui:insert name="content">Content</ui:insert>
-                        </div>-->
-
-
         </div>
         <div id="bottom" class="row">
             <div class="col-md-12">
@@ -214,8 +119,6 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                     <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
                 </blockquote>
-
-                <!--<ui:insert name="bottom">Bottom</ui:insert>-->
             </div>
         </div>
     </h:body>
