@@ -13,7 +13,9 @@
         <!--SCRIPT-->
         <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap.min.js"></h:outputScript>
+        <h:outputScript name="./js/js_custom.js"></h:outputScript>
         <title><ui:insert name="title"/></title>
+
     </h:head>
 
     <h:body>
@@ -31,7 +33,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Trang chu <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="#">Trang chủ <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">Link</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -60,6 +62,7 @@
 
 
         <div class="container">
+
             <div class="row">
                 <div class="col-md-8 col-xs-12"  >
                     <div class="panel panel-default">
@@ -76,7 +79,6 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12">
-                    <!--<img style="height:200px" src="resources/images/logo.png" alt=""/>-->
                     <div class="panel panel-default">
                         <div class="panel-heading">Calendar Booking</div>
                         <div class="panel-body">
@@ -95,12 +97,42 @@
                     </div>
                 </div>
             </div>
-
-            <!--index page-->
-            <div id="content" class="center_content">
-                <ui:insert name="content"></ui:insert>
-            </div>
         </div>
+
+
+        <div id="map" class="panel"></div>
+<!--        <div id="map"></div>
+        <div id="pano"></div>-->
+        <br/>
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <!--index page-->
+                    <div id="content" class="center_content">
+                        <ui:insert name="content"></ui:insert>
+                    </div>
+                </div>
+
+                <!--side bar-->
+                <div class="col-md-4 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <p>Testing</p>
+                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!--bottom page-->
         <div id="bottom" class="row">
             <div class="col-md-12">
                 <blockquote class="pull-right">
@@ -109,5 +141,17 @@
                 </blockquote>
             </div>
         </div>
+
+        <script>
+
+            $(document).ready(function () {
+                var maptmp = $(".mapapi");
+                // alert(maptmp.html());
+            });
+
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+                async="true" defer="true">
+        </script>
     </h:body>
 </html>
