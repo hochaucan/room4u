@@ -1,12 +1,3 @@
-/*@font-face{
-    font-family:'Glyphicons Halflings';
-    src:url('../../resources/fonts/glyphicons-halflings-regular.eot');
-    src:url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-        url('../../resources/fonts/glyphicons-halflings-regular.woff2') format('woff2'),
-        url('../../resources/fonts/glyphicons-halflings-regular.woff') format('woff'),
-        url('../../resources/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
-        url('../../resources/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg')
-}*/
 
 @font-face{
 
@@ -21,11 +12,9 @@ body {
     margin: 0;
     padding: 0;
     font-family:'Palatino Linotype','Courier New', 'Calibri Light', 'Metro Normal', Arial, Helvetica, Verdana;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 20px;
-    /*background-color: #F8F8F8;*/
-    background: #F8F8F8 url("../../resources/images/background.png") repeat-x 0 60px;
-    /*background-repeat: repeat-x;*/
+    background: #F8F8F8 url("../../resources/images/background.png") repeat-x 0 60px; 
 
 }
 html, body {
@@ -33,9 +22,7 @@ html, body {
     margin: 0;
     padding: 0;
 }
-.container{
-    /*background-color: #fff;*/
-}
+
 .homepage_btnreadmore{
     float:right;
 }
@@ -45,18 +32,25 @@ html, body {
     margin: 0 auto;
 }
 .homepage_box{
-    padding:0px;
-    height: 300px;
+    /*padding:0px;*/
+    /*height: 300px;*/
 }
 .homepage_box img{
     padding:0px;
-/*    border: 1px solid transparent;
-    border-radius: 3px;
-    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-    box-shadow: 0 1px 1px rgba(0,0,0,0.05);*/
+    border: none;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3)
 }
-/* #map, #pano {
-        float: left;
-        height: 100%;
-        width: 80%;
-      }*/
+.homepage_option{
+    height: 45px;
+    background: #fff;
+    opacity: 0.5;
+    margin-top: 140px;
+    position: relative;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.homepage_option span {
+    position: absolute;
+}
