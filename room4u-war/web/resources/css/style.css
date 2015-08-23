@@ -35,13 +35,16 @@ html, body {
     /*padding:0px;*/
     /*height: 300px;*/
 }
-.homepage_box img{
+.homepage_box .main_image{
     padding:0px;
     border: none;
     border-radius: 2px;
     -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     box-shadow: 0 1px 4px rgba(0,0,0,0.3)
 }
+/*.homepage_box img{
+    padding:0px;
+}*/
 .homepage_option{
     height: 45px;
     background: #fff;
@@ -51,6 +54,22 @@ html, body {
     -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
     box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
-.homepage_option span {
-    position: absolute;
+.homepage_box .panel-body span {
+    /*color: #2196F3;*/
+    padding: 10px;
+}
+.homepage_box .panel-body img{
+
+    padding: 12px 0 0 12px;
+}
+.homepage_box .panel-body{
+    padding:0px;
+}
+.homepage_sharing, .homepage_favorite{
+    text-align: right;
+}
+@media (max-width:768px) {
+    .homepage_box .panel-body img{
+        padding: 10px 0 12px 12px;
+    }
 }
