@@ -6,7 +6,7 @@
 }
 
 .homepage_logo{
-    margin-top: -23px;
+    color: #fff!important;
 }
 body {
     margin: 0;
@@ -27,8 +27,8 @@ html, body {
     float:right;
 }
 #map {
-    height: 35%;
-    width: 84.5%;
+    height: 16.3em;
+    /*width: 100%;*/
     margin: 0 auto;
 }
 .homepage_box{
@@ -68,14 +68,17 @@ html, body {
 .homepage_sharing, .homepage_favorite{
     text-align: right;
 }
-.homepage_register_room .panel-heading span{
+.homepage_search_room .panel-heading span{
     margin-right: 5px;
 }
-.homepage_register_room .form-group label{
+.homepage_search_room .form-group label{
     text-align: left;
 }
 @media (max-width:768px) {
     .homepage_box .panel-body img{
         padding: 10px 0 12px 12px;
+    }
+    .homepage_search_room{
+        margin-top: 20px;
     }
 }
