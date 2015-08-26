@@ -12,7 +12,7 @@ body {
     margin: 0;
     padding: 0;
     font-family:'Palatino Linotype','Courier New', 'Calibri Light', 'Metro Normal', Arial, Helvetica, Verdana;
-    font-size: 18px;
+    font-size: 17px;
     line-height: 20px;
     background: #F8F8F8 url("../../resources/images/background.png") repeat-x 0 60px; 
 
@@ -59,7 +59,7 @@ html, body {
     padding: 10px;
 }
 .homepage_box .panel-body img{
-
+    cursor: pointer;
     padding: 12px 0 0 12px;
 }
 .homepage_box .panel-body{
@@ -67,6 +67,12 @@ html, body {
 }
 .homepage_sharing, .homepage_favorite{
     text-align: right;
+}
+.homepage_register_room .panel-heading span{
+    margin-right: 5px;
+}
+.homepage_register_room .form-group label{
+    text-align: left;
 }
 @media (max-width:768px) {
     .homepage_box .panel-body img{
