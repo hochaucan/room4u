@@ -2,6 +2,7 @@
 //Google Map API
 function initMap() {
     var divMap = document.getElementById('map');
+    //var divMap = $("#map");
     var map = new google.maps.Map(divMap, {
         center: {lat: -34.397, lng: 150.644},
         zoom: 15
