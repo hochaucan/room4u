@@ -5,7 +5,7 @@
  */
 package com.room4u.dao;
 
-import com.room4u.model.Sysdiagrams;
+import com.room4u.model.UserRole;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Nick
  */
 @Stateless
-public class SysdiagramsFacade extends AbstractFacade<Sysdiagrams> {
+public class UserRoleFacade extends AbstractFacade<UserRole> implements UserRoleFacadeLocal {
     @PersistenceContext(unitName = "room4u-ejbPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class SysdiagramsFacade extends AbstractFacade<Sysdiagrams> {
         return em;
     }
 
-    public SysdiagramsFacade() {
-        super(Sysdiagrams.class);
+    public UserRoleFacade() {
+        super(UserRole.class);
     }
     
 }

@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Nick
  */
 @Stateless
-public class CustomerRequireFacade extends AbstractFacade<CustomerRequire> {
+public class CustomerRequireFacade extends AbstractFacade<CustomerRequire> implements CustomerRequireFacadeLocal {
     @PersistenceContext(unitName = "room4u-ejbPU")
     private EntityManager em;
 

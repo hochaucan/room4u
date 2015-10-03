@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Nick
  */
 @Stateless
-public class TransactionprocessFacade extends AbstractFacade<Transactionprocess> {
+public class TransactionprocessFacade extends AbstractFacade<Transactionprocess> implements TransactionprocessFacadeLocal {
     @PersistenceContext(unitName = "room4u-ejbPU")
     private EntityManager em;
 

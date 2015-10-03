@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Nick
  */
 @Entity
-@Table(catalog = "room4u", schema = "dbo")
+@Table(name = "CustomerRequire")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CustomerRequire.findAll", query = "SELECT c FROM CustomerRequire c"),
@@ -40,14 +40,14 @@ public class CustomerRequire implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
-    @Column(nullable = false, length = 10)
+    @Column(name = "CustReqId")
     private String custReqId;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "Requirement")
     private String requirement;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "CreatedDate")
     @Temporal(TemporalType.DATE)
     private Date createdDate;
     @JoinColumn(name = "CustID", referencedColumnName = "CustId")

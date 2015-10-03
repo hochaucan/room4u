@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Nick
  */
 @Entity
-@Table(catalog = "room4u", schema = "dbo")
+@Table(name = "Transactionprocess")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Transactionprocess.findAll", query = "SELECT t FROM Transactionprocess t"),
@@ -42,27 +42,27 @@ public class Transactionprocess implements Serializable {
     protected TransactionprocessPK transactionprocessPK;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "BookedFromDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date bookedFromDate;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "BookedToDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date bookedToDate;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "TrxDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date trxDate;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "Quantity")
     private int quantity;
-    @JoinColumn(name = "AccomID", referencedColumnName = "AccomId", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "AccomID", referencedColumnName = "AccomId", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Accommodation accommodation;
-    @JoinColumn(name = "CustID", referencedColumnName = "CustId", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "CustID", referencedColumnName = "CustId", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Customer customer;
 

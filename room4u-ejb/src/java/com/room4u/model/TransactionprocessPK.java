@@ -21,12 +21,12 @@ public class TransactionprocessPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
-    @Column(nullable = false, length = 10)
+    @Column(name = "CustID")
     private String custID;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
-    @Column(nullable = false, length = 10)
+    @Column(name = "AccomID")
     private String accomID;
 
     public TransactionprocessPK() {

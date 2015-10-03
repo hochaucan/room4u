@@ -13,13 +13,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,8 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Nick
  */
 @Entity
-@Table(catalog = "room4u", schema = "dbo", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"AccountCustomer"})})
+@Table(name = "Customer")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
@@ -49,49 +49,48 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
-    @Column(nullable = false, length = 10)
+    @Column(name = "CustId")
     private String custId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(nullable = false, length = 20)
+    @Column(name = "CustName")
     private String custName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(nullable = false, length = 20)
+    @Column(name = "AccountCustomer")
     private String accountCustomer;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(nullable = false, length = 20)
+    @Column(name = "Password")
     private String password;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(nullable = false, length = 20)
+    @Column(name = "Phone")
     private String phone;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(nullable = false, length = 50)
+    @Column(name = "Email")
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "RegisterDate")
     @Temporal(TemporalType.DATE)
     private Date registerDate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
-    @Column(nullable = false, length = 2147483647)
+    @Column(name = "Notified")
     private String notified;
-    @OneToMany(mappedBy = "custID")
-    private List<FriendIntroduction> friendIntroductionList;
-    @OneToMany(mappedBy = "custID")
-    private List<FavoriteMark> favoriteMarkList;
+    @JoinColumn(name = "RoleId", referencedColumnName = "RoleId")
+    @ManyToOne(optional = false)
+    private UserRole roleId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private List<Transactionprocess> transactionprocessList;
     @OneToMany(mappedBy = "custID")
@@ -179,22 +178,12 @@ public class Customer implements Serializable {
         this.notified = notified;
     }
 
-    @XmlTransient
-    public List<FriendIntroduction> getFriendIntroductionList() {
-        return friendIntroductionList;
+    public UserRole getRoleId() {
+        return roleId;
     }
 
-    public void setFriendIntroductionList(List<FriendIntroduction> friendIntroductionList) {
-        this.friendIntroductionList = friendIntroductionList;
-    }
-
-    @XmlTransient
-    public List<FavoriteMark> getFavoriteMarkList() {
-        return favoriteMarkList;
-    }
-
-    public void setFavoriteMarkList(List<FavoriteMark> favoriteMarkList) {
-        this.favoriteMarkList = favoriteMarkList;
+    public void setRoleId(UserRole roleId) {
+        this.roleId = roleId;
     }
 
     @XmlTransient
