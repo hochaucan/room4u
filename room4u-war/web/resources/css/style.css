@@ -77,6 +77,11 @@ html, body {
 .homepage_search_room .form-group label{
     text-align: left;
 }
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity 0.4s linear;
+    transition: opacity 0.4s linear;
+}
 @media (max-width:768px) {
     .homepage_box .panel-body img{
         padding: 10px 0 12px 12px;
