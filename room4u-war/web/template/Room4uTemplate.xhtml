@@ -14,6 +14,10 @@
         <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap.min.js"></h:outputScript>
         <h:outputScript name="./js/js_custom.js"></h:outputScript>
+
+        <h:outputStylesheet name="./css/datepicker.css"/>
+        <h:outputStylesheet name="./less/datepicker.less"/>
+        <h:outputScript name="./js/bootstrap-datepicker.js"/>
         <title><ui:insert name="title"/></title>
 
     </h:head>
@@ -58,7 +62,8 @@
 
                 <div class="col-md-3">
 
-                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>
+                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#modal_post_room">
+                        <span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>
                 </div>
                 <div class="col-md-8">
                     <form class="form-horizontal " >
@@ -229,80 +234,86 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Đăng phòng</h4>
+                        <h4 class="modal-title" id="myModalLabel">ĐĂNG PHÒNG</h4>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal">
                             <fieldset>
 
                                 <div class="form-group">
-                                    <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                                    <label for="inputName" class="col-lg-2 control-label">Tên phòng</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="inputEmail" placeholder="Email"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-                                    <div class="col-lg-10">
-                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password"/>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"/> Checkbox
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="textArea" class="col-lg-2 control-label">Textarea</label>
-                                    <div class="col-lg-10">
-                                        <textarea class="form-control" rows="3" id="textArea"></textarea>
-                                        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">Radios</label>
-                                    <div class="col-lg-10">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""/>
-                                                Option one is this
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"/>
-                                                Option two can be something else
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="select" class="col-lg-2 control-label">Selects</label>
-                                    <div class="col-lg-10">
-                                        <select class="form-control" id="select">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                        <br/>
-                                        <select multiple="" class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="inputName" placeholder="Nhập tên phòng"/>
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="inputPrice" class="col-lg-2 control-label">Giá phòng</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="inputPrice" placeholder="Nhập giá phòng"/>
+                                    </div>
+                                </div>
+
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label for="inputAddress" class="col-lg-2 control-label">Địa chỉ</label>
+                                        <input type="text" class="form-control" id="inputAddress" style="width: 10%" placeholder="Số nhà"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="inputStreet" style="width: 30%" placeholder="Đường"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="inputWard" style="width: 10%" placeholder="Phường"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="inputDistrict" style="width: 10%" placeholder="Quận"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="inputProvince" style="width: 30%" placeholder="Tỉnh"/>
+                                    </div>
+                                </form>
+
+                                <div class="form-group">
+                                    <label for="textArea" class="col-lg-2 control-label">Mô tả</label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control" rows="7" id="textArea"></textarea>
+                                        <span class="help-block">Giới thiệu tổng quan về phòng</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputBed" class="col-lg-2 control-label">Số giường</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="inputAddress"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPerson" class="col-lg-2 control-label">Số người</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="inputAddress"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputToilet" class="col-lg-2 control-label">Số toilet</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="inputAddress"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputImage" class="col-lg-2 control-label">Hình ảnh</label>
+                                    <button type="submit" class="btn btn-default">Chọn</button>
+                                </div>
+
                             </fieldset>
+
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                    <div class="modal-footer" style="text-align: right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary">Đăng bài</button>
                     </div>
                 </div>
             </div>
@@ -319,5 +330,9 @@
         <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
                 async="true" defer="true">
         </script>
+
+        <script> $('.datepicker').datepicker()</script>
+
+        <a></a>
     </h:body>
 </html>
