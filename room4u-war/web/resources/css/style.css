@@ -5,6 +5,10 @@
     src:url('../../resources/fonts/Metro Normal.ttf');
 }
 
+.row{
+
+    margin-top: 15px; 
+}
 .homepage_logo{
     color: #fff!important;
 }
@@ -32,8 +36,9 @@ html, body {
     margin: 0 auto;
 }
 .homepage_box{
-    /*padding:0px;*/
+    /* padding:0px; */
     /*height: 300px;*/
+    margin-top: 15px;
 }
 .homepage_box .main_image{
     padding:0px;
@@ -101,7 +106,7 @@ html, body {
 }
 
 #login-modal input[type=text], input[type=password] {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 #div-login-msg,
@@ -225,7 +230,7 @@ html, body {
 }
 
 .form-control {
-  border-radius: 0px;
+    border-radius: 0px;
 }
 //End | Form Dang Ky & Dang Nhap
 //====================================

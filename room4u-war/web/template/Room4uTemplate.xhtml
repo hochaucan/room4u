@@ -9,11 +9,25 @@
         <meta name="viewport" content="initial-scale=1.0"/>
         <!--CSS-->
         <h:outputStylesheet  name="./css/bootstrap.min.css"/>
+        <h:outputStylesheet  name="./css/light.css"/>
+        <h:outputStylesheet  name="./css/nivo-slider.css"/>
+        
         <h:outputStylesheet name="./css/style.css"/>
+        
         <!--SCRIPT-->
         <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap.min.js"></h:outputScript>
+        <h:outputScript name="./js/jquery.nivo.slider.js"></h:outputScript>
+        
         <h:outputScript name="./js/js_custom.js"></h:outputScript>
+        <h:outputScript name="./js/js_custom_can.js"></h:outputScript>
+
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('#slider').nivoSlider();
+            });
+        </script> 
+
         <title><ui:insert name="title"/></title>
 
     </h:head>
@@ -30,7 +44,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand homepage_logo" href="#"> <span class="glyphicon glyphicon-globe" style="margin-right: 10px" aria-hidden="true"></span>Room4U</a>
+                    <a class="navbar-brand homepage_logo" href="./"> <span class="glyphicon glyphicon-globe" style="margin-right: 10px" aria-hidden="true"></span>Room4U</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                     <ul class="nav navbar-nav">
@@ -54,47 +68,47 @@
 
 
         <div class="container">
-            <div class="row">
-
-                <div class="col-md-3">
-
-                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>
-                </div>
-                <div class="col-md-8">
-                    <form class="form-horizontal " >
-                        <div class="form-group">
-                            <label  class="col-md-4 col-xs-4 control-label">Bán kính</label>
-                            <div class="col-md-4 col-xs-4">
-                                <select class="form-control" id="sltRadius">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="16">16</option>
-                                    <option value="21">21</option>
-                                </select>
-
+            <!--            <div class="row">
+            
+                            <div class="col-md-3">
+            
+                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>
                             </div>
-                            <div class="col-md-2 col-xs-2">
-                                <button type="button" id="btnSearch"  class="btn btn-primary">Tìm kiếm</button>
+                            <div class="col-md-8">
+                                <form class="form-horizontal " >
+                                    <div class="form-group">
+                                        <label  class="col-md-4 col-xs-4 control-label">Bán kính</label>
+                                        <div class="col-md-4 col-xs-4">
+                                            <select class="form-control" id="sltRadius">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="16">16</option>
+                                                <option value="21">21</option>
+                                            </select>
+            
+                                        </div>
+                                        <div class="col-md-2 col-xs-2">
+                                            <button type="button" id="btnSearch"  class="btn btn-primary">Tìm kiếm</button>
+                                        </div>
+                                    </div>
+            
+                                </form>
                             </div>
                         </div>
-
-                    </form>
-                </div>
-            </div>
-            <div class="row" style="margin: 15px 0 15px 0">
-
-
-                <div id="map" class="col-md-12 col-xs-12 panel"></div>
-                <div id="street-view" class="col-md-12 col-xs-12 panel" style="height:300px"></div>
-                <!--Distance service-->
-                <div id="output" class="col-md-12 col-xs-12 panel" style="height:auto"></div>
-            </div>
+                        <div class="row" style="margin: 15px 0 15px 0">
+            
+            
+                            <div id="map" class="col-md-12 col-xs-12 panel"></div>
+                            <div id="street-view" class="col-md-12 col-xs-12 panel" style="height:300px"></div>
+                            Distance service
+                            <div id="output" class="col-md-12 col-xs-12 panel" style="height:auto"></div>
+                        </div>-->
             <div class="row">
 
-                <div class="col-md-8 col-xs-12">
+                <div class="col-md-12 col-xs-12">
                     <!--index page-->
                     <div id="content" class="center_content">
                         <ui:insert name="content"></ui:insert>
@@ -102,17 +116,17 @@
                 </div>
 
                 <!--side bar-->
-                <div class="col-md-4 col-xs-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <span class="glyphicon glyphicon-hand-right"></span>
-                            Hỗ trợ</div>
-                        <div class="panel-body">
-                            <p>Testing</p>
-                            <!--<a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>-->
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="col-md-4 col-xs-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <span class="glyphicon glyphicon-hand-right"></span>
+                                            Hỗ trợ</div>
+                                        <div class="panel-body">
+                                            <p>Testing</p>
+                                            <a href="#" class="btn btn-primary homepage_btnreadmore">Chi tiet</a>
+                                        </div>
+                                    </div>
+                                </div>-->
 
             </div>
 

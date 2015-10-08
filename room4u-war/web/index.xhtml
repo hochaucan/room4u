@@ -4,12 +4,71 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <body>
-       
+
         <ui:composition template="./template/Room4uTemplate.xhtml">
             <ui:define name="content">
-                anh khai A11
                 <div class="row">
-                    <div class="col-md-6 col-xs-12 homepage_box">
+
+                    <div class="col-md-3">
+
+                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>
+                    </div>
+                    <div class="col-md-8">
+                        <form class="form-horizontal " >
+                            <div class="form-group">
+                                <label  class="col-md-4 col-xs-4 control-label">Bán kính</label>
+                                <div class="col-md-4 col-xs-4">
+                                    <select class="form-control" id="sltRadius">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="16">16</option>
+                                        <option value="21">21</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-2 col-xs-2">
+                                    <button type="button" id="btnSearch"  class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                
+                <!--Google Map-->
+                <div class="row" style="margin: 15px 0 15px 0">
+
+
+                    <div id="map" class="col-md-12 col-xs-12 panel"></div>
+                    <!--Street View-->
+<!--                    <div id="street-view" class="col-md-12 col-xs-12 panel" style="height:300px"></div>
+                    Distance service
+                    <div id="output" class="col-md-12 col-xs-12 panel" style="height:auto"></div>-->
+                </div>
+                
+                <!--Room display-->
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 homepage_box">
+                        <a href="roomdetail.jsf">  <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/></a>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
+                                <span class="col-md-1">4</span>
+                                <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
+                                <span class="col-md-1">2</span>
+                                <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
+                                <span class="col-md-1">2</span>
+                                <span class="col-md-1"></span>
+                                <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
+                                <span class="col-md-1">2</span>
+                                <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-12 homepage_box">
                         <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -26,7 +85,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xs-12 homepage_box">
+                    <div class="col-md-4 col-xs-12 homepage_box">
                         <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -43,7 +102,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xs-12 homepage_box">
+                    <div class="col-md-4 col-xs-12 homepage_box">
                         <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -60,7 +119,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xs-12 homepage_box">
+                    <div class="col-md-4 col-xs-12 homepage_box">
                         <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -77,24 +136,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xs-12 homepage_box">
-                        <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
-                                <span class="col-md-1">4</span>
-                                <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <span class="col-md-1"></span>
-                                <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xs-12 homepage_box">
+                    <div class="col-md-4 col-xs-12 homepage_box">
                         <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
                         <div class="panel panel-default">
                             <div class="panel-body">

@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./template/Room4uTemplate.xhtml">
+
+            <ui:define name="title">
+                Chi Tiết Phòng
+            </ui:define>
+
+            <ui:define name="content">
+
+                <!--Room Image Slider-->
+                <div class="row">
+                    <div class="slider-wrapper col-md-12">
+                        <div id="slider" class="nivoSlider"> 
+                            <img src="./resources/images/upload/toystory.jpg" data-thumb="./resources/images/upload/toystory.jpg" alt="" /> 
+                            <a href="http://dev7studios.com"><img src="./resources/images/upload/up.jpg" data-thumb="./resources/images/upload/up.jpg" alt="" title="This is an example of a caption" />
+                            </a> <img src="./resources/images/upload/walle.jpg" data-thumb="./resources/images/upload/walle.jpg" alt="" data-transition="slideInLeft" />
+                            <img src="./resources/images/upload/nemo.jpg" data-thumb="./resources/images/upload/nemo.jpg" alt="" title="#htmlcaption" />
+                        </div>
+
+                        <div id="htmlcaption" class="nivo-html-caption"> <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>. </div>
+                    </div>
+                </div>
+
+                <!--Map and Street View-->
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <!--Google Map-->
+                        <div id="map" class=" panel"></div>
+
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <!--Street View-->
+                        <div id="street-view" class="panel" style="height:276px"></div>
+
+                    </div>
+                </div>
+
+                <!--Room description-->
+                <div class="row">
+                    <div class="col-md-12 col-xs-12" >
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-hand-right"></span>
+                                Chi tiết phòng</div>
+                            <div class="panel-body">
+<!--                                <p >
+                                    <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
+                                    <span class="col-md-1">4</span>
+                                    <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
+                                    <span class="col-md-1">2</span>
+                                    <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
+                                    <span class="col-md-1">2</span>
+                                    <span class="col-md-1"></span>
+                                    <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
+                                    <span class="col-md-1">2</span>
+                                   
+                                </p>
+                                <br/>-->
+                                <p>
+                                    PHÒNG GRAND DOUBLE (HƯỚNG ĐỒI)
+
+                                    Tất cả các phòng đều được trang bị các tiện nghi cao cấp 5 sao, gồm hai giường ngủ thoải mái với đệm lông ngỗng êm ái, phòng tắm rộng lát cẩm thạch, hệ thống vòi tắm phun mưa và bồn tắm riêng biệt cùng khung cửa sổ lớn mở ra toàn cảnh đồi cát và sân golf The Bluffs. Các phòng nghỉ Grand Double hướng đồi sẽ đem lại những giây phút thư giãn riêng tư tuyệt đối.
+
+                                    Buffet sáng	Phục vụ phòng 24/24
+                                    Bồn tắm rời	Vòi tắm phun mưa riêng
+                                    Máy lạnh điều khiển riêng	Mini bar / Tủ lạnh
+                                    Trang thiết bị	Đế cắm máy Mp3
+                                    Ti-vi màn hình LED 46-inch	Kết nối internet tốc độ cao
+                                    Wifi phủ sóng toàn khu nghỉ dưỡng (miễn phí hoặc trả phí)	Điện thoại màn hình cảm ứng
+                                </p>
+                                <!--Distance service-->
+                                <div id="output" class="col-md-12 col-xs-12 panel" style="height:auto"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!--Comments-->
+                <div class="row">
+                    <div class="col-md-12 col-xs-12" >
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-comment"></span>
+                                Bình luận</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <label class="col-md-1">User 1 : </label>
+                                    <div class="col-md-9">Phòng này có mấy giường vậy bạn</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <label class="col-md-1">Admin : </label>
+                                    <div class="col-md-8" style="font-weight: bold">Phòng này có 2 giường đó bạn</div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-1">User 2 : </label>
+                                    <div class="col-md-9">Phòng này có mấy Toilet</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <label class="col-md-1" >Admin : </label>
+                                    <div class="col-md-8" style="font-weight: bold">Phòng này có 1 Toilet</div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <form class="form-horizontal">
+
+
+
+                                    <div class="form-group">
+                                        <label for="textArea" class="col-lg-2 control-label">Nội dung: </label>
+                                        <div class="col-lg-10">
+                                            <textarea class="form-control" rows="3" id="textArea"></textarea>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-lg-10 col-lg-offset-2" style="text-align: right">
+
+                                            <button type="submit" class="btn btn-primary">Đăng</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
