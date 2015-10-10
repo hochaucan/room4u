@@ -94,8 +94,6 @@
 
         </div>
 
-
-
         <!--bottom page-->
         <div id="bottom" class="row">
             <div class="col-md-12">
@@ -107,7 +105,7 @@
         </div>
 
 
-        <!-- Modal -->
+        <!-- Modal Login -->
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -198,7 +196,7 @@
             </div>
         </div>
 
-
+        <!--Modal post room-->
         <div class="modal fade" id="modal_post_room" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document" style="width: 60%">
                 <div class="modal-content">
@@ -213,14 +211,14 @@
                                 <div class="form-group">
                                     <label for="inputName" class="col-lg-2 control-label">Tên phòng</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="inputName" placeholder="Nhập tên phòng"/>
+                                        <input type="text" value="#{landlord.room.accomName}" class="form-control" id="inputName" placeholder="Nhập tên phòng"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputPrice" class="col-lg-2 control-label">Giá phòng</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="inputPrice" placeholder="Nhập giá phòng"/>
+                                        <input type="text" value="#{landlord.room.price}" class="form-control" id="inputPrice" placeholder="Nhập giá phòng"/>
                                     </div>
                                 </div>
 
@@ -228,41 +226,41 @@
                                 <div class="form-group">
                                     <label for="inputAddress" class="col-lg-2 control-label">Địa chỉ</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="inputAddress" placeholder="Số nhà"/>
-                                        <input type="text" class="form-control" id="inputStreet" placeholder="Đường"/>
-                                        <input type="text" class="form-control" id="inputWard"  placeholder="Phường"/>
-                                        <input type="text" class="form-control" id="inputDistrict"  placeholder="Quận"/>
-                                        <input type="text" class="form-control" id="inputProvince"  placeholder="Tỉnh/Thành phố"/>
+                                        <input type="text" value="#{landlord.houseNumber}" class="form-control" id="inputAddress" placeholder="Số nhà"/>
+                                        <input type="text" value="#{landlord.street}"  class="form-control" id="inputStreet" placeholder="Đường"/>
+                                        <input type="text" value="#{landlord.ward}"  class="form-control" id="inputWard"  placeholder="Phường"/>
+                                        <input type="text" value="#{landlord.district}"  class="form-control" id="inputDistrict"  placeholder="Quận"/>
+                                        <input type="text" value="#{landlord.city}"  class="form-control" id="inputProvince"  placeholder="Tỉnh/Thành phố"/>
                                     </div>
 
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="textArea" class="col-lg-2 control-label">Mô tả</label>
+                                    <label for="textArea"  class="col-lg-2 control-label">Mô tả</label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control" rows="5" id="textArea"></textarea>
+                                        <textarea class="form-control" value="#{landlord.room.description}" rows="5" id="textArea"></textarea>
                                         <span class="help-block">Giới thiệu tổng quan về phòng</span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputBed" class="col-lg-2 control-label">Số giường</label>
+                                    <label for="inputBed"  class="col-lg-2 control-label">Số giường</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="inputAddress"/>
+                                        <input type="text" value="#{landlord.room.noOfBed}" class="form-control" id="inputBed"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputPerson" class="col-lg-2 control-label">Số người</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="inputAddress"/>
+                                        <input type="text" value="#{landlord.room.noOfPersons}" class="form-control" id="inputPerson"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputToilet" class="col-lg-2 control-label">Số toilet</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="inputAddress"/>
+                                        <input type="text" value="#{landlord.room.noOfToilet}" class="form-control" id="inputToilet"/>
                                     </div>
                                 </div>
 
@@ -277,7 +275,7 @@
                     </div>
                     <div class="modal-footer" style="text-align: right">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary">Đăng bài</button>
+                        <h:commandButton action="#{landlord.createRoom()}" class="btn btn-primary" value="Đăng bài"/>
                     </div>
                 </div>
             </div>
