@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Order1.findByTotalPrice", query = "SELECT o FROM Order1 o WHERE o.totalPrice = :totalPrice"),
     @NamedQuery(name = "Order1.findByStatus", query = "SELECT o FROM Order1 o WHERE o.status = :status"),
     @NamedQuery(name = "Order1.findByOrderDate", query = "SELECT o FROM Order1 o WHERE o.orderDate = :orderDate")})
-public class Order implements Serializable {
+public class Order1 implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -74,10 +74,10 @@ public class Order implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order1")
     private List<OrderDetail> orderDetailList;
 
-    public Order() {
+    public Order1() {
     }
 
-    public Order(Integer orderId) {
+    public Order1(Integer orderId) {
         this.orderId = orderId;
     }
 
@@ -164,10 +164,10 @@ public class Order implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order)) {
+        if (!(object instanceof Order1)) {
             return false;
         }
-        Order other = (Order) object;
+        Order1 other = (Order1) object;
         if ((this.orderId == null && other.orderId != null) || (this.orderId != null && !this.orderId.equals(other.orderId))) {
             return false;
         }

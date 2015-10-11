@@ -88,7 +88,7 @@ public class Customer implements Serializable {
     @Column(name = "Notified")
     private String notified;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "custID")
-    private List<Order> order1List;
+    private List<Order1> order1List;
     @JoinColumn(name = "RoleId", referencedColumnName = "RoleId")
     @ManyToOne(optional = false)
     private UserRole roleId;
@@ -182,11 +182,11 @@ public class Customer implements Serializable {
     }
 
     @XmlTransient
-    public List<Order> getOrder1List() {
+    public List<Order1> getOrder1List() {
         return order1List;
     }
 
-    public void setOrder1List(List<Order> order1List) {
+    public void setOrder1List(List<Order1> order1List) {
         this.order1List = order1List;
     }
 

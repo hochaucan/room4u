@@ -5,7 +5,7 @@
  */
 package com.room4u.dao;
 
-import com.room4u.model.Order;
+import com.room4u.model.Order1;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author NickHo
  */
 @Local
-public interface OrderFacadeLocal {
+public interface Order1FacadeLocal {
 
-    void create(Order order);
+    void create(Order1 order1);
 
-    void edit(Order order);
+    void edit(Order1 order1);
 
-    void remove(Order order);
+    void remove(Order1 order1);
 
-    Order find(Object id);
+    Order1 find(Object id);
 
-    List<Order> findAll();
+    List<Order1> findAll();
 
-    List<Order> findRange(int[] range);
+    List<Order1> findRange(int[] range);
 
     int count();
     

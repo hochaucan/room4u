@@ -52,7 +52,7 @@ public class OrderDetail implements Serializable {
     private Accommodation accommodation;
     @JoinColumn(name = "OrderId", referencedColumnName = "OrderId", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Order order1;
+    private Order1 order1;
 
     public OrderDetail() {
     }
@@ -105,11 +105,11 @@ public class OrderDetail implements Serializable {
         this.accommodation = accommodation;
     }
 
-    public Order getOrder1() {
+    public Order1 getOrder1() {
         return order1;
     }
 
-    public void setOrder1(Order order1) {
+    public void setOrder1(Order1 order1) {
         this.order1 = order1;
     }
 

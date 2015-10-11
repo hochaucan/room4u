@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import com.room4u.dao.CustomerFacade;
+//import com.room4u.dao.CustomerFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,8 +17,8 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class CustomerController {
-    @EJB
-    private CustomerFacade customerFacade;
+//    @EJB
+//    private CustomerFacade customerFacade;
 
     /**
      * Creates a new instance of CustomerController
