@@ -6,6 +6,7 @@
 package Controller;
 
 import com.room4u.dao.CustomerFacade;
+import com.room4u.dao.CustomerFacadeLocal;
 import com.room4u.model.Customer;
 import java.util.List;
 import javax.ejb.EJB;
@@ -20,7 +21,9 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class CustomerController {
     @EJB
-    private CustomerFacade customerFacade;
+    private CustomerFacadeLocal customerFacade;
+   
+   
     private Customer c = new Customer();
     
     /**
