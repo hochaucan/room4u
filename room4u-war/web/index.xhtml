@@ -9,7 +9,7 @@
         <ui:composition template="./template/Room4uTemplate.xhtml">
             <ui:define name="content">
                 <div class="row">
-
+                    <!--<h:graphicImage value="./resources/images/upload/3.jpg" />-->
 
                     <div class="col-md-3">
                         <a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>
@@ -235,7 +235,6 @@
 
                                 </div>
                                 <div class="modal-footer" style="text-align: right">
-                                    <h:commandButton action="#{landlord.upload()}" value="Upload"/>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                                     <h:commandButton action="#{landlord.createRoom()}" class="btn btn-primary" value="Đăng bài"/>
                                 </div>

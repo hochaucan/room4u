@@ -10,6 +10,7 @@ import com.room4u.dao.AccommodationFacadeLocal;
 import com.room4u.model.Accommodation;
 
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +20,7 @@ import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 
 /**
@@ -111,27 +113,41 @@ public class LandlordController {
 
     public String createRoom() {
         try {
-            //room = new Accommodation();
             Date date = new Date();
             //DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-
-//            Accommodation r = new Accommodation();
-//            r.setAccomId(2);
-//            r.setAccomName("can");
-//            r.setAddress("klshdkfsd");
-//            r.setImages("klshdf");
-//            r.setDescription("ksdkfkh");
-//            r.setNoOfBed(3);
-//            r.setNoOfPersons(4);
-//            r.setPrice(30);
-//            r.setCreatedDate(date);
-//            r.setCreatedBy("Oanh");
             room.setAccomId(1);
-            room.setImages("test.jpg");
-            room.setAddress(houseNumber + " " + street + " " + ward + " " + district + " " + city);
 
+            room.setAddress(houseNumber + " " + street + " " + ward + " " + district + " " + city);
             room.setCreatedDate(date);
             room.setCreatedBy("Can");
+
+            InputStream inputStream = file1.getInputStream();
+            File file = new File("C:/room4u/images/" + getFilename(file1));
+//            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("images");
+//            path = path.substring(0, path.indexOf("\\build"));
+//            path = path + "\\web\\resources\\images\\";
+//
+//            File file = new File(path + getFilename(file1));
+            FileOutputStream outputStream = new FileOutputStream(file);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            byte[] buffer = new byte[4096];
+            int bytesRead = 0;
+            while (true) {
+                bytesRead = inputStream.read(buffer);
+                if (bytesRead > 0) {
+                    outputStream.write(buffer, 0, bytesRead);
+                } else {
+                    break;
+                }
+            }
+
+            outputStream.close();
+            inputStream.close();
+            room.setImages(getFilename(file1));
+
             accommodationFacade.create(room);
 
         } catch (Exception ex) {
@@ -143,7 +159,11 @@ public class LandlordController {
 
     public String upload() throws IOException {
         InputStream inputStream = file1.getInputStream();
-        FileOutputStream outputStream = new FileOutputStream("D:/Lock/" + getFilename(file1));
+        File file = new File("D:/Lock/Room4UDB_20151010.sql");
+        FileOutputStream outputStream = new FileOutputStream(file);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
 
         byte[] buffer = new byte[4096];
         int bytesRead = 0;
@@ -155,7 +175,7 @@ public class LandlordController {
                 break;
             }
         }
-        // file1.write("D:\\Lock\\"+getFilename(file1));
+
         outputStream.close();
         inputStream.close();
 
