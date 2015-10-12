@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -11,76 +13,86 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4>Quản lý tài khoản</h4>
+                            <legend>Danh sách tài khoản khách hàng</legend>
                             <div class="table-responsive">
-                                <table id="mytable" class="table table-bordred table-striped">
-                                    <thead>
-                                        <th><input type="checkbox" id="checkall" /></th>
-                                        <th>Tên đăng nhập</th>
-                                        <th>Điện thoại</th>
-                                        <th>Địa chỉ</th>
-                                        <th>Email</th>
-                                        <th>Ngày đăng ký</th>
-                                        <th>Sửa</th>
-                                        <th>Xóa</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input type="checkbox" class="checkthis" /></td>
-                                            <td>User1</td>
-                                            <td>0909123111</td>
-                                            <td>Q1, Tp.HCM</td>
-                                            <td>user1@noemail.com</td>
-                                            <td>1/11/2015</td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Sửa"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Xóa"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                        </tr>
+                                <f:view>
+                                    <h:form class="form-horizontal">
+                                        <h:dataTable value="#{customerController.custList}" var="item" class="table table-bordred table-striped">
 
-                                        <tr>
-                                            <td><input type="checkbox" class="checkthis" /></td>
-                                            <td>User2</td>
-                                            <td>0909123222</td>
-                                            <td>Q3, Tp.HCM</td>
-                                            <td>user3@noemail.com</td>
-                                            <td>2/11/2015</td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Sửa"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Xóa"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                        </tr>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Mã KH"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.custId}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Tên KH"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.custName}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Account"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.accountCustomer}"/>
+                                            </h:column>
+                                            <!--<h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Password"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.password}"/>
+                                            </h:column>-->
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Điện thoại"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.phone}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Email"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.email}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Ngày ĐK"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.registerDate}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                </h:outputText>
+                                            </h:column>
+                                            <!--<h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Notified"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.notified}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="RoleId"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.roleId}"/>
+                                                </h:column>-->
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Chức năng"/>
+                                                </f:facet>
+                                                <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</button>
+                                                <button class="btn btn-primary btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span> Xóa</button>
+                                                <!--<p data-placement="top" data-toggle="tooltip" title="Xóa"></p>-->
 
-                                        <tr>
-                                            <td><input type="checkbox" class="checkthis" /></td>
-                                            <td>User3</td>
-                                            <td>0909123333</td>
-                                            <td>Q3, Tp.HCM</td>
-                                            <td>user3@noemail.com</td>
-                                            <td>3/11/2015</td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Sửa"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Xóa"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                        </tr>
+                                                
+<!--                                                <span class="glyphicon glyphicon-trash"></span>
+                                                <h:button  class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                                <p data-placement="top" data-toggle="tooltip" title="Xóa"></p>    
+                                                </h:button>-->
+                                            </h:column>
 
-                                        <tr>
-                                            <td><input type="checkbox" class="checkthis" /></td>
-                                            <td>User4</td>
-                                            <td>0909123444</td>
-                                            <td>Q4, Tp.HCM</td>
-                                            <td>user4@noemail.com</td>
-                                            <td>4/11/2015</td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Sửa"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Xóa"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td><input type="checkbox" class="checkthis" /></td>
-                                            <td>User5</td>
-                                            <td>0909123555</td>
-                                            <td>Q5, Tp.HCM</td>
-                                            <td>user5@noemail.com</td>
-                                            <td>5/11/2015</td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Sửa"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                            <td><p data-placement="top" data-toggle="tooltip" title="Xóa"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                        </h:dataTable>
+                                    </h:form>
+                                </f:view>
 
                                 <div class="clearfix"></div>
                                 <ul class="pagination pull-right">
@@ -101,11 +113,51 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title custom_align" id="Heading">Cập nhật thông tin tài khoản</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
+                                <div class="table-responsive col-md-12">
+                                    <f:view>
+                                        <h:form class="form-horizontal">
+                                            <legend></legend>
+                                            <div class="form-group">
+                                                <label for="inputEmail" class="col-md-3 control-label">Mã KH</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="inputEmail" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail" class="col-md-3 control-label">Tên KH</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="inputEmail" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail" class="col-md-3 control-label">Điện thoại</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="inputEmail" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail" class="col-md-3 control-label">Ngày ĐK</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="inputEmail" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail" class="col-md-3 control-label">Loại TK</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="inputEmail" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group" align="right">
+                                                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span> Cập nhật</button>
+                                            </div>
+                                        </h:form>
+                                    </f:view>
+                                </div>
+                                <!--<div class="form-group">
                                     <input class="form-control " type="text" placeholder="User1"></input>
                                 </div>
                                 <div class="form-group">
@@ -114,10 +166,10 @@
                                 </div>
                                 <div class="form-group">
                                     <textarea rows="2" class="form-control" placeholder="Q1, Tp.HCM"></textarea>
-                                </div>
+                                </div>-->
                             </div>
-                            <div class="modal-footer ">
-                                <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-ok-sign"></span> Cập nhật</button>
+                            <div class="modal-footer">
+                                <!--<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span> Cập nhật</button>-->
                             </div>
                         </div>
                         <!-- /.modal-content --> 
@@ -128,17 +180,19 @@
                 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
+                            <form class="form-horizontal">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa tài khoản</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa tài khoản này?</div>
                             </div>
-                            <div class="modal-footer ">
-                                <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Xác nhận</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
-                            </div>
+                                <div class="modal-footer " style="text-align: right">
+                                    <button type="button" class="btn btn-primary" ><span class="glyphicon glyphicon-ok-sign"></span> Xác nhận</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.modal-content --> 
                     </div>
