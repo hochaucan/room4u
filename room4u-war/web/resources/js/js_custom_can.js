@@ -1,17 +1,22 @@
 $(function () {
     SetActiveMenu();
-
-
-
-
     validateFormPostRoom();
-    cleanModal();
+
+
+    $(".homepage_box").find(".main_image").each(function () {
+        //alert($(this).attr("src")) ;
+        ///room4u-war/images/
+        var obj = jQuery.parseJSON($(this).attr("src"));
+        //alert(obj.thumbnail.toString());
+        $(this).attr("src", "/room4u-war/images/" + obj.thumbnail.toString());
+    });
 
     // Slider room in room detail page
     $('#slider').nivoSlider();
 
     //Collapse in FAQ page
     //$('.collapse').collapse()
+    cleanModal();
 });
 
 // Set Active Menu
@@ -92,6 +97,12 @@ function validateFormPostRoom() {
             },
             "frmPostRoom:roomFile1": {
                 required: true
+            },
+            "frmPostRoom:roomFile2": {
+                required: true
+            },
+            "frmPostRoom:roomFile3": {
+                required: true
             }
         },
         highlight: function (element) {
@@ -112,6 +123,7 @@ function validateFormPostRoom() {
     });
 
 }
+
 // Clean modal when close
 function cleanModal() {
     $(".modal").on('hide.bs.modal', function () {

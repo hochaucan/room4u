@@ -8,8 +8,10 @@ package Controller;
 import ViewModel.RoomImage;
 import com.google.gson.Gson;
 import com.room4u.dao.AccommodationFacadeLocal;
+import com.room4u.dao.CustomerFacadeLocal;
 
 import com.room4u.model.Accommodation;
+import com.room4u.model.Customer;
 
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.io.File;
@@ -38,6 +40,9 @@ import javax.servlet.http.Part;
 @ManagedBean(name = "landlord")
 @SessionScoped
 public class LandlordController {
+
+    @EJB
+    private CustomerFacadeLocal customerFacade;
 
     @EJB
     private AccommodationFacadeLocal accommodationFacade;
@@ -145,7 +150,6 @@ public class LandlordController {
     }
 
     public List<Accommodation> displayRoom() {
-
         return accommodationFacade.findAll();
     }
 
@@ -163,8 +167,13 @@ public class LandlordController {
             files.add(file2);
 
             files.add(file3);
-
+            // Uploading room image 
             for (Part itemFile : files) {
+
+                if (itemFile == null) {
+
+                    continue;
+                }
 
                 InputStream inputStream = itemFile.getInputStream();
                 String fileName = dateFormat.format(date) + getFilename(itemFile);
@@ -191,6 +200,8 @@ public class LandlordController {
             }
 
             room.setAccomId(1);
+            Customer cust = customerFacade.find(1);
+            room.setCustId(cust);
             room.setAddress(houseNumber
                     + " " + street + " " + ward + " " + district + " " + city);
             room.setCreatedDate(date);
@@ -199,10 +210,12 @@ public class LandlordController {
 
             // Store Image File name as json string.
             RoomImage roomImage = new RoomImage();
+
             roomImage.setThumbnail(roomImageFileNames.get(0));
             roomImage.setSlider1(roomImageFileNames.get(1));
             roomImage.setSlider2(roomImageFileNames.get(2));
             roomImage.setSlider3(roomImageFileNames.get(3));
+
             Gson gson = new Gson();
             String jsonImage = gson.toJson(roomImage);
             room.setImages(jsonImage);
