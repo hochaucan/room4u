@@ -50,6 +50,7 @@ public class LandlordController {
     private String city;
     private String country;
     private Part thumbnail, file1, file2, file3;
+    private List<String> roomImageFileNames;
 
     public Part getThumbnail() {
         return thumbnail;
@@ -143,18 +144,16 @@ public class LandlordController {
 
     }
 
-    public void testGson() {
-//Gson gson = new Gson();
+    public List<Accommodation> displayRoom() {
 
-//String json = gson.toJson(obj);  
-//json is {"value1":1,"value2":"abc"}
+        return accommodationFacade.findAll();
     }
 
     public String createRoom() {
         try {
             Date date = new Date();
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-            String roomImageJson = "{";
+            roomImageFileNames = new ArrayList<>();
             List<Part> files = new ArrayList<Part>();
 
             files.add(thumbnail);
@@ -169,6 +168,7 @@ public class LandlordController {
 
                 InputStream inputStream = itemFile.getInputStream();
                 String fileName = dateFormat.format(date) + getFilename(itemFile);
+                roomImageFileNames.add(fileName);
                 File file = new File("C:/room4u/images/" + fileName);
                 FileOutputStream outputStream = new FileOutputStream(file);
 
@@ -195,15 +195,14 @@ public class LandlordController {
                     + " " + street + " " + ward + " " + district + " " + city);
             room.setCreatedDate(date);
 
-            room.setCreatedBy(
-                    "Can");
+            room.setCreatedBy("Can");
 
+            // Store Image File name as json string.
             RoomImage roomImage = new RoomImage();
-
-            roomImage.setThumbnail("1");
-            roomImage.setSlider1("s1");
-            roomImage.setSlider2("s2");
-            roomImage.setSlider3("s3");
+            roomImage.setThumbnail(roomImageFileNames.get(0));
+            roomImage.setSlider1(roomImageFileNames.get(1));
+            roomImage.setSlider2(roomImageFileNames.get(2));
+            roomImage.setSlider3(roomImageFileNames.get(3));
             Gson gson = new Gson();
             String jsonImage = gson.toJson(roomImage);
             room.setImages(jsonImage);

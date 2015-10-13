@@ -53,108 +53,117 @@
 
                 <!--Room display-->
                 <div class="row">
-                    <div class="col-md-4 col-xs-12 homepage_box">
-                        <a href="roomdetail.jsf">  <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/></a>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
-                                <span class="col-md-1">4</span>
-                                <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <span class="col-md-1"></span>
-                                <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
+                    <ui:repeat var="room" value="#{landlord.displayRoom()}" varStatus="status">
+
+                        <div class="col-md-4 col-xs-12 homepage_box">
+                            <!--<a href="roomdetail.jsf">  <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/></a>-->
+                          <!--<h:graphicImage value="/images/201510131545251.png" />-->
+                            <a href="roomdetail.jsf">  <img class="col-md-12 col-xs-12 main_image" src="/room4u-war/images/201510131545251.png" alt=""/></a>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
+                                    <span class="col-md-1">#{room.noOfPersons}</span>
+                                    <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
+                                    <span class="col-md-1">#{room.noOfBed}</span>
+                                    <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
+                                    <span class="col-md-1">#{room.noOfToilet}</span>
+                                    <span class="col-md-1"></span>
+                                    <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
+                                    <span class="col-md-1">2</span>
+                                    <!--<img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>-->
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-xs-12 homepage_box">
-                        <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
-                                <span class="col-md-1">4</span>
-                                <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <span class="col-md-1"></span>
-                                <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-xs-12 homepage_box">
-                        <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
-                                <span class="col-md-1">4</span>
-                                <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <span class="col-md-1"></span>
-                                <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-xs-12 homepage_box">
-                        <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
-                                <span class="col-md-1">4</span>
-                                <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <span class="col-md-1"></span>
-                                <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-xs-12 homepage_box">
-                        <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
-                                <span class="col-md-1">4</span>
-                                <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <span class="col-md-1"></span>
-                                <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-xs-12 homepage_box">
-                        <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
-                                <span class="col-md-1">4</span>
-                                <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <span class="col-md-1"></span>
-                                <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
-                                <span class="col-md-1">2</span>
-                                <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
-                            </div>
-                        </div>
-                    </div>
+
+                    </ui:repeat>
+
+
+
+                    <!--                    <div class="col-md-4 col-xs-12 homepage_box">
+                                            <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
+                                                    <span class="col-md-1">4</span>
+                                                    <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <span class="col-md-1"></span>
+                                                    <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12 homepage_box">
+                                            <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
+                                                    <span class="col-md-1">4</span>
+                                                    <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <span class="col-md-1"></span>
+                                                    <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12 homepage_box">
+                                            <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
+                                                    <span class="col-md-1">4</span>
+                                                    <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <span class="col-md-1"></span>
+                                                    <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12 homepage_box">
+                                            <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
+                                                    <span class="col-md-1">4</span>
+                                                    <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <span class="col-md-1"></span>
+                                                    <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12 homepage_box">
+                                            <img class="col-md-12 col-xs-12 main_image" src="resources/images/flooded_forest-wallpaper-1366x768.jpg" alt=""/>
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
+                                                    <span class="col-md-1">4</span>
+                                                    <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <span class="col-md-1"></span>
+                                                    <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
+                                                    <span class="col-md-1">2</span>
+                                                    <img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>
+                                                </div>
+                                            </div>
+                                        </div>-->
                 </div>
 
 
