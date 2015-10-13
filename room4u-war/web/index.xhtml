@@ -181,17 +181,17 @@
                                         <div class="form-group">
                                             <label for="inputPrice" class="col-lg-2 control-label">Giá phòng</label>
                                             <div class="col-lg-10">
-                                                <h:inputText value="#{landlord.room.price}" class="form-control"  />
+                                                <h:inputText id="roomPrice" value="#{landlord.room.price}" class="form-control"  />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputAddress" class="col-lg-2 control-label">Địa chỉ</label>
                                             <div class="col-lg-10">
-                                                <h:inputText value="#{landlord.houseNumber}" class="form-control"  p:placeholder="Số nhà"/>
-                                                <h:inputText value="#{landlord.street}"  class="form-control"  p:placeholder="Đường" />
-                                                <h:inputText  value="#{landlord.ward}"  class="form-control"  p:placeholder="Phường"/>
-                                                <h:inputText  value="#{landlord.district}"  class="form-control"  p:placeholder="Quận"/>
-                                                <h:inputText  value="#{landlord.city}"  class="form-control"  p:placeholder="Thành phố" />
+                                                <h:inputText id="hourseNumber" value="#{landlord.houseNumber}" class="form-control"  p:placeholder="Số nhà"/>
+                                                <h:inputText id="roomStreet" value="#{landlord.street}"  class="form-control"  p:placeholder="Đường" />
+                                                <h:inputText id="roomWard"  value="#{landlord.ward}"  class="form-control"  p:placeholder="Phường"/>
+                                                <h:inputText id="roomDistrict" value="#{landlord.district}"  class="form-control"  p:placeholder="Quận"/>
+                                                <h:inputText id="roomCity" value="#{landlord.city}"  class="form-control"  p:placeholder="Thành phố" />
                                             </div>
 
                                         </div>
@@ -199,7 +199,7 @@
                                         <div class="form-group">
                                             <label for="textArea"  class="col-lg-2 control-label">Mô tả</label>
                                             <div class="col-lg-10">
-                                                <h:inputTextarea class="form-control" value="#{landlord.room.description}" rows="5" />
+                                                <h:inputTextarea id="roomDescription" class="form-control" value="#{landlord.room.description}" rows="5" />
                                                 <span class="help-block">Giới thiệu tổng quan về phòng</span>
                                             </div>
                                         </div>
@@ -207,32 +207,32 @@
                                         <div class="form-group">
                                             <label for="inputBed"  class="col-lg-2 control-label">Số giường</label>
                                             <div class="col-lg-10">
-                                                <h:inputText  value="#{landlord.room.noOfBed}" class="form-control" />
+                                                <h:inputText id="numberOfBed"  value="#{landlord.room.noOfBed}" class="form-control" />
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="inputPerson" class="col-lg-2 control-label">Số người</label>
                                             <div class="col-lg-10">
-                                                <h:inputText  value="#{landlord.room.noOfPersons}" class="form-control" />
+                                                <h:inputText id="numberOfPerson" value="#{landlord.room.noOfPersons}" class="form-control" />
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="inputToilet" class="col-lg-2 control-label">Số toilet</label>
                                             <div class="col-lg-10">
-                                                <h:inputText id="toilet"  value="#{landlord.room.noOfToilet}" class="form-control" />
+                                                <h:inputText id="roomToilet"  value="#{landlord.room.noOfToilet}" class="form-control" />
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="inputImage" class="col-lg-2 control-label">Hình đại diện</label>
                                             <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
-                                            <h:inputFile value="#{landlord.thumbnail}" />
+                                            <h:inputFile id="roomThumbnail" value="#{landlord.thumbnail}" />
                                         </div>
                                         <div class="form-group">
                                             <label for="inputImage" class="col-lg-2 control-label">Hình 1</label>
-                                            <h:inputFile value="#{landlord.file1}" />
+                                            <h:inputFile id="roomFile1" value="#{landlord.file1}" />
                                         </div>
                                         <div class="form-group">
                                             <label for="inputImage" class="col-lg-2 control-label">Hình 2</label>

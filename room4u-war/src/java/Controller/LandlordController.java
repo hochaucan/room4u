@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import ViewModel.RoomImage;
+import com.google.gson.Gson;
 import com.room4u.dao.AccommodationFacadeLocal;
 
 import com.room4u.model.Accommodation;
@@ -141,33 +143,35 @@ public class LandlordController {
 
     }
 
+    public void testGson() {
+//Gson gson = new Gson();
+
+//String json = gson.toJson(obj);  
+//json is {"value1":1,"value2":"abc"}
+    }
+
     public String createRoom() {
         try {
             Date date = new Date();
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-            room.setAccomId(1);
-
-            room.setAddress(houseNumber + " " + street + " " + ward + " " + district + " " + city);
-            room.setCreatedDate(date);
-            room.setCreatedBy("Can");
+            String roomImageJson = "{";
             List<Part> files = new ArrayList<Part>();
+
             files.add(thumbnail);
+
             files.add(file1);
+
             files.add(file2);
+
             files.add(file3);
 
             for (Part itemFile : files) {
 
                 InputStream inputStream = itemFile.getInputStream();
-                // Path filePath = Files.createTempFile(Paths.get("C:/room4u/images"), "room4u-", ".jpg");
-                //File file = new File(filePath.getFileName().toString());//("C:/room4u/images/" + getFilename(file1));
-                File file = new File("C:/room4u/images/" + dateFormat.format(date) + getFilename(itemFile));
-//            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("images");
-//            path = path.substring(0, path.indexOf("\\build"));
-//            path = path + "\\web\\resources\\images\\";
-//
-//            File file = new File(path + getFilename(file1));
+                String fileName = dateFormat.format(date) + getFilename(itemFile);
+                File file = new File("C:/room4u/images/" + fileName);
                 FileOutputStream outputStream = new FileOutputStream(file);
+
                 if (!file.exists()) {
                     file.createNewFile();
                 }
@@ -186,7 +190,23 @@ public class LandlordController {
                 inputStream.close();
             }
 
-            room.setImages(getFilename(file1));
+            room.setAccomId(1);
+            room.setAddress(houseNumber
+                    + " " + street + " " + ward + " " + district + " " + city);
+            room.setCreatedDate(date);
+
+            room.setCreatedBy(
+                    "Can");
+
+            RoomImage roomImage = new RoomImage();
+
+            roomImage.setThumbnail("1");
+            roomImage.setSlider1("s1");
+            roomImage.setSlider2("s2");
+            roomImage.setSlider3("s3");
+            Gson gson = new Gson();
+            String jsonImage = gson.toJson(roomImage);
+            room.setImages(jsonImage);
 
             accommodationFacade.create(room);
 
@@ -197,8 +217,7 @@ public class LandlordController {
         return "index";
     }
 
-   
-
+// Get File Name when upload file
     private static String getFilename(Part part) {
         for (String cd : part.getHeader("content-disposition").split(";")) {
             if (cd.trim().startsWith("filename")) {
