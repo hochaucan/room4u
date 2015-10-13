@@ -52,10 +52,44 @@ public class LandlordController {
     private String street;
     private String ward;
     private String district;
+
+    public String getSlider1() {
+        return slider1;
+    }
+
+    public void setSlider1(String slider1) {
+        this.slider1 = slider1;
+    }
+
+    public String getSlider2() {
+        return slider2;
+    }
+
+    public void setSlider2(String slider2) {
+        this.slider2 = slider2;
+    }
+
+    public String getSlider3() {
+        return slider3;
+    }
+
+    public void setSlider3(String slider3) {
+        this.slider3 = slider3;
+    }
     private String city;
     private String country;
     private Part thumbnail, file1, file2, file3;
     private List<String> roomImageFileNames;
+    private Accommodation curAccom;
+    private String slider1, slider2, slider3;
+
+    public Accommodation getCurAccom() {
+        return curAccom;
+    }
+
+    public void setCurAccom(Accommodation curAccom) {
+        this.curAccom = curAccom;
+    }
 
     public Part getThumbnail() {
         return thumbnail;
@@ -151,6 +185,23 @@ public class LandlordController {
 
     public List<Accommodation> displayRoom() {
         return accommodationFacade.findAll();
+    }
+
+    public String displayRoomDetail(int id) {
+        Accommodation accom = accommodationFacade.find(id);
+        if (accom != null) {
+            curAccom = new Accommodation();
+            curAccom.setAccomName(accom.getAccomName());
+            curAccom.setDescription(accom.getDescription());
+            Gson gson = new Gson();
+            RoomImage roomImage = gson.fromJson(accom.getImages(), RoomImage.class);
+            // curAccom.setImages(accom.getImages());
+            slider1 = roomImage.getSlider1();
+            slider2 = roomImage.getSlider2();
+            slider3 = roomImage.getSlider3();
+        }
+
+        return "roomdetail";
     }
 
     public String createRoom() {

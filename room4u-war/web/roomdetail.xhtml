@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
@@ -13,7 +14,7 @@
 
             <ui:define name="content">
 
-                <!--Room Image Slider-->
+                <!--Room Image Slider Nivo-->
                 <div class="row">
                     <div class="slider-wrapper col-md-12">
                         <div id="slider" class="nivoSlider"> 
@@ -34,26 +35,27 @@
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                         <li data-target="#myCarousel" data-slide-to="1"></li>
                         <li data-target="#myCarousel" data-slide-to="2"></li>
-                        <li data-target="#myCarousel" data-slide-to="3"></li>
+
                     </ol>
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <img src="./resources/images/upload/toystory.jpg"/>
+                            <h:graphicImage value="/images/#{landlord.slider1}" />
+                            <!--<img src="./resources/images/upload/toystory.jpg"/>-->
                         </div>
 
                         <div class="item">
-                            <img src="./resources/images/upload/walle.jpg"/>
+                            <h:graphicImage value="/images/#{landlord.slider2}" />
+                            <!--<img src="./resources/images/upload/walle.jpg"/>-->
                         </div>
 
                         <div class="item">
-                            <img src="./resources/images/upload/up.jpg"/>
+                            <h:graphicImage value="/images/#{landlord.slider3}" />
+                            <!--<img src="./resources/images/upload/up.jpg"/>-->
                         </div>
 
-                        <div class="item">
-                            <img src="./resources/images/upload/nemo.jpg"/>
-                        </div>
+
                     </div>
 
                     <!-- Left and right controls -->
@@ -90,31 +92,8 @@
                                 <span class="glyphicon glyphicon-hand-right"></span>
                                 Chi tiết phòng</div>
                             <div class="panel-body">
-                                <!--                                <p >
-                                                                    <img class="col-md-1" src="resources/images/person.png" title="Số người" alt=""/>
-                                                                    <span class="col-md-1">4</span>
-                                                                    <img class="col-md-1" src="resources/images/bed.png" title="Số giường" alt=""/>
-                                                                    <span class="col-md-1">2</span>
-                                                                    <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
-                                                                    <span class="col-md-1">2</span>
-                                                                    <span class="col-md-1"></span>
-                                                                    <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
-                                                                    <span class="col-md-1">2</span>
-                                                                   
-                                                                </p>
-                                                                <br/>-->
-                                <p>
-                                    PHÒNG GRAND DOUBLE (HƯỚNG ĐỒI)
+                                <h:outputText value="#{landlord.curAccom.description}"/>
 
-                                    Tất cả các phòng đều được trang bị các tiện nghi cao cấp 5 sao, gồm hai giường ngủ thoải mái với đệm lông ngỗng êm ái, phòng tắm rộng lát cẩm thạch, hệ thống vòi tắm phun mưa và bồn tắm riêng biệt cùng khung cửa sổ lớn mở ra toàn cảnh đồi cát và sân golf The Bluffs. Các phòng nghỉ Grand Double hướng đồi sẽ đem lại những giây phút thư giãn riêng tư tuyệt đối.
-
-                                    Buffet sáng	Phục vụ phòng 24/24
-                                    Bồn tắm rời	Vòi tắm phun mưa riêng
-                                    Máy lạnh điều khiển riêng	Mini bar / Tủ lạnh
-                                    Trang thiết bị	Đế cắm máy Mp3
-                                    Ti-vi màn hình LED 46-inch	Kết nối internet tốc độ cao
-                                    Wifi phủ sóng toàn khu nghỉ dưỡng (miễn phí hoặc trả phí)	Điện thoại màn hình cảm ứng
-                                </p>
                                 <!--Distance service-->
                                 <div id="output" class="col-md-12 col-xs-12 panel" style="height:auto"></div>
 
