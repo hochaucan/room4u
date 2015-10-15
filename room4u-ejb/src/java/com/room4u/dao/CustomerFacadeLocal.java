@@ -29,5 +29,9 @@ public interface CustomerFacadeLocal {
     List<Customer> findRange(int[] range);
 
     int count();
+
+    public boolean validateRegusterAccount(String accCust, String email);
+
+    public boolean checkLogin(String u, String p);
     
 }

@@ -9,6 +9,7 @@ import com.room4u.model.Comments;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,5 +28,5 @@ public class CommentsFacade extends AbstractFacade<Comments> implements Comments
     public CommentsFacade() {
         super(Comments.class);
     }
-    
+ 
 }
