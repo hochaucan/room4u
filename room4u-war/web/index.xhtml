@@ -53,10 +53,8 @@
                 <!--Room display-->
                 <div class="row">
                     <ui:repeat var="room" value="#{landlord.displayRoom()}" varStatus="status">
-
                         <div class="col-md-4 col-xs-12 homepage_box">
                             <h:form>
-
                                 <h:commandLink action="#{landlord.displayRoomDetail(room.accomId)}" ><img  class="col-md-12 col-xs-12 main_image" src="#{room.images}" alt=""/></h:commandLink>
                             </h:form>
 
@@ -93,9 +91,7 @@
                             </div>
                             <h:form id="frmPostRoom" class="form-horizontal"  enctype="multipart/form-data"  >
                                 <div class="modal-body">
-
                                     <fieldset>
-
                                         <div class="form-group">
                                             <label for="inputName" class="col-lg-3 control-label">Tên phòng</label>
                                             <div class="col-lg-9">
@@ -180,7 +176,6 @@
                                         </div>
                                     </fieldset>
 
-
                                 </div>
                                 <div class="modal-footer" style="text-align: right">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
@@ -201,9 +196,7 @@
                             </div>
                             <h:form id="frmUserLogin" class="form-horizontal">
                                 <div class="modal-body">
-
                                     <fieldset>
-
                                         <div class="form-group">
                                             <label for="txtUserName" class="col-lg-3 control-label">Tài khoản</label>
                                             <div class="col-lg-9">
@@ -218,12 +211,10 @@
                                             </div>
                                         </div>
                                     </fieldset>
-
-
                                 </div>
                                 <div class="modal-footer" style="text-align: right">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                                    <h:commandButton class="btn btn-primary" value="Đăng nhập"/>
+                                    <h:commandButton action="#{customerController.checkLogin()}" class="btn btn-primary" value="Đăng nhập"/>
                                 </div>
                             </h:form>
 
@@ -237,22 +228,88 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                <h4 class="modal-title" id="myModalLabel">Đăng ký tài khoản</h4>
                             </div>
+                            <h:form id="frmUserLogin" class="form-horizontal">
                             <div class="modal-body">
-                                ...
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="custName" class="col-lg-3 control-label">Tên KH</label>
+                                        <div class="col-lg-9">
+                                            <h:inputText id="custName" value="#{customerController.c.custName}" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="account" class="col-lg-3 control-label">Tên đăng nhập</label>
+                                        <div class="col-lg-9">
+                                            <h:inputText id="account"  value="#{customerController.c.accountCustomer}" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone" class="col-lg-3 control-label">Điện thoại</label>
+                                        <div class="col-lg-9">
+                                            <h:inputText id="phone"  value="#{customerController.c.phone}" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="col-lg-3 control-label">Email</label>
+                                        <div class="col-lg-9">
+                                            <h:inputText id="email"  value="#{customerController.c.email}" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="regDate" class="col-lg-3 control-label">Ngày ĐK</label>
+                                        <div class="col-lg-9">
+                                            <h:inputText id="regDate"  value="#{customerController.c.registerDate}" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="role" class="col-lg-3 control-label">Tên KH</label>
+                                        <div class="col-lg-9">
+                                            <h:inputText id="role"  value="#{customerController.c.roleId}" class="form-control" />
+                                        </div>
+                                    </div>
+                                </fieldset>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                <button action="#{customerController.validateRegisterAccount()}" type="button" class="btn btn-primary">Đăng ký</button>
                             </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--Lost password-->
+                <div class="modal fade" id="user_register_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Đăng ký tài khoản</h4>
+                            </div>
+                            <h:form id="frmUserLogin" class="form-horizontal">
+                            <div class="modal-body">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="email" class="col-lg-3 control-label">Tên KH</label>
+                                        <div class="col-lg-9">
+                                            <h:inputText id="email" class="form-control" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                <button type="button" class="btn btn-primary">Gửi</button>
+                            </div>
+                            </h:form>
                         </div>
                     </div>
                 </div>
 
             </ui:define>
         </ui:composition>
-
 
     </body>
 </html>
