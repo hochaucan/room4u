@@ -1,5 +1,7 @@
 $(function () {
-   // $.bootstrapGrowl("Welcome to Room4U.", {type: "success"});
+
+    // Bootstrap Glowl Message
+    // $.bootstrapGrowl("Welcome to Room4U.", {type: "success"});
 //    
 //    setTimeout(function() {
 //        $.bootstrapGrowl("This is another test.", { type: 'success' });
@@ -22,28 +24,30 @@ $(function () {
 //        });
 //    }, 3000);
 
-    SetActiveMenu();
+    setActiveMenu();
     validateFormPostRoom();
+    validateFormUserLogin();
+    renderRoomImageHomePage();
 
-    $(".homepage_box").find(".main_image").each(function () {
-        //alert($(this).attr("src")) ;
-        ///room4u-war/images/
-        var obj = jQuery.parseJSON($(this).attr("src"));
-        //alert(obj.thumbnail.toString());
-        $(this).attr("src", "/room4u-war/images/" + obj.thumbnail.toString());
-    });
 
-    cleanModal();
-    // Slider room in room detail page
+//    cleanModal();
+
+
     $('#slider').nivoSlider();
-
     //Collapse in FAQ page
     //$('.collapse').collapse()
 
 });
 
+// Render room images in home page.
+function renderRoomImageHomePage() {
+    $(".homepage_box").find(".main_image").each(function () {
+        var obj = jQuery.parseJSON($(this).attr("src"));
+        $(this).attr("src", "/room4u-war/images/" + obj.thumbnail.toString());
+    });
+}
 // Set Active Menu
-function SetActiveMenu() {
+function setActiveMenu() {
     var path = window.location.pathname;
     path = path.replace(/\/$/, "");
     path = decodeURIComponent(path);
@@ -178,6 +182,71 @@ function validateFormPostRoom() {
 
 }
 
+function validateFormUserLogin() {
+
+    $('#frmUserLogin').validate({
+        rules: {
+            "frmUserLogin:txtUserName": {
+//                minlength: 1,
+//                maxlength: 200,
+                required: true
+
+
+            },
+            "frmUserLogin:txtPassword": {
+//                number: true,
+//                min: 0,
+//                max: 1000000000,
+                required: true
+            }
+        },
+//        messages: {
+//            "frmUserLogin:txtUserName": {
+////                required: 'Chọn hình làm đại diện',
+////                accept: 'Not an image!'
+//            }
+//        },
+//        submitHandler: function (form) {
+//
+//            setTimeout(function () {
+//                $.bootstrapGrowl("This is another test.", {type: 'success'});
+//            }, 1000);
+//
+//            form.submit();
+//
+////            var url = '<?php echo SET_SUBSCRIBER; ?>';
+////            var datastring = $("form").serialize();
+////            alert(datastring);
+////            return false;
+////            $.ajax({
+////                type: "POST",
+////                url: url,
+////                data: datastring,
+////                success: function (data) {
+////                    //alert(data); return false;
+////                    form.submit();
+////                }
+////            });
+////            return false;
+//
+//        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
 // Clean modal when close
 function cleanModal() {
     $(".modal").on('hide.bs.modal', function () {
