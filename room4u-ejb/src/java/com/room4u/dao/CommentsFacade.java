@@ -29,10 +29,4 @@ public class CommentsFacade extends AbstractFacade<Comments> implements Comments
         super(Comments.class);
     }
  
-    public boolean validateDuplicateAccount(String accCust, String email){
-        Query q = em.createQuery("SELECT c FROM Customer c WHERE c.accountCustomer= :loginName OR c.email :mail");
-        q.setParameter("loginName", accCust);
-        q.setParameter("mail", email);
-        return q.getResultList().size() > 0;
-    }
 }

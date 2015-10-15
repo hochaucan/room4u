@@ -9,6 +9,7 @@ import com.room4u.model.Customer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,5 +28,22 @@ public class CustomerFacade extends AbstractFacade<Customer> implements Customer
     public CustomerFacade() {
         super(Customer.class);
     }
+    
+    @Override
+    public boolean validateRegusterAccount(String accCust, String email){
+        Query q = em.createQuery("SELECT c FROM Customer c WHERE c.accountCustomer= :loginName OR c.email :mail");
+        q.setParameter("loginName", accCust);
+        q.setParameter("mail", email);
+        return q.getResultList().size() > 0;
+    }
+    
+    @Override
+    public boolean checkLogin(String u, String p){
+        Query q = em.createQuery("SELECT c FROM Customer c WHERE c.accountCustomer= :loginName OR c.password :password");
+        q.setParameter("loginName", u);
+        q.setParameter("password", p);
+        return q.getResultList().size() > 0;
+    }
+    
     
 }
