@@ -9,6 +9,7 @@ import com.room4u.model.Comments;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,5 +28,11 @@ public class CommentsFacade extends AbstractFacade<Comments> implements Comments
     public CommentsFacade() {
         super(Comments.class);
     }
-    
+ 
+    public boolean validateDuplicateAccount(String accCust, String email){
+        Query q = em.createQuery("SELECT c FROM Customer c WHERE c.accountCustomer= :loginName OR c.email :mail");
+        q.setParameter("loginName", accCust);
+        q.setParameter("mail", email);
+        return q.getResultList().size() > 0;
+    }
 }

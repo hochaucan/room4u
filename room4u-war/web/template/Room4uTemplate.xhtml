@@ -49,12 +49,13 @@
                         <li><a href="./aboutus.jsf">Giới thiệu</a></li>
                         <li><a href="./contact.jsf">Liên hệ</a></li>
                         <li><a href="./faq.jsf">FAQ</a></li>
-
+                        <!--<li><a data-toggle="modal" data-target="#userLoginModal"  href="#" >Testing</a></li>-->
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li ><a data-toggle="modal" data-target="#loginModal"  href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a></li>
-                        <li ><a data-toggle="modal" data-target="#loginModal"  href="#"><span class="glyphicon glyphicon-user"></span> Đăng nhập</a></li>
+                        <li ><a data-toggle="modal" data-target="#user_login_modal"  href="#"><span class="glyphicon glyphicon-user"></span> Đăng nhập</a></li>
+                        <li ><a data-toggle="modal" data-target="#user_register_modal" href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a></li>
+
                         <!--<li ><a  href="#"><span class="glyphicon glyphicon-question-sign"></span> Quên mật khẩu</a></li>-->
                         <li ><a  href="./Admin/index.jsf"><span class="glyphicon glyphicon-cog"></span> Quản lý</a></li>
 
@@ -104,163 +105,101 @@
         </div>
 
 
-        <!-- Modal Login & lost password -->
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" align="center">
-                        <!-- Logo here -->
-                        <img class="img-circle" id="img_logo" src=""></img>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+
+
+
+
+        <!--        <div class="modal fade" id="userLoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" align="center">
+                                 Logo here 
+                                <img class="img-circle" id="img_logo" src=""></img>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                            </div>
+        
+                             Begin # DIV Form 
+                            <div id="div-forms">
+        
+                                 Begin # Login Form 
+                                <form id="login-form">
+                                    <div class="modal-body">
+                                        <div id="div-login-msg">
+                                            <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+                                            <span id="text-login-msg">Nhập tài khoản và mật khẩu đăng nhập.</span>
+                                        </div>
+                                        <input id="login_username" class="form-control" type="text" placeholder="Tên đăng nhập (Nhập tên đăng nhập hoặc email)" required="true"></input>
+                                        <input id="login_password" class="form-control" type="password" placeholder="Mật khẩu" required="true"></input>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"></input> Ghi nhớ
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div>
+                                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                                        </div>
+                                        <div>
+                                            <button id="login_lost_btn" type="button" class="btn btn-link">Quên mật khẩu?</button>
+                                            <button id="login_register_btn" type="button" class="btn btn-link">Đăng ký</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                 End # Login Form 
+        
+                                 Begin | Lost Password Form 
+                                <form id="lost-form" style="display:none;">
+                                    <div class="modal-body">
+                                        <div id="div-lost-msg">
+                                            <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
+                                            <span id="text-lost-msg">Nhập địa chi e-mail.</span>
+                                        </div>
+                                        <input id="lost_email" class="form-control" type="text" placeholder="E-Mail (type your email address)" required="true"></input>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div>
+                                            <button type="submit" class="btn btn-primary">Gửi</button>
+                                        </div>
+                                        <div>
+                                            <button id="lost_login_btn" type="button" class="btn btn-link">Đăng nhập</button>
+                                            <button id="lost_register_btn" type="button" class="btn btn-link">Đăng ký</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                 End | Lost Password Form 
+        
+                                 Begin | Register Form 
+                                <form id="register-form" style="display:none;">
+                                    <div class="modal-body">
+                                        <div id="div-register-msg">
+                                            <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div>
+                                            <span id="text-register-msg">Đăng ký tài khoản.</span>
+                                        </div>
+                                        <input id="register_username" class="form-control" type="text" placeholder="Username (type username OR email address)" required="true"></input>
+                                        <input id="register_email" class="form-control" type="text" placeholder="E-Mail" required="true"></input>
+                                        <input id="register_password" class="form-control" type="password" placeholder="Password" required="true"></input>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div>
+                                            <button type="submit" class="btn btn-primary">Đăng ký</button>
+                                        </div>
+                                        <div>
+                                            <button id="register_login_btn" type="button" class="btn btn-link">Đăng nhập</button>
+                                            <button id="register_lost_btn" type="button" class="btn btn-link">Quên mật khẩu?</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                 End | Register Form 
+        
+                            </div>
+                             End # DIV Form 
+        
+                        </div>
                     </div>
+                </div>-->
 
-                    <!-- Begin # DIV Form -->
-                    <div id="div-forms">
 
-                        <!-- Begin # Login Form -->
-                        <form id="login-form">
-                            <div class="modal-body">
-                                <fieldset>
-                                <div id="div-login-msg">
-                                    <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
-                                    <span id="text-login-msg">Nhập tài khoản và mật khẩu đăng nhập.</span>
-                                </div>
-                                <input id="login_username" class="form-control" type="text" placeholder="Tên đăng nhập (Nhập tên đăng nhập hoặc email)" required="true"></input>
-                                <input id="login_password" class="form-control" type="password" placeholder="Mật khẩu" required="true"></input>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"></input> Ghi nhớ
-                                    </label>
-                                </div>
-                                </fieldset>
-                            </div>
-                            <div class="modal-footer">
-                                <div>
-                                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                                </div>
-                                <div>
-                                    <button id="login_lost_btn" type="button" class="btn btn-link">Quên mật khẩu?</button>
-                                    <button id="login_register_btn" type="button" class="btn btn-link">Đăng ký</button>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- End # Login Form -->
-
-                        <!-- Begin | Lost Password Form -->
-                        <form id="lost-form" style="display:none;">
-                            <div class="modal-body">
-                                <fieldset>
-                                <div id="div-lost-msg">
-                                    <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
-                                    <span id="text-lost-msg">Nhập địa chi e-mail.</span>
-                                </div>
-                                <input id="lost_email" class="form-control" type="text" placeholder="E-Mail (type your email address)" required="true"></input>
-                                </fieldset>
-                            </div>
-                            <div class="modal-footer">
-                                <div>
-                                    <button type="submit" class="btn btn-primary">Gửi</button>
-                                </div>
-                                <div>
-                                    <button id="lost_login_btn" type="button" class="btn btn-link">Đăng nhập</button>
-                                    <button id="lost_register_btn" type="button" class="btn btn-link">Đăng ký</button>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- End | Lost Password Form -->
-                    </div>
-                    <!-- End # DIV Form -->
-
-                </div>
-            </div>
-        </div>
-
-        <!--Begin register modal-->
-        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" align="center">
-                        <!-- Logo here -->
-                        <img class="img-circle" id="img_logo" src=""></img>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
-                    </div>
-
-                    <!-- Begin # DIV Form -->
-                    <div id="div-forms">
-                        <!-- Begin | Register Form -->
-                        <form id="register-form">
-                            <div class="modal-body">
-                                <fieldset>
-                                <div id="div-register-msg">
-                                    <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div>
-                                    <span id="text-register-msg">Đăng ký tài khoản.</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="custName" class="col-lg-3 control-label">Tên KH</label>
-                                    <div class="col-lg-9">
-                                        <h:inputText id="custName"  value="#{customerController.c.custName}" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="account" class="col-lg-3 control-label">Tên đăng nhập</label>
-                                    <div class="col-lg-9">
-                                        <h:inputText id="account"  value="#{customerController.c.accountCustomer}" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone" class="col-lg-3 control-label">Điện thoại</label>
-                                    <div class="col-lg-9">
-                                        <h:inputText id="phone"  value="#{customerController.c.phone}" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="col-lg-3 control-label">Email</label>
-                                    <div class="col-lg-9">
-                                        <h:inputText id="email"  value="#{customerController.c.email}" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="registerDate" class="col-lg-3 control-label">Ngày ĐK</label>
-                                    <div class="col-lg-9">
-                                        <h:inputText id="registerDate"  value="#{customerController.c.registerDate}" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="role" class="col-lg-3 control-label">Loại TK</label>
-                                    <div class="col-lg-9">
-                                        <h:inputText id="role"  value="#{customerController.c.roleId}" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="notify" class="col-lg-3 control-label">Notify</label>
-                                    <div class="col-lg-9">
-                                        <h:inputText id="notify"  value="#{customerController.c.notified}" class="form-control" />
-                                    </div>
-                                </div>
-                                
-<!--                                <input id="register_username" class="form-control" type="text" placeholder="Username (type username OR email address)" required="true"></input>
-                                <input id="register_email" class="form-control" type="text" placeholder="E-Mail" required="true"></input>
-                                <input id="register_password" class="form-control" type="password" placeholder="Password" required="true"></input>-->
-                                </fieldset>
-                            </div>
-                            <div class="modal-footer">
-                                <div>
-                                    <h:commandButton action="#{customerController.add()}" class="btn btn-primary" value="Đăng ký"/>
-                                    <!--<button type="submit" class="btn btn-primary">Đăng ký</button>-->
-                                </div>
-                                <div>
-                                    <button id="register_login_btn" type="button" class="btn btn-link">Đăng nhập</button>
-                                    <button id="register_lost_btn" type="button" class="btn btn-link">Quên mật khẩu?</button>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- End | Register Form -->
-                    </div>
-                    <!-- End # DIV Form -->
-                </div>
-            </div>
-        </div>
-        <!--End register modal-->
 
         <script>
 

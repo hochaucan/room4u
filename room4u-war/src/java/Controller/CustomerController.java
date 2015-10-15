@@ -65,4 +65,6 @@ public class CustomerController {
         this.c = new Customer();
         return "index";
     }
+    
+    
 }
