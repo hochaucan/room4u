@@ -28,7 +28,8 @@ $(function () {
     validateFormPostRoom();
     validateFormUserLogin();
     renderRoomImageHomePage();
-
+    setActiveMenuSidebar()
+    validateFormChangePassword();
 
 //    cleanModal();
 
@@ -46,6 +47,7 @@ function renderRoomImageHomePage() {
         $(this).attr("src", "/room4u-war/images/" + obj.thumbnail.toString());
     });
 }
+
 // Set Active Menu
 function setActiveMenu() {
     var path = window.location.pathname;
@@ -200,36 +202,6 @@ function validateFormUserLogin() {
                 required: true
             }
         },
-//        messages: {
-//            "frmUserLogin:txtUserName": {
-////                required: 'Chọn hình làm đại diện',
-////                accept: 'Not an image!'
-//            }
-//        },
-//        submitHandler: function (form) {
-//
-//            setTimeout(function () {
-//                $.bootstrapGrowl("This is another test.", {type: 'success'});
-//            }, 1000);
-//
-//            form.submit();
-//
-////            var url = '<?php echo SET_SUBSCRIBER; ?>';
-////            var datastring = $("form").serialize();
-////            alert(datastring);
-////            return false;
-////            $.ajax({
-////                type: "POST",
-////                url: url,
-////                data: datastring,
-////                success: function (data) {
-////                    //alert(data); return false;
-////                    form.submit();
-////                }
-////            });
-////            return false;
-//
-//        },
         highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');
         },
@@ -247,12 +219,83 @@ function validateFormUserLogin() {
         }
     });
 }
+
+var validate;
+function validateFormChangePassword() {
+
+    validate = $("#frmChangePassword").validate({
+        rules: {
+            "frmChangePassword:txtCurentPass": {
+//                minlength: 1,
+//                maxlength: 200,
+                required: true
+            },
+            "frmChangePassword:txtNewPass": {
+//                number: true,
+//                min: 0,
+//                max: 1000000000,
+                required: true
+            },
+            "frmChangePassword:txtConfirmNewPass": {
+//                number: true,
+//                min: 0,
+//                max: 1000000000,
+                required: true
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+
+}
+
 // Clean modal when close
 function cleanModal() {
     $(".modal").on('hide.bs.modal', function () {
         $(this).find("#frmPostRoom")[0].reset();
     });
 
+}
+
+function setActiveMenuSidebar() {
+
+    $("#personalInfo").css("display", "inline");
+    $("#personalPass").css("display", "none");
+    $("#orderedRoom").css("display", "none");
+    $("#yourPostedRoom").css("display", "none");
+
+    $(".profileSidebarMenu").find("a").each(function () {
+        $(this).click(function () {
+            $(this).addClass("active");
+            $(this).siblings().removeClass("active");
+
+            $("#personalInfo").css("display", "none");
+            $("#personalPass").css("display", "none");
+            $("#orderedRoom").css("display", "none");
+            $("#yourPostedRoom").css("display", "none");
+
+            var tabId = $(this).attr("href");//.replaceAll("#", "");
+            $(tabId).css("display", "inline");
+
+            // Reset form change user password
+            validate.resetForm();
+
+        });
+    });
 }
 
 // Custom message for Jquery validation

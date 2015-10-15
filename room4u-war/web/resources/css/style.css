@@ -87,6 +87,24 @@ html, body {
     -webkit-transition: opacity 0.4s linear;
     transition: opacity 0.4s linear;
 }
+
+.profileImage img{
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    -webkit-border-radius:50%;
+    margin: 10px 0px 10px 0px;
+}
+.profileSidebarMenu .list-group-item{
+    border: none!important;
+}
+.profileSidebarMenu .glyphicon{
+    margin-right: 10px;
+}
+.profileImage{
+    text-align: center;
+}
+
 @media (max-width:768px) {
     .homepage_box .panel-body img{
         padding: 10px 0 12px 12px;
