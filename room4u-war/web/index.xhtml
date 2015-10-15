@@ -4,14 +4,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui">
 
     <body>
 
         <ui:composition template="./template/Room4uTemplate.xhtml">
             <ui:define name="content">
                 <div class="row">
-                    <!--<h:graphicImage value="/images/3.jpg" />-->
+
+                  
 
                     <div class="col-md-3">
                         <a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>
@@ -45,11 +47,11 @@
                 <div class="row" style="margin: 15px 0 15px 0">
 
 
-                    <div id="map" class="col-md-12 col-xs-12 panel"></div>
+                    <div id="map" class="col-md-7 col-xs-12 panel"></div>
                     <!--Street View-->
-                    <div id="street-view" class="col-md-12 col-xs-12 panel" style="height:300px"></div>
+                    <div id="street-view" class="col-md-5 col-xs-12 panel" style="height:300px"></div>
                     <!--Distance service-->
-                    <div id="output" class="col-md-12 col-xs-12 panel" style="height:auto"></div>
+                    <!--<div id="output" class="col-md-12 col-xs-12 panel" style="height:auto"></div>-->
                 </div>
 
                 <!--Room display-->
@@ -153,7 +155,10 @@
                                             <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
                                             <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
                                             <div class="col-lg-9">
-                                                <h:inputFile id="roomThumbnail" value="#{landlord.thumbnail}" />
+                                                <h:inputFile  id="roomThumbnail" value="#{landlord.thumbnail}" >
+                                                    <!--                                                    <f:validator validatorId="fileValidator"/>-->
+                                                </h:inputFile>
+                                                <!--<h:message for="file"/>-->
                                             </div>
                                         </div>
                                         <div class="form-group">

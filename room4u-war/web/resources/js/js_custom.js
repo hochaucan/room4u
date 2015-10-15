@@ -1,8 +1,28 @@
-
+$(function () {
+    SetActiveMenu();
+   // alert(window.location.href.replace("Admin", ""));
+});
 //Google Map API
 // In the following example, markers appear when the user clicks on the map.
 // Each marker is labeled with a single alphabetical character.
 
+// Set Active Menu
+function SetActiveMenu() {
+    var path = window.location.pathname;
+    path = path.replace(/\/$/, "");
+    path = decodeURIComponent(path);
+
+    $(".nav a").each(function () {
+        $(this).click(function () {
+            if (this.href == window.location.href.replace("Admin","")) {
+                // $(this).closest("li").removeClass()("active");
+                $(this).closest("li").addClass("active");
+            }
+        });
+
+    });
+
+}
 
 var map;
 var markers = [];
@@ -43,7 +63,7 @@ function initMap() {
 
     // This event listener will call addMarker() when the map is clicked.
     map.addListener('click', function (event) {
-       // deleteMarkers();
+        // deleteMarkers();
         //addMarker(event.latLng);
         // alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
         long = event.latLng.lng();
@@ -72,8 +92,8 @@ function initMap() {
         distanceService(radius);
 
     });
-    
-  
+
+
 
 //Distance Service
 

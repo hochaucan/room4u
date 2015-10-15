@@ -1,7 +1,29 @@
 $(function () {
+   // $.bootstrapGrowl("Welcome to Room4U.", {type: "success"});
+//    
+//    setTimeout(function() {
+//        $.bootstrapGrowl("This is another test.", { type: 'success' });
+//    }, 1000);
+//    
+//    setTimeout(function() {
+//        $.bootstrapGrowl("Danger, Danger!", {
+//            type: 'danger',
+//            align: 'center',
+//            width: 'auto',
+//            allow_dismiss: false
+//        });
+//    }, 2000);
+//    
+//    setTimeout(function() {
+//        $.bootstrapGrowl("Danger, Danger!", {
+//            type: 'info',
+//            align: 'left',
+//            stackup_spacing: 30
+//        });
+//    }, 3000);
+
     SetActiveMenu();
     validateFormPostRoom();
-
 
     $(".homepage_box").find(".main_image").each(function () {
         //alert($(this).attr("src")) ;
@@ -11,12 +33,13 @@ $(function () {
         $(this).attr("src", "/room4u-war/images/" + obj.thumbnail.toString());
     });
 
+    cleanModal();
     // Slider room in room detail page
     $('#slider').nivoSlider();
 
     //Collapse in FAQ page
     //$('.collapse').collapse()
-    cleanModal();
+
 });
 
 // Set Active Menu
@@ -94,6 +117,7 @@ function validateFormPostRoom() {
             },
             "frmPostRoom:roomThumbnail": {
                 required: true
+//                accept: "image/jpg,image/jpeg,image/png,image/gif"
             },
             "frmPostRoom:roomFile1": {
                 required: true
@@ -105,6 +129,36 @@ function validateFormPostRoom() {
                 required: true
             }
         },
+        messages: {
+            "frmPostRoom:roomThumbnail": {
+//                required: 'Chọn hình làm đại diện',
+//                accept: 'Not an image!'
+            }
+        },
+//        submitHandler: function (form) {
+//
+//            setTimeout(function () {
+//                $.bootstrapGrowl("This is another test.", {type: 'success'});
+//            }, 1000);
+//
+//            form.submit();
+//
+////            var url = '<?php echo SET_SUBSCRIBER; ?>';
+////            var datastring = $("form").serialize();
+////            alert(datastring);
+////            return false;
+////            $.ajax({
+////                type: "POST",
+////                url: url,
+////                data: datastring,
+////                success: function (data) {
+////                    //alert(data); return false;
+////                    form.submit();
+////                }
+////            });
+////            return false;
+//
+//        },
         highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');
         },
@@ -127,7 +181,7 @@ function validateFormPostRoom() {
 // Clean modal when close
 function cleanModal() {
     $(".modal").on('hide.bs.modal', function () {
-        $(this).find('form')[0].reset();
+        $(this).find("#frmPostRoom")[0].reset();
     });
 
 }

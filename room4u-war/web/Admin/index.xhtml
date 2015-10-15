@@ -11,175 +11,93 @@
 
             <ui:define name="content">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <legend>Danh sách tài khoản khách hàng</legend>
-                            <div class="table-responsive">
-                                <f:view>
-                                    <h:form class="form-horizontal">
-                                        <h:dataTable value="#{customerController.custList}" var="item" class="table table-bordred table-striped">
+                    <div class="col-lg-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <h3>General Chart</h3>
+                            </header>
+                            <div class="panel-body">
+                                <div class="tab-pane" id="chartjs">
+                                    <div class="row">
+                                        <!-- Line -->
+                                        <div class="col-lg-6">
+                                            <section class="panel">
+                                                <header class="panel-heading">
+                                                    Line
+                                                </header>
+                                                <div class="panel-body text-center">
+                                                    <canvas id="line" height="300" width="450"></canvas>
+                                                </div>
+                                            </section>
+                                        </div>                      
+                                        <!-- Bar -->
+                                        <div class="col-lg-6">
+                                            <section class="panel">
+                                                <header class="panel-heading">
+                                                    Bar
+                                                </header>
+                                                <div class="panel-body text-center">
+                                                    <canvas id="bar" height="300" width="500"></canvas>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- Radar -->
+                                        <div class="col-lg-6">
+                                            <section class="panel">
+                                                <header class="panel-heading">
+                                                    Radar
+                                                </header>
+                                                <div class="panel-body text-center">
+                                                    <canvas id="radar" height="300" width="400"></canvas>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <!-- Polar Area -->
+                                        <div class="col-lg-6">
+                                            <section class="panel">
+                                                <header class="panel-heading">
+                                                    Polar Area
+                                                </header>
+                                                <div class="panel-body text-center">
+                                                    <canvas id="polarArea" height="300" width="400"></canvas>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                    <div class="row">
 
-                                            <h:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Mã KH"/>
-                                                </f:facet>
-                                                <h:outputText value="#{item.custId}"/>
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Tên KH"/>
-                                                </f:facet>
-                                                <h:outputText value="#{item.custName}"/>
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Account"/>
-                                                </f:facet>
-                                                <h:outputText value="#{item.accountCustomer}"/>
-                                            </h:column>
-                                            <!--<h:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Password"/>
-                                                </f:facet>
-                                                <h:outputText value="#{item.password}"/>
-                                            </h:column>-->
-                                            <h:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Điện thoại"/>
-                                                </f:facet>
-                                                <h:outputText value="#{item.phone}"/>
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Email"/>
-                                                </f:facet>
-                                                <h:outputText value="#{item.email}"/>
-                                            </h:column>
-                                            <h:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Ngày ĐK"/>
-                                                </f:facet>
-                                                <h:outputText value="#{item.registerDate}">
-                                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                                </h:outputText>
-                                            </h:column>
-                                                                                       <h:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Chức năng"/>
-                                                </f:facet>
-                                                <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</button>
-                                                <button class="btn btn-primary btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span> Xóa</button>
-                                               
-                                            </h:column>
-
-                                        </h:dataTable>
-                                    </h:form>
-                                </f:view>
-
-                                <div class="clearfix"></div>
-                                <ul class="pagination pull-right">
-                                    <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                                </ul>
+                                        <!-- Pie -->
+                                        <div class="col-lg-6">
+                                            <section class="panel">
+                                                <header class="panel-heading">
+                                                    Pie
+                                                </header>
+                                                <div class="panel-body text-center">
+                                                    <canvas id="pie" height="300" width="400"></canvas>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <!-- Doughnut -->
+                                        <div class="col-lg-6">
+                                            <section class="panel">
+                                                <header class="panel-heading">
+                                                    Doughnut
+                                                </header>
+                                                <div class="panel-body text-center">
+                                                    <canvas id="doughnut" height="300" width="400"></canvas>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
                 </div>
 
-                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title custom_align" id="Heading">Cập nhật thông tin tài khoản</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="table-responsive col-md-12">
-                                    <f:view>
-                                        <h:form class="form-horizontal">
-                                            <legend></legend>
-                                            <div class="form-group">
-                                                <label for="inputEmail" class="col-md-3 control-label">Mã KH</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" id="inputEmail" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputEmail" class="col-md-3 control-label">Tên KH</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" id="inputEmail" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputEmail" class="col-md-3 control-label">Điện thoại</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" id="inputEmail" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputEmail" class="col-md-3 control-label">Ngày ĐK</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" id="inputEmail" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputEmail" class="col-md-3 control-label">Loại TK</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" id="inputEmail" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group" align="right">
-                                                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span> Cập nhật</button>
-                                            </div>
-                                        </h:form>
-                                    </f:view>
-                                </div>
-                                <!--<div class="form-group">
-                                    <input class="form-control " type="text" placeholder="User1"></input>
-                                </div>
-                                <div class="form-group">
 
-                                    <input class="form-control " type="text" placeholder="0909123111"></input>
-                                </div>
-                                <div class="form-group">
-                                    <textarea rows="2" class="form-control" placeholder="Q1, Tp.HCM"></textarea>
-                                </div>-->
-                            </div>
-                            <div class="modal-footer">
-                                <!--<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span> Cập nhật</button>-->
-                            </div>
-                        </div>
-                        <!-- /.modal-content --> 
-                    </div>
-                    <!-- /.modal-dialog --> 
-                </div>
-
-                <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form class="form-horizontal">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa tài khoản</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa tài khoản này?</div>
-                            </div>
-                                <div class="modal-footer " style="text-align: right">
-                                    <button type="button" class="btn btn-primary" ><span class="glyphicon glyphicon-ok-sign"></span> Xác nhận</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- /.modal-content --> 
-                    </div>
-                    <!-- /.modal-dialog --> 
-                </div>
             </ui:define>
 
         </ui:composition>

@@ -26,11 +26,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.Part;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -39,6 +44,9 @@ import javax.servlet.http.Part;
 @ManagedBean(name = "landlord")
 @SessionScoped
 public class LandlordController {
+
+    @Inject
+    Logger log;
 
     @EJB
     private CustomerFacadeLocal customerFacade;
@@ -52,6 +60,14 @@ public class LandlordController {
     private String ward;
     private String district;
 
+//     @PostConstruct
+//    public void init() {
+//       
+//         
+//        if(!FacesContext.getCurrentInstance().isPostback()) {
+//            RequestContext.getCurrentInstance().execute("alert('This onload script is added from backing bean.')");
+//        }
+//    }
     public String getSlider1() {
         return slider1;
     }
@@ -183,10 +199,12 @@ public class LandlordController {
     }
 
     public List<Accommodation> displayRoom() {
+
         return accommodationFacade.findAll();
     }
 
     public String displayRoomDetail(int id) {
+
         Accommodation accom = accommodationFacade.find(id);
         if (accom != null) {
             curAccom = new Accommodation();
@@ -205,6 +223,11 @@ public class LandlordController {
 
     public String createRoom() {
         try {
+//             log.info("call upload...");      
+//        log.log(Level.INFO, "content-type:{0}", file.getContentType());
+//        log.log(Level.INFO, "filename:{0}", file.getName());
+//        log.log(Level.INFO, "submitted filename:{0}", file.getSubmittedFileName());
+
             Date date = new Date();
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
             roomImageFileNames = new ArrayList<>();
@@ -235,7 +258,7 @@ public class LandlordController {
                     file.createNewFile();
                 }
 
-                byte[] buffer = new byte[4096];
+                byte[] buffer = new byte[6096];
                 int bytesRead = 0;
                 while (true) {
                     bytesRead = inputStream.read(buffer);
@@ -248,6 +271,7 @@ public class LandlordController {
                 outputStream.close();
                 inputStream.close();
             }
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Room is created!"));
 
             room.setAccomId(1);
             Customer cust = customerFacade.find(1);
@@ -271,12 +295,20 @@ public class LandlordController {
             room.setImages(jsonImage);
 
             accommodationFacade.create(room);
+            //RequestContext.getCurrentInstance().execute("alert('peek-a-boo');");
 
         } catch (Exception ex) {
             printStackTrace();
         }
 
         return "index";
+    }
+
+    public void test() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage("Successful", "Your message: "));
+//        context.addMessage(null, new FacesMessage("Second Message", "Additional Message Detail"));
     }
 
 // Get File Name when upload file
