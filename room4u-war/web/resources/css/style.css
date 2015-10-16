@@ -66,6 +66,7 @@ html, body {
 .homepage_box .panel-body img{
     cursor: pointer;
     padding: 12px 0 0 12px;
+    /* width: 10px; */
 }
 .homepage_box .panel-body{
     padding:0px;
@@ -95,10 +96,14 @@ html, body {
     -webkit-border-radius:50%;
     margin: 10px 0px 10px 0px;
 }
+.modal-footer{
+    text-align: right!important;
+}
+
 .homepage_menu_right img{
     width: 30px;
     height: 30px;
-     border-radius: 50%;
+    border-radius: 50%;
     -webkit-border-radius:50%;
 }
 .carousel-inner{
@@ -117,11 +122,14 @@ html, body {
 @media (max-width:768px) {
     .homepage_box .panel-body img{
         padding: 10px 0 12px 12px;
+        width: 10%;
     }
     .homepage_search_room{
         margin-top: 20px;
     }
-}
+    .homepage_box .panel-body span {
+        padding: 5px;
+    }}
 //====================================
 //Begin | Form Dang Ky & Dang Nhap
 * {

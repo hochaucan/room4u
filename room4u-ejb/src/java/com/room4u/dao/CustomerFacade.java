@@ -6,6 +6,7 @@
 package com.room4u.dao;
 
 import com.room4u.model.Customer;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +18,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class CustomerFacade extends AbstractFacade<Customer> implements CustomerFacadeLocal {
+
     @PersistenceContext(unitName = "room4u-ejbPU")
     private EntityManager em;
 
@@ -28,22 +30,20 @@ public class CustomerFacade extends AbstractFacade<Customer> implements Customer
     public CustomerFacade() {
         super(Customer.class);
     }
-    
+
     @Override
-    public boolean validateRegusterAccount(String accCust, String email){
-        Query q = em.createQuery("SELECT c FROM Customer c WHERE c.accountCustomer= :loginName OR c.email :mail");
-        q.setParameter("loginName", accCust);
-        q.setParameter("mail", email);
+    public boolean checkLogin(String u, String p) {
+        Query q = em.createQuery("SELECT a FROM Customer a WHERE a.accountCustomer = :u AND a.password = :p");
+        q.setParameter("u", u);
+        q.setParameter("p", p);
         return q.getResultList().size() > 0;
+
     }
-    
-    @Override
-    public boolean checkLogin(String u, String p){
-        Query q = em.createQuery("SELECT c FROM Customer c WHERE c.accountCustomer= :loginName OR c.password :password");
-        q.setParameter("loginName", u);
-        q.setParameter("password", p);
-        return q.getResultList().size() > 0;
-    }
-    
-    
+
+//     @Override
+//    public List<Staff> findByTitle(String name) {
+//        Query q = em.createQuery("SELECT b FROM Staff b WHERE b.name LIKE :name ");
+//         q.setParameter("name", "%" + name + "%");
+//        return q.getResultList();
+//    }
 }

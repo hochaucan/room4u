@@ -28,10 +28,8 @@ public interface CustomerFacadeLocal {
 
     List<Customer> findRange(int[] range);
 
+    public boolean checkLogin(String u, String p);
+
     int count();
 
-    public boolean validateRegusterAccount(String accCust, String email);
-
-    public boolean checkLogin(String u, String p);
-    
 }

@@ -13,31 +13,34 @@
             <ui:define name="content">
                 <div class="row">
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <a href="#" class="btn btn-success"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-registration-mark"></span>Đăng ký phòng</a>
+                    </div>
+                    <div class="col-md-2">
                         <a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>
                     </div>
-                    <div class="col-md-8">
-                        <form class="form-horizontal " >
-                            <div class="form-group">
-                                <label  class="col-md-4 col-xs-4 control-label">Bán kính</label>
-                                <div class="col-md-4 col-xs-4">
-                                    <select class="form-control" id="sltRadius">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="16">16</option>
-                                        <option value="21">21</option>
-                                    </select>
+                    <div class="col-md-8"  style="padding-right: 0px">
 
-                                </div>
-                                <div class="col-md-2 col-xs-2">
-                                    <button type="button" id="btnSearch"  class="btn btn-primary">Tìm kiếm</button>
-                                </div>
-                            </div>
 
-                        </form>
+                        <label  class="col-md-6 col-xs-6 control-label" style="text-align: right">Bán kính</label>
+                        <div class="col-md-4 col-xs-4">
+                            <select class="form-control" id="sltRadius">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="16">16</option>
+                                <option value="21">21</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-2 col-xs-2">
+                            <button type="button" id="btnSearch"  class="btn btn-primary">Tìm kiếm</button>
+                        </div>
+
+
+
                     </div>
                 </div>
 
@@ -66,12 +69,12 @@
                                     <span class="col-md-1">#{room.noOfBed}</span>
                                     <img class="col-md-1" src="resources/images/toilet.png" title="Toilet" alt=""/>
                                     <span class="col-md-1">#{room.noOfToilet}</span>
-                                    <span class="col-md-1"></span>
+                                    <span class="col-md-1"/>
                                     <img class="col-md-1" src="resources/images/comment.png" title="Nhận xét" alt=""/>
                                     <span class="col-md-1">15</span>
                                     <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
                                     <span class="col-md-1">2</span>
-                                    
+
                                     <!--<img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>-->
                                 </div>
                             </div>
@@ -150,10 +153,8 @@
                                             <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
                                             <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
                                             <div class="col-lg-9">
-                                                <h:inputFile  id="roomThumbnail" value="#{landlord.thumbnail}" >
-                                                    <!--                                                    <f:validator validatorId="fileValidator"/>-->
-                                                </h:inputFile>
-                                                <!--<h:message for="file"/>-->
+                                                <h:inputFile  id="roomThumbnail" value="#{landlord.thumbnail}" ></h:inputFile>
+
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -197,24 +198,35 @@
                             <h:form id="frmUserLogin" class="form-horizontal">
                                 <div class="modal-body">
                                     <fieldset>
+                                        <h:outputText id="txtLoginResult" value="#{customerController.checkLogin()}" style="display:none"  />
                                         <div class="form-group">
                                             <label for="txtUserName" class="col-lg-3 control-label">Tài khoản</label>
                                             <div class="col-lg-9">
-                                                <h:inputText id="txtUserName"   class="form-control" />
+                                                <h:inputText id="txtUserName" value="#{customerController.accName}"   class="form-control" />
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="txtPassword" class="col-lg-3 control-label">Mật khẩu</label>
+                                            <label for="txtPassword"  class="col-lg-3 control-label">Mật khẩu</label>
                                             <div class="col-lg-9">
-                                                <h:inputText id="txtPassword"  class="form-control"  />
+                                                <h:inputSecret id="txtPassword" value="#{customerController.password}" class="form-control"  />
+
                                             </div>
                                         </div>
+
+
+                                        <h:commandButton id="btnLoginParams" value="Welcome Me" style="display: none">
+                                            <f:ajax  execute="txtUserName txtPassword"  render="txtLoginResult" onevent="LoginEventHandler"/>
+                                        </h:commandButton>
+
                                     </fieldset>
                                 </div>
                                 <div class="modal-footer" style="text-align: right">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                                    <h:commandButton action="#{customerController.checkLogin()}" class="btn btn-primary" value="Đăng nhập"/>
+                                    <h:commandButton id="btnLogin"   class="btn btn-primary" value="Đăng nhập">
+                                        <!--<f:ajax execute="@form"    render="txtLoginResult"   />-->
+                                    </h:commandButton>
+
                                 </div>
                             </h:form>
 
@@ -230,83 +242,107 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title" id="myModalLabel">Đăng ký tài khoản</h4>
                             </div>
-                            <h:form id="frmUserLogin" class="form-horizontal">
-                            <div class="modal-body">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <label for="custName" class="col-lg-3 control-label">Tên KH</label>
-                                        <div class="col-lg-9">
-                                            <h:inputText id="custName" value="#{customerController.c.custName}" class="form-control" />
+                            <h:form id="frmUserRegister" class="form-horizontal" enctype="multipart/form-data" >
+                                <div class="modal-body">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="txtCustName" class="col-lg-3 control-label">Tên bạn</label>
+                                            <div class="col-lg-9">
+                                                <h:inputText id="txtCustName" value="#{customerController.c.custName}" class="form-control" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="account" class="col-lg-3 control-label">Tên đăng nhập</label>
-                                        <div class="col-lg-9">
-                                            <h:inputText id="account"  value="#{customerController.c.accountCustomer}" class="form-control" />
+                                        <div class="form-group">
+                                            <label for="txtCustAccount" class="col-lg-3 control-label">Tên đăng nhập</label>
+                                            <div class="col-lg-9">
+                                                <h:inputText id="txtCustAccount" autocomplete="false"  value="#{customerController.c.accountCustomer}" class="form-control" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone" class="col-lg-3 control-label">Điện thoại</label>
-                                        <div class="col-lg-9">
-                                            <h:inputText id="phone"  value="#{customerController.c.phone}" class="form-control" />
+                                        <div class="form-group">
+                                            <label for="txtCustPass" class="col-lg-3 control-label">Mật khẩu</label>
+                                            <div class="col-lg-9">
+                                                <h:inputSecret id="txtCustPass"  value="#{customerController.c.password}" class="form-control" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email" class="col-lg-3 control-label">Email</label>
-                                        <div class="col-lg-9">
-                                            <h:inputText id="email"  value="#{customerController.c.email}" class="form-control" />
+                                        <div class="form-group">
+                                            <label for="txtCustEmail" class="col-lg-3 control-label">Email</label>
+                                            <div class="col-lg-9">
+                                                <h:inputText id="txtCustEmail"  value="#{customerController.c.email}" class="form-control" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="regDate" class="col-lg-3 control-label">Ngày ĐK</label>
-                                        <div class="col-lg-9">
-                                            <h:inputText id="regDate"  value="#{customerController.c.registerDate}" class="form-control" />
+                                        <div class="form-group">
+                                            <label for="txtCustPhone" class="col-lg-3 control-label">Điện thoại</label>
+                                            <div class="col-lg-9">
+                                                <h:inputText id="txtCustPhone"  value="#{customerController.c.phone}" class="form-control" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="role" class="col-lg-3 control-label">Tên KH</label>
-                                        <div class="col-lg-9">
-                                            <h:inputText id="role"  value="#{customerController.c.roleId}" class="form-control" />
+
+                                        <div class="form-group">
+                                            <label for="role" class="col-lg-3 control-label">Vai trò</label>
+                                            <div class="col-lg-9">
+                                                <!--<h:inputText id="role"  value="#{customerController.c.roleId}" class="form-control" />-->
+                                                <h:selectOneMenu value="Cream Latte" class="">
+                                                    <f:selectItem itemValue="Cream Latte" itemLabel="Coffee3 - Cream Latte" />
+                                                    <f:selectItem itemValue="Extreme Mocha" itemLabel="Coffee3 - Extreme Mocha" />
+                                                    <f:selectItem itemValue="Buena Vista" itemLabel="Coffee3 - Buena Vista" />
+                                                </h:selectOneMenu>
+                                            </div>
                                         </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                                <button action="#{customerController.validateRegisterAccount()}" type="button" class="btn btn-primary">Đăng ký</button>
-                            </div>
+                                        <div class="form-group">
+                                            <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
+                                            <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
+                                            <div class="col-lg-9">
+                                                <h:inputFile  id="fileCustThumbnail"  ></h:inputFile>
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <!--                                        <h:commandButton value="Welcome Me">
+                                                                                    <f:ajax execute="name pass"  render="output" />
+                                                                                    
+                                                                                </h:commandButton>
+                                                                                <h2><h:outputText id="output" value="#{customerController.testingAjax()}" /></h2>	-->
+
+
+                                    </fieldset>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                    <h:commandButton action="#{customerController.createUser()}"  class="btn btn-primary" value="Đăng ký"/>
+                                </div>
                             </h:form>
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Lost password-->
-                <div class="modal fade" id="user_register_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Đăng ký tài khoản</h4>
-                            </div>
-                            <h:form id="frmUserLogin" class="form-horizontal">
-                            <div class="modal-body">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <label for="email" class="col-lg-3 control-label">Tên KH</label>
-                                        <div class="col-lg-9">
-                                            <h:inputText id="email" class="form-control" />
+                <!--                <div class="modal fade" id="user_register_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Đăng ký tài khoản</h4>
+                                            </div>
+                                            <h:form id="frmUserLogin" class="form-horizontal">
+                                            <div class="modal-body">
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <label for="email" class="col-lg-3 control-label">Tên KH</label>
+                                                        <div class="col-lg-9">
+                                                            <h:inputText id="email" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                                <button type="button" class="btn btn-primary">Gửi</button>
+                                            </div>
+                                            </h:form>
                                         </div>
                                     </div>
-                                </fieldset>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                                <button type="button" class="btn btn-primary">Gửi</button>
-                            </div>
-                            </h:form>
-                        </div>
-                    </div>
-                </div>
+                                </div>-->
 
             </ui:define>
         </ui:composition>

@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:head>
@@ -20,7 +21,8 @@
     </h:head>
 
     <h:body>
-
+       
+        
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header ">
@@ -41,10 +43,15 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-<!--                        <li ><a data-toggle="modal" data-target="#myModal"  href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a></li>
-                        <li ><a data-toggle="modal" data-target="#myModal"  href="#"><span class="glyphicon glyphicon-user"></span> Đăng nhập</a></li>
-                        <li ><a  href="#"><span class="glyphicon glyphicon-question-sign"></span> Quên mật khẩu</a></li>-->
-                        <li ><a  href=""><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                        <!--                        <li ><a data-toggle="modal" data-target="#myModal"  href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a></li>
+                                                <li ><a data-toggle="modal" data-target="#myModal"  href="#"><span class="glyphicon glyphicon-user"></span> Đăng nhập</a></li>
+                                                <li ><a  href="#"><span class="glyphicon glyphicon-question-sign"></span> Quên mật khẩu</a></li>-->
+                        <!--                        <li ><a  href=""><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>-->
+                        <li style="display: #{customerController.isAuthenticated?'inline':'none'};margin-top: 22px" >
+                            <h:form>
+                                <h:commandLink style="color:#b2dbfb;" action="#{customerController.logout()}"><span class="glyphicon glyphicon-log-out"></span> Log out</h:commandLink>
+                            </h:form>
+                        </li>
 
                     </ul>
                 </div>

@@ -24,12 +24,14 @@ $(function () {
 //        });
 //    }, 3000);
 
+
     setActiveMenu();
     validateFormPostRoom();
     validateFormUserLogin();
     renderRoomImageHomePage();
     setActiveMenuSidebar()
     validateFormChangePassword();
+    validateFormRegisterUser();
 
 //    cleanModal();
 
@@ -40,7 +42,49 @@ $(function () {
 
 });
 
-// Render room images in home page.
+
+function LoginEventHandler(data) {
+    //prependId="false" for <h:form>
+
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmUserLogin\\:txtLoginResult").text();
+
+            if (message === "true") {
+                $('#user_login_modal').modal('toggle');
+                //growlmessage("Đăng nhập thành công!", 350);
+                window.location.reload();
+            } else {
+                growlmessage("Tài khoản hoặc mật khẩu không đúng!", 350, "danger");
+            }
+            break;
+    }
+
+}
+
+function growlmessage(message, width, messageType) {
+    $.bootstrapGrowl(message, {
+        ele: 'body', // which element to append to
+        type: messageType, // (null, 'info', 'danger', 'success')
+        offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
+        align: 'right', // ('left', 'right', or 'center')
+        width: width, // (integer, or 'auto')
+        delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+        allow_dismiss: true, // If true then will display a cross to close the popup.
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+
+    });
+}
+
 function renderRoomImageHomePage() {
     $(".homepage_box").find(".main_image").each(function () {
         var obj = jQuery.parseJSON($(this).attr("src"));
@@ -48,7 +92,6 @@ function renderRoomImageHomePage() {
     });
 }
 
-// Set Active Menu
 function setActiveMenu() {
     var path = window.location.pathname;
     path = path.replace(/\/$/, "");
@@ -56,14 +99,92 @@ function setActiveMenu() {
 
     $(".nav a").each(function () {
         if (this.href == window.location.href) {
-            // $(this).closest("li").removeClass()("active");
             $(this).closest("li").addClass("active");
         }
     });
 
 }
 
-// Validate Form Post Room
+function validateFormRegisterUser() {
+    $('#frmUserRegister').validate({
+        rules: {
+            "frmUserRegister:txtCustName": {
+                minlength: 3,
+                maxlength: 200,
+                required: true
+            },
+            "frmUserRegister:txtCustAccount": {
+                minlength: 3,
+                maxlength: 200,
+                required: true
+            },
+            "frmUserRegister:txtCustPass": {
+                minlength: 3,
+                maxlength: 200,
+                required: true
+            },
+            "frmUserRegister:txtCustEmail": {
+                required: true,
+                email: true
+            },
+            "frmUserRegister:txtCustPhone": {
+                number: true,
+                required: true
+            },
+            "frmUserRegister:fileCustThumbnail": {
+                required: true
+            }
+        },
+        messages: {
+            "frmPostRoom:roomThumbnail": {
+//                required: 'Chọn hình làm đại diện',
+//                accept: 'Not an image!'
+            }
+        },
+        submitHandler: function (form) {
+
+
+
+            setTimeout(function () {
+                $.bootstrapGrowl("This is another test.", {type: 'success'});
+            }, 1000);
+
+            // form.submit();
+
+//            var url = '<?php echo SET_SUBSCRIBER; ?>';
+//            var datastring = $("form").serialize();
+//            alert(datastring);
+//            return false;
+//            $.ajax({
+//                type: "POST",
+//                url: url,
+//                data: datastring,
+//                success: function (data) {
+//                    //alert(data); return false;
+//                    form.submit();
+//                }
+//            });
+//            return false;
+
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
+
 function validateFormPostRoom() {
     $('#frmPostRoom').validate({
         rules: {
@@ -189,18 +310,15 @@ function validateFormUserLogin() {
     $('#frmUserLogin').validate({
         rules: {
             "frmUserLogin:txtUserName": {
-//                minlength: 1,
-//                maxlength: 200,
                 required: true
-
-
             },
             "frmUserLogin:txtPassword": {
-//                number: true,
-//                min: 0,
-//                max: 1000000000,
                 required: true
             }
+        },
+        submitHandler: function (form) {
+            $("#frmUserLogin\\:btnLoginParams").click();
+            //form.submit();
         },
         highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');
@@ -218,6 +336,8 @@ function validateFormUserLogin() {
             }
         }
     });
+
+
 }
 
 var validate;
