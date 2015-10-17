@@ -18,6 +18,17 @@
             30
         </session-timeout>
     </session-config>
+    <!-- Login filter -->
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>Utility.loginFilter</filter-class>
+    </filter>
+    <!-- Set the login filter to secure all the pages in the /secured/* path of the application  -->
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>/Admin/*</url-pattern>
+    </filter-mapping>
+    
     <welcome-file-list>
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
