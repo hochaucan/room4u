@@ -8,6 +8,7 @@ package Controller;
 import com.room4u.dao.CustomerFacade;
 import com.room4u.dao.CustomerFacadeLocal;
 import com.room4u.model.Customer;
+import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -31,6 +32,15 @@ public class CustomerController {
     private String mail;
     private boolean isAuthenticated = false;
     private Customer curCust = null;
+    private int roleId;
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
 
     public Customer getCurCust() {
         return curCust;
@@ -68,10 +78,10 @@ public class CustomerController {
     public String logout() {
         isAuthenticated = false;
         // Clear session
-        HttpSession sess = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        sess.invalidate();
+//        HttpSession sess = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+//        sess.invalidate();
 
-        // FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "index";
     }
 
@@ -124,17 +134,22 @@ public class CustomerController {
 
     public Customer checkLogin() {
 
-        List<Customer> customers = customerFacade.checkLogin(accName, password);
-        curCust = customers.size() > 0 ? customers.get(0) : null;
+        try {
+            List<Customer> customers = customerFacade.checkLogin(accName, password);
+            curCust = customers.size() > 0 ? customers.get(0) : null;
 
-        if (curCust != null) {
-            HttpSession sess = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            sess.setAttribute("username", accName);
-            sess.setAttribute("rold", password);
-            sess.setAttribute("isauthenticated", isAuthenticated);
+            if (curCust != null) {
+                HttpSession sess = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+                sess.setAttribute("username", accName);
+                sess.setAttribute("rold", password);
+                sess.setAttribute("isauthenticated", isAuthenticated);
+                roleId = curCust.getRoleId().getRoleId();
+                return curCust;
+            }
+        } catch (Exception ex) {
+            printStackTrace();
         }
-
-        return curCust;
+        return null;
     }
 
     public String getAccName() {

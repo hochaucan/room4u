@@ -1,19 +1,36 @@
 $(function () {
 
-   $("#btnLogin2").click(function(){
-        //$('#user_login_modal').modal('toggle');
-        alert("can")
-    });
+
 
 
     setActiveMenu();
     validateFormPostRoom();
     validateFormUserLogin();
     renderRoomImageHomePage();
-    setActiveMenuSidebar()
+    setActiveMenuSidebar();
     validateFormChangePassword();
     validateFormRegisterUser();
 //    cleanModal();
+
+
+
+
+
+    $('#datetimepicker6').datetimepicker();
+    $('#datetimepicker7').datetimepicker({
+        useCurrent: false //Important! See issue #1075
+    });
+    $("#datetimepicker6").on("dp.change", function (e) {
+        $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepicker7").on("dp.change", function (e) {
+        $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+    });
+
+
+
+
+
 
     $('#slider').nivoSlider();
     //Collapse in FAQ page
@@ -39,7 +56,7 @@ function LoginEventHandler(data) {
 
             if (message !== "") {
                 $('#user_login_modal').modal('toggle');
-                //   growlmessage("Đăng nhập thành công!", 350);
+                growlmessage("Đăng nhập thành công!", 350);
                 window.location.reload();
             } else {
                 growlmessage("Tài khoản hoặc mật khẩu không đúng!", 350, "danger");
@@ -361,7 +378,6 @@ function validateFormChangePassword() {
 
 }
 
-// Clean modal when close
 function cleanModal() {
     $(".modal").on('hide.bs.modal', function () {
         $(this).find("#frmPostRoom")[0].reset();
@@ -416,3 +432,5 @@ jQuery.extend(jQuery.validator.messages, {
     max: jQuery.validator.format("Vui lòng nhập giá trị nhỏ hơn hoặc bằng {0}."),
     min: jQuery.validator.format("Vui lòng nhập giá trị lơn hơn hoặc bằng {0}.")
 });
+
+
