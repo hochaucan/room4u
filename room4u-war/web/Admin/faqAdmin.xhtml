@@ -133,22 +133,6 @@
                                 <h4 class="modal-title" id="myModalLabel">Bạn có thật sự muốn xóa FAQ này không?</h4>
                             </div>
                             <h:form id="frmDeleteFAQ" class="form-horizontal" enctype="multipart/form-data" >
-                                <div class="modal-body">
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label for="txtQuestion" class="col-lg-3 control-label">Câu hỏi</label>
-                                            <div class="col-lg-9">
-                                                <h:inputText  id="txtQuestion" value="#{faq.curQ.question}" class="form-control" readonly="true"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="txtAnswer" class="col-lg-3 control-label">Câu trả lời</label>
-                                            <div class="col-lg-9">
-                                                <h:inputTextarea id="txtAnswer" value="#{faq.curQ.answer}" class="form-control" rows="4" readonly="true"/>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                                     <h:commandButton action="#{faq.deleteFAQ()}"  class="btn btn-primary" value="Xóa"/>
