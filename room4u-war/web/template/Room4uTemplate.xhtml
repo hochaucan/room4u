@@ -77,6 +77,7 @@
                             </li>
                             <li>
                                 <h:commandLink rendered="#{customerController.curCust == null}"  p:data-toggle="modal" p:data-target="#user_register_modal">
+                                    <f:ajax execute="@form" render="@form"/>
                                     <span class="glyphicon glyphicon-registration-mark"></span> Đăng ký
                                 </h:commandLink>
                                 <!--<a data-toggle="modal" data-target="#user_register_modal" href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a>-->

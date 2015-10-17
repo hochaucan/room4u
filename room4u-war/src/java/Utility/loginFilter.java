@@ -105,15 +105,15 @@ public class loginFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-
-        HttpSession sess = (HttpSession) req.getSession(false);
-        if (sess.getAttribute("username") == null) {
-            res.sendRedirect(req.getContextPath() + "/");
-        } else {
-            chain.doFilter(request, response);
-        }
+//        HttpServletRequest req = (HttpServletRequest) request;
+//        HttpServletResponse res = (HttpServletResponse) response;
+//
+//        HttpSession sess = (HttpSession) req.getSession(false);
+//        if (sess.getAttribute("username") == null) {
+//            res.sendRedirect(req.getContextPath() + "/");
+//        } else {
+//            chain.doFilter(request, response);
+//        }
 
         // Get the loginBean from session attribute
 //        CustomerController loginBean = (CustomerController) ((HttpServletRequest) request).getSession().getAttribute("isAuthenticated");
