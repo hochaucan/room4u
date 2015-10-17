@@ -32,14 +32,21 @@ public class CustomerFacade extends AbstractFacade<Customer> implements Customer
     }
 
     @Override
-    public boolean checkLogin(String u, String p) {
+    public List<Customer> checkLogin(String u, String p) {
         Query q = em.createQuery("SELECT a FROM Customer a WHERE a.accountCustomer = :u AND a.password = :p");
         q.setParameter("u", u);
         q.setParameter("p", p);
-        return q.getResultList().size() > 0;
-
+        return q.getResultList();
     }
 
+//    @Override
+//    public boolean checkLogin(String u, String p) {
+//        Query q = em.createQuery("SELECT a FROM Customer a WHERE a.accountCustomer = :u AND a.password = :p");
+//        q.setParameter("u", u);
+//        q.setParameter("p", p);
+//        return q.getResultList().size() > 0;
+//
+//    }
 //     @Override
 //    public List<Staff> findByTitle(String name) {
 //        Query q = em.createQuery("SELECT b FROM Staff b WHERE b.name LIKE :name ");

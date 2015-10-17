@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -32,47 +34,65 @@
     </h:head>
 
     <h:body>
+        <h:form>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header ">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
 
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header ">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                        <a class="navbar-brand homepage_logo" href="."> <span class="glyphicon glyphicon-globe" style="margin-right: 10px" aria-hidden="true"></span>Room4U</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                        <ul class="nav navbar-nav">
+                            <!--<li class="active"><a href="#"><img  src="resources/images/logo3.png" alt=""/></a></li>-->
+                            <li><a href="./">Trang chủ <span class="sr-only">(current)</span></a></li>
+                            <li><a href="./aboutus.jsf">Giới thiệu</a></li>
+                            <li><a href="./contact.jsf">Liên hệ</a></li>
+                            <li><a href="./faq.jsf">FAQ</a></li>
+                            <!--<li><a data-toggle="modal" data-target="#userLoginModal"  href="#" >Testing</a></li>-->
+                        </ul>
 
-                    <a class="navbar-brand homepage_logo" href="./"> <span class="glyphicon glyphicon-globe" style="margin-right: 10px" aria-hidden="true"></span>Room4U</a>
+                        <ul class="nav navbar-nav navbar-right homepage_menu_right">
+
+                            <li> 
+                                <h:commandLink action="./profile.jsf" rendered="#{customerController.curCust != null}" >
+                                    Người cho thuê <img src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/> Nick Ho
+                                </h:commandLink>
+                                <!--<a   href="./profile.jsf">Người cho thuê <img src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/> Nick Ho</a>-->
+                            </li>
+                            <li>
+                                <h:commandLink rendered="#{customerController.curCust == null}" p:data-toggle="modal" p:data-target="#user_login_modal" >
+                                    <span class="glyphicon glyphicon-user"></span> Đăng nhập
+                                     <f:ajax execute="@form" render="@form" />
+                                </h:commandLink>
+                                <!--<a data-toggle="modal" data-target="#user_login_modal"  href="#"><span class="glyphicon glyphicon-user"></span> Đăng nhập</a>-->
+                            </li>
+                            <li>
+                                  <h:commandLink rendered="#{customerController.curCust == null}"  p:data-toggle="modal" p:data-target="#user_register_modal">
+                                    <span class="glyphicon glyphicon-registration-mark"></span> Đăng ký
+                                </h:commandLink>
+                                <!--<a data-toggle="modal" data-target="#user_register_modal" href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a>-->
+                            </li>
+                            <li>
+                                <h:commandLink rendered="#{customerController.curCust != null}" action="./Admin/index.jsf">
+                                    <span class="glyphicon glyphicon-cog"></span> Quản lý
+                                </h:commandLink>
+                                <!--<a  href="./Admin/index.jsf"><span class="glyphicon glyphicon-cog"></span> Quản lý</a>-->
+                            </li>
+
+                            <li><h:commandLink rendered="#{customerController.curCust != null}" action="#{customerController.logout()}"><span class="glyphicon glyphicon-log-out"></span> Log out</h:commandLink></li>
+
+
+                        </ul>
+                    </div>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                    <ul class="nav navbar-nav">
-                        <!--<li class="active"><a href="#"><img  src="resources/images/logo3.png" alt=""/></a></li>-->
-                        <li><a href="./">Trang chủ <span class="sr-only">(current)</span></a></li>
-                        <li><a href="./aboutus.jsf">Giới thiệu</a></li>
-                        <li><a href="./contact.jsf">Liên hệ</a></li>
-                        <li><a href="./faq.jsf">FAQ</a></li>
-                        <!--<li><a data-toggle="modal" data-target="#userLoginModal"  href="#" >Testing</a></li>-->
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right homepage_menu_right">
-                        <li style="display: #{customerController.isAuthenticated?'inline':'none'}" > <a  href="./profile.jsf">Người cho thuê <img src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/> Nick Ho</a></li>
-                        <li style="display: #{customerController.isAuthenticated?'none':'inline'}"  ><a data-toggle="modal" data-target="#user_login_modal"  href="#"><span class="glyphicon glyphicon-user"></span> Đăng nhập</a></li>
-                        <li style="display: #{customerController.isAuthenticated?'none':'inline'}"  ><a data-toggle="modal" data-target="#user_register_modal" href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a></li>
-                        <li style="display: #{customerController.isAuthenticated?'inline':'none'}" ><a  href="./Admin/index.jsf"><span class="glyphicon glyphicon-cog"></span> Quản lý</a></li>
-
-                        <li style="display: #{customerController.isAuthenticated?'inline':'none'};margin-top: 22px" >
-                            <h:form>
-                                <h:commandLink style="color:#b2dbfb;" action="#{customerController.logout()}"><span class="glyphicon glyphicon-log-out"></span> Log out</h:commandLink>
-                            </h:form>
-                        </li>
-
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+            </nav>
+        </h:form>
 
         <div class="container">
 

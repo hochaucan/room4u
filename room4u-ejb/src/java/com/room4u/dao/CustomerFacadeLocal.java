@@ -28,7 +28,7 @@ public interface CustomerFacadeLocal {
 
     List<Customer> findRange(int[] range);
 
-    public boolean checkLogin(String u, String p);
+    public List<Customer> checkLogin(String u, String p);
 
     int count();
 

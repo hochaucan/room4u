@@ -21,42 +21,37 @@
     </h:head>
 
     <h:body>
-       
-        
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header ">
 
-                    <a class="navbar-brand homepage_logo" href="..//index.jsf"> <span class="glyphicon glyphicon-globe" style="margin-right: 10px" aria-hidden="true"></span>Room4U</a>
+        <h:form>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header ">
+
+                        <a class="navbar-brand homepage_logo" href="../"> <span class="glyphicon glyphicon-globe" style="margin-right: 10px" aria-hidden="true"></span>Room4U</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                        <ul class="nav navbar-nav">
+                            <!--<li class="active"><a href="#"><img  src="resources/images/logo3.png" alt=""/></a></li>-->
+                            <li class="active   "><a href="./">Dashboard <span class="sr-only">(current)</span></a></li>
+                            <li><h:commandLink action="customer.jsf">Khách hàng <span class="sr-only"></span></h:commandLink></li>
+                            <li><a href="#">Phòng</a></li>
+                            <li><a href="#">Đặt phòng</a></li>
+                            <li><a href="#">Đăng ký phòng</a></li>
+                            <li><a href="#">Bình luận</a></li>
+                            <li><h:commandLink action="faqAdmin.jsf">FAQ</h:commandLink></li>
+
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li >
+                                <h:commandLink rendered="#{customerController.curCust !=null}" action="#{customerController.logout()}"><span class="glyphicon glyphicon-log-out"></span> Log out</h:commandLink>
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                    <ul class="nav navbar-nav">
-                        <!--<li class="active"><a href="#"><img  src="resources/images/logo3.png" alt=""/></a></li>-->
-                        <li class="active   "><a href="./">Dashboard <span class="sr-only">(current)</span></a></li>
-                        <li><a href="./customer.jsf">Khách hàng <span class="sr-only"></span></a></li>
-                        <li><a href="#">Phòng</a></li>
-                        <li><a href="#">Đặt phòng</a></li>
-                        <li><a href="#">Đánh giá</a></li>
-                        <li><a href="#">Báo cáo</a></li>
-                        <li><a href="./faqAdmin.jsf">FAQ</a></li>
-
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <!--                        <li ><a data-toggle="modal" data-target="#myModal"  href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a></li>
-                                                <li ><a data-toggle="modal" data-target="#myModal"  href="#"><span class="glyphicon glyphicon-user"></span> Đăng nhập</a></li>
-                                                <li ><a  href="#"><span class="glyphicon glyphicon-question-sign"></span> Quên mật khẩu</a></li>-->
-                        <!--                        <li ><a  href=""><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>-->
-                        <li style="display: #{customerController.isAuthenticated?'inline':'none'};margin-top: 22px" >
-                            <h:form>
-                                <h:commandLink style="color:#b2dbfb;" action="#{customerController.logout()}"><span class="glyphicon glyphicon-log-out"></span> Log out</h:commandLink>
-                            </h:form>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
+            </nav>
+        </h:form>
         <div id="top" class="top">
             <ui:insert name="top"></ui:insert>
         </div>

@@ -12,8 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -45,11 +43,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
     @NamedQuery(name = "Customer.findByImages", query = "SELECT c FROM Customer c WHERE c.images = :images"),
     @NamedQuery(name = "Customer.findByRegisterDate", query = "SELECT c FROM Customer c WHERE c.registerDate = :registerDate"),
-    @NamedQuery(name = "Customer.findByNotified", query = "SELECT c FROM Customer c WHERE c.notified = :notified")})
+    @NamedQuery(name = "Customer.findByNotified", query = "SELECT c FROM Customer c WHERE c.notified = :notified"),
+    @NamedQuery(name = "Customer.findByIsActived", query = "SELECT c FROM Customer c WHERE c.isActived = :isActived")})
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "CustId")
@@ -94,6 +92,8 @@ public class Customer implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "Notified")
     private String notified;
+    @Column(name = "IsActived")
+    private Boolean isActived;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "custID")
     private List<Order1> order1List;
     @JoinColumn(name = "RoleId", referencedColumnName = "RoleId")
@@ -196,6 +196,14 @@ public class Customer implements Serializable {
 
     public void setNotified(String notified) {
         this.notified = notified;
+    }
+
+    public Boolean getIsActived() {
+        return isActived;
+    }
+
+    public void setIsActived(Boolean isActived) {
+        this.isActived = isActived;
     }
 
     @XmlTransient

@@ -1,28 +1,9 @@
 $(function () {
 
-    // Bootstrap Glowl Message
-    // $.bootstrapGrowl("Welcome to Room4U.", {type: "success"});
-//    
-//    setTimeout(function() {
-//        $.bootstrapGrowl("This is another test.", { type: 'success' });
-//    }, 1000);
-//    
-//    setTimeout(function() {
-//        $.bootstrapGrowl("Danger, Danger!", {
-//            type: 'danger',
-//            align: 'center',
-//            width: 'auto',
-//            allow_dismiss: false
-//        });
-//    }, 2000);
-//    
-//    setTimeout(function() {
-//        $.bootstrapGrowl("Danger, Danger!", {
-//            type: 'info',
-//            align: 'left',
-//            stackup_spacing: 30
-//        });
-//    }, 3000);
+   $("#btnLogin2").click(function(){
+        //$('#user_login_modal').modal('toggle');
+        alert("can")
+    });
 
 
     setActiveMenu();
@@ -32,16 +13,13 @@ $(function () {
     setActiveMenuSidebar()
     validateFormChangePassword();
     validateFormRegisterUser();
-
 //    cleanModal();
-
 
     $('#slider').nivoSlider();
     //Collapse in FAQ page
     //$('.collapse').collapse()
 
 });
-
 
 function LoginEventHandler(data) {
     //prependId="false" for <h:form>
@@ -59,9 +37,9 @@ function LoginEventHandler(data) {
         case "success": // After update of HTML DOM based on ajax response..
             var message = $("#frmUserLogin\\:txtLoginResult").text();
 
-            if (message === "true") {
+            if (message !== "") {
                 $('#user_login_modal').modal('toggle');
-                //growlmessage("Đăng nhập thành công!", 350);
+                //   growlmessage("Đăng nhập thành công!", 350);
                 window.location.reload();
             } else {
                 growlmessage("Tài khoản hoặc mật khẩu không đúng!", 350, "danger");

@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,6 +30,15 @@ public class CustomerController {
     private String password;
     private String mail;
     private boolean isAuthenticated = false;
+    private Customer curCust = null;
+
+    public Customer getCurCust() {
+        return curCust;
+    }
+
+    public void setCurCust(Customer curCust) {
+        this.curCust = curCust;
+    }
 
     public boolean isIsAuthenticated() {
         return isAuthenticated;
@@ -57,8 +67,12 @@ public class CustomerController {
 
     public String logout() {
         isAuthenticated = false;
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/index";
+        // Clear session
+        HttpSession sess = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        sess.invalidate();
+
+        // FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index";
     }
 
     public String createUser() {
@@ -108,9 +122,19 @@ public class CustomerController {
         return "index";
     }
 
-    public boolean checkLogin() {
-        isAuthenticated = customerFacade.checkLogin(accName, password);
-        return isAuthenticated;
+    public Customer checkLogin() {
+
+        List<Customer> customers = customerFacade.checkLogin(accName, password);
+        curCust = customers.size() > 0 ? customers.get(0) : null;
+
+        if (curCust != null) {
+            HttpSession sess = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            sess.setAttribute("username", accName);
+            sess.setAttribute("rold", password);
+            sess.setAttribute("isauthenticated", isAuthenticated);
+        }
+
+        return curCust;
     }
 
     public String getAccName() {
