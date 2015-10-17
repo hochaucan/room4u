@@ -101,42 +101,7 @@
                             <h:form id="frmUpdateFAQ" class="form-horizontal" enctype="multipart/form-data" >
                                 <div class="modal-body">
                                     <fieldset>
-                                         <h:dataTable value="#{faq.questions}" var="item" class="table table-bordred table-striped">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="STT"/>
-                                </f:facet>
-                                <h:outputText value="#{item.id}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Câu hỏi"/>
-                                </f:facet>
-                                <h:outputText value="#{item.question}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Câu trả lời"/>
-                                </f:facet>
-                                <h:outputText value="#{item.answer}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Ngày chỉnh sửa gần nhất"/>
-                                </f:facet>
-                                <h:outputText value="#{item.date}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:outputText>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Chức năng"/>
-                                </f:facet>
-                                <a class="btn btn-primary"  data-toggle="modal" data-target="#FAQEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                <a class="btn btn-primary"  data-toggle="modal" data-target="#FAQDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                            </h:column>
-                        </h:dataTable>
-                                        <div class="form-group">
+                                         <div class="form-group">
                                             <label for="txtQuestion" class="col-lg-3 control-label">Câu hỏi</label>
                                             <div class="col-lg-9">
                                                 <h:inputText  id="txtQuestion" value="#{faq.curQ.question}" class="form-control" />
