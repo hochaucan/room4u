@@ -10,51 +10,55 @@
         <ui:composition template="./../template/AdminTemplate.xhtml">
 
             <ui:define name="top">
-                Danh sách câu hỏi thường gặp
+
             </ui:define>
 
             <ui:define name="content">
-                <f:view>
-                    <h:form>
-                        <h:dataTable value="#{faq.questions}" var="item" class="table table-bordred table-striped">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="STT"/>
-                                </f:facet>
-                                <h:outputText value="#{item.id}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Câu hỏi"/>
-                                </f:facet>
-                                <h:outputText value="#{item.question}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Câu trả lời"/>
-                                </f:facet>
-                                <h:outputText value="#{item.answer}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Ngày chỉnh sửa gần nhất"/>
-                                </f:facet>
-                                <h:outputText value="#{item.date}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:outputText>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Chức năng"/>
-                                </f:facet>
-                                <a class="btn btn-primary"  data-toggle="modal" data-target="#FAQEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                <a class="btn btn-primary"  data-toggle="modal" data-target="#FAQDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                            </h:column>
-                        </h:dataTable>
-                        <a class="btn btn-primary"  data-toggle="modal" data-target="#FAQAdd" ><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
-                    </h:form>
-                </f:view>
-                
+                <div class="container">
+                    <f:view>
+                        <legend> Danh sách câu hỏi thường gặp</legend>
+
+                        <h:form>
+                            <a class="btn btn-primary" style="float:right"  data-toggle="modal" data-target="#FAQAdd" ><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
+                            <h:dataTable value="#{faq.questions}" var="item" class="table table-bordred table-striped">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="STT"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Câu hỏi"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.question}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Câu trả lời"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.answer}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Ngày chỉnh sửa gần nhất"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.date}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Chức năng"/>
+                                    </f:facet>
+                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#FAQEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#FAQDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                </h:column>
+                            </h:dataTable>
+
+                        </h:form>
+                    </f:view>
+                </div>
                 <!--Add new FAQ model-->
                 <div class="modal fade" id="FAQAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
@@ -89,7 +93,7 @@
                     </div>
                 </div>
 
-                
+
                 <!--Update FAQ model-->
                 <div class="modal fade" id="FAQEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
@@ -101,7 +105,7 @@
                             <h:form id="frmUpdateFAQ" class="form-horizontal" enctype="multipart/form-data" >
                                 <div class="modal-body">
                                     <fieldset>
-                                         <div class="form-group">
+                                        <div class="form-group">
                                             <label for="txtQuestion" class="col-lg-3 control-label">Câu hỏi</label>
                                             <div class="col-lg-9">
                                                 <h:inputText  id="txtQuestion" value="#{faq.curQ.question}" class="form-control" />
@@ -123,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Delete FAQ model-->
                 <div class="modal fade" id="FAQDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">

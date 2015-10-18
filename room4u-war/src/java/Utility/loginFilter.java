@@ -105,6 +105,7 @@ public class loginFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
 
+        
 //        HttpServletRequest req = (HttpServletRequest) request;
 //        HttpServletResponse res = (HttpServletResponse) response;
 //
@@ -114,6 +115,8 @@ public class loginFilter implements Filter {
 //        } else {
 //            chain.doFilter(request, response);
 //        }
+        
+        
 
         // Get the loginBean from session attribute
 //        CustomerController loginBean = (CustomerController) ((HttpServletRequest) request).getSession().getAttribute("isAuthenticated");

@@ -35,6 +35,20 @@ html, body {
     /*width: 100%;*/
     margin: 0 auto;
 }
+.bookRoom lable{
+    /*text-align: right;*/
+    padding-left: 0px;
+    margin-top: 8px;
+}
+.roomdetai_info span img{
+    width: 25px;
+    margin-right: 5px;
+}
+.roomdetai_info span{
+    width: 85px;
+    float: right;
+}
+
 .homepage_box{
     /* padding:0px; */
     /*height: 300px;*/
@@ -119,6 +133,12 @@ html, body {
 .profileImage{
     text-align: center;
 }
+.roomdetail_description{
+    margin-top:20px;
+}
+#street-view{
+    height: 17.6em!important;
+}
 
 @media (max-width:768px) {
     .homepage_box .panel-body img{
@@ -130,7 +150,16 @@ html, body {
     }
     .homepage_box .panel-body span {
         padding: 5px;
-    }}
+    }
+    .roomdetai_info{
+        margin: 15px 0px;
+        padding-left: 0px;
+    }
+    .roomdetai_info span {
+        /*width: 80px;*/
+        float: left;
+    }
+}
 //====================================
 //Begin | Form Dang Ky & Dang Nhap
 * {

@@ -10,22 +10,16 @@ $(function () {
     setActiveMenuSidebar();
     validateFormChangePassword();
     validateFormRegisterUser();
+    getBookRoomDateRange();
+    roomRating();
+
 //    cleanModal();
 
 
 
 
 
-    $('#datetimepicker6').datetimepicker();
-    $('#datetimepicker7').datetimepicker({
-        useCurrent: false //Important! See issue #1075
-    });
-    $("#datetimepicker6").on("dp.change", function (e) {
-        $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-    });
-    $("#datetimepicker7").on("dp.change", function (e) {
-        $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-    });
+
 
 
 
@@ -37,6 +31,36 @@ $(function () {
     //$('.collapse').collapse()
 
 });
+
+function roomRating() {
+    $(".auto-submit-star").rating({
+        callback: function (value, link) {
+            // 'this' is the hidden form element holding the current value
+            // 'value' is the value selected
+            // 'element' points to the link element that received the click.
+            alert("The value selected was '" + value + "'\n\nWith this callback function I can automatically submit the form with this code:\nthis.form.submit();");
+
+            // To submit the form automatically:
+            //this.form.submit();
+
+            // To submit the form via ajax:
+            //$(this.form).ajaxSubmit();
+        }
+    });
+}
+
+function getBookRoomDateRange() {
+    $('#dtpBookFrom').datetimepicker();
+    $('#dtpBookTo').datetimepicker({
+        useCurrent: false //Important! See issue #1075
+    });
+    $("#dtpBookFrom").on("dp.change", function (e) {
+        $('#dtpBookTo').data("DateTimePicker").minDate(e.date);
+    });
+    $("#dtpBookTo").on("dp.change", function (e) {
+        $('#dtpBookFrom').data("DateTimePicker").maxDate(e.date);
+    });
+}
 
 function LoginEventHandler(data) {
     //prependId="false" for <h:form>

@@ -17,7 +17,7 @@
         <h:outputScript name="./js/Chart.min.js"></h:outputScript>
         <h:outputScript name="./js/chartjs-custom.js"></h:outputScript>
         <h:outputScript name="./js/js_custom.js"></h:outputScript>
-        <title>Facelets Template</title>
+        <title><ui:insert name="title"/></title>
     </h:head>
 
     <h:body>
@@ -34,10 +34,10 @@
                             <!--<li class="active"><a href="#"><img  src="resources/images/logo3.png" alt=""/></a></li>-->
                             <li class="active   "><a href="./">Dashboard <span class="sr-only">(current)</span></a></li>
                             <li><h:commandLink action="customer.jsf">Khách hàng <span class="sr-only"></span></h:commandLink></li>
-                            <li><a href="#">Phòng</a></li>
-                            <li><a href="#">Đặt phòng</a></li>
-                            <li><a href="#">Đăng ký phòng</a></li>
-                            <li><a href="#">Bình luận</a></li>
+                            <li><a href="room.jsf">Phòng</a></li>
+                            <li><a href="bookedroom.jsf">Đặt phòng</a></li>
+                            <li><a href="registedroom.jsf">Đăng ký phòng</a></li>
+                            <li><a href="comment.jsf">Bình luận</a></li>
                             <li><h:commandLink action="faqAdmin.jsf">FAQ</h:commandLink></li>
 
                         </ul>

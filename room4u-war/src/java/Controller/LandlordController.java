@@ -9,6 +9,8 @@ import ViewModel.RoomImage;
 import com.google.gson.Gson;
 import com.room4u.dao.AccommodationFacadeLocal;
 import com.room4u.dao.CustomerFacadeLocal;
+import com.room4u.dao.Order1FacadeLocal;
+import com.room4u.dao.OrderDetailFacadeLocal;
 
 import com.room4u.model.Accommodation;
 import com.room4u.model.Customer;
@@ -45,9 +47,9 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class LandlordController {
 
-    @Inject
-    Logger log;
 
+    //@Inject
+    // Logger log;
     @EJB
     private CustomerFacadeLocal customerFacade;
 
@@ -321,4 +323,6 @@ public class LandlordController {
         }
         return null;
     }
+
+  
 }
