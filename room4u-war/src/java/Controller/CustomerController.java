@@ -80,8 +80,8 @@ public class CustomerController {
         // Clear session
 //        HttpSession sess = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 //        sess.invalidate();
-
-         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        curCust = null;
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "index";
     }
 

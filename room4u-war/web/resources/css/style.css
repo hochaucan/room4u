@@ -41,16 +41,18 @@ html, body {
     margin-top: 8px;
 }
 .roomdetai_info span img{
-    width: 25px;
+    width: 22px;
     margin-right: 5px;
+    margin-top:-5px;
 }
 .roomdetai_info span{
     width: 85px;
-    float: right;
+    float: left;
+    pading:0px!important;
 }
-.alert-success{
-    background-color: #0c84e4!important;
-    opacity: 0.8;
+.alert-info{
+    /*background-color: #0c84e4!important;*/
+    opacity: 0.9;
 }
 .homepage_box{
     /* padding:0px; */

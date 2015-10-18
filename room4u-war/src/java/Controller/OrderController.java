@@ -15,9 +15,10 @@ import javax.faces.bean.SessionScoped;
  *
  * @author NickHo
  */
-@ManagedBean
+@ManagedBean(name = "order")
 @SessionScoped
 public class OrderController {
+
     @EJB
     private OrderDetailFacadeLocal orderDetailFacade;
     @EJB
@@ -28,8 +29,8 @@ public class OrderController {
      */
     public OrderController() {
     }
-    
-    public void bookRoom(){
-    
+
+    public void bookRoom() {
+
     }
 }

@@ -22,6 +22,8 @@ $(function () {
 
 });
 
+
+
 function roomRating() {
     $(".auto-submit-star").rating({
         callback: function (value, link) {
@@ -52,6 +54,34 @@ function getBookRoomDateRange() {
     });
 }
 
+function checkUserLogin(data) {
+    //prependId="false" for <h:form>
+
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmUserLogin\\:txtLoginResult").text();
+
+            if (message !== "") {
+               // $('#user_login_modal').modal('toggle');
+                growlmessage("Đặt phòng thành công!", 350,"info");
+                //window.location.reload();
+            } else {
+                growlmessage("Bạn vui lòng đăng nhập!", 350, "info");
+            }
+            break;
+    }
+
+}
+
 function LoginEventHandler(data) {
     //prependId="false" for <h:form>
 
@@ -80,10 +110,10 @@ function LoginEventHandler(data) {
 
 }
 
-function registerRoom(){
-     $("#user_register_room_modal").modal('toggle');
-    growlmessage('Đăng ký phòng thành công', 350, 'success');
-   
+function registerRoom() {
+    $("#user_register_room_modal").modal('toggle');
+    growlmessage('Đăng ký phòng thành công', 350, 'info');
+
 }
 function growlmessage(message, width, messageType) {
     $.bootstrapGrowl(message, {
