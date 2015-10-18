@@ -60,6 +60,99 @@
             <ui:insert name="content">Content</ui:insert>
         </div>
 
+        <!--Modal Edit-->
+        <div class="modal fade" id="customerEdit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title custom_align" id="Heading">Cập nhật thông tin tài khoản</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive col-md-12">
+                            <f:view>
+                                <h:form class="form-horizontal">
+                                    <legend></legend>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-md-3 control-label">Mã KH</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" id="inputEmail" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-md-3 control-label">Tên KH</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" id="inputEmail" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-md-3 control-label">Điện thoại</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" id="inputEmail" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-md-3 control-label">Ngày ĐK</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" id="inputEmail" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-md-3 control-label">Loại TK</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" id="inputEmail" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group" align="right">
+                                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span> Cập nhật</button>
+                                    </div>
+                                </h:form>
+                            </f:view>
+                        </div>
+                        <!--<div class="form-group">
+                            <input class="form-control " type="text" placeholder="User1"></input>
+                        </div>
+                        <div class="form-group">
+
+                            <input class="form-control " type="text" placeholder="0909123111"></input>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="2" class="form-control" placeholder="Q1, Tp.HCM"></textarea>
+                        </div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span> Cập nhật</button>-->
+                    </div>
+                </div>
+                <!-- /.modal-content --> 
+            </div>
+            <!-- /.modal-dialog --> 
+        </div>
+
+        <!--Modal delete-->
+        <div class="modal fade" id="customerDelete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form class="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa tài khoản</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa tài khoản này?</div>
+                        </div>
+                        <div class="modal-footer " style="text-align: right">
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                            <button type="button" class="btn btn-primary" ><span class="glyphicon glyphicon-ok-sign"></span> Xác nhận</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content --> 
+            </div>
+            <!-- /.modal-dialog --> 
+        </div>
+
     </h:body>
 
 </html>
