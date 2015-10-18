@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
@@ -13,7 +14,7 @@
             </ui:define>
 
             <ui:define name="content">
-                <div class="row">
+                <div class="row" style="margin-top: 0px">
                     <div class="col-md-3">
                         <div class="list-group">
                             <div class="panel panel-default">
@@ -42,7 +43,79 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="tab-pane fade active in" id="personalInfo">
-                                    <p>Can Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                                    <legend>Thông tin cá nhân</legend>
+                                    <h:form id="frmUserUpdate" class="form-horizontal" enctype="multipart/form-data" >
+                                        <div class="modal-body">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <label for="txtCustName" class="col-lg-3 control-label">Tên bạn</label>
+                                                    <div class="col-lg-9">
+                                                        <h:inputText id="txtCustName" value="#{customerController.c.custName}" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txtCustAccount" class="col-lg-3 control-label">Tên đăng nhập</label>
+                                                    <div class="col-lg-9">
+                                                        <h:inputText id="txtCustAccount" autocomplete="false"  value="#{customerController.c.accountCustomer}" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txtCustPass" class="col-lg-3 control-label">Mật khẩu</label>
+                                                    <div class="col-lg-9">
+                                                        <h:inputSecret id="txtCustPass"  value="#{customerController.c.password}" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txtCustEmail" class="col-lg-3 control-label">Email</label>
+                                                    <div class="col-lg-9">
+                                                        <h:inputText id="txtCustEmail"  value="#{customerController.c.email}" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txtCustPhone" class="col-lg-3 control-label">Điện thoại</label>
+                                                    <div class="col-lg-9">
+                                                        <h:inputText id="txtCustPhone"  value="#{customerController.c.phone}" class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="role" class="col-lg-3 control-label">Vai trò</label>
+                                                    <div class="col-lg-9">
+                                                        <!--<h:inputText id="role"  value="#{customerController.c.roleId}" class="form-control" />-->
+                                                        <h:selectOneMenu value="Cream Latte" class="">
+                                                            <f:selectItem itemValue="Cream Latte" itemLabel="Coffee3 - Cream Latte" />
+                                                            <f:selectItem itemValue="Extreme Mocha" itemLabel="Coffee3 - Extreme Mocha" />
+                                                            <f:selectItem itemValue="Buena Vista" itemLabel="Coffee3 - Buena Vista" />
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
+                                                    <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
+                                                    <div class="col-lg-9">
+                                                        <h:inputFile  id="fileCustThumbnail"  ></h:inputFile>
+
+                                                    </div>
+                                                </div>
+
+
+
+                                                <!--                                        <h:commandButton value="Welcome Me">
+                                                                                            <f:ajax execute="name pass"  render="output" />
+                                                                                            
+                                                                                        </h:commandButton>
+                                                                                        <h2><h:outputText id="output" value="#{customerController.testingAjax()}" /></h2>	-->
+
+
+                                            </fieldset>
+                                        </div>
+                                        <div class="modal-footer">
+<!--                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>-->
+                                            <h:commandButton action="#{customerController.createUser()}"  class="btn btn-primary" value="Cập nhật"/>
+                                        </div>
+                                    </h:form>
+
+
                                 </div>
                                 <div class="tab-pane fade active " id="personalPass">
                                     <h:form id="frmChangePassword" class="form-horizontal">
@@ -78,12 +151,17 @@
                                     </h:form>
                                 </div>
                                 <div class="tab-pane fade active " id="orderedRoom">
+                                    <legend>Danh sách phòng đã đặt</legend>
                                     <table class="table table-responsive table-hover ">
                                         <thead>
                                             <tr>
-                                                <th>STT</th>
+                                                <th>Số TT</th>
+                                                <th>Số hóa đơn</th>
                                                 <th>Hình</th>
                                                 <th>Tên phòng</th>
+                                                <th>Địa chỉ</th>
+                                                <th>Tình trạng</th>
+
                                                 <th>Ngày đặt</th>
                                             </tr>
                                         </thead>
@@ -93,55 +171,109 @@
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
+
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>3</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
                                             </tr>
                                             <tr >
                                                 <td>4</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
                                             </tr>
                                             <tr >
                                                 <td>5</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>6</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
+
                                             </tr>
                                             <tr >
                                                 <td>7</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>Column content</td>
+
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
+
                                             </tr>
                                         </tbody>
                                     </table> 
                                 </div>
                                 <div class="tab-pane fade active " id="yourPostedRoom">
-
+                                    <legend>Danh sách phòng của bạn</legend>
                                     <table class="table table-responsive table-hover ">
                                         <thead>
                                             <tr>
                                                 <th>STT</th>
                                                 <th>Hình</th>
                                                 <th>Tên phòng</th>
-                                                <th>Ngày đặt</th>
+                                                <th>Địa chỉ</th>
+
+                                                <th>Ngày đăng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -150,42 +282,94 @@
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
+
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>3</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
                                             </tr>
                                             <tr >
                                                 <td>4</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
                                             </tr>
                                             <tr >
                                                 <td>5</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>6</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
+
                                             </tr>
                                             <tr >
                                                 <td>7</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
                                                 <td>Column content</td>
+                                                <td>Column content</td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </td>
+
                                             </tr>
                                         </tbody>
                                     </table> 
