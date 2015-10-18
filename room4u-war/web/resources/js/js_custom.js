@@ -1,6 +1,6 @@
 $(function () {
     SetActiveMenu();
-   // alert(window.location.href.replace("Admin", ""));
+    // alert(window.location.href.replace("Admin", ""));
 });
 //Google Map API
 // In the following example, markers appear when the user clicks on the map.
@@ -14,7 +14,7 @@ function SetActiveMenu() {
 
     $(".nav a").each(function () {
         $(this).click(function () {
-            if (this.href == window.location.href.replace("Admin","")) {
+            if (this.href == window.location.href.replace("Admin", "")) {
                 // $(this).closest("li").removeClass()("active");
                 $(this).closest("li").addClass("active");
             }
@@ -29,6 +29,7 @@ var markers = [];
 var panorama;
 var long = -122.254811, lat = 37.869260;
 var curLong, curLat;
+var image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
 function initMap() {
 
     // Initialize Map
@@ -49,6 +50,8 @@ function initMap() {
             curLong = position.coords.longitude;
             curLat = position.coords.latitude;
 
+            //getLongAddressBaseOnLngLat("(" + position.coords.latitude + "," + position.coords.longitude + ")");
+
             infoWindow.setPosition(pos);
             infoWindow.setContent('Your current location.');
             map.setCenter(pos);
@@ -63,12 +66,14 @@ function initMap() {
 
     // This event listener will call addMarker() when the map is clicked.
     map.addListener('click', function (event) {
-         deleteMarkers();
+        deleteMarkers();
         addMarker(event.latLng);
         // alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
         long = event.latLng.lng();
         lat = event.latLng.lat();
         //alert(long+" " +lat)
+
+        // Click to see Street View
         panorama = new google.maps.StreetViewPanorama(
                 document.getElementById('street-view'),
                 {
@@ -76,7 +81,11 @@ function initMap() {
                     pov: {heading: 165, pitch: 0},
                     zoom: 1
                 });
+
+        getLongAddressBaseOnLngLat(event.latLng);
     });
+
+
 
 //Street View
     panorama = new google.maps.StreetViewPanorama(
@@ -94,6 +103,28 @@ function initMap() {
     });
 }
 
+function getLongAddressBaseOnLngLat(lngLat) {
+
+    // Get address base on Lat and Lng
+    var geocoder = new google.maps.Geocoder();
+    //alert("can")
+    geocoder.geocode({
+        "latLng": lngLat
+    }, function (results, status) {
+        console.log(results, status);
+        if (status == google.maps.GeocoderStatus.OK) {
+            console.log(results);
+            var lat = results[0].geometry.location.lat(),
+                    lng = results[0].geometry.location.lng(),
+                    placeName = results[0].address_components[0].long_name,
+                    latlng = new google.maps.LatLng(lat, lng);
+
+            var radius = $("#sltRadius").val();
+            $("#homepage_registerroom_info").html("Bạn muốn đăng ký phòng trong vòng bán kính <strong>" + radius + " Km</strong> từ vị trí</br><strong>"
+                    + results[0].formatted_address + "</strong>?");
+        }
+    });
+}
 
 function distanceService(radius) {
     deleteMarkers();
@@ -176,7 +207,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function addMarker(location) {
     var marker = new google.maps.Marker({
         position: location,
-        map: map
+        map: map,
+        icon: image
     });
     markers.push(marker);
 }

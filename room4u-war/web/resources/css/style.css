@@ -48,7 +48,10 @@ html, body {
     width: 85px;
     float: right;
 }
-
+.alert-success{
+    background-color: #0c84e4!important;
+    opacity: 0.8;
+}
 .homepage_box{
     /* padding:0px; */
     /*height: 300px;*/

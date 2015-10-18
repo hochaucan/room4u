@@ -16,16 +16,6 @@ $(function () {
 //    cleanModal();
 
 
-
-
-
-
-
-
-
-
-
-
     $('#slider').nivoSlider();
     //Collapse in FAQ page
     //$('.collapse').collapse()
@@ -90,6 +80,11 @@ function LoginEventHandler(data) {
 
 }
 
+function registerRoom(){
+     $("#user_register_room_modal").modal('toggle');
+    growlmessage('Đăng ký phòng thành công', 350, 'success');
+   
+}
 function growlmessage(message, width, messageType) {
     $.bootstrapGrowl(message, {
         ele: 'body', // which element to append to
