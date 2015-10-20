@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import com.room4u.dao.Order1FacadeLocal;
+import com.room4u.dao.OrderRoomFacadeLocal;
 import com.room4u.dao.OrderDetailFacadeLocal;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +22,7 @@ public class OrderController {
     @EJB
     private OrderDetailFacadeLocal orderDetailFacade;
     @EJB
-    private Order1FacadeLocal order1Facade;
+    private OrderRoomFacadeLocal order1Facade;
 
     /**
      * Creates a new instance of OrderController
@@ -30,7 +30,11 @@ public class OrderController {
     public OrderController() {
     }
 
-    public void bookRoom() {
+    public boolean bookRoom() {
 
+        
+        return true;
     }
+    
+    
 }

@@ -8,18 +8,26 @@ package Controller;
 import ViewModel.RoomImage;
 import com.google.gson.Gson;
 import com.room4u.dao.AccommodationFacadeLocal;
+import com.room4u.dao.CommentsFacadeLocal;
 import com.room4u.dao.CustomerFacadeLocal;
-import com.room4u.dao.Order1FacadeLocal;
+import com.room4u.dao.OrderRoomFacadeLocal;
 import com.room4u.dao.OrderDetailFacadeLocal;
 
 import com.room4u.model.Accommodation;
+import com.room4u.model.Comments;
 import com.room4u.model.Customer;
 
+import com.room4u.model.OrderDetail;
+import com.room4u.model.OrderRoom;
+
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
+import com.sun.org.apache.xerces.internal.impl.dv.xs.DecimalDV;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -47,6 +55,13 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class LandlordController {
 
+    @EJB
+    private OrderDetailFacadeLocal orderDetailFacade;
+    @EJB
+    private OrderRoomFacadeLocal order1Facade;
+
+    @EJB
+    private CommentsFacadeLocal commentsFacade;
 
     //@Inject
     // Logger log;
@@ -99,6 +114,15 @@ public class LandlordController {
     private List<String> roomImageFileNames;
     private Accommodation curAccom;
     private String slider1, slider2, slider3;
+    private int commentsCount;
+
+    public int getCommentsCount() {
+        return commentsCount;
+    }
+
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
+    }
 
     public Accommodation getCurAccom() {
         return curAccom;
@@ -206,21 +230,52 @@ public class LandlordController {
     }
 
     public String displayRoomDetail(int id) {
+        try {
+            Accommodation accom = accommodationFacade.find(id);
+            if (accom != null) {
+                curAccom = new Accommodation();
+                curAccom.setAccomName(accom.getAccomName());
+                curAccom.setDescription(accom.getDescription());
+                curAccom.setPrice(accom.getPrice());
+                curAccom.setAccomId(id);
+                curAccom.setNoOfBed(accom.getNoOfBed());
+                curAccom.setNoOfPersons(accom.getNoOfPersons());
+                curAccom.setNoOfToilet(accom.getNoOfToilet());
+                curAccom.setCustId(customerFacade.find(1));
 
-        Accommodation accom = accommodationFacade.find(id);
-        if (accom != null) {
-            curAccom = new Accommodation();
-            curAccom.setAccomName(accom.getAccomName());
-            curAccom.setDescription(accom.getDescription());
-            Gson gson = new Gson();
-            RoomImage roomImage = gson.fromJson(accom.getImages(), RoomImage.class);
-            // curAccom.setImages(accom.getImages());
-            slider1 = roomImage.getSlider1();
-            slider2 = roomImage.getSlider2();
-            slider3 = roomImage.getSlider3();
+                List<Comments> commentsCount = commentsFacade.findCommentsByAccomId(id);// != null ? commentsFacade.findCommentsByAccomId(id).size() : 0;
+                Gson gson = new Gson();
+                RoomImage roomImage = gson.fromJson(accom.getImages(), RoomImage.class);
+                // curAccom.setImages(accom.getImages());
+                slider1 = roomImage.getSlider1();
+                slider2 = roomImage.getSlider2();
+                slider3 = roomImage.getSlider3();
+            }
+        } catch (Exception ex) {
+            printStackTrace();
+        }
+        return "roomdetail";
+    }
+
+    public boolean bookRoom() {
+
+        try {
+            OrderRoom order = new OrderRoom();
+        //    OrderDetail orderDetail = new OrderDetail();
+            order.setOrderId(1);
+            order.setCustID(curAccom.getCustId());
+            order.setTotalPrice(new BigDecimal(curAccom.getPrice(), MathContext.DECIMAL64));
+            order.setOrderDate(new Date());
+            order.setStatus("Đã đặt phòng");
+            order1Facade.create(order);
+            return true;
+            
+        } catch (Exception ex) {
+            printStackTrace();
+            return false;
         }
 
-        return "roomdetail";
+        // return true;
     }
 
     public String createRoom() {
@@ -324,5 +379,4 @@ public class LandlordController {
         return null;
     }
 
-  
 }

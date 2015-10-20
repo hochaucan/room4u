@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -46,8 +48,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByNotified", query = "SELECT c FROM Customer c WHERE c.notified = :notified"),
     @NamedQuery(name = "Customer.findByIsActived", query = "SELECT c FROM Customer c WHERE c.isActived = :isActived")})
 public class Customer implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "CustId")
@@ -95,7 +99,7 @@ public class Customer implements Serializable {
     @Column(name = "IsActived")
     private Boolean isActived;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "custID")
-    private List<Order1> order1List;
+    private List<OrderRoom> orderRoomList;
     @JoinColumn(name = "RoleId", referencedColumnName = "RoleId")
     @ManyToOne(optional = false)
     private UserRole roleId;
@@ -207,12 +211,12 @@ public class Customer implements Serializable {
     }
 
     @XmlTransient
-    public List<Order1> getOrder1List() {
-        return order1List;
+    public List<OrderRoom> getOrderRoomList() {
+        return orderRoomList;
     }
 
-    public void setOrder1List(List<Order1> order1List) {
-        this.order1List = order1List;
+    public void setOrderRoomList(List<OrderRoom> orderRoomList) {
+        this.orderRoomList = orderRoomList;
     }
 
     public UserRole getRoleId() {
@@ -283,5 +287,5 @@ public class Customer implements Serializable {
     public String toString() {
         return "com.room4u.model.Customer[ custId=" + custId + " ]";
     }
-    
+
 }

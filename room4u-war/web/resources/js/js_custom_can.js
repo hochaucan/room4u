@@ -67,7 +67,7 @@ function checkUserLogin(data) {
         case "success": // After update of HTML DOM based on ajax response..
             var message = $("#frmUserLogin\\:txtLoginResult").text();
 
-            if (message !== "") {
+            if (message == "true") {
                 // $('#user_login_modal').modal('toggle');
                 growlmessage("Đặt phòng thành công!", 350, "info");
                 //window.location.reload();

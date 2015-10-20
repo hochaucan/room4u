@@ -28,6 +28,8 @@ public interface CommentsFacadeLocal {
 
     List<Comments> findRange(int[] range);
 
+    List<Comments> findCommentsByAccomId(int AccomId);
+
     int count();
-    
+
 }

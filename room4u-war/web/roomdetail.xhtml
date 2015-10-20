@@ -75,9 +75,9 @@
                             <div class="panel-body">
 
                                 <div class="row">
-                                    <div class="col-md-4 col-xs-12">
-                                        <label class="col-md-4 col-xs-4" style="padding: 0px">Đánh giá</label> 
-                                        <div class="Clear col-md-5 col-xs-5">
+                                    <div class="col-md-3 col-xs-12">
+                                        <label class="col-md-4 col-xs-4" style="padding: 0px;width:75px">Đánh giá</label> 
+                                        <div class="Clear col-md-8 col-xs-8">
 
                                             <input class="auto-submit-star" type="radio" name="test-3A-rating-1" value="1"/>
                                             <input class="auto-submit-star" type="radio" name="test-3A-rating-1" value="2" checked="checked"/>
@@ -86,24 +86,28 @@
                                             <input class="auto-submit-star" type="radio" name="test-3A-rating-1" value="5"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-xs-12 roomdetai_info">
+                                    <div class="col-md-4 col-xs-12 roomdetai_info">
                                         <span class="col-md-2">
                                             <img src="resources/images/person.png" title="Số người" alt=""/>
-                                            #{room.noOfPersons}
+                                            #{landlord.curAccom.noOfPersons}
                                         </span>
                                         <span class="col-md-2">
                                             <img src="resources/images/bed.png" title="Số giường" alt=""/>
-                                            #{room.noOfBed}
+                                            #{landlord.curAccom.noOfBed}
                                         </span>
                                         <span class="col-md-2">
                                             <img  src="resources/images/toilet.png" title="Toilet" alt=""/>
-                                            #{room.noOfToilet}
+                                            #{landlord.curAccom.noOfToilet}
                                         </span>
                                         <span class="col-md-2">
                                             <img  src="resources/images/comment.png" title="Nhận xét" alt=""/>
-                                            5
+                                            #{landlord.commentsCount}
                                         </span>
 
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-md-2">Giá </label>
+                                        <span  class="col-md-8" style="font-weight: bold;color:#e38d13">  #{landlord.curAccom.price}  đồng</span>
                                     </div>
                                 </div>
                                 <div class="row bookRoom" >
@@ -138,7 +142,7 @@
                                             <h:commandButton class="btn btn-primary"  id="btnLoginParams" value="Đặt phòng" >
                                                 <f:ajax  execute="txtUserName txtPassword"   render="txtLoginResult" onevent="checkUserLogin"/>
                                             </h:commandButton>
-                                            <h:outputText id="txtLoginResult" value="#{customerController.curCust}" style="display: none" />
+                                            <h:outputText id="txtLoginResult" value="#{landlord.bookRoom()}" style="display: none" />
 
                                         </div>
                                     </h:form>

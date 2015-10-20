@@ -6,9 +6,11 @@
 package com.room4u.dao;
 
 import com.room4u.model.Comments;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class CommentsFacade extends AbstractFacade<Comments> implements CommentsFacadeLocal {
+
     @PersistenceContext(unitName = "room4u-ejbPU")
     private EntityManager em;
 
@@ -27,5 +30,11 @@ public class CommentsFacade extends AbstractFacade<Comments> implements Comments
     public CommentsFacade() {
         super(Comments.class);
     }
-    
+
+    @Override
+    public List<Comments> findCommentsByAccomId(int AccomId) {
+        Query q = em.createQuery("SELECT b FROM Comments b WHERE b.accomId.accomId = :_accomId ");
+        q.setParameter("_accomId", AccomId);
+        return q.getResultList();
+    }
 }
