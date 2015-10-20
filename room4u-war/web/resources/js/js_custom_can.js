@@ -1,8 +1,5 @@
 $(function () {
 
-
-
-
     setActiveMenu();
     validateFormPostRoom();
     validateFormUserLogin();
@@ -71,8 +68,8 @@ function checkUserLogin(data) {
             var message = $("#frmUserLogin\\:txtLoginResult").text();
 
             if (message !== "") {
-               // $('#user_login_modal').modal('toggle');
-                growlmessage("Đặt phòng thành công!", 350,"info");
+                // $('#user_login_modal').modal('toggle');
+                growlmessage("Đặt phòng thành công!", 350, "info");
                 //window.location.reload();
             } else {
                 growlmessage("Bạn vui lòng đăng nhập!", 350, "info");
@@ -115,6 +112,7 @@ function registerRoom() {
     growlmessage('Đăng ký phòng thành công', 350, 'info');
 
 }
+
 function growlmessage(message, width, messageType) {
     $.bootstrapGrowl(message, {
         ele: 'body', // which element to append to
@@ -440,6 +438,7 @@ function setActiveMenuSidebar() {
     $("#personalPass").css("display", "none");
     $("#orderedRoom").css("display", "none");
     $("#yourPostedRoom").css("display", "none");
+    $("#yourReport").css("display", "none");
 
     $(".profileSidebarMenu").find("a").each(function () {
         $(this).click(function () {
@@ -450,6 +449,7 @@ function setActiveMenuSidebar() {
             $("#personalPass").css("display", "none");
             $("#orderedRoom").css("display", "none");
             $("#yourPostedRoom").css("display", "none");
+            $("#yourReport").css("display", "none");
 
             var tabId = $(this).attr("href");//.replaceAll("#", "");
             $(tabId).css("display", "inline");

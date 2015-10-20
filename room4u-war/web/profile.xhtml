@@ -36,6 +36,9 @@
                                     <a href="#yourPostedRoom" class="list-group-item" data-toggle="tab" aria-expanded="false">
                                         <span class="glyphicon glyphicon-hand-right"></span>Phòng của bạn
                                     </a>
+                                    <a href="#yourReport" class="list-group-item" data-toggle="tab" aria-expanded="false">
+                                        <span class="glyphicon glyphicon-hand-right"></span>Báo cáo
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +114,7 @@
                                             </fieldset>
                                         </div>
                                         <div class="modal-footer">
-<!--                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>-->
+                                            <!--                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>-->
                                             <h:commandButton action="#{customerController.createUser()}"  class="btn btn-primary" value="Cập nhật"/>
                                         </div>
                                     </h:form>
@@ -375,6 +378,10 @@
                                         </tbody>
                                     </table> 
 
+                                </div>
+                                <div class="tab-pane fade active " id="yourReport">
+                                    <legend>Báo cáo</legend>
+                                    <img src="./resources/images/r2.jpg"/>
                                 </div>
                             </div>
                         </div>

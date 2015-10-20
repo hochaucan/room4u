@@ -21,17 +21,20 @@
         <!--SCRIPT-->
         <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap.min.js"></h:outputScript>
+        
         <h:outputScript name="./js/jquery.rating.js"></h:outputScript>
         <h:outputScript name="./js/moment.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap-datetimepicker.min.js"></h:outputScript>
         <h:outputScript name="./js/jquery.validate.min.js"></h:outputScript>
         <h:outputScript name="./js/jquery.bootstrap-growl.min.js"></h:outputScript>
 
+
         <h:outputScript name="./js/js_custom.js"></h:outputScript>
         <h:outputScript name="./js/js_custom_can.js"></h:outputScript>
         <h:outputScript name="./js/js_custom_khai.js"></h:outputScript>
         <h:outputScript name="./js/js_rating_huy.js"></h:outputScript>
-
+        
+      
 
         <title><ui:insert name="title"/></title>
 
@@ -84,9 +87,10 @@
                                 <!--<a data-toggle="modal" data-target="#user_register_modal" href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a>-->
                             </li>
                             <li>
-                                <h:commandLink rendered="#{customerController.curCust != null}" action="./Admin/index.jsf">
+                                <h:link outcome="./Admin/index.jsf" rendered="#{customerController.curCust != null}"><span class="glyphicon glyphicon-cog"></span> Quản lý</h:link>
+<!--                                <h:commandLink rendered="#{customerController.curCust != null}" action="./Admin/index.jsf">
                                     <span class="glyphicon glyphicon-cog"></span> Quản lý
-                                </h:commandLink>
+                                </h:commandLink>-->
                                 <!--<a  href="./Admin/index.jsf"><span class="glyphicon glyphicon-cog"></span> Quản lý</a>-->
                             </li>
 
