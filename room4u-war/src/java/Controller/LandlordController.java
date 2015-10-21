@@ -39,11 +39,15 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.el.ELContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.primefaces.context.RequestContext;
 
@@ -70,6 +74,13 @@ public class LandlordController {
 
     @EJB
     private AccommodationFacadeLocal accommodationFacade;
+
+    @ManagedProperty(value = "#{customerBean}")
+    private CustomerController customerBean;
+
+    public void setCustomerBean(CustomerController customerBean) {
+        this.customerBean = customerBean;
+    }
 
     private Accommodation room = new Accommodation();
     private String houseNumber;
@@ -257,22 +268,33 @@ public class LandlordController {
         return "roomdetail";
     }
 
-    public boolean bookRoom() {
+    public String bookRoom() {
+//         HttpSession sess = (HttpSession) req.getSession(false);
+//        if (sess.getAttribute("username") == null) {
+//            res.sendRedirect(req.getContextPath() + "/");
+//        }
+        //CustomerController loginBean = (CustomerController) ((HttpServletRequest) request).getSession().getAttribute("isAuthenticated");
+        if (customerBean.getCurCust() == null) {
+//            Customer tmp = customerBean.getCurCust();
+//           String tmp2 = tmp.getCustName();
+            return "requiredlogin";
+        }
 
         try {
+
             OrderRoom order = new OrderRoom();
-        //    OrderDetail orderDetail = new OrderDetail();
+            //    OrderDetail orderDetail = new OrderDetail();
             order.setOrderId(1);
             order.setCustID(curAccom.getCustId());
             order.setTotalPrice(new BigDecimal(curAccom.getPrice(), MathContext.DECIMAL64));
             order.setOrderDate(new Date());
             order.setStatus("Đã đặt phòng");
             order1Facade.create(order);
-            return true;
-            
+            return "success";
+
         } catch (Exception ex) {
             printStackTrace();
-            return false;
+            return "false";
         }
 
         // return true;

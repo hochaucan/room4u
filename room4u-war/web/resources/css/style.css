@@ -26,7 +26,10 @@ html, body {
     margin: 0;
     padding: 0;
 }
-
+.bootstrap-datetimepicker-widget table td.disabled{
+    background: rgb(234, 125, 125)!important;
+    color: #fff!important;
+}
 .homepage_btnreadmore{
     float:right;
 }

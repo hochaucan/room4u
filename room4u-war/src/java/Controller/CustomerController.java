@@ -12,6 +12,7 @@ import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nick
  */
-@ManagedBean
+@ManagedBean(name="customerBean")
 @SessionScoped
 public class CustomerController {
 
@@ -31,6 +32,7 @@ public class CustomerController {
     private String password;
     private String mail;
     private boolean isAuthenticated = false;
+//     @ManagedProperty(value="#{customerBean}")
     private Customer curCust = null;
     private int roleId;
 

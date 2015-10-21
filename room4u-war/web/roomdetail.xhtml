@@ -111,12 +111,12 @@
                                     </div>
                                 </div>
                                 <div class="row bookRoom" >
-                                    <h:form>
+                                    <h:form id="frmBookRoom">
                                         <div class='col-md-5'>
                                             <div class="form-group">
                                                 <lable class="col-md-2">Từ</lable>
                                                 <div class='input-group date col-md-10' id='dtpBookFrom'>
-                                                    <input type='text' class="form-control" />
+                                                    <input readonly="true" type='text' class="form-control" />
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
@@ -127,7 +127,7 @@
                                             <div class="form-group">
                                                 <lable class="col-md-2">Đến </lable>
                                                 <div class='input-group date col-md-10' id='dtpBookTo'>
-                                                    <input type='text' class="form-control" />
+                                                    <input  readonly="true" type='text' class="form-control" />
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
@@ -138,11 +138,11 @@
                                         <div class="col-md-2">
 
 
-
+                                            <!--<h:outputText id="txtLoginResult" value="#{landlord.bookRoom()}"  style="display:none"/>-->
                                             <h:commandButton class="btn btn-primary"  id="btnLoginParams" value="Đặt phòng" >
                                                 <f:ajax  execute="txtUserName txtPassword"   render="txtLoginResult" onevent="checkUserLogin"/>
                                             </h:commandButton>
-                                            <h:outputText id="txtLoginResult" value="#{landlord.bookRoom()}" style="display: none" />
+                                            <h:outputText id="txtLoginResult" value="#{landlord.bookRoom()}"  style="display:none"/>
 
                                         </div>
                                     </h:form>

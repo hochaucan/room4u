@@ -39,9 +39,21 @@ function roomRating() {
 }
 
 function getBookRoomDateRange() {
-    $('#dtpBookFrom').datetimepicker();
+    $('#dtpBookFrom').datetimepicker({
+        format: 'DD/MM/YYYY',
+        disabledDates: [
+//            moment("12/25/2013"),
+            new Date(2015, 11 - 1, 22),
+            "10/23/2015",
+            "10/25/2015"
+        ],
+        //useStrict:true  
+        ignoreReadonly:true
+    });
     $('#dtpBookTo').datetimepicker({
-        useCurrent: false //Important! See issue #1075
+        format: 'DD/MM/YYYY',
+        useCurrent: false, //Important! See issue #1075
+        ignoreReadonly:true
     });
     $("#dtpBookFrom").on("dp.change", function (e) {
         $('#dtpBookTo').data("DateTimePicker").minDate(e.date);
@@ -65,14 +77,17 @@ function checkUserLogin(data) {
             break;
 
         case "success": // After update of HTML DOM based on ajax response..
-            var message = $("#frmUserLogin\\:txtLoginResult").text();
+            var message = $("#frmBookRoom\\:txtLoginResult").text();
 
-            if (message == "true") {
+            if (message === "success") {
                 // $('#user_login_modal').modal('toggle');
                 growlmessage("Đặt phòng thành công!", 350, "info");
                 //window.location.reload();
-            } else {
+            } else if(message === "requiredlogin" ) {
                 growlmessage("Bạn vui lòng đăng nhập!", 350, "info");
+            }
+            else{
+                growlmessage("Loi!", 350, "info");
             }
             break;
     }
