@@ -140,7 +140,7 @@
 
                                             <!--<h:outputText id="txtLoginResult" value="#{landlord.bookRoom()}"  style="display:none"/>-->
                                             <h:commandButton class="btn btn-primary"  id="btnLoginParams" value="Đặt phòng" >
-                                                <f:ajax  execute="txtUserName txtPassword"   render="txtLoginResult" onevent="checkUserLogin"/>
+                                                <f:ajax  execute="@form"   render="txtLoginResult" onevent="checkUserLogin"/>
                                             </h:commandButton>
                                             <h:outputText id="txtLoginResult" value="#{landlord.bookRoom()}"  style="display:none"/>
 
