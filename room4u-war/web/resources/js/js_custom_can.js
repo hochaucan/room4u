@@ -25,12 +25,19 @@ function addRoomToCart() {
         $(".roomdetail_cart").css("display", "inline");
         var fromDate = $("#dtpBookFrom input").val();
         var ToDate = $("#dtpBookTo input").val();
+        var price = parseInt($(".roomdetail_price").text());
+        var diff = 0;
+//        if (fromDate && ToDate) {
+//            diff = Math.floor((ToDate.getTime() - fromDate.getTime()) / 86400000); // ms per day
+//        }
         cart.push({"No": cart.length + 1, "FromDate": fromDate, "ToDate": ToDate});
 
         var html = "";
         for (var i = 0; i < cart.length; i++) {
 //            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>' + cart[i].ToDate + '</td><td><a class="btn btn-default"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
-            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>' + cart[i].ToDate + '</td><td><a onclick="removeCartItem(this)"><span class="glyphicon glyphicon-trash deleteCartItem" ></span>xoa</a></td></tr>';
+            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>'
+                    + cart[i].ToDate + '</td><td>'
+                    + price  + '</td><td><a onclick="removeCartItem(this)" style="cursor:pointer"><span class="glyphicon glyphicon-trash deleteCartItem" ></span></a></td></tr>';
         }
         $(".roomdetail_cart table tbody").html(html);
     });

@@ -107,7 +107,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label class="col-md-2">Giá </label>
-                                        <span  class="col-md-8" style="font-weight: bold;color:#e38d13">  #{landlord.curAccom.price}  đồng</span>
+                                        <span  class="col-md-8 roomdetail_price" style="font-weight: bold;color:#e38d13">  #{landlord.curAccom.price}</span>đồng
+
                                     </div>
                                 </div>
                                 <div class="row bookRoom" >
@@ -150,6 +151,7 @@
                                                     <th>Số TT</th>
                                                     <th>Từ ngày</th>
                                                     <th>Đến ngày</th>
+                                                    <th>Thành tiền</th>
 
                                                 </tr>
                                             </thead>
@@ -157,7 +159,7 @@
                                             </tbody>
 
                                         </table> 
-                                         <div class="col-md-2" style="float:right">
+                                        <div class="col-md-2" style="float:right">
                                             <h:commandButton class="btn btn-primary"  id="btnConfirmBookRoom" value="Xác nhận" >
                                                 <f:ajax  execute="@form"   render="txtBookRoomResult" listener="#{landlord.bookRoom()}" onevent="checkUserLoginForBookRoom"/>
                                             </h:commandButton>
@@ -166,7 +168,7 @@
                                         <div class="col-md-1" style="float:right">
                                             <input type="button" class="btn btn-default" value="Hủy" />
                                         </div>
-                                       
+
                                     </div>
 
 
