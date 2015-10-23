@@ -63,7 +63,6 @@ public class LandlordController {
     private OrderDetailFacadeLocal orderDetailFacade;
     @EJB
     private OrderRoomFacadeLocal order1Facade;
-
     @EJB
     private CommentsFacadeLocal commentsFacade;
 
@@ -87,15 +86,23 @@ public class LandlordController {
     private String street;
     private String ward;
     private String district;
+    private String city;
+    private String country;
+    private Part thumbnail, file1, file2, file3;
+    private List<String> roomImageFileNames;
+    private Accommodation curAccom;
+    private String slider1, slider2, slider3;
+    private int commentsCount;
+    private String bookRoomResult;
 
-//     @PostConstruct
-//    public void init() {
-//       
-//         
-//        if(!FacesContext.getCurrentInstance().isPostback()) {
-//            RequestContext.getCurrentInstance().execute("alert('This onload script is added from backing bean.')");
-//        }
-//    }
+    public String getBookRoomResult() {
+        return bookRoomResult;
+    }
+
+    public void setBookRoomResult(String bookRoomResult) {
+        this.bookRoomResult = bookRoomResult;
+    }
+
     public String getSlider1() {
         return slider1;
     }
@@ -119,13 +126,6 @@ public class LandlordController {
     public void setSlider3(String slider3) {
         this.slider3 = slider3;
     }
-    private String city;
-    private String country;
-    private Part thumbnail, file1, file2, file3;
-    private List<String> roomImageFileNames;
-    private Accommodation curAccom;
-    private String slider1, slider2, slider3;
-    private int commentsCount;
 
     public int getCommentsCount() {
         return commentsCount;
@@ -268,16 +268,12 @@ public class LandlordController {
         return "roomdetail";
     }
 
-    public String bookRoom() {
-//         HttpSession sess = (HttpSession) req.getSession(false);
-//        if (sess.getAttribute("username") == null) {
-//            res.sendRedirect(req.getContextPath() + "/");
-//        }
-        //CustomerController loginBean = (CustomerController) ((HttpServletRequest) request).getSession().getAttribute("isAuthenticated");
+    public void bookRoom() {
+        bookRoomResult = "";
         if (customerBean.getCurCust() == null) {
 //            Customer tmp = customerBean.getCurCust();
-//           String tmp2 = tmp.getCustName();
-            return "requiredlogin";
+            bookRoomResult = "requiredlogin";
+            return;
         }
 
         try {
@@ -290,14 +286,12 @@ public class LandlordController {
             order.setOrderDate(new Date());
             order.setStatus("Đã đặt phòng");
             order1Facade.create(order);
-            return "success";
+            bookRoomResult = "success";
 
         } catch (Exception ex) {
             printStackTrace();
-            return "false";
+            bookRoomResult = "false";
         }
-
-        // return true;
     }
 
     public String createRoom() {

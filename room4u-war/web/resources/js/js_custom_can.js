@@ -1,5 +1,4 @@
 $(function () {
-
     setActiveMenu();
     validateFormPostRoom();
     validateFormUserLogin();
@@ -10,16 +9,49 @@ $(function () {
     getBookRoomDateRange();
     roomRating();
 
+    //Add booked date to cart
+    addRoomToCart();
+
 //    cleanModal();
-
-
     $('#slider').nivoSlider();
     //Collapse in FAQ page
     //$('.collapse').collapse()
-
 });
 
 
+function addRoomToCart() {
+    var cart = new Array();
+    $("#btnBookRoom").click(function () {
+        $(".roomdetail_cart").css("display", "inline");
+        var fromDate = $("#dtpBookFrom input").val();
+        var ToDate = $("#dtpBookTo input").val();
+        cart.push({"No": cart.length + 1, "FromDate": fromDate, "ToDate": ToDate});
+
+        var html = "";
+        for (var i = 0; i < cart.length; i++) {
+//            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>' + cart[i].ToDate + '</td><td><a class="btn btn-default"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
+            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>' + cart[i].ToDate + '</td><td><a onclick="removeCartItem(this)"><span class="glyphicon glyphicon-trash deleteCartItem" ></span>xoa</a></td></tr>';
+        }
+        $(".roomdetail_cart table tbody").html(html);
+    });
+
+    // $.totalStorage("cart",cart);
+
+
+
+// alert(JSON.stringify($.totalStorage('scores', scores)));
+
+}
+
+function removeCartItem(render) {
+    // alert("Oanh")
+    $(render).closest("tr").remove();
+}
+//    $(".deleteCartItem").each(function(){
+//        $(this).click(function(){
+//            $(this).closest("tbody").remove("tr");
+//        });
+//    });
 
 function roomRating() {
     $(".auto-submit-star").rating({
@@ -28,7 +60,6 @@ function roomRating() {
             // 'value' is the value selected
             // 'element' points to the link element that received the click.
             alert("The value selected was '" + value + "'\n\nWith this callback function I can automatically submit the form with this code:\nthis.form.submit();");
-
             // To submit the form automatically:
             //this.form.submit();
 
@@ -39,21 +70,24 @@ function roomRating() {
 }
 
 function getBookRoomDateRange() {
+    var disableDateData = new Array();
+    disableDateData.push("10/23/2015");
+    disableDateData.push("10/25/2015");
+
     $('#dtpBookFrom').datetimepicker({
         format: 'DD/MM/YYYY',
-        disabledDates: [
-//            moment("12/25/2013"),
-            new Date(2015, 11 - 1, 22),
-            "10/23/2015",
-            "10/25/2015"
-        ],
+        disabledDates: disableDateData,
         //useStrict:true  
-        ignoreReadonly:true
+        ignoreReadonly: true
+//        keepOpen: true
     });
+
     $('#dtpBookTo').datetimepicker({
         format: 'DD/MM/YYYY',
         useCurrent: false, //Important! See issue #1075
-        ignoreReadonly:true
+        ignoreReadonly: true
+//        keepOpen: true
+
     });
     $("#dtpBookFrom").on("dp.change", function (e) {
         $('#dtpBookTo').data("DateTimePicker").minDate(e.date);
@@ -63,30 +97,27 @@ function getBookRoomDateRange() {
     });
 }
 
-function checkUserLogin(data) {
-    //prependId="false" for <h:form>
+function checkUserLoginForBookRoom(data) {
+//prependId="false" for <h:form>
 
     var status = data.status;
     switch (status) {
         case "begin": // Before the ajax request is sent.
             // ...
             break;
-
         case "complete": // After the ajax response is arrived.
             // ...
             break;
-
         case "success": // After update of HTML DOM based on ajax response..
-            var message = $("#frmBookRoom\\:txtLoginResult").text();
-
+            var message = $("#frmBookRoom\\:txtBookRoomResult").text();
             if (message === "success") {
-                // $('#user_login_modal').modal('toggle');
-                growlmessage("Đặt phòng thành công!", 350, "info");
+// $('#user_login_modal').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span> Đặt phòng thành công!", 350, "success");
                 //window.location.reload();
-            } else if(message === "requiredlogin" ) {
-                growlmessage("Bạn vui lòng đăng nhập!", 350, "info");
+            } else if (message === "requiredlogin") {
+                growlmessage("<span class='glyphicon glyphicon-ban-circle'></span> Bạn vui lòng đăng nhập!</span>", 350, "info");
             }
-            else{
+            else {
                 growlmessage("Loi!", 350, "info");
             }
             break;
@@ -95,24 +126,21 @@ function checkUserLogin(data) {
 }
 
 function LoginEventHandler(data) {
-    //prependId="false" for <h:form>
+//prependId="false" for <h:form>
 
     var status = data.status;
     switch (status) {
         case "begin": // Before the ajax request is sent.
             // ...
             break;
-
         case "complete": // After the ajax response is arrived.
             // ...
             break;
-
         case "success": // After update of HTML DOM based on ajax response..
             var message = $("#frmUserLogin\\:txtLoginResult").text();
-
             if (message !== "") {
                 $('#user_login_modal').modal('toggle');
-                growlmessage("Đăng nhập thành công!", 350);
+                //growlmessage("Đăng nhập thành công!", 350);
                 window.location.reload();
             } else {
                 growlmessage("Tài khoản hoặc mật khẩu không đúng!", 350, "danger");
@@ -125,7 +153,6 @@ function LoginEventHandler(data) {
 function registerRoom() {
     $("#user_register_room_modal").modal('toggle');
     growlmessage('Đăng ký phòng thành công', 350, 'info');
-
 }
 
 function growlmessage(message, width, messageType) {
@@ -153,13 +180,11 @@ function setActiveMenu() {
     var path = window.location.pathname;
     path = path.replace(/\/$/, "");
     path = decodeURIComponent(path);
-
     $(".nav a").each(function () {
         if (this.href == window.location.href) {
             $(this).closest("li").addClass("active");
         }
     });
-
 }
 
 function validateFormRegisterUser() {
@@ -205,7 +230,6 @@ function validateFormRegisterUser() {
             setTimeout(function () {
                 $.bootstrapGrowl("This is another test.", {type: 'success'});
             }, 1000);
-
             // form.submit();
 
 //            var url = '<?php echo SET_SUBSCRIBER; ?>';
@@ -359,7 +383,6 @@ function validateFormPostRoom() {
             }
         }
     });
-
 }
 
 function validateFormUserLogin() {
@@ -393,8 +416,6 @@ function validateFormUserLogin() {
             }
         }
     });
-
-
 }
 
 var validate;
@@ -436,15 +457,12 @@ function validateFormChangePassword() {
             }
         }
     });
-
-
 }
 
 function cleanModal() {
     $(".modal").on('hide.bs.modal', function () {
         $(this).find("#frmPostRoom")[0].reset();
     });
-
 }
 
 function setActiveMenuSidebar() {
@@ -454,24 +472,19 @@ function setActiveMenuSidebar() {
     $("#orderedRoom").css("display", "none");
     $("#yourPostedRoom").css("display", "none");
     $("#yourReport").css("display", "none");
-
     $(".profileSidebarMenu").find("a").each(function () {
         $(this).click(function () {
             $(this).addClass("active");
             $(this).siblings().removeClass("active");
-
             $("#personalInfo").css("display", "none");
             $("#personalPass").css("display", "none");
             $("#orderedRoom").css("display", "none");
             $("#yourPostedRoom").css("display", "none");
             $("#yourReport").css("display", "none");
-
-            var tabId = $(this).attr("href");//.replaceAll("#", "");
+            var tabId = $(this).attr("href"); //.replaceAll("#", "");
             $(tabId).css("display", "inline");
-
             // Reset form change user password
             validate.resetForm();
-
         });
     });
 }

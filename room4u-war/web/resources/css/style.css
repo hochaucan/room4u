@@ -58,6 +58,11 @@ html, body {
     background-color:  rgb(251, 119, 119);
     opacity: 0.9;
 }
+.alert-success{
+    /*    background-color: #0c84e4!important;*/
+    /*background-color:  rgb(251, 119, 119);*/
+    opacity: 0.9;
+}
 .homepage_box{
     /* padding:0px; */
     /*height: 300px;*/

@@ -136,16 +136,40 @@
                                         </div>
 
                                         <div class="col-md-2">
-
-
-                                            <!--<h:outputText id="txtLoginResult" value="#{landlord.bookRoom()}"  style="display:none"/>-->
-                                            <h:commandButton class="btn btn-primary"  id="btnLoginParams" value="Đặt phòng" >
-                                                <f:ajax  execute="@form"   render="txtLoginResult" onevent="checkUserLogin"/>
-                                            </h:commandButton>
-                                            <h:outputText id="txtLoginResult" value="#{landlord.bookRoom()}"  style="display:none"/>
+                                            <input type="text" class="btn btn-primary" id="btnBookRoom" value="Đặt phòng"/>
 
                                         </div>
                                     </h:form>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 roomdetail_cart" style="display: none">
+                                        <table class="table table-responsive table-hover ">
+                                            <thead>
+                                                <tr>
+                                                    <th>Số TT</th>
+                                                    <th>Từ ngày</th>
+                                                    <th>Đến ngày</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+
+                                        </table> 
+                                         <div class="col-md-2" style="float:right">
+                                            <h:commandButton class="btn btn-primary"  id="btnConfirmBookRoom" value="Xác nhận" >
+                                                <f:ajax  execute="@form"   render="txtBookRoomResult" listener="#{landlord.bookRoom()}" onevent="checkUserLoginForBookRoom"/>
+                                            </h:commandButton>
+                                            <h:outputText id="txtBookRoomResult" value="#{landlord.bookRoomResult}"  style="display:none"/>
+                                        </div>
+                                        <div class="col-md-1" style="float:right">
+                                            <input type="button" class="btn btn-default" value="Hủy" />
+                                        </div>
+                                       
+                                    </div>
+
+
                                 </div>
 
                                 <div class="row roomdetail_description">
