@@ -9,6 +9,7 @@ package Controller;
 import com.room4u.dao.FaqFacade;
 import com.room4u.dao.FaqFacadeLocal;
 import com.room4u.model.Faq;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,9 @@ public class FAQController {
     @EJB
     private FaqFacadeLocal faqFacade;
     private Faq curQ;
+    
+    private String question;
+    private String answer;
 
     /**
      * Creates a new instance of FAQController
@@ -40,12 +44,13 @@ public class FAQController {
     
     public String addFAQ()
     {
-        Date d = new Date();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy/MM/dd");
-        String s=timeFormat.format(d.getTime());
-        curQ.setDate(d);
-        faqFacade.create(curQ);
         curQ = new Faq();
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        curQ.setQuestion(question);
+        curQ.setAnswer(answer);
+        curQ.setDate(date);
+        faqFacade.create(curQ);
         return "faqAdmin";
     }
     
@@ -78,6 +83,34 @@ public class FAQController {
      */
     public void setCurQ(Faq curQ) {
         this.curQ = curQ;
+    }
+
+    /**
+     * @return the question
+     */
+    public String getQuestion() {
+        return question;
+    }
+
+    /**
+     * @param question the question to set
+     */
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    /**
+     * @return the answer
+     */
+    public String getAnswer() {
+        return answer;
+    }
+
+    /**
+     * @param answer the answer to set
+     */
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
     
 }
