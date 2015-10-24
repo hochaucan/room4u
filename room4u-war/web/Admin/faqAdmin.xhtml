@@ -3,7 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
+
+    <h:outputScript name="./js/jquery.rating.js"></h:outputScript>
+    <h:outputScript name="./js/moment.min.js"></h:outputScript>
+    <h:outputScript name="./js/bootstrap-datetimepicker.min.js"></h:outputScript>
+    <h:outputScript name="./js/jquery.validate.min.js"></h:outputScript>
+    <h:outputScript name="./js/js_faq_cuong.js"></h:outputScript>
 
     <body>
 
@@ -19,7 +28,7 @@
                         <legend> Danh sách câu hỏi thường gặp</legend>
 
                         <h:form>
-                            <a class="btn btn-primary" style="float:right"  data-toggle="modal" data-target="#FAQAdd" ><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
+                            <a class="btn btn-primary" style="float:right"  data-toggle="modal" data-target="#AddFAQ" ><span class="glyphicon glyphicon-plus"></span>Thêm mới</a>
                             <h:dataTable value="#{faq.questions}" var="item" class="table table-bordred table-striped">
                                 <h:column>
                                     <f:facet name="header">
@@ -51,8 +60,9 @@
                                     <f:facet name="header">
                                         <h:outputText value="Chức năng"/>
                                     </f:facet>
-                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#FAQEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#FAQDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+
+                                    <a class="btn btn-primary" onclick="displayFAQUpdate(this)"  data-toggle="modal" data-target="#EditFAQ"><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                                    <a class="btn btn-primary" onclick="displayFAQDelete(this)"  data-toggle="modal" data-target="#DeleteFAQ"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
                                 </h:column>
                             </h:dataTable>
 
@@ -60,7 +70,7 @@
                     </f:view>
                 </div>
                 <!--Add new FAQ model-->
-                <div class="modal fade" id="FAQAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade" id="AddFAQ" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -95,7 +105,7 @@
 
 
                 <!--Update FAQ model-->
-                <div class="modal fade" id="FAQEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade" id="EditFAQ" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -105,16 +115,18 @@
                             <h:form id="frmUpdateFAQ" class="form-horizontal" enctype="multipart/form-data" >
                                 <div class="modal-body">
                                     <fieldset>
+                                        
                                         <div class="form-group">
                                             <label for="txtQuestion" class="col-lg-3 control-label">Câu hỏi</label>
+                                            <h:inputHidden  id="hdFaqId" value="#{faq.faqId}"/>
                                             <div class="col-lg-9">
-                                                <h:inputText  id="txtQuestion" value="#{faq.curQ.question}" class="form-control" />
+                                                <h:inputText  id="txtQuestion" value="#{faq.question}" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="txtAnswer" class="col-lg-3 control-label">Câu trả lời</label>
                                             <div class="col-lg-9">
-                                                <h:inputTextarea id="txtAnswer" value="#{faq.curQ.answer}" class="form-control" rows="4" />
+                                                <h:inputTextarea id="txtAnswer" value="#{faq.answer}" class="form-control" rows="4" />
                                             </div>
                                         </div>
                                     </fieldset>
@@ -129,22 +141,29 @@
                 </div>
 
                 <!--Delete FAQ model-->
-                <div class="modal fade" id="FAQDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Bạn có thật sự muốn xóa FAQ này không?</h4>
-                            </div>
-                            <h:form id="frmDeleteFAQ" class="form-horizontal" enctype="multipart/form-data" >
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                                    <h:commandButton action="#{faq.deleteFAQ()}"  class="btn btn-primary" value="Xóa"/>
-                                </div>
-                            </h:form>
+                <div class="modal fade" id="DeleteFAQ" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h:form id="frmDeleteFAQ" class="form-horizontal" enctype="multipart/form-data" >
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa FAQ</h4>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <h:inputHidden  id="hdFaqIdDel" value="#{faq.faqIdDel}"/>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa FAQ này?</div>
+                        </div>
+                        <div class="modal-footer " style="text-align: right">
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                            <h:commandButton action="#{faq.deleteFAQ()}"  class="btn btn-primary" value="Xác nhận"/>
+                        </div>
+                    </h:form>
                 </div>
+            </div>
+        </div>
             </ui:define>
         </ui:composition>
 

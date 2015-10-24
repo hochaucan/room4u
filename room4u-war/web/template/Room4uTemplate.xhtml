@@ -69,7 +69,8 @@
 
                             <li> 
                                 <h:commandLink action="./profile.jsf" rendered="#{customerBean.curCust != null}" >
-                                    Người cho thuê <img src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/> Nick Ho
+                                    <h:outputText value="#{customerBean.curCust.roleId.roleName}"></h:outputText> <h:graphicImage value="#{customerController.image}" />
+                                    <h:outputText value="#{customerBean.curCust.custName}"></h:outputText>
                                 </h:commandLink>
                                 <!--<a   href="./profile.jsf">Người cho thuê <img src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/> Nick Ho</a>-->
                             </li>
@@ -341,11 +342,10 @@
                                 <div class="form-group">
                                     <label for="role" class="col-lg-3 control-label">Vai trò</label>
                                     <div class="col-lg-9">
-                                        <!--<h:inputText id="role"  value="#{customerBean.c.roleId}" class="form-control" />-->
-                                        <h:selectOneMenu value="Cream Latte" class="">
-                                            <f:selectItem itemValue="Cream Latte" itemLabel="Coffee3 - Cream Latte" />
-                                            <f:selectItem itemValue="Extreme Mocha" itemLabel="Coffee3 - Extreme Mocha" />
-                                            <f:selectItem itemValue="Buena Vista" itemLabel="Coffee3 - Buena Vista" />
+                                    <!--<h:inputText id="role"  value="#{customerBean.roleId}" class="form-control" />-->
+                                        <h:selectOneMenu value="#{customerBean.roleId}" class="">
+                                            <f:selectItem itemValue="2" itemLabel="Người cho thuê" />
+                                            <f:selectItem itemValue="3" itemLabel="Người thuê phòng" />
                                         </h:selectOneMenu>
                                     </div>
                                 </div>
@@ -353,19 +353,10 @@
                                     <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
                                     <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
                                     <div class="col-lg-9">
-                                        <h:inputFile  id="fileCustThumbnail"  ></h:inputFile>
+                                        <h:inputFile  id="fileCustThumbnail" value="#{customerBean.image}" ></h:inputFile>
 
                                     </div>
                                 </div>
-
-
-
-                                <!--                                        <h:commandButton value="Welcome Me">
-                                                                            <f:ajax execute="name pass"  render="output" />
-                                                                            
-                                                                        </h:commandButton>
-                                                                        <h2><h:outputText id="output" value="#{customerBean.testingAjax()}" /></h2>	-->
-
 
                             </fieldset>
                         </div>

@@ -249,10 +249,10 @@ function validateFormRegisterUser() {
 
 
 
-            setTimeout(function () {
-                $.bootstrapGrowl("This is another test.", {type: 'success'});
-            }, 1000);
-            // form.submit();
+//            setTimeout(function () {
+//                $.bootstrapGrowl("Đã gửi đăng ký. Vui lòng kiểm tra email để kích hoạt tài khoản.", {type: 'success'});
+//            }, 1000);
+            form.submit();
 
 //            var url = '<?php echo SET_SUBSCRIBER; ?>';
 //            var datastring = $("form").serialize();
