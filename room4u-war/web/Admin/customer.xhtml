@@ -17,7 +17,7 @@
                             <div class="table-responsive">
                                 <f:view>
                                     <h:form class="form-horizontal">
-                                        <h:dataTable value="#{customerController.custList}" var="item" class="table table-bordred table-striped">
+                                        <h:dataTable value="#{customerBean.custList}" var="item" class="table table-bordred table-striped">
 
                                             <h:column>
                                                 <f:facet name="header">
@@ -67,8 +67,9 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Chức năng"/>
                                                 </f:facet>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                <h:commandButton action="#{customerBean.delete(item)}" value="Xóa" onclick="return confirm('Bạn có chắc chắn xóa tài khoản này?')" />
+                                                <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>-->
+                                                <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>-->
                                                 <!--<a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#customerEdit"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>-->
                                             </h:column>
 
