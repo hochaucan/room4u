@@ -14,8 +14,9 @@ $(function () {
 
 //    cleanModal();
     $('#slider').nivoSlider();
+    
     //Collapse in FAQ page
-    //$('.collapse').collapse()
+   //$('.collapse').collapse()
 });
 
 

@@ -47,6 +47,7 @@ public class FAQController {
         curQ = new Faq();
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        curQ.setId(1);
         curQ.setQuestion(question);
         curQ.setAnswer(answer);
         curQ.setDate(date);
