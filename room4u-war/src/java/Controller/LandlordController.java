@@ -12,6 +12,7 @@ import com.room4u.dao.CommentsFacadeLocal;
 import com.room4u.dao.CustomerFacadeLocal;
 import com.room4u.dao.OrderRoomFacadeLocal;
 import com.room4u.dao.OrderDetailFacadeLocal;
+import com.room4u.dao.RatingFacadeLocal;
 
 import com.room4u.model.Accommodation;
 import com.room4u.model.Comments;
@@ -19,6 +20,7 @@ import com.room4u.model.Customer;
 
 import com.room4u.model.OrderDetail;
 import com.room4u.model.OrderRoom;
+import com.room4u.model.Rating;
 
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import com.sun.org.apache.xerces.internal.impl.dv.xs.DecimalDV;
@@ -60,6 +62,12 @@ import org.primefaces.context.RequestContext;
 public class LandlordController {
 
     @EJB
+    private RatingFacadeLocal ratingFacade1;
+
+    @EJB
+    private RatingFacadeLocal ratingFacade;
+
+    @EJB
     private OrderDetailFacadeLocal orderDetailFacade;
     @EJB
     private OrderRoomFacadeLocal order1Facade;
@@ -94,6 +102,24 @@ public class LandlordController {
     private String slider1, slider2, slider3;
     private int commentsCount;
     private String bookRoomResult;
+    private String roomRatingSelected;
+    private int displayRate;
+
+    public int getDisplayRate() {
+        return displayRate;
+    }
+
+    public void setDisplayRate(int displayRate) {
+        this.displayRate = displayRate;
+    }
+
+    public String getRoomRatingSelected() {
+        return roomRatingSelected;
+    }
+
+    public void setRoomRatingSelected(String roomRatingSelected) {
+        this.roomRatingSelected = roomRatingSelected;
+    }
 
     public String getBookRoomResult() {
         return bookRoomResult;
@@ -261,6 +287,13 @@ public class LandlordController {
                 slider1 = roomImage.getSlider1();
                 slider2 = roomImage.getSlider2();
                 slider3 = roomImage.getSlider3();
+
+                List<Rating> ratings = ratingFacade.findByAccRoomId(id);
+                int sumRateScore = 0;
+                for (Rating rate : ratings) {
+                    sumRateScore += rate.getScore();
+                }
+                displayRate = ratings.size() > 0 ? sumRateScore / ratings.size() : 0;
             }
         } catch (Exception ex) {
             printStackTrace();
@@ -377,11 +410,20 @@ public class LandlordController {
         return "index";
     }
 
-    public void test() {
-        FacesContext context = FacesContext.getCurrentInstance();
-
-        context.addMessage(null, new FacesMessage("Successful", "Your message: "));
+    public void roomRating() {
+        //  FacesContext context = FacesContext.getCurrentInstance();
+        //context.addMessage(null, new FacesMessage("Successful", "Your message: "));
 //        context.addMessage(null, new FacesMessage("Second Message", "Additional Message Detail"));
+        try {
+            Rating rate = new Rating();
+            rate.setRateId(1);
+            rate.setCustId(curAccom.getCustId());
+            rate.setAccomId(curAccom);
+            rate.setScore(Integer.parseInt(roomRatingSelected));
+            ratingFacade.create(rate);
+        } catch (Exception ex) {
+            printStackTrace();
+        }
     }
 
 // Get File Name when upload file

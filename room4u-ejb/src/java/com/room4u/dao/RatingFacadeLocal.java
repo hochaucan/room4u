@@ -27,6 +27,7 @@ public interface RatingFacadeLocal {
     List<Rating> findAll();
 
     List<Rating> findRange(int[] range);
+    List<Rating> findByAccRoomId(int id);
 
     int count();
     

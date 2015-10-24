@@ -6,9 +6,11 @@
 package com.room4u.dao;
 
 import com.room4u.model.Rating;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class RatingFacade extends AbstractFacade<Rating> implements RatingFacadeLocal {
+
     @PersistenceContext(unitName = "room4u-ejbPU")
     private EntityManager em;
 
@@ -27,5 +30,12 @@ public class RatingFacade extends AbstractFacade<Rating> implements RatingFacade
     public RatingFacade() {
         super(Rating.class);
     }
-    
+
+    @Override
+    public List<Rating> findByAccRoomId(int id) {
+        Query q = em.createQuery("SELECT a FROM Rating a WHERE a.accomId.accomId = :u");
+        q.setParameter("u", id);
+        return q.getResultList();
+    }
+
 }
