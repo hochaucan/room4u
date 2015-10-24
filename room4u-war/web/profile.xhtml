@@ -19,9 +19,12 @@
                         <div class="list-group">
                             <div class="panel panel-default">
                                 <div class="panel-heading profileImage" >
-                                    <img class="row" src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/>
-                                    <span class="row">Nick Ho</span>
-                                    <span style="font-size: 12px;color:lightgrey">Đăng ký ngày 21/2/1984</span>
+                                    <h:graphicImage value="#{customerBean.image}"/><br/>
+                                    <h:outputLabel value="#{customerBean.curCust.custName}" /><br/>
+                                    <h:outputLabel value="#{customerBean.curCust.registerDate}" />
+                                    <!--<img class="row" src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/>-->
+                                    <!--<span class="row">Nick Ho</span>-->
+                                    <!--<span style="font-size: 12px;color:lightgrey">Đăng ký ngày 21/2/1984</span>-->
                                 </div>
                                 <div class="panel-body profileSidebarMenu">
                                     <a href="#personalInfo" class="list-group-item active" data-toggle="tab" aria-expanded="false">
@@ -54,42 +57,41 @@
                                                 <div class="form-group">
                                                     <label for="txtCustName" class="col-lg-3 control-label">Tên bạn</label>
                                                     <div class="col-lg-9">
-                                                        <h:inputText id="txtCustName" value="#{customerController.c.custName}" class="form-control" />
+                                                        <h:inputText value="#{customerBean.curCust.custName}" id="txtCustName" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="txtCustAccount" class="col-lg-3 control-label">Tên đăng nhập</label>
                                                     <div class="col-lg-9">
-                                                        <h:inputText id="txtCustAccount" autocomplete="false"  value="#{customerController.c.accountCustomer}" class="form-control" />
+                                                        <h:inputText id="txtCustAccount" autocomplete="false"  value="#{customerBean.curCust.accountCustomer}" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="txtCustPass" class="col-lg-3 control-label">Mật khẩu</label>
                                                     <div class="col-lg-9">
-                                                        <h:inputSecret id="txtCustPass"  value="#{customerController.c.password}" class="form-control" />
+                                                        <h:inputSecret id="txtCustPass"  value="#{customerBean.curCust.password}" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="txtCustEmail" class="col-lg-3 control-label">Email</label>
                                                     <div class="col-lg-9">
-                                                        <h:inputText id="txtCustEmail"  value="#{customerController.c.email}" class="form-control" />
+                                                        <h:inputText id="txtCustEmail"  value="#{customerBean.curCust.email}" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="txtCustPhone" class="col-lg-3 control-label">Điện thoại</label>
                                                     <div class="col-lg-9">
-                                                        <h:inputText id="txtCustPhone"  value="#{customerController.c.phone}" class="form-control" />
+                                                        <h:inputText id="txtCustPhone"  value="#{customerBean.curCust.phone}" class="form-control" />
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="role" class="col-lg-3 control-label">Vai trò</label>
                                                     <div class="col-lg-9">
-                                                        <!--<h:inputText id="role"  value="#{customerController.c.roleId}" class="form-control" />-->
-                                                        <h:selectOneMenu value="Cream Latte" class="">
-                                                            <f:selectItem itemValue="Cream Latte" itemLabel="Coffee3 - Cream Latte" />
-                                                            <f:selectItem itemValue="Extreme Mocha" itemLabel="Coffee3 - Extreme Mocha" />
-                                                            <f:selectItem itemValue="Buena Vista" itemLabel="Coffee3 - Buena Vista" />
+                                                    <!--<h:inputText id="role"  value="#{customerBean.roleId}" class="form-control" />-->
+                                                        <h:selectOneMenu value="#{customerBean.roleId}" class="">
+                                                            <f:selectItem itemValue="2" itemLabel="Người cho thuê" />
+                                                            <f:selectItem itemValue="3" itemLabel="Người thuê phòng" />
                                                         </h:selectOneMenu>
                                                     </div>
                                                 </div>
@@ -97,25 +99,14 @@
                                                     <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
                                                     <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
                                                     <div class="col-lg-9">
-                                                        <h:inputFile  id="fileCustThumbnail"  ></h:inputFile>
-
+                                                        <h:inputFile id="fileCustThumbnail" value="#{customerBean.curCust.images}"></h:inputFile>
                                                     </div>
                                                 </div>
-
-
-
-                                                <!--                                        <h:commandButton value="Welcome Me">
-                                                                                            <f:ajax execute="name pass"  render="output" />
-                                                                                            
-                                                                                        </h:commandButton>
-                                                                                        <h2><h:outputText id="output" value="#{customerController.testingAjax()}" /></h2>	-->
-
-
                                             </fieldset>
                                         </div>
                                         <div class="modal-footer">
                                             <!--                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>-->
-                                            <h:commandButton action="#{customerController.createUser()}"  class="btn btn-primary" value="Cập nhật"/>
+                                            <h:commandButton action="#{customerBean.createUser()}"  class="btn btn-primary" value="Cập nhật"/>
                                         </div>
                                     </h:form>
 
@@ -130,27 +121,27 @@
                                             <div class="form-group">
                                                 <label for="txtCurentPass" class="col-lg-3 control-label">Mật khẩu hiện tại</label>
                                                 <div class="col-lg-9">
-                                                    <h:inputText id="txtCurentPass"   class="form-control" />
+                                                    <h:inputText id="txtCurentPass" value="#{customerBean.oldPassword}" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="txtNewPass" class="col-lg-3 control-label">Mật khẩu mới</label>
                                                 <div class="col-lg-9">
-                                                    <h:inputText id="txtNewPass"   class="form-control" />
+                                                    <h:inputText id="txtNewPass" value="#{customerBean.newPassword}" class="form-control" />
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="txtConfirmNewPass" class="col-lg-3 control-label">Xác nhận mật khẩu mới</label>
                                                 <div class="col-lg-9">
-                                                    <h:inputText id="txtConfirmNewPass"  class="form-control"  />
+                                                    <h:inputText id="txtConfirmNewPass" value="#{customerBean.confirmPassword}" class="form-control"  />
                                                 </div>
                                             </div>
                                         </fieldset>
 
                                         <div class="modal-footer" style="text-align: right">
                                             <!--<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>-->
-                                            <h:commandButton class="btn btn-primary" value="Đổi mật khẩu"/>
+                                            <h:commandButton class="btn btn-primary" action="#{customerBean.changePassword()}" value="Đổi mật khẩu"/>
                                         </div>
                                     </h:form>
                                 </div>
