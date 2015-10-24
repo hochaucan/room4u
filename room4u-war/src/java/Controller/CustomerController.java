@@ -293,15 +293,15 @@ public class CustomerController {
     }
 
     public void changePassword() {
-        if (getNewPassword() == getConfirmPassword()) {
-            if (curCust.getPassword() != getNewPassword()) {
-                curCust.setPassword(getNewPassword());
+        if (curCust.getPassword().equals(oldPassword)) {
+            if (newPassword == confirmPassword) {
+                curCust.setPassword(newPassword);
                 customerFacade.edit(curCust);
             } else {
-                notifyMessage("Mật khẩu mới trùng với mật khẩu cũ");
+                notifyMessage("Mật khẩu xác nhận không đúng");
             }
         } else {
-            notifyMessage("Mật khẩu xác nhận không đúng");
+            notifyMessage("Sai mật khẩu");
         }
     }
 
