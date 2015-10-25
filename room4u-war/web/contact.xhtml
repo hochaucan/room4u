@@ -4,7 +4,16 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:pf="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
+
+    <h:outputScript name="./js/jquery.rating.js"></h:outputScript>
+    <h:outputScript name="./js/moment.min.js"></h:outputScript>
+    <h:outputScript name="./js/bootstrap-datetimepicker.min.js"></h:outputScript>
+    <h:outputScript name="./js/jquery.validate.min.js"></h:outputScript>
+    <h:outputScript name="./js/js_homepage_cuong.js"></h:outputScript> 
 
     <body>
 
@@ -26,24 +35,24 @@
                                 <fieldset>
 
                                     <div class="form-group">
-                                        <label for="inputName" class="col-md-2 control-label">Tên bạn</label>
+                                        <label for="contactName" class="col-md-2 control-label">Tên bạn</label>
                                         <div class="col-md-8">
-                                            <h:inputText id="contactName"  class="form-control" />
+                                            <h:inputText id="contactName" value="#{sendMail.name}" class="form-control" />
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="textArea"  class="col-md-2 control-label">Email</label>
+                                        <label for="contactEmail"  class="col-md-2 control-label">Email</label>
                                         <div class="col-md-8">
-                                            <h:inputText id="contactEmail" class="form-control" />
+                                            <h:inputText id="contactEmail" value="#{sendMail.email}" class="form-control" />
 
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="textArea"  class="col-md-2 control-label">Nội dung</label>
+                                        <label for="contactContent"  class="col-md-2 control-label">Nội dung</label>
                                         <div class="col-md-8">
-                                            <h:inputTextarea id="contactContent" class="form-control"  rows="5" />
+                                            <h:inputTextarea id="contactContent" value="#{sendMail.content}" class="form-control"  rows="5" />
 
                                         </div>
                                     </div>
@@ -53,7 +62,10 @@
 
                             </div>
                             <div class="modal-footer" style="text-align: right">
-                                <h:commandButton  class="btn btn-primary" value="Gửi"/>
+                                            <h:commandButton class="btn btn-primary"  id="btnSendMail" value="Xác nhận" >
+                                                <f:ajax  execute="@form"   render="txtSendMailResult" listener="#{sendMail.sendMailSupport()}" onevent="checkSendMail"/>
+                                            </h:commandButton>
+                                <h:outputText id="txtSendMailResult" value="#{sendMail.sendMailResult}"  style="display:none"/>
                             </div>
                         </h:form>
                     </div>
