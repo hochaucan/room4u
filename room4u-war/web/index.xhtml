@@ -15,7 +15,7 @@
                     <div class="row" style="margin-top: 0px">
 
                         <div class="col-md-2 col-xs-12" style="text-align: left;padding-right:0px">
-                            <h:commandLink rendered="#{customerBean.curCust!=null and customerBean.roleId== 3}"  class="btn btn-success"  p:data-toggle="modal" p:data-target="#user_register_room_modal">
+                            <h:commandLink rendered="#{customerBean.curCust!=null and (customerBean.roleId== 3  or customerBean.roleId== 2)}"  class="btn btn-success"  p:data-toggle="modal" p:data-target="#user_register_room_modal">
                                 <f:ajax execute="@form" render="@form"/>
                                 <span class="glyphicon glyphicon-registration-mark"></span>Đăng ký phòng
                             </h:commandLink>
@@ -23,7 +23,7 @@
                             <!--<a href="#" class="btn btn-success"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-registration-mark"></span>Đăng ký phòng</a>-->
                         </div>
                         <div class="col-md-2 col-xs-12" style="text-align: left">
-                            <h:commandLink rendered="#{customerBean.curCust!=null and customerBean.roleId== 2}" class="btn btn-danger"  p:data-toggle="modal" p:data-target="#modal_post_room">
+                            <h:commandLink rendered="#{customerBean.curCust!=null and (customerBean.roleId== 2)}" class="btn btn-danger"  p:data-toggle="modal" p:data-target="#modal_post_room">
                                 <f:ajax execute="@form" render="@form"/>
                                 <span class="glyphicon glyphicon-upload"></span>Đăng phòng         
                             </h:commandLink>

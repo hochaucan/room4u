@@ -104,6 +104,15 @@ public class LandlordController {
     private String bookRoomResult;
     private String roomRatingSelected;
     private int displayRate;
+    private String commentMessage;
+
+    public String getCommentMessage() {
+        return commentMessage;
+    }
+
+    public void setCommentMessage(String commentMessage) {
+        this.commentMessage = commentMessage;
+    }
 
     public int getDisplayRate() {
         return displayRate;
@@ -259,6 +268,22 @@ public class LandlordController {
 
     public LandlordController() {
 
+    }
+
+    public void createComment() {
+        try {
+            Comments com = new Comments();
+            Date date = new Date();
+            com.setComId(1);
+            com.setAccomId(curAccom);
+            com.setCustId(curAccom.getCustId());
+            com.setContent(commentMessage);
+            com.setComDate(date);
+
+            commentsFacade.create(com);
+        } catch (Exception ex) {
+            printStackTrace();
+        }
     }
 
     public List<Accommodation> displayRoom() {
