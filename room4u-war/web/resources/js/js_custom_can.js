@@ -14,9 +14,9 @@ $(function () {
 
 //    cleanModal();
     $('#slider').nivoSlider();
-    
+
     //Collapse in FAQ page
-   //$('.collapse').collapse()
+    //$('.collapse').collapse()
 });
 
 function assignDeletedAccomId(render) {
@@ -26,6 +26,42 @@ function assignDeletedAccomId(render) {
 
 }
 
+function updateAccomSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#txtUpdateRoomResult").text();
+            // alert(message)
+            if (message !== "") {
+
+                var accomName = jQuery.parseJSON(message).accomName;
+                var accomDescription = jQuery.parseJSON(message).description;
+                var accomPrice = jQuery.parseJSON(message).price;
+                var accomNoOfBed = jQuery.parseJSON(message).noOfBed;
+                var accomNoOfPerson = jQuery.parseJSON(message).noOfPersons;
+                var accomNoOfToilet = jQuery.parseJSON(message).noOfToilet;
+
+                $("#frmEditAccom\\:updateAccomName").val(accomName);
+                $("#frmEditAccom\\:updateRoomDescription").val(accomDescription);
+                $("#frmEditAccom\\:updateRoomPrice").val(accomPrice);
+                $("#frmEditAccom\\:updateRoomNumberOfBed").val(accomNoOfBed);
+                $("#frmEditAccom\\:updateRoomNumOfPerson").val(accomNoOfPerson);
+                $("#frmEditAccom\\:updateRoomNumToilet").val(accomNoOfToilet);
+
+
+                $('#roomEdit').modal('toggle');
+//                window.location.reload();
+            }
+
+            break;
+    }
+}
 
 
 function deleteAccomSuccess(data) {
@@ -39,7 +75,7 @@ function deleteAccomSuccess(data) {
             break;
         case "success": // After update of HTML DOM based on ajax response..
             var message = $("#frmDeletedAccom\\:txtDeletedRoomResult").text();
-           // alert(message)
+            // alert(message)
             if (message === "success") {
                 $('#roomDelete').modal('toggle');
                 window.location.reload();
@@ -87,7 +123,7 @@ function addRoomToCart() {
 //            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>' + cart[i].ToDate + '</td><td><a class="btn btn-default"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
             html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>'
                     + cart[i].ToDate + '</td><td>'
-                    + price  + '</td><td><a onclick="removeCartItem(this)" style="cursor:pointer"><span class="glyphicon glyphicon-trash deleteCartItem" ></span></a></td></tr>';
+                    + price + '</td><td><a onclick="removeCartItem(this)" style="cursor:pointer"><span class="glyphicon glyphicon-trash deleteCartItem" ></span></a></td></tr>';
         }
         $(".roomdetail_cart table tbody").html(html);
     });
@@ -111,26 +147,26 @@ function removeCartItem(render) {
 //    });
 
 function roomRating() {
-     $(".auto-submit-star").each(function(){
-         var cbValue = $(this).val();
-         var rateValue = $("#frmRoomRating\\:displayRate").val();
-         if(cbValue===rateValue){
-             $(this).attr("checked","checked");
-         }
-     });
-    
-    
+    $(".auto-submit-star").each(function () {
+        var cbValue = $(this).val();
+        var rateValue = $("#frmRoomRating\\:displayRate").val();
+        if (cbValue === rateValue) {
+            $(this).attr("checked", "checked");
+        }
+    });
+
+
     $(".auto-submit-star").rating({
         callback: function (value, link) {
-           $("#frmRoomRating\\:roomRatingSelected").val(value);
-           $("#frmRoomRating\\:btnBookRating").click();
-           
+            $("#frmRoomRating\\:roomRatingSelected").val(value);
+            $("#frmRoomRating\\:btnBookRating").click();
+
 // 'this' is the hidden form element holding the current value
             // 'value' is the value selected
             // 'element' points to the link element that received the click.
-            
+
 //alert("The value selected was '" + value + "'\n\nWith this callback function I can automatically submit the form with this code:\nthis.form.submit();");
-             
+
 // To submit the form automatically:
             //this.form.submit();
 
