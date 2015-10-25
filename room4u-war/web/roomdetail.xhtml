@@ -211,7 +211,7 @@
 
 
                 <!--Comments-->
-            
+
                 <div class="row">
                     <div class="col-md-12 col-xs-12" >
                         <div class="panel panel-default">
@@ -219,59 +219,39 @@
                                 <span class="glyphicon glyphicon-comment"></span>
                                 Bình luận</div>
                             <div class="panel-body">
-                                <div class="row">
-                                    <label class="col-md-1">User 1 : </label>
-                                    <div class="col-md-9">Phòng này có mấy giường vậy bạn</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-1"></div>
-                                    <label class="col-md-1">Admin : </label>
-                                    <div class="col-md-8" style="font-weight: bold">Phòng này có 2 giường đó bạn</div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-md-1">User 2 : </label>
-                                    <div class="col-md-9">Phòng này có mấy Toilet</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-1"></div>
-                                    <label class="col-md-1" >Admin : </label>
-                                    <div class="col-md-8" style="font-weight: bold">Phòng này có 1 Toilet</div>
-                                </div>
+
+                                <ui:repeat var="com" value="#{landlord.displayComments()}">
+                                    <div class="row">
+                                        <label class="col-md-2">#{com.custId.custName} : </label>
+                                        <div class="col-md-10">#{com.content}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <label class="col-md-2" > #{com.accomId.custId.custName}<span style="font-style: italic">(người cho thuê)</span>: </label>
+                                        <div class="col-md-9" style="font-weight: bold">#{com.answer}</div>
+                                    </div>
+                                </ui:repeat>
                                 <br/>
                                 <br/>
                                 <h:form class="form-horizontal">
-
-
-
                                     <div class="form-group">
                                         <label for="textArea" class="col-lg-2 control-label">Nội dung: </label>
                                         <div class="col-lg-10">
                                             <h:inputTextarea value="#{landlord.commentMessage}" class="form-control" rows="3" id="textArea"></h:inputTextarea>
-
                                         </div>
                                     </div>
-
-
                                     <div class="form-group">
                                         <div class="col-lg-10 col-lg-offset-2" style="text-align: right">
                                             <h:commandButton action="#{landlord.createComment()}" class="btn btn-primary" value="Đăng"></h:commandButton>
                                         </div>
                                     </div>
-
-                                </h:form>>
-
-
-
+                                </h:form>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--end-comments-->
-
-
-
             </ui:define>
-
         </ui:composition>
 
     </body>

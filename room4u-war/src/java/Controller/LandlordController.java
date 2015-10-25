@@ -319,6 +319,10 @@ public class LandlordController {
         return accommodationFacade.findAll();
     }
 
+    public List<Comments> displayComments() {
+        return commentsFacade.findCommentsByAccomId(curAccom.getAccomId());
+    }
+
     public void displayAccomUpdate(Accommodation acc) {
         curAccomUpdate = new Accommodation();
         curAccomUpdate.setAccomName(acc.getAccomName());
