@@ -222,13 +222,19 @@
 
                                 <ui:repeat var="com" value="#{landlord.displayComments()}">
                                     <div class="row">
-                                        <label class="col-md-2">#{com.custId.custName} : </label>
+                                        <div class="col-md-2" style="width: 140px">
+                                            <h:graphicImage style="width: 25px;height: 25px ;border-radius: 50%" value="/images/#{com.custId.images}"/>
+                                            #{com.custId.custName} : 
+                                        </div>
                                         <div class="col-md-10">#{com.content}</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <label class="col-md-2" > #{com.accomId.custId.custName}<span style="font-style: italic">(người cho thuê)</span>: </label>
-                                        <div class="col-md-9" style="font-weight: bold">#{com.answer}</div>
+                                        <div class="col-md-2" style="width: 140px"></div>
+
+                                        <div class="col-md-3" > 
+                                            <h:graphicImage style="width: 25px;height: 25px ;border-radius: 50%" value="/images/#{com.accomId.custId.images}"/>
+                                            #{com.accomId.custId.custName}<span style="font-style: italic"> (người cho thuê)</span> : </div>
+                                        <div class="col-md-7" style="font-weight: bold">#{com.answer}</div>
                                     </div>
                                 </ui:repeat>
                                 <br/>

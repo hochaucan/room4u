@@ -70,7 +70,8 @@
 
                             <li > 
                                 <h:commandLink action="./profile.jsf" rendered="#{customerBean.curCust != null}" >
-                                    <h:outputText value="#{customerBean.curCust.roleId.roleName}"></h:outputText> <h:graphicImage  value="#{customerBean.image}" />
+                                    <h:outputText value="#{customerBean.curCust.roleId.roleName}"></h:outputText> 
+                                    <h:graphicImage  style="margin:0 8px" value="/images/#{customerBean.curCust.images}" />
                                     <h:outputText value="#{customerBean.curCust.custName}"></h:outputText>
                                 </h:commandLink>
                                 <!--<a   href="./profile.jsf">Người cho thuê <img src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/> Nick Ho</a>-->
