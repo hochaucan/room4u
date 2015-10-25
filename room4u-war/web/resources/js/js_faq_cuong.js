@@ -17,7 +17,7 @@ function displayFAQUpdate(render) {
     $("#frmUpdateFAQ\\:txtQuestion").val(question);
     $("#frmUpdateFAQ\\:txtAnswer").val(answer);
 
-  //alert(id)
+  alert(id)
 }
 
 function displayFAQDelete(render) {
