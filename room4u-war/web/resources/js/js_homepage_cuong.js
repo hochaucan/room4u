@@ -44,6 +44,30 @@ function validateFormContact() {
         }});
 }
 
+function checkSendMail(data) {
+//prependId="false" for <h:form>
+
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmContact\\:txtSendMailResult").text();
+            if (message === "success") {
+                growlmessage("<span class='glyphicon glyphicon-ok'></span> Mail đã được gửi thành công!", 350, "success");
+            }
+            else {
+                growlmessage("Loi!", 350, "info");
+            }
+            break;
+    }
+
+}
+
 jQuery.extend(jQuery.validator.messages, {
     required: "Vui lòng không để trống",
     maxlength: jQuery.validator.format("Vui lòng nhập hơn {0} ký tự."),

@@ -30,6 +30,7 @@ public class SendMailController extends Authenticator{
     private String email;
     private String name;
     private Session mailSession;
+    private String sendMailResult;
     /**
      * Creates a new instance of SendMailController
      */
@@ -129,7 +130,7 @@ public class SendMailController extends Authenticator{
 //
 //    }
    
-   public String sendMailSupport() {
+   public void sendMailSupport() {
         final String username = "room4u.FAT2.HCM@gmail.com";
         final String password = "123456?a";
 
@@ -156,9 +157,24 @@ public class SendMailController extends Authenticator{
 			message.setSubject("Need support form customer: " + name);
 			message.setText(content + "\r\nEmail reply: " + email);
 			Transport.send(message);
+                        sendMailResult = "success";
 		} catch (MessagingException e) {
+                    sendMailResult= "false";
 			throw new RuntimeException(e);
 		}
-                return "contact";
    }
+
+    /**
+     * @return the sendMailResult
+     */
+    public String getSendMailResult() {
+        return sendMailResult;
+    }
+
+    /**
+     * @param sendMailResult the sendMailResult to set
+     */
+    public void setSendMailResult(String sendMailResult) {
+        this.sendMailResult = sendMailResult;
+    }
 }
