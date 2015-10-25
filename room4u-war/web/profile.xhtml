@@ -271,8 +271,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                          
-                                             <ui:repeat var="room" value="#{landlord.displayRoom()}" varStatus="status">
+                                            <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" />
+                                            <ui:repeat var="room" value="#{landlord.displayRoom()}" varStatus="status">
                                                 <tr>
                                                     <td>#{room.accomId}</td>
                                                     <td><img style="width: 60px"  class="main_image" src="#{room.images}" alt=""/></td>
@@ -281,17 +281,21 @@
                                                     <td>#{room.createdDate}</td>
                                                     <td>
                                                         <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>-->
-                                                        <h:form>
+                                                        <!--<h:inputText id="txtUpdatedAccomId"  style="display: none"/>-->
+                                                        <h:form id="frmUpdateAccom">
                                                             <h:commandButton class="btn btn-primary"  value="Sửa" >
-                                                                <f:ajax execute="@form" render="@form" listener ="#{landlord.displayAccomUpdate(room)}" />
+                                                                <f:ajax execute="@form" render="txtUpdateRoomResult" listener ="#{landlord.displayAccomUpdate(room)}" onevent="updateAccomSuccess" />
                                                             </h:commandButton>
+
                                                         </h:form>
+
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-primary" onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
                                                     </td>
                                                 </tr>
                                             </ui:repeat>
+
                                         </tbody>
                                     </table> 
 

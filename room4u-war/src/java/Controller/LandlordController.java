@@ -98,8 +98,16 @@ public class LandlordController {
     private String country;
     private Part thumbnail, file1, file2, file3;
     private List<String> roomImageFileNames;
-    private Accommodation curAccom, curAccomUpdate;
+    private Accommodation curAccom, curAccomUpdate = null;
+    private String UpdateRoomResult;
 
+    public String getUpdateRoomResult() {
+        return UpdateRoomResult;
+    }
+
+    public void setUpdateRoomResult(String UpdateRoomResult) {
+        this.UpdateRoomResult = UpdateRoomResult;
+    }
     private String deletedAccomId;
     private String deletedRoomResult;
 
@@ -324,6 +332,7 @@ public class LandlordController {
     }
 
     public void displayAccomUpdate(Accommodation acc) {
+        // curAccomUpdate = null;
         curAccomUpdate = new Accommodation();
         curAccomUpdate.setAccomName(acc.getAccomName());
         curAccomUpdate.setDescription(acc.getDescription());
@@ -333,8 +342,11 @@ public class LandlordController {
         curAccomUpdate.setNoOfToilet(acc.getNoOfToilet());
         curAccomUpdate.setPrice(acc.getPrice());
 
-        //  curAccom.setAccomName(acc.getAccomName());
-        //  curAccom.setDescription(acc.getDescription());
+        Gson gson = new Gson();
+        String jsonRoom = gson.toJson(curAccomUpdate);
+
+        UpdateRoomResult = jsonRoom;
+
     }
 
     public void deleteRoom() {
