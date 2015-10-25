@@ -49,7 +49,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accommodation.findByCreatedDate", query = "SELECT a FROM Accommodation a WHERE a.createdDate = :createdDate"),
     @NamedQuery(name = "Accommodation.findByCreatedBy", query = "SELECT a FROM Accommodation a WHERE a.createdBy = :createdBy")})
 public class Accommodation implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,10 +78,8 @@ public class Accommodation implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "Description")
     private String description;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "NoOfBed")
-    private int noOfBed;
+    private Integer noOfBed;
     @Column(name = "NoOfPersons")
     private Integer noOfPersons;
     @Column(name = "NoOfToilet")
@@ -114,13 +111,12 @@ public class Accommodation implements Serializable {
         this.accomId = accomId;
     }
 
-    public Accommodation(Integer accomId, String accomName, String images, double price, String address, int noOfBed, Date createdDate, String createdBy) {
+    public Accommodation(Integer accomId, String accomName, String images, double price, String address, Date createdDate, String createdBy) {
         this.accomId = accomId;
         this.accomName = accomName;
         this.images = images;
         this.price = price;
         this.address = address;
-        this.noOfBed = noOfBed;
         this.createdDate = createdDate;
         this.createdBy = createdBy;
     }
@@ -173,11 +169,11 @@ public class Accommodation implements Serializable {
         this.description = description;
     }
 
-    public int getNoOfBed() {
+    public Integer getNoOfBed() {
         return noOfBed;
     }
 
-    public void setNoOfBed(int noOfBed) {
+    public void setNoOfBed(Integer noOfBed) {
         this.noOfBed = noOfBed;
     }
 
@@ -272,5 +268,5 @@ public class Accommodation implements Serializable {
     public String toString() {
         return "com.room4u.model.Accommodation[ accomId=" + accomId + " ]";
     }
-
+    
 }

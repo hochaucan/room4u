@@ -19,11 +19,42 @@ $(function () {
     //$('.collapse').collapse()
 });
 
+function assignDeletedComment(render) {
+    var deletedComId = $(render).closest("tr").find("td:eq(0)").html();
+    $("#frmDeletedCom\\:txtDeletedComId").val(deletedComId);
+}
+
 function assignDeletedAccomId(render) {
 
     var deletedAccomId = $(render).closest("tr").find("td:eq(0)").html();
     $("#frmDeletedAccom\\:txtDeletedAccomId").val(deletedAccomId);
 
+}
+
+function deleteComSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmDeletedCom\\:txtDeletedComResult").text();
+            // alert(message)
+            if (message === "success") {
+                $('#mdDeleteCom').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa bình luận thành công", 300, "success");
+
+                // window.location.reload();
+            } else {
+                growlmessage("Lỗi xóa bình luận", 300, "danger");
+            }
+
+
+            break;
+    }
 }
 
 function updateAccomSuccess(data) {
@@ -77,8 +108,10 @@ function deleteAccomSuccess(data) {
             var message = $("#frmDeletedAccom\\:txtDeletedRoomResult").text();
             // alert(message)
             if (message === "success") {
+                renderRoomImageHomePage();
                 $('#roomDelete').modal('toggle');
-                window.location.reload();
+                 growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa phòng thành công", 300, "success");
+                // window.location.reload();
             }
 
 
@@ -277,7 +310,7 @@ function growlmessage(message, width, messageType) {
 }
 
 function renderRoomImageHomePage() {
-    $(".homepage_box").find(".main_image").each(function () {
+    $(".main_image").each(function () {
         var obj = jQuery.parseJSON($(this).attr("src"));
         $(this).attr("src", "/room4u-war/images/" + obj.thumbnail.toString());
     });
@@ -390,9 +423,6 @@ function validateFormPostRoom() {
                 required: true
             },
             "frmPostRoom:hourseNumber": {
-                digits: true,
-                min: 0,
-                max: 1000000000,
                 required: true
             },
             "frmPostRoom:roomStreet": {
@@ -579,6 +609,8 @@ function setActiveMenuSidebar() {
     $("#orderedRoom").css("display", "none");
     $("#yourPostedRoom").css("display", "none");
     $("#yourReport").css("display", "none");
+    $("#yourComment").css("display", "none");
+
     $(".profileSidebarMenu").find("a").each(function () {
         $(this).click(function () {
             $(this).addClass("active");
@@ -588,6 +620,8 @@ function setActiveMenuSidebar() {
             $("#orderedRoom").css("display", "none");
             $("#yourPostedRoom").css("display", "none");
             $("#yourReport").css("display", "none");
+            $("#yourComment").css("display", "none");
+
             var tabId = $(this).attr("href"); //.replaceAll("#", "");
             $(tabId).css("display", "inline");
             // Reset form change user password

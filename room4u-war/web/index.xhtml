@@ -11,44 +11,50 @@
 
         <ui:composition template="./template/Room4uTemplate.xhtml">
             <ui:define name="content">
-                <h:form>
-                    <div class="row" style="margin-top: 0px">
 
-                        <div class="col-md-2 col-xs-12" style="text-align: left;padding-right:0px">
-                            <h:commandLink rendered="#{customerBean.curCust!=null and (customerBean.roleId== 3  or customerBean.roleId== 2)}"  class="btn btn-success"  p:data-toggle="modal" p:data-target="#user_register_room_modal">
+                <div class="row" style="margin-top: 0px">
+
+                    <div class="col-md-2 col-xs-12" style="text-align: left;padding-right:0px">
+                        <h:form>
+                            <h:commandLink  rendered="#{customerBean.curCust!=null and (customerBean.roleId== 3  or customerBean.roleId== 2)}"  class="btn btn-success"  p:data-toggle="modal" p:data-target="#user_register_room_modal">
                                 <f:ajax execute="@form" render="@form"/>
                                 <span class="glyphicon glyphicon-registration-mark"></span>Đăng ký phòng
                             </h:commandLink>
+                        </h:form>
+                        <!--<a href="#" class="btn btn-success"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-registration-mark"></span>Đăng ký phòng</a>-->
+                    </div>
 
-                            <!--<a href="#" class="btn btn-success"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-registration-mark"></span>Đăng ký phòng</a>-->
-                        </div>
-                        <div class="col-md-2 col-xs-12" style="text-align: left">
+                    <div class="col-md-2 col-xs-12" style="text-align: left">
+                        <h:form>
                             <h:commandLink rendered="#{customerBean.curCust!=null and (customerBean.roleId== 2)}" class="btn btn-danger"  p:data-toggle="modal" p:data-target="#modal_post_room">
                                 <f:ajax execute="@form" render="@form"/>
                                 <span class="glyphicon glyphicon-upload"></span>Đăng phòng         
                             </h:commandLink>
-                            <!--<a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>-->
-                        </div>
-                        <div class="col-md-8 col-xs-12">
-                            <label  class="col-md-6 col-xs-6 control-label" style="text-align: right;margin-top: 10px;padding: 0px">Bán kính</label>
-                            <div class="col-md-4 col-xs-4">
-                                <select class="form-control" id="sltRadius">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="16">16</option>
-                                    <option value="21">21</option>
-                                </select>
+                        </h:form>
+                        <!--<a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>-->
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <label  class="col-md-6 col-xs-6 control-label" style="text-align: right;margin-top: 10px;padding: 0px">Bán kính</label>
+                        <div class="col-md-4 col-xs-4">
+                            <select class="form-control" id="sltRadius" onchange="registerRoomChangeRadius()">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="16">16</option>
+                                <option value="21">21</option>
+                            </select>
 
-                            </div>
+                        </div>
+                        <h:form>
                             <div class="col-md-2 col-xs-2" style="padding-right: 0;text-align: right">
                                 <button type="button" id="btnSearch"  class="btn btn-primary">Tìm kiếm</button>
                             </div>
-                        </div>
+                        </h:form>
                     </div>
-                </h:form>
+                </div>
+
                 <!--Google Map-->
                 <input id="pac-input" class="controls" type="text" placeholder="Search Box"></input>
                 <div class="row" style="margin: 15px 0 15px 0">
@@ -78,7 +84,7 @@
                                     <span class="col-md-1">#{room.noOfToilet}</span>
                                     <span class="col-md-1"/>
                                     <img class="col-md-1" src="resources/images/comment.png" title="Nhận xét" alt=""/>
-                                    <span class="col-md-1">15</span>
+                                    <span class="col-md-1">#{room.commentsList.size()}</span>
                                     <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
                                     <span class="col-md-1">2</span>
 

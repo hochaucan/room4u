@@ -219,38 +219,53 @@
                                 <span class="glyphicon glyphicon-comment"></span>
                                 Bình luận</div>
                             <div class="panel-body">
-
-                                <ui:repeat var="com" value="#{landlord.displayComments()}">
-                                    <div class="row">
-                                        <div class="col-md-2" style="width: 140px">
-                                            <h:graphicImage style="width: 25px;height: 25px ;border-radius: 50%" value="/images/#{com.custId.images}"/>
-                                            #{com.custId.custName} : 
-                                        </div>
-                                        <div class="col-md-10">#{com.content}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-2" style="width: 140px"></div>
-
-                                        <div class="col-md-3" > 
-                                            <h:graphicImage style="width: 25px;height: 25px ;border-radius: 50%" value="/images/#{com.accomId.custId.images}"/>
-                                            #{com.accomId.custId.custName}<span style="font-style: italic"> (người cho thuê)</span> : </div>
-                                        <div class="col-md-7" style="font-weight: bold">#{com.answer}</div>
-                                    </div>
-                                </ui:repeat>
-                                <br/>
-                                <br/>
                                 <h:form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="textArea" class="col-lg-2 control-label">Nội dung: </label>
-                                        <div class="col-lg-10">
-                                            <h:inputTextarea value="#{landlord.commentMessage}" class="form-control" rows="3" id="textArea"></h:inputTextarea>
+                                    <!--<h:panelGroup id="refeshPostCom">-->
+                                    <h:panelGroup rendered="#{customerBean.curCust == null}">
+                                        <!--<div class="alert alert-dismissible alert-info">-->
+                                        <!--<button type="button" class="close" data-dismiss="alert">×</button>-->
+                                        <strong style="margin:20px 0"> Bạn vui lòng đăng nhập để có thể bình luận</strong>
+                                        <!--</div>-->
+
+                                    </h:panelGroup>
+                                    <ui:repeat var="com" value="#{landlord.displayComments()}">
+                                        <div class="row">
+                                            <div class="col-md-2" style="width: 140px">
+                                                <h:graphicImage style="width: 25px;height: 25px ;border-radius: 50%" value="/images/#{com.custId.images}"/>
+                                                #{com.custId.custName} : 
+                                            </div>
+                                            <div class="col-md-10">#{com.content}</div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-lg-10 col-lg-offset-2" style="text-align: right">
-                                            <h:commandButton action="#{landlord.createComment()}" class="btn btn-primary" value="Đăng"></h:commandButton>
+                                        <h:panelGroup rendered="#{com.answer != null}">
+                                            <div class="row">
+                                                <div class="col-md-2" style="width: 140px"></div>
+
+                                                <div class="col-md-3" > 
+                                                    <h:graphicImage style="width: 25px;height: 25px ;border-radius: 50%" value="/images/#{com.accomId.custId.images}"/>
+                                                    #{com.accomId.custId.custName}<span style="font-style: italic"> (người cho thuê)</span> : </div>
+                                                <div class="col-md-7" style="font-weight: bold">#{com.answer}</div>
+                                            </div>
+                                        </h:panelGroup>
+                                    </ui:repeat>
+                                    <!--</h:panelGroup>-->
+                                    <br/>
+                                    <br/>
+
+                                    <h:panelGroup rendered="#{customerBean.curCust !=null}">
+                                        <div class="form-group">
+                                            <label for="textArea" class="col-lg-2 control-label">Nội dung: </label>
+                                            <div class="col-lg-10">
+                                                <h:inputTextarea value="#{landlord.commentMessage}" class="form-control" rows="3" id="textArea"></h:inputTextarea>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-10 col-lg-offset-2" style="text-align: right">
+                                                <h:commandButton action="#{landlord.createComment()}" class="btn btn-primary" value="Đăng">
+                                                    <f:ajax execute="@form" render="@form"/>
+                                                </h:commandButton>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
                                 </h:form>
                             </div>
                         </div>

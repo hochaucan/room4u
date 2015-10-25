@@ -109,7 +109,25 @@ public class LandlordController {
         this.UpdateRoomResult = UpdateRoomResult;
     }
     private String deletedAccomId;
+    private String deletedComId;
+
+    public String getDeletedComId() {
+        return deletedComId;
+    }
+
+    public void setDeletedComId(String deletedComId) {
+        this.deletedComId = deletedComId;
+    }
     private String deletedRoomResult;
+    private String deletedComResult;
+
+    public String getDeletedComResult() {
+        return deletedComResult;
+    }
+
+    public void setDeletedComResult(String deletedComResult) {
+        this.deletedComResult = deletedComResult;
+    }
 
     public String getDeletedRoomResult() {
         return deletedRoomResult;
@@ -306,6 +324,14 @@ public class LandlordController {
 
     }
 
+    public void updateComment(Comments com) {
+        Comments comment = commentsFacade.find(com.getComId());
+        if (comment != null) {
+            comment.setAnswer(com.getAnswer());
+            commentsFacade.edit(comment);
+        }
+    }
+
     public void createComment() {
         try {
             Comments com = new Comments();
@@ -317,6 +343,7 @@ public class LandlordController {
             com.setComDate(date);
 
             commentsFacade.create(com);
+            commentMessage = "";
         } catch (Exception ex) {
             printStackTrace();
         }
@@ -327,8 +354,17 @@ public class LandlordController {
         return accommodationFacade.findAll();
     }
 
+    public List<Accommodation> displayRoomProfile() {
+        return accommodationFacade.findAccomByUser(customerBean.getCurCust().getCustId());
+    }
+
     public List<Comments> displayComments() {
         return commentsFacade.findCommentsByAccomId(curAccom.getAccomId());
+    }
+
+    public List<Comments> displayCommentsByUser() {
+        int custId = customerBean.getCurCust().getCustId();
+        return commentsFacade.findCommentsByUser(custId);
     }
 
     public void displayAccomUpdate(Accommodation acc) {
@@ -347,6 +383,19 @@ public class LandlordController {
 
         UpdateRoomResult = jsonRoom;
 
+    }
+
+    public void deleteComment() {
+        deletedComResult = "";
+        Comments com = commentsFacade.find(Integer.parseInt(deletedComId));
+        if (com != null) {
+            commentsFacade.remove(com);
+            deletedComResult = "success";
+        } else {
+            deletedComResult = "false";
+        }
+
+        // return deletedRoomResult;
     }
 
     public void deleteRoom() {
@@ -430,8 +479,6 @@ public class LandlordController {
 //        log.log(Level.INFO, "filename:{0}", file.getName());
 //        log.log(Level.INFO, "submitted filename:{0}", file.getSubmittedFileName());
 
-            Date date = new Date();
-            DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
             roomImageFileNames = new ArrayList<>();
             List<Part> files = new ArrayList<Part>();
 
@@ -445,13 +492,15 @@ public class LandlordController {
             // Uploading room image 
             for (Part itemFile : files) {
 
-                if (itemFile == null) {
-
-                    continue;
-                }
+//                if (itemFile == null) {
+//
+//                    continue;
+//                }
+                Date dateForFileName = new Date();
+                DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
                 InputStream inputStream = itemFile.getInputStream();
-                String fileName = dateFormat.format(date) + getFilename(itemFile);
+                String fileName = dateFormat.format(dateForFileName) + getFilename(itemFile);
                 roomImageFileNames.add(fileName);
                 File file = new File("C:/room4u/images/" + fileName);
                 FileOutputStream outputStream = new FileOutputStream(file);
@@ -460,7 +509,7 @@ public class LandlordController {
                     file.createNewFile();
                 }
 
-                byte[] buffer = new byte[6096];
+                byte[] buffer = new byte[1000000];
                 int bytesRead = 0;
                 while (true) {
                     bytesRead = inputStream.read(buffer);
@@ -475,6 +524,7 @@ public class LandlordController {
             }
 //            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Room is created!"));
 
+            Date date = new Date();
             room.setAccomId(1);
             Customer cust = customerFacade.find(1);
             room.setCustId(cust);

@@ -371,7 +371,6 @@
             </div>
         </div>
 
-
         <!-- Modal Register Room -->
         <div class="modal fade" id="user_register_room_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -385,10 +384,7 @@
                             <fieldset>
 
                                 <label class="col-md-12" id="homepage_registerroom_info"></label>
-                                <!--                                <h:commandButton id="btnLoginParams" value="Welcome Me" style="display: none">
-                                                                    <f:ajax  execute="txtUserName txtPassword"   render="txtLoginResult" onevent="LoginEventHandler"/>
-                                                                </h:commandButton>
-                                                                <h:outputText id="txtLoginResult" value="#{customerBean.checkLogin()}" style="display: none" />-->
+
                             </fieldset>
                         </div>
                         <div class="modal-footer" style="text-align: right">
@@ -420,10 +416,12 @@
                         <div class="modal-footer " style="text-align: right">
 
                             <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
-                            <i class="glyphicon glyphicon-ok-sign"/>
-                            <h:commandButton class="btn btn-primary" value="Xác nhận" >
-                                <f:ajax execute="@form" render="txtDeletedRoomResult" listener="#{landlord.deleteRoom()}" onevent="deleteAccomSuccess"/>
-                            </h:commandButton>
+
+                            <h:commandLink class="btn btn-primary"  >
+                                <i class="glyphicon glyphicon-ok-sign"/>
+                                Xác nhận
+                                <f:ajax execute="@form" render="pgDeleteRoom" listener="#{landlord.deleteRoom()}" onevent="deleteAccomSuccess"/>
+                            </h:commandLink>
                             <h:outputText id="txtDeletedRoomResult" value="#{landlord.deletedRoomResult}" style="display:none" />
                         </div>
                     </h:form>
@@ -442,7 +440,7 @@
                         <h4 class="modal-title" id="Heading">Sửa thông tin phòng</h4>
                     </div>
                     <h:form id="frmEditAccom" class="form-horizontal" enctype="multipart/form-data">
-                        
+
                         <div class="modal-body">
                             <fieldset>
                                 <div class="form-group">
@@ -537,6 +535,36 @@
             </div>
         </div>
 
+        <!--Modal Comment delete-->
+        <div class="modal fade" id="mdDeleteCom" tabindex="-1" role="dialog" aria-labelledby="myDelete" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h:form id="frmDeletedCom" class="form-horizontal">
+                        <h:inputText id="txtDeletedComId" value="#{landlord.deletedComId}" style="display: none"/>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Xóa bình luận</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa bình luận này?</div>
+                        </div>
+                        <div class="modal-footer " style="text-align: right">
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+
+                            <h:commandLink class="btn btn-primary"  >
+                                <i class="glyphicon glyphicon-ok-sign"/>
+                                Xác nhận
+                                <f:ajax execute="@form" render="frmUpdateCom" listener="#{landlord.deleteComment()}" onevent="deleteComSuccess"/>
+                            </h:commandLink>
+                            <h:outputText id="txtDeletedComResult" value="#{landlord.deletedComResult}" style="display:none" />
+                        </div>
+                    </h:form>
+                </div>
+                <!-- /.modal-content --> 
+            </div>
+            <!-- /.modal-dialog --> 
+        </div>
 
         <script>
 

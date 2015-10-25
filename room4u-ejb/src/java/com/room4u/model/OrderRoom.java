@@ -46,6 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrderRoom.findByStatus", query = "SELECT o FROM OrderRoom o WHERE o.status = :status"),
     @NamedQuery(name = "OrderRoom.findByOrderDate", query = "SELECT o FROM OrderRoom o WHERE o.orderDate = :orderDate")})
 public class OrderRoom implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -181,5 +182,5 @@ public class OrderRoom implements Serializable {
     public String toString() {
         return "com.room4u.model.OrderRoom[ orderId=" + orderId + " ]";
     }
-    
+
 }

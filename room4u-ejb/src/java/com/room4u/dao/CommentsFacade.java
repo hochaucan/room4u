@@ -37,4 +37,11 @@ public class CommentsFacade extends AbstractFacade<Comments> implements Comments
         q.setParameter("_accomId", AccomId);
         return q.getResultList();
     }
+
+    @Override
+    public List<Comments> findCommentsByUser(int userId) {
+        Query q = em.createQuery("SELECT b FROM Comments b WHERE b.custId.custId = :_userId ");
+        q.setParameter("_userId", userId);
+        return q.getResultList();
+    }
 }

@@ -25,6 +25,9 @@ public interface AccommodationFacadeLocal {
     Accommodation find(Object id);
 
     List<Accommodation> findAll();
+    
+    List<Accommodation> findAccomByUser(int userId);
+
 
     List<Accommodation> findRange(int[] range);
 

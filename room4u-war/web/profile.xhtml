@@ -36,12 +36,18 @@
                                     <a href="#orderedRoom" class="list-group-item" data-toggle="tab" aria-expanded="false">
                                         <span class="glyphicon glyphicon-hand-right"></span>Danh sách đặt phòng
                                     </a>
-                                    <a href="#yourPostedRoom" class="list-group-item" data-toggle="tab" aria-expanded="false">
-                                        <span class="glyphicon glyphicon-hand-right"></span>Phòng của bạn
-                                    </a>
-                                    <a href="#yourReport" class="list-group-item" data-toggle="tab" aria-expanded="false">
-                                        <span class="glyphicon glyphicon-hand-right"></span>Báo cáo
-                                    </a>
+                                    <h:panelGroup rendered="#{customerBean.curCust.roleId.roleId ==2}">
+                                        <a href="#yourPostedRoom" class="list-group-item" data-toggle="tab" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-hand-right"></span>Phòng của bạn
+                                        </a>
+
+                                        <a href="#yourComment" class="list-group-item" data-toggle="tab" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-hand-right"></span>Bình luận
+                                        </a>
+                                        <a href="#yourReport" class="list-group-item" data-toggle="tab" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-hand-right"></span>Báo cáo
+                                        </a>
+                                    </h:panelGroup>
                                 </div>
                             </div>
                         </div>
@@ -260,46 +266,92 @@
                                 </div>
                                 <div class="tab-pane fade active " id="yourPostedRoom">
                                     <legend>Danh sách phòng của bạn</legend>
-                                    <table class="table table-responsive table-hover ">
-                                        <thead>
-                                            <tr>
-                                                <th>STT</th>
-                                                <th>Hình</th>
-                                                <th>Tên phòng</th>
-                                                <th>Địa chỉ</th>
-                                                <th>Ngày đăng</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" />
-                                            <ui:repeat var="room" value="#{landlord.displayRoom()}" varStatus="status">
+                                    <h:panelGroup id="pgDeleteRoom">
+                                        <table class="table table-responsive table-hover ">
+                                            <thead>
                                                 <tr>
-                                                    <td>#{room.accomId}</td>
-                                                    <td><img style="width: 60px"  class="main_image" src="#{room.images}" alt=""/></td>
-                                                    <td>#{room.accomName}</td>
-                                                    <td>#{room.address}</td>
-                                                    <td>#{room.createdDate}</td>
-                                                    <td>
-                                                        <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>-->
-                                                        <!--<h:inputText id="txtUpdatedAccomId"  style="display: none"/>-->
-                                                        <h:form id="frmUpdateAccom">
-                                                            <h:commandButton class="btn btn-primary"  value="Sửa" >
-                                                                <f:ajax execute="@form" render="txtUpdateRoomResult" listener ="#{landlord.displayAccomUpdate(room)}" onevent="updateAccomSuccess" />
-                                                            </h:commandButton>
-
-                                                        </h:form>
-
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-primary" onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                    </td>
+                                                    <th>STT</th>
+                                                    <th>Hình</th>
+                                                    <th>Tên phòng</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Ngày đăng</th>
                                                 </tr>
-                                            </ui:repeat>
+                                            </thead>
+                                            <tbody>
+                                                <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" />
+                                                <ui:repeat var="room" value="#{landlord.displayRoomProfile()}" varStatus="status">
+                                                    <tr>
+                                                        <td>#{room.accomId}</td>
+                                                        <td><img style="width: 60px"  class="main_image" src="#{room.images}" alt=""/></td>
+                                                        <td>#{room.accomName}</td>
+                                                        <td>#{room.address}</td>
+                                                        <td>#{room.createdDate}</td>
+                                                        <td>
+                                                            <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>-->
+                                                            <!--<h:inputText id="txtUpdatedAccomId"  style="display: none"/>-->
+                                                            <h:form id="frmUpdateAccom">
+                                                                <h:commandButton class="btn btn-primary"  value="Sửa" >
+                                                                    <f:ajax execute="@form" render="txtUpdateRoomResult" listener ="#{landlord.displayAccomUpdate(room)}" onevent="updateAccomSuccess" />
+                                                                </h:commandButton>
 
-                                        </tbody>
-                                    </table> 
+                                                            </h:form>
 
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-primary" onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                        </td>
+                                                    </tr>
+                                                </ui:repeat>
+
+                                            </tbody>
+                                        </table> 
+                                    </h:panelGroup>
                                 </div>
+
+                                <div class="tab-pane fade active " id="yourComment">
+                                    <h:form id="frmUpdateCom">
+                                        <!--<h:panelGroup id="refeshCom">-->
+                                        <legend>Bình luận</legend>
+                                        <table class="table table-responsive table-hover ">
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Khách hàng</th>
+                                                    <th>Tên phòng</th>
+                                                    <th>Nội dung</th>
+                                                    <th>Ngày đăng</th>
+                                                    <th>Trả lời</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <ui:repeat var="com" value="#{landlord.displayCommentsByUser()}" varStatus="status">
+                                                    <tr>
+                                                        <td>#{com.comId}</td>
+                                                        <td>#{com.custId.custName}</td>
+                                                        <td>#{com.accomId.accomName}</td>
+                                                        <td>#{com.content}</td>
+                                                        <td>#{com.comDate}</td>
+                                                        <td> <h:inputText value="#{com.answer}"/></td>
+                                                        <td>
+                                                            <h:commandLink class="btn btn-primary" action="#{landlord.updateComment(com)}"  >
+                                                                <span class="glyphicon glyphicon-pencil"></span> 
+                                                                Cập nhật
+                                                                <f:ajax execute="@form" render="@form"/>
+                                                            </h:commandLink>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-primary" onclick="assignDeletedComment(this)"  data-toggle="modal" data-target="#mdDeleteCom" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                        </td>
+                                                    </tr>
+                                                </ui:repeat>
+
+                                            </tbody>
+                                        </table> 
+                                        <!--</h:panelGroup>-->
+                                    </h:form>
+                                </div>
+
                                 <div class="tab-pane fade active " id="yourReport">
                                     <legend>Báo cáo</legend>
                                     <img src="./resources/images/r2.jpg"/>
