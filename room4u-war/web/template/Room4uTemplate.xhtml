@@ -21,21 +21,21 @@
         <!--SCRIPT-->
         <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap.min.js"></h:outputScript>
-        
+
         <h:outputScript name="./js/jquery.rating.js"></h:outputScript>
         <h:outputScript name="./js/moment.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap-datetimepicker.min.js"></h:outputScript>
         <h:outputScript name="./js/jquery.validate.min.js"></h:outputScript>
         <h:outputScript name="./js/jquery.bootstrap-growl.min.js"></h:outputScript>
-         <h:outputScript name="./js/jquery.total-storage.js"></h:outputScript>
+        <h:outputScript name="./js/jquery.total-storage.js"></h:outputScript>
 
 
         <h:outputScript name="./js/js_custom.js"></h:outputScript>
         <h:outputScript name="./js/js_custom_can.js"></h:outputScript>
         <h:outputScript name="./js/js_custom_khai.js"></h:outputScript>
         <h:outputScript name="./js/js_rating_huy.js"></h:outputScript>
-        
-      
+
+
 
         <title><ui:insert name="title"/></title>
 
@@ -383,10 +383,10 @@
                             <fieldset>
 
                                 <label class="col-md-12" id="homepage_registerroom_info"></label>
-<!--                                <h:commandButton id="btnLoginParams" value="Welcome Me" style="display: none">
-                                    <f:ajax  execute="txtUserName txtPassword"   render="txtLoginResult" onevent="LoginEventHandler"/>
-                                </h:commandButton>
-                                <h:outputText id="txtLoginResult" value="#{customerBean.checkLogin()}" style="display: none" />-->
+                                <!--                                <h:commandButton id="btnLoginParams" value="Welcome Me" style="display: none">
+                                                                    <f:ajax  execute="txtUserName txtPassword"   render="txtLoginResult" onevent="LoginEventHandler"/>
+                                                                </h:commandButton>
+                                                                <h:outputText id="txtLoginResult" value="#{customerBean.checkLogin()}" style="display: none" />-->
                             </fieldset>
                         </div>
                         <div class="modal-footer" style="text-align: right">
@@ -402,14 +402,15 @@
             </div>
         </div>
 
-        <!--Modal delete-->
-        <div class="modal fade" id="customerDelete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+        <!--Modal room delete-->
+        <div class="modal fade" id="roomDelete" tabindex="-1" role="dialog" aria-labelledby="myDelete" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form class="form-horizontal">
+                    <h:form id="frmDeletedAccom" class="form-horizontal">
+                        <h:inputText id="txtDeletedAccomId" value="#{landlord.deletedAccomId}" style="display: none"/>
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa tài khoản</h4>
+                            <h4 class="modal-title custom_align" id="Heading">Xóa thông tin phòng</h4>
                         </div>
                         <div class="modal-body">
                             <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa tài khoản này?</div>
@@ -417,14 +418,123 @@
                         <div class="modal-footer " style="text-align: right">
 
                             <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
-                            <button type="button" class="btn btn-primary" ><span class="glyphicon glyphicon-ok-sign"></span> Xác nhận</button>
+                            <i class="glyphicon glyphicon-ok-sign"/>
+                            <h:commandButton class="btn btn-primary" value="Xác nhận" >
+                                <f:ajax execute="@form" render="txtDeletedRoomResult" listener="#{landlord.deleteRoom()}" onevent="deleteAccomSuccess"/>
+                            </h:commandButton>
+                            <h:outputText id="txtDeletedRoomResult" value="#{landlord.deletedRoomResult}" style="display:none" />
                         </div>
-                    </form>
+                    </h:form>
                 </div>
                 <!-- /.modal-content --> 
             </div>
             <!-- /.modal-dialog --> 
         </div>
+
+        <!--Modal room edit-->
+        <div class="modal fade" id="roomEdit" tabindex="-1" role="dialog" aria-labelledby="myEdit" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="width: 60%;margin: auto">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="Heading">Sửa thông tin phòng</h4>
+                    </div>
+                    <h:form id="frmEditRoom" class="form-horizontal"  enctype="multipart/form-data">
+
+                        <div class="modal-body">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="inputName" class="col-lg-3 control-label">Tên phòng</label>
+                                    <div class="col-lg-9">
+                                        <h:inputText id="accomName"  value="#{landlord.curAccomUpdate.accomName}" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPrice" class="col-lg-3 control-label">Giá phòng</label>
+                                    <div class="col-lg-9">
+                                        <h:inputText id="roomPrice" value="#{landlord.curAccomUpdate.price}" class="form-control"  />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress" class="col-lg-3 control-label">Địa chỉ</label>
+                                    <div class="col-lg-9">
+                                        <h:inputText id="hourseNumber" value="#{landlord.houseNumber}" class="form-control"  p:placeholder="Số nhà"/>
+                                        <h:inputText id="roomStreet" value="#{landlord.street}"  class="form-control"  p:placeholder="Đường" />
+                                        <h:inputText id="roomWard"  value="#{landlord.ward}"  class="form-control"  p:placeholder="Phường"/>
+                                        <h:inputText id="roomDistrict" value="#{landlord.district}"  class="form-control"  p:placeholder="Quận"/>
+                                        <h:inputText id="roomCity" value="#{landlord.city}"  class="form-control"  p:placeholder="Thành phố" />
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="textArea"  class="col-lg-3 control-label">Mô tả</label>
+                                    <div class="col-lg-9">
+                                        <h:inputTextarea id="roomDescription" class="form-control" value="#{landlord.curAccomUpdate.description}" rows="5" />
+                                        <span class="help-block">Giới thiệu tổng quan về phòng</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputBed"  class="col-lg-3 control-label">Số giường</label>
+                                    <div class="col-lg-9">
+                                        <h:inputText id="numberOfBed"  value="#{landlord.room.noOfBed}" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPerson" class="col-lg-3 control-label">Số người</label>
+                                    <div class="col-lg-9">
+                                        <h:inputText id="numberOfPerson" value="#{landlord.room.noOfPersons}" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputToilet" class="col-lg-3 control-label">Số toilet</label>
+                                    <div class="col-lg-9">
+                                        <h:inputText id="roomToilet"  value="#{landlord.room.noOfToilet}" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
+                                    <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
+                                    <div class="col-lg-9">
+                                        <h:inputFile  id="roomThumbnail" value="#{landlord.thumbnail}" ></h:inputFile>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputImage" class="col-lg-3 control-label">Hình 1</label>
+                                    <div class="col-lg-9">
+                                        <h:inputFile id="roomFile1" value="#{landlord.file1}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputImage" class="col-lg-3 control-label">Hình 2</label>
+                                    <div class="col-lg-9">
+                                        <h:inputFile id="roomFile2" value="#{landlord.file2}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputImage" class="col-lg-3 control-label">Hình 3</label>
+                                    <div class="col-lg-9">
+                                        <h:inputFile id="roomFile3" value="#{landlord.file3}" />
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                        <div class="modal-footer" style="text-align: right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <h:commandButton action="#{landlord.editRoom()}" class="btn btn-primary" value="Sửa bài"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
 
         <script>
 

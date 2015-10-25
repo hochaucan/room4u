@@ -267,105 +267,31 @@
                                                 <th>Hình</th>
                                                 <th>Tên phòng</th>
                                                 <th>Địa chỉ</th>
-
                                                 <th>Ngày đăng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-                                            </tr>
-                                            <tr >
-                                                <td>4</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-                                            </tr>
-                                            <tr >
-                                                <td>5</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-
-                                            </tr>
-                                            <tr >
-                                                <td>7</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-
-                                            </tr>
+                                          
+                                             <ui:repeat var="room" value="#{landlord.displayRoom()}" varStatus="status">
+                                                <tr>
+                                                    <td>#{room.accomId}</td>
+                                                    <td><img style="width: 60px"  class="main_image" src="#{room.images}" alt=""/></td>
+                                                    <td>#{room.accomName}</td>
+                                                    <td>#{room.address}</td>
+                                                    <td>#{room.createdDate}</td>
+                                                    <td>
+                                                        <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>-->
+                                                        <h:form>
+                                                            <h:commandButton class="btn btn-primary"  value="Sửa" >
+                                                                <f:ajax execute="@form" render="@form" listener ="#{landlord.displayAccomUpdate(room)}" />
+                                                            </h:commandButton>
+                                                        </h:form>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-primary" onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
                                         </tbody>
                                     </table> 
 

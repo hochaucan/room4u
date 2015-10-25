@@ -98,7 +98,35 @@ public class LandlordController {
     private String country;
     private Part thumbnail, file1, file2, file3;
     private List<String> roomImageFileNames;
-    private Accommodation curAccom;
+    private Accommodation curAccom, curAccomUpdate;
+
+    private String deletedAccomId;
+    private String deletedRoomResult;
+
+    public String getDeletedRoomResult() {
+        return deletedRoomResult;
+    }
+
+    public void setDeletedRoomResult(String deletedRoomResult) {
+        this.deletedRoomResult = deletedRoomResult;
+    }
+
+    public String getDeletedAccomId() {
+        return deletedAccomId;
+    }
+
+    public void setDeletedAccomId(String deletedAccomId) {
+        this.deletedAccomId = deletedAccomId;
+    }
+
+    public Accommodation getCurAccomUpdate() {
+        return curAccomUpdate;
+    }
+
+    public void setCurAccomUpdate(Accommodation curAccomUpdate) {
+        this.curAccomUpdate = curAccomUpdate;
+    }
+
     private String slider1, slider2, slider3;
     private int commentsCount;
     private String bookRoomResult;
@@ -289,6 +317,33 @@ public class LandlordController {
     public List<Accommodation> displayRoom() {
 
         return accommodationFacade.findAll();
+    }
+
+    public void displayAccomUpdate(Accommodation acc) {
+        curAccomUpdate = new Accommodation();
+        curAccomUpdate.setAccomName(acc.getAccomName());
+        curAccomUpdate.setDescription(acc.getDescription());
+        curAccomUpdate.setAddress(acc.getAddress());
+        curAccomUpdate.setNoOfBed(acc.getNoOfBed());
+        curAccomUpdate.setNoOfPersons(acc.getNoOfPersons());
+        curAccomUpdate.setNoOfToilet(acc.getNoOfToilet());
+        curAccomUpdate.setPrice(acc.getPrice());
+
+        //  curAccom.setAccomName(acc.getAccomName());
+        //  curAccom.setDescription(acc.getDescription());
+    }
+
+    public void deleteRoom() {
+        deletedRoomResult = "";
+        Accommodation accom = accommodationFacade.find(Integer.parseInt(deletedAccomId));
+        if (accom != null) {
+            accommodationFacade.remove(accom);
+            deletedRoomResult = "success";
+        } else {
+            deletedRoomResult = "false";
+        }
+
+        // return deletedRoomResult;
     }
 
     public String displayRoomDetail(int id) {
