@@ -19,6 +19,55 @@ $(function () {
    //$('.collapse').collapse()
 });
 
+function assignDeletedAccomId(render) {
+
+    var deletedAccomId = $(render).closest("tr").find("td:eq(0)").html();
+    $("#frmDeletedAccom\\:txtDeletedAccomId").val(deletedAccomId);
+
+}
+
+
+
+function deleteAccomSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmDeletedAccom\\:txtDeletedRoomResult").text();
+           // alert(message)
+            if (message === "success") {
+                $('#roomDelete').modal('toggle');
+                window.location.reload();
+            }
+
+
+            break;
+    }
+}
+
+function displayUpdateRoomModal() {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+
+            $('#roomEdit').modal('toggle');
+
+            break;
+    }
+}
+
+
 
 function addRoomToCart() {
     var cart = new Array();
