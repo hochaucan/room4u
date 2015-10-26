@@ -134,14 +134,15 @@ public class CustomerController {
     }
 
     private Customer c = new Customer();
-        public Customer getC() {
+
+    public Customer getC() {
         return c;
     }
 
     public void setC(Customer c) {
         this.c = c;
     }
-    
+
     /**
      * Creates a new instance of CustomerController
      */
@@ -170,7 +171,6 @@ public class CustomerController {
 //    public String testingAjax() {
 //        return accName + " Nick HO " + password;
 //    }
-
     public List<Customer> getCustList() {
         return this.customerFacade.findAll();
     }
@@ -220,7 +220,7 @@ public class CustomerController {
         }
         return null;
     }
-    
+
     private static String getFilename(Part part) {
         for (String cd : part.getHeader("content-disposition").split(";")) {
             if (cd.trim().startsWith("filename")) {
@@ -230,7 +230,7 @@ public class CustomerController {
         }
         return null;
     }
-    
+
     public String createUser() {
         try {
             Date date = new Date();
@@ -269,14 +269,13 @@ public class CustomerController {
                 outputStream.close();
                 inputStream.close();
             }
-            
-            // Store Image File name as json string.
-            CustImage ci = new CustImage();
-            ci.setImage(custImage.get(0));
 
-            Gson gson = new Gson();
-            String jsonImage = gson.toJson(ci);
-            c.setImages(jsonImage);
+            // Store Image File name as json string.
+            //CustImage ci = new CustImage();
+            // ci.setImage(custImage.get(0));
+           // Gson gson = new Gson();
+            //  String jsonImage = gson.toJson(ci);
+            c.setImages(custImage.get(0));
 
             c.setCustId(0);
             c.setRegisterDate(date);
