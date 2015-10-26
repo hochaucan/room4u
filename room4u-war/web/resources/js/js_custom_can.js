@@ -94,7 +94,6 @@ function updateAccomSuccess(data) {
     }
 }
 
-
 function deleteAccomSuccess(data) {
     var status = data.status;
     switch (status) {
@@ -110,7 +109,7 @@ function deleteAccomSuccess(data) {
             if (message === "success") {
                 renderRoomImageHomePage();
                 $('#roomDelete').modal('toggle');
-                 growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa phòng thành công", 300, "success");
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa phòng thành công", 300, "success");
                 // window.location.reload();
             }
 
@@ -136,8 +135,6 @@ function displayUpdateRoomModal() {
     }
 }
 
-
-
 function addRoomToCart() {
     var cart = new Array();
     $("#btnBookRoom").click(function () {
@@ -145,18 +142,19 @@ function addRoomToCart() {
         var fromDate = $("#dtpBookFrom input").val();
         var ToDate = $("#dtpBookTo input").val();
         var price = parseInt($(".roomdetail_price").text());
-        var diff = 0;
-//        if (fromDate && ToDate) {
-//            diff = Math.floor((ToDate.getTime() - fromDate.getTime()) / 86400000); // ms per day
-//        }
-        cart.push({"No": cart.length + 1, "FromDate": fromDate, "ToDate": ToDate});
+        var d1 = $('#dtpBookFrom').data("DateTimePicker").date();
+        var d2 = $('#dtpBookTo').data("DateTimePicker").date();
+        var dateCount = (d2 - d1) / 86400000;
+        
+
+        cart.push({"No": cart.length + 1, "FromDate": fromDate, "ToDate": ToDate, "Price": price * dateCount});
 
         var html = "";
         for (var i = 0; i < cart.length; i++) {
 //            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>' + cart[i].ToDate + '</td><td><a class="btn btn-default"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
             html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>'
                     + cart[i].ToDate + '</td><td>'
-                    + price + '</td><td><a onclick="removeCartItem(this)" style="cursor:pointer"><span class="glyphicon glyphicon-trash deleteCartItem" ></span></a></td></tr>';
+                    + cart[i].Price + '</td><td><a onclick="removeCartItem(this)" style="cursor:pointer"><span class="glyphicon glyphicon-trash deleteCartItem" ></span></a></td></tr>';
         }
         $(".roomdetail_cart table tbody").html(html);
     });
@@ -167,6 +165,34 @@ function addRoomToCart() {
 
 // alert(JSON.stringify($.totalStorage('scores', scores)));
 
+}
+
+function getBookRoomDateRange() {
+    var disableDateData = new Array();
+    disableDateData.push("10/23/2015");
+    disableDateData.push("10/25/2015");
+
+    $('#dtpBookFrom').datetimepicker({
+        format: 'DD/MM/YYYY',
+        disabledDates: disableDateData,
+        //useStrict:true  
+        ignoreReadonly: true
+//        keepOpen: true
+    });
+
+    $('#dtpBookTo').datetimepicker({
+        format: 'DD/MM/YYYY',
+        useCurrent: false, //Important! See issue #1075
+        ignoreReadonly: true
+//        keepOpen: true
+
+    });
+    $("#dtpBookFrom").on("dp.change", function (e) {
+        $('#dtpBookTo').data("DateTimePicker").minDate(e.date);
+    });
+    $("#dtpBookTo").on("dp.change", function (e) {
+        $('#dtpBookFrom').data("DateTimePicker").maxDate(e.date);
+    });
 }
 
 function removeCartItem(render) {
@@ -206,34 +232,6 @@ function roomRating() {
             // To submit the form via ajax:
             //$(this.form).ajaxSubmit();
         }
-    });
-}
-
-function getBookRoomDateRange() {
-    var disableDateData = new Array();
-    disableDateData.push("10/23/2015");
-    disableDateData.push("10/25/2015");
-
-    $('#dtpBookFrom').datetimepicker({
-        format: 'DD/MM/YYYY',
-        disabledDates: disableDateData,
-        //useStrict:true  
-        ignoreReadonly: true
-//        keepOpen: true
-    });
-
-    $('#dtpBookTo').datetimepicker({
-        format: 'DD/MM/YYYY',
-        useCurrent: false, //Important! See issue #1075
-        ignoreReadonly: true
-//        keepOpen: true
-
-    });
-    $("#dtpBookFrom").on("dp.change", function (e) {
-        $('#dtpBookTo').data("DateTimePicker").minDate(e.date);
-    });
-    $("#dtpBookTo").on("dp.change", function (e) {
-        $('#dtpBookFrom').data("DateTimePicker").maxDate(e.date);
     });
 }
 
