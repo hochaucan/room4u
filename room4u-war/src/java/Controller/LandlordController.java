@@ -338,7 +338,7 @@ public class LandlordController {
             Date date = new Date();
             com.setComId(1);
             com.setAccomId(curAccom);
-            com.setCustId(curAccom.getCustId());
+            com.setCustId(customerBean.getCurCust());
             com.setContent(commentMessage);
             com.setComDate(date);
 
@@ -363,8 +363,19 @@ public class LandlordController {
     }
 
     public List<Comments> displayCommentsByUser() {
-        int custId = customerBean.getCurCust().getCustId();
-        return commentsFacade.findCommentsByUser(custId);
+//        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        List<Comments> comResult = new ArrayList<Comments>();
+        List<Accommodation> accoms = accommodationFacade.findAccomByUser(customerBean.getCurCust().getCustId());
+        for (Accommodation accomItem : accoms) {
+            List<Comments> coms = commentsFacade.findCommentsByAccomId(accomItem.getAccomId());
+            for (Comments comItem : coms) {
+                comResult.add(comItem);
+            }
+        }
+
+        //int custId = customerBean.getCurCust().getCustId();
+        //return commentsFacade.findCommentsByUser(custId);
+        return comResult;
     }
 
     public void displayAccomUpdate(Accommodation acc) {
@@ -526,7 +537,7 @@ public class LandlordController {
 
             Date date = new Date();
             room.setAccomId(1);
-            Customer cust = customerFacade.find(1);
+            Customer cust = customerBean.getCurCust();
             room.setCustId(cust);
             room.setAddress(houseNumber
                     + " " + street + " " + ward + " " + district + " " + city);

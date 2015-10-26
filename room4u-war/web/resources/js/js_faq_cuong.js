@@ -1,4 +1,5 @@
-$(function() {
+$(function () {
+
     validateFormAddFAQ();
     validateFormUpdateFAQ();
     checkUpdateValues();
@@ -6,6 +7,8 @@ $(function() {
     $('#slider').nivoSlider();
 
 });
+
+
 
 function displayFAQUpdate(render) {
     //alert(   $(render).html());"
@@ -17,7 +20,7 @@ function displayFAQUpdate(render) {
     $("#frmUpdateFAQ\\:txtQuestion").val(question);
     $("#frmUpdateFAQ\\:txtAnswer").val(answer);
 
-  alert(id)
+    // alert(id)
 }
 
 function displayFAQDelete(render) {
@@ -38,15 +41,15 @@ function validateFormAddFAQ() {
                 maxlength: 200,
                 required: true
             },
-            highlight: function(element) {
+            highlight: function (element) {
                 $(element).closest('.form-group').addClass('has-error');
             },
-            unhighlight: function(element) {
+            unhighlight: function (element) {
                 $(element).closest('.form-group').removeClass('has-error');
             },
             errorElement: 'span',
             errorClass: 'help-block',
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 if (element.parent('.input-group').length) {
                     error.insertAfter(element.parent());
                 } else {
@@ -64,22 +67,22 @@ function validateFormUpdateFAQ() {
                 minlength: 3,
                 maxlength: 200,
                 required: true
-                
+
             },
             "frmUpdateFAQ:txtAnswer": {
                 minlength: 3,
                 maxlength: 200,
                 required: true
             },
-            highlight: function(element) {
+            highlight: function (element) {
                 $(element).closest('.form-group').addClass('has-error');
             },
-            unhighlight: function(element) {
+            unhighlight: function (element) {
                 $(element).closest('.form-group').removeClass('has-error');
             },
             errorElement: 'span',
             errorClass: 'help-block',
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 if (element.parent('.input-group').length) {
                     error.insertAfter(element.parent());
                 } else {
