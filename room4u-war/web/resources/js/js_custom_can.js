@@ -145,7 +145,7 @@ function addRoomToCart() {
         var d1 = $('#dtpBookFrom').data("DateTimePicker").date();
         var d2 = $('#dtpBookTo').data("DateTimePicker").date();
         var dateCount = (d2 - d1) / 86400000;
-        
+
 
         cart.push({"No": cart.length + 1, "FromDate": fromDate, "ToDate": ToDate, "Price": price * dateCount});
 
@@ -288,10 +288,10 @@ function LoginEventHandler(data) {
 
 }
 
-function registerRoom() {
-    $("#user_register_room_modal").modal('toggle');
-    growlmessage('Đăng ký phòng thành công', 350, 'info');
-}
+//function registerRoom() {
+//    $("#user_register_room_modal").modal('toggle');
+//    growlmessage('Đăng ký phòng thành công', 350, 'info');
+//}
 
 function growlmessage(message, width, messageType) {
     $.bootstrapGrowl(message, {
@@ -608,7 +608,8 @@ function setActiveMenuSidebar() {
     $("#yourPostedRoom").css("display", "none");
     $("#yourReport").css("display", "none");
     $("#yourComment").css("display", "none");
-     $("#yourRequiredRoom").css("display", "none");
+    $("#yourRequiredRoom").css("display", "none");
+
 
     $(".profileSidebarMenu").find("a").each(function () {
         $(this).click(function () {
@@ -620,7 +621,7 @@ function setActiveMenuSidebar() {
             $("#yourPostedRoom").css("display", "none");
             $("#yourReport").css("display", "none");
             $("#yourComment").css("display", "none");
-             $("#yourRequiredRoom").css("display", "none");
+            $("#yourRequiredRoom").css("display", "none");
 
             var tabId = $(this).attr("href"); //.replaceAll("#", "");
             $(tabId).css("display", "inline");

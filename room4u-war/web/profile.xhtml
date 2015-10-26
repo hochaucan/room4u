@@ -263,6 +263,50 @@
                                         </tbody>
                                     </table> 
                                 </div>
+                                <!--require room model-->
+                                <div class="tab-pane fade active " id="yourRequiredRoom">
+                                    <legend>Danh sách đăng ký phòng</legend>
+                                    <f:view>
+                                        <h:form>
+                                            <h:dataTable value="#{custReq.requiresByCusID}" var="item" class="table table-responsive table-hover">
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Số đăng ký"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.custReqId}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <h:inputHidden id="hdaddress" value="#{custReq.getAddress(item.requirement)}"/>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Địa chỉ đăng ký"/>
+                                                    </f:facet>
+                                                    <h:outputText id="txtAddress" value="#{custReq.getaddress}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Bán kính"/>
+                                                    </f:facet>
+                                                    <h:outputText id="txtRadius" value="#{custReq.getrad}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Ngày đăng ký"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.createdDate}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                    </h:outputText>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Xóa"/>
+                                                    </f:facet>
+                                                    <a class="btn btn-primary" onclick="displayReqDelete(this)"  data-toggle="modal" data-target="#DeleteReq"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                </h:column>
+                                            </h:dataTable>
+                                        </h:form>
+                                    </f:view>
+                                </div>
+
                                 <div class="tab-pane fade active " id="yourPostedRoom">
                                     <legend>Danh sách phòng của bạn</legend>
                                     <h:panelGroup id="pgDeleteRoom">
@@ -526,76 +570,33 @@
                     </div>
                 </div>
 
-                
-                <!--require room model-->
-                <div class="tab-pane fade active " id="yourRequiredRoom">
-                                    <legend>Danh sách đăng ký phòng</legend>
-                                    <f:view>
-                                        <h:form>
-                                            <h:dataTable value="#{custReq.requiresByCusID}" var="item" class="table table-responsive table-hover">
-                                                <h:column>
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Số đăng ký"/>
-                                                    </f:facet>
-                                                    <h:outputText value="#{item.custReqId}"/>
-                                                </h:column>
-                                                <h:column>
-                                                    <h:inputHidden id="hdaddress" value="#{custReq.getAddress(item.requirement)}"/>
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Địa chỉ đăng ký"/>
-                                                    </f:facet>
-                                                    <h:outputText id="txtAddress" value="#{custReq.getaddress}"/>
-                                                </h:column>
-                                                <h:column>
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Bán kính"/>
-                                                    </f:facet>
-                                                    <h:outputText id="txtRadius" value="#{custReq.getrad}"/>
-                                                </h:column>
-                                                <h:column>
-                                                   <f:facet name="header">
-                                                        <h:outputText value="Ngày đăng ký"/>
-                                                   </f:facet>
-                                                   <h:outputText value="#{item.createdDate}">
-                                                       <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                                   </h:outputText>
-                                                </h:column>
-                                                <h:column>
-                                                   <f:facet name="header">
-                                                        <h:outputText value="Xóa"/>
-                                                   </f:facet>
-                                                    <a class="btn btn-primary" onclick="displayReqDelete(this)"  data-toggle="modal" data-target="#DeleteReq"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </h:column>
-                                            </h:dataTable>
-                                        </h:form>
-                                     </f:view>
-                                </div>
 
 
-<!--Delete FAQ model-->
+
+                <!--Delete FAQ model-->
                 <div class="modal fade" id="DeleteReq" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <h:form id="frmDeleteReq" class="form-horizontal" enctype="multipart/form-data" >
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa đăng ký này</h4>
-                        </div>
-                        <div class="form-group">
-                            <h:inputHidden  id="hdReqIdDel" value="#{custReq.cusreqDel}"/>
-                        </div>
-                        <div class="modal-body">
-                            <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa đăng ký này?</div>
-                        </div>
-                        <div class="modal-footer " style="text-align: right">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h:form id="frmDeleteReq" class="form-horizontal" enctype="multipart/form-data" >
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa đăng ký này</h4>
+                                </div>
+                                <div class="form-group">
+                                    <h:inputHidden  id="hdReqIdDel" value="#{custReq.cusreqDel}"/>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa đăng ký này?</div>
+                                </div>
+                                <div class="modal-footer " style="text-align: right">
 
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
-                            <h:commandButton action="#{custReq.deleteReq()}"  class="btn btn-primary" value="Xác nhận"/>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                                    <h:commandButton action="#{custReq.deleteReq()}"  class="btn btn-primary" value="Xác nhận"/>
+                                </div>
+                            </h:form>
                         </div>
-                    </h:form>
+                    </div>
                 </div>
-            </div>
-        </div>
             </ui:define>
 
         </ui:composition>
