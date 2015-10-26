@@ -21,6 +21,7 @@
         <!--SCRIPT-->
         <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap.min.js"></h:outputScript>
+        <h:outputScript name="./js/Chart.min.js"></h:outputScript>
 
         <h:outputScript name="./js/jquery.rating.js"></h:outputScript>
         <h:outputScript name="./js/moment.min.js"></h:outputScript>
@@ -420,7 +421,7 @@
                             <h:commandLink class="btn btn-primary"  >
                                 <i class="glyphicon glyphicon-ok-sign"/>
                                 Xác nhận
-                                <f:ajax execute="@form" render="pgDeleteRoom" listener="#{landlord.deleteRoom()}" onevent="deleteAccomSuccess"/>
+                                <f:ajax execute="@form" listener="#{landlord.deleteRoom()}" onevent="deleteAccomSuccess"/>
                             </h:commandLink>
                             <h:outputText id="txtDeletedRoomResult" value="#{landlord.deletedRoomResult}" style="display:none" />
                         </div>
@@ -555,7 +556,7 @@
                             <h:commandLink class="btn btn-primary"  >
                                 <i class="glyphicon glyphicon-ok-sign"/>
                                 Xác nhận
-                                <f:ajax execute="@form" render="frmUpdateCom" listener="#{landlord.deleteComment()}" onevent="deleteComSuccess"/>
+                                <f:ajax execute="@form" listener="#{landlord.deleteComment()}" onevent="deleteComSuccess"/>
                             </h:commandLink>
                             <h:outputText id="txtDeletedComResult" value="#{landlord.deletedComResult}" style="display:none" />
                         </div>

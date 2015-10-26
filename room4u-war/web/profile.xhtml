@@ -6,9 +6,36 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
-
+        
         <ui:composition template="./template/Room4uTemplate.xhtml">
+            <script type="text/javascript">
+                        $(document).ready(function() {
+            //             alert("#{customerBean.curCust.custName}");
+                            var barChartData1 = {
+                                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                                datasets: [
+                                    {
+                                        fillColor: "rgba(220,220,220,0.5)",
+                                strokeColor: "rgba(220,220,220,1)",
+                                data: [65, 59, 90, 81, 56, 55, 40]
+                            },
+                            {
+                                fillColor: "rgba(151,187,205,0.5)",
+                                strokeColor: "rgba(151,187,205,1)",
+                                data: [28, 48, 40, 19, 96, 27, 100]
+                            }
+                            ,
+                            {
+                                fillColor: "rgba(255,187,205,0.5)",
+                                strokeColor: "rgba(151,187,205,1)",
+                                data: [128, 48, 40, 19, 96, 27, 100]
+                            }
+                        ]
 
+                    };
+                    new Chart(document.getElementById("bar1").getContext("2d")).Bar(barChartData1);
+                });
+            </script>
             <ui:define name="title">
                 Thông tin cá nhân.
             </ui:define>
@@ -354,7 +381,17 @@
 
                                 <div class="tab-pane fade active " id="yourReport">
                                     <legend>Báo cáo</legend>
-                                    <img src="./resources/images/r2.jpg"/>
+                                    <!--<img src="./resources/images/r2.jpg"/>-->
+                                    <div class="col-lg-6">
+                                        <section class="panel">
+                                            <header class="panel-heading">
+                                                Bar
+                                            </header>
+                                            <div class="panel-body text-center">
+                                                <canvas id="bar1" height="300" width="500"></canvas>
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>

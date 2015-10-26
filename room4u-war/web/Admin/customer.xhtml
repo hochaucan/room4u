@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
+        
         <ui:composition template="./../template/AdminTemplate.xhtml">
 
             <ui:define name="content">
@@ -17,7 +17,7 @@
                             <div class="table-responsive">
                                 <f:view>
                                     <h:form class="form-horizontal">
-                                        <h:dataTable value="#{customerBean.custList}" var="item" class="table table-bordred table-striped">
+                                        <h:dataTable value="#{customerBean.paginator.model}" var="item" class="table table-bordred table-striped">
 
                                             <h:column>
                                                 <f:facet name="header">
@@ -74,11 +74,16 @@
                                             </h:column>
 
                                         </h:dataTable>
+                                        <h:commandButton value="&lt; prev" action="#{customerBean.paginator.prev}"/>
+                                        <h:outputText value="#{customerBean.paginator.pageIndex} / #{customerBean.paginator.pages}"/>
+                                        <h:commandButton value="next &gt;" action="#{customerBean.paginator.next}"/>
+                                        <h:inputHidden value="#{customerBean.paginator.pageIndex}"/>
                                     </h:form>
                                 </f:view>
 
                                 <div class="clearfix"></div>
-                                <ul class="pagination pull-right">
+                                
+<!--                                <ul class="pagination pull-right">
                                     <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
                                     <li class="active"><a href="#">1</a></li>
                                     <li><a href="#">2</a></li>
@@ -86,7 +91,7 @@
                                     <li><a href="#">4</a></li>
                                     <li><a href="#">5</a></li>
                                     <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                                </ul>
+                                </ul>-->
                             </div>
                         </div>
                     </div>

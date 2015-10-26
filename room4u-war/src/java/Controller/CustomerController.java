@@ -6,6 +6,7 @@
 package Controller;
 
 import ViewModel.CustImage;
+import ViewModel.RepeatPaginator;
 import com.google.gson.Gson;
 import com.room4u.dao.CustomerFacade;
 import com.room4u.dao.CustomerFacadeLocal;
@@ -20,12 +21,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
@@ -40,6 +43,8 @@ public class CustomerController {
     @EJB
     private CustomerFacadeLocal customerFacade;
 
+    private String barLabel = "'JanuaryTest', 'February', 'March', 'April', 'May', 'June', 'July'";
+
     private String accName;
     private String password;
     private String mail;
@@ -52,6 +57,29 @@ public class CustomerController {
     private String oldPassword;
     private String newPassword;
     private String confirmPassword;
+    private int uid;
+    private List<String> pageList;
+    private RepeatPaginator paginator;
+
+    public RepeatPaginator getPaginator() {
+        return paginator;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+    
+    public String getBarLabel() {
+        return barLabel;
+    }
+
+    public void setBarLabel(String barLabel) {
+        this.barLabel = barLabel;
+    }
 
     public String getOldPassword() {
         return oldPassword;
@@ -134,14 +162,15 @@ public class CustomerController {
     }
 
     private Customer c = new Customer();
-        public Customer getC() {
+
+    public Customer getC() {
         return c;
     }
 
     public void setC(Customer c) {
         this.c = c;
     }
-    
+
     /**
      * Creates a new instance of CustomerController
      */
@@ -170,7 +199,6 @@ public class CustomerController {
 //    public String testingAjax() {
 //        return accName + " Nick HO " + password;
 //    }
-
     public List<Customer> getCustList() {
         return this.customerFacade.findAll();
     }
@@ -182,10 +210,24 @@ public class CustomerController {
     }
 
     public void delete(Customer c) {
-        if(checkAdminRole()){
+        if(c.getCustId() == uid){
+            notifyMessage("Không thể xóa tài khoản đang login");
+//            FacesContext.getCurrentInstance().addMessage(
+//                    null,
+//                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+//                            "Cảnh báo",
+//                            "Không thể xóa tài khoản đang login"));
+            return;
+        }
+        if (checkAdminRole()) {
             this.customerFacade.remove(c);
-        }else {
+        } else {
             notifyMessage("Cần ít nhất 1 tài khoản admin tồn tại trên hệ thống.");
+//            FacesContext.getCurrentInstance().addMessage(
+//                    null,
+//                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+//                            "Cảnh báo",
+//                            "Cần ít nhất 1 tài khoản admin tồn tại trên hệ thống."));
         }
     }
 
@@ -205,12 +247,13 @@ public class CustomerController {
         return "index";
     }
 
-    public boolean checkAdminRole(){
-        if(customerFacade.countAdminRole(c.getCustId()) > 1)
+    public boolean checkAdminRole() {
+        if (customerFacade.countAdminRole(c.getCustId()) > 1) {
             return true;
+        }
         return false;
     }
-    
+
     public Customer checkLogin() {
 
         try {
@@ -220,9 +263,10 @@ public class CustomerController {
             if (curCust != null) {
                 HttpSession sess = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
                 sess.setAttribute("username", accName);
-                sess.setAttribute("rold", password);
+                sess.setAttribute("pwd", password);
                 sess.setAttribute("isauthenticated", isAuthenticated);
                 roleId = curCust.getRoleId().getRoleId();
+                uid = curCust.getCustId();
                 return curCust;
             }
         } catch (Exception ex) {
@@ -230,7 +274,7 @@ public class CustomerController {
         }
         return null;
     }
-    
+
     private static String getFilename(Part part) {
         for (String cd : part.getHeader("content-disposition").split(";")) {
             if (cd.trim().startsWith("filename")) {
@@ -240,53 +284,35 @@ public class CustomerController {
         }
         return null;
     }
-    
+
     public String createUser() {
         try {
             Date date = new Date();
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-            custImage = new ArrayList<>();
-            List<Part> files = new ArrayList<Part>();
+            Part itemFile = image;
+            InputStream inputStream = itemFile.getInputStream();
+            String fileName = dateFormat.format(date) + getFilename(itemFile);
+            File file = new File("C:/room4u/images/" + fileName);
+            FileOutputStream outputStream = new FileOutputStream(file);
 
-            files.add(image);
-
-            // Uploading room image 
-            for (Part itemFile : files) {
-                if (itemFile == null) {
-                    continue;
-                }
-
-                InputStream inputStream = itemFile.getInputStream();
-                String fileName = dateFormat.format(date) + getFilename(itemFile);
-                custImage.add(fileName);
-                File file = new File("C:/room4u/images/" + fileName);
-                FileOutputStream outputStream = new FileOutputStream(file);
-
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-
-                byte[] buffer = new byte[6096];
-                int bytesRead = 0;
-                while (true) {
-                    bytesRead = inputStream.read(buffer);
-                    if (bytesRead > 0) {
-                        outputStream.write(buffer, 0, bytesRead);
-                    } else {
-                        break;
-                    }
-                }
-                outputStream.close();
-                inputStream.close();
+            if (!file.exists()) {
+                file.createNewFile();
             }
-            
-            // Store Image File name as json string.
-            CustImage ci = new CustImage();
-            ci.setImage(custImage.get(0));
 
-            Gson gson = new Gson();
-            String jsonImage = gson.toJson(ci);
-            c.setImages(jsonImage);
+            byte[] buffer = new byte[6096];
+            int bytesRead = 0;
+            while (true) {
+                bytesRead = inputStream.read(buffer);
+                if (bytesRead > 0) {
+                    outputStream.write(buffer, 0, bytesRead);
+                } else {
+                    break;
+                }
+            }
+            outputStream.close();
+            inputStream.close();
+            
+            c.setImages(fileName);
 
             c.setCustId(0);
             c.setRegisterDate(date);
@@ -310,16 +336,44 @@ public class CustomerController {
             } else {
                 notifyMessage("Mật khẩu xác nhận không đúng");
             }
-        } else if(){
-            SessionScoped.class.
-        }else {
+        } else {
             notifyMessage("Sai mật khẩu");
         }
+    }
+
+    @PostConstruct
+    public void init() {
+        paginator = new RepeatPaginator(this.getCustList());
     }
 
     public void notifyMessage(String message) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(message));
+    }
+
+    public static HttpSession getSession() {
+        return (HttpSession) FacesContext.getCurrentInstance()
+                .getExternalContext().getSession(false);
+    }
+
+    public static HttpServletRequest getRequest() {
+        return (HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext().getRequest();
+    }
+
+    public static String getUserName() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                .getExternalContext().getSession(false);
+        return session.getAttribute("username").toString();
+    }
+
+    public static int getUserId() {
+        HttpSession session = getSession();
+        if (session != null) {
+            return (int) session.getAttribute("userid");
+        } else {
+            return 0;
+        }
     }
 
 }
