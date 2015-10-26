@@ -166,8 +166,9 @@ function initMap() {
 }
 ;
 
-function registerRoomChangeRadius(){
+function registerRoomChangeRadius() {
     $(".registerRoomRadius").html($("#sltRadius").val());
+    $("#frmRegisterRoom\\:hdrad").val($("#sltRadius").val());
 }
 
 function getLongAddressBaseOnLngLat(lngLat, radius) {
@@ -189,11 +190,11 @@ function getLongAddressBaseOnLngLat(lngLat, radius) {
             // var radius = $("#sltRadius").val();
             $("#homepage_registerroom_info").html("Bạn muốn đăng ký phòng trong vòng bán kính <strong class='registerRoomRadius'>" + radius + "</strong> Km từ vị trí</br><strong>"
                     + results[0].formatted_address + "</strong>?");
-            
-             $("#frmRegisterRoom\\:hdlatt").val(lat);
-             $("#frmRegisterRoom\\:hdlong").val(lng);
-             $("#frmRegisterRoom\\:hdrad").val(radius);
-+            $("#frmRegisterRoom\\:hdaddress").val(results[0].formatted_address);
+
+            $("#frmRegisterRoom\\:hdlatt").val(lat);
+            $("#frmRegisterRoom\\:hdlong").val(lng);
+            $("#frmRegisterRoom\\:hdrad").val(radius);
+            $("#frmRegisterRoom\\:hdaddress").val(results[0].formatted_address);
         }
     });
 }
