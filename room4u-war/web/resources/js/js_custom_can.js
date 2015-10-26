@@ -608,6 +608,7 @@ function setActiveMenuSidebar() {
     $("#yourPostedRoom").css("display", "none");
     $("#yourReport").css("display", "none");
     $("#yourComment").css("display", "none");
+     $("#yourRequiredRoom").css("display", "none");
 
     $(".profileSidebarMenu").find("a").each(function () {
         $(this).click(function () {
@@ -619,6 +620,7 @@ function setActiveMenuSidebar() {
             $("#yourPostedRoom").css("display", "none");
             $("#yourReport").css("display", "none");
             $("#yourComment").css("display", "none");
+             $("#yourRequiredRoom").css("display", "none");
 
             var tabId = $(this).attr("href"); //.replaceAll("#", "");
             $(tabId).css("display", "inline");
