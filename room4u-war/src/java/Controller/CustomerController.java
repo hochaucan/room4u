@@ -182,7 +182,11 @@ public class CustomerController {
     }
 
     public void delete(Customer c) {
-        this.customerFacade.remove(c);
+        if(checkAdminRole()){
+            this.customerFacade.remove(c);
+        }else {
+            notifyMessage("Cần ít nhất 1 tài khoản admin tồn tại trên hệ thống.");
+        }
     }
 
     public String edit(Customer c) {
@@ -201,6 +205,12 @@ public class CustomerController {
         return "index";
     }
 
+    public boolean checkAdminRole(){
+        if(customerFacade.countAdminRole(c.getCustId()) > 1)
+            return true;
+        return false;
+    }
+    
     public Customer checkLogin() {
 
         try {
@@ -300,7 +310,9 @@ public class CustomerController {
             } else {
                 notifyMessage("Mật khẩu xác nhận không đúng");
             }
-        } else {
+        } else if(){
+            SessionScoped.class.
+        }else {
             notifyMessage("Sai mật khẩu");
         }
     }
