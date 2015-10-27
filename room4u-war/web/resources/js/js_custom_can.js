@@ -6,11 +6,17 @@ $(function () {
     setActiveMenuSidebar();
     validateFormChangePassword();
     validateFormRegisterUser();
+    validateFormBookRoom();
     getBookRoomDateRange();
     roomRating();
 
     //Add booked date to cart
     addRoomToCart();
+    
+    // Add thousand comma to Room Price
+  //alert($(".roomdetail_price").html())
+   var priceWithThousand = commaSeparateNumber( $(".roomdetail_price").html())
+   $(".roomdetail_price").html(priceWithThousand);
 
 //    cleanModal();
     $('#slider').nivoSlider();
@@ -18,6 +24,13 @@ $(function () {
     //Collapse in FAQ page
     //$('.collapse').collapse()
 });
+
+function commaSeparateNumber(val){
+    while (/(\d+)(\d{3})/.test(val.toString())){
+      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+    }
+    return val;
+  }
 
 function assignDeletedComment(render) {
     var deletedComId = $(render).closest("tr").find("td:eq(0)").html();
@@ -134,37 +147,48 @@ function displayUpdateRoomModal() {
             break;
     }
 }
-
+var cart = new Array();
 function addRoomToCart() {
-    var cart = new Array();
+
     $("#btnBookRoom").click(function () {
-        $(".roomdetail_cart").css("display", "inline");
         var fromDate = $("#dtpBookFrom input").val();
         var ToDate = $("#dtpBookTo input").val();
+        if (fromDate === "" && ToDate === "") {
+            return;
+        }
+
         var price = parseInt($(".roomdetail_price").text());
         var d1 = $('#dtpBookFrom').data("DateTimePicker").date();
         var d2 = $('#dtpBookTo').data("DateTimePicker").date();
         var dateCount = (d2 - d1) / 86400000;
-        
+
 
         cart.push({"No": cart.length + 1, "FromDate": fromDate, "ToDate": ToDate, "Price": price * dateCount});
+        cartRender();
 
-        var html = "";
-        for (var i = 0; i < cart.length; i++) {
-//            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>' + cart[i].ToDate + '</td><td><a class="btn btn-default"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
-            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>'
-                    + cart[i].ToDate + '</td><td>'
-                    + cart[i].Price + '</td><td><a onclick="removeCartItem(this)" style="cursor:pointer"><span class="glyphicon glyphicon-trash deleteCartItem" ></span></a></td></tr>';
-        }
-        $(".roomdetail_cart table tbody").html(html);
+
     });
-
-    // $.totalStorage("cart",cart);
-
-
-
 // alert(JSON.stringify($.totalStorage('scores', scores)));
 
+}
+
+function cartRender() {
+    var html = "";
+    for (var i = 0; i < cart.length; i++) {
+//            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>' + cart[i].ToDate + '</td><td><a class="btn btn-default"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
+        html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>'
+                + cart[i].ToDate + '</td><td>'
+                + cart[i].Price + '</td><td><a onclick="removeCartItem(this)"  style="cursor:pointer"><span class="glyphicon glyphicon-trash deleteCartItem" ></span></a></td></tr>';
+    }
+    $(".roomdetail_cart").css("display", "inline");
+    $(".roomdetail_cart table tbody").html(html);
+}
+
+function removeCartItem(render) {
+    // alert("Oanh")
+    var cartIndex = $(render).closest("tr").find("td:eq(0)").text();
+    cart.splice(cartIndex, 1);
+    cartRender();
 }
 
 function getBookRoomDateRange() {
@@ -176,7 +200,8 @@ function getBookRoomDateRange() {
         format: 'DD/MM/YYYY',
         disabledDates: disableDateData,
         //useStrict:true  
-        ignoreReadonly: true
+        ignoreReadonly: true,
+//        minDate: new Date()
 //        keepOpen: true
     });
 
@@ -195,10 +220,7 @@ function getBookRoomDateRange() {
     });
 }
 
-function removeCartItem(render) {
-    // alert("Oanh")
-    $(render).closest("tr").remove();
-}
+
 //    $(".deleteCartItem").each(function(){
 //        $(this).click(function(){
 //            $(this).closest("tbody").remove("tr");
@@ -288,10 +310,10 @@ function LoginEventHandler(data) {
 
 }
 
-function registerRoom() {
-    $("#user_register_room_modal").modal('toggle');
-    growlmessage('Đăng ký phòng thành công', 350, 'info');
-}
+//function registerRoom() {
+//    $("#user_register_room_modal").modal('toggle');
+//    growlmessage('Đăng ký phòng thành công', 350, 'info');
+//}
 
 function growlmessage(message, width, messageType) {
     $.bootstrapGrowl(message, {
@@ -520,6 +542,39 @@ function validateFormPostRoom() {
     });
 }
 
+function validateFormBookRoom() {
+    $('#frmBookRoom').validate({
+        rules: {
+            "frmBookRoom:txtBookFrom": {
+                required: true
+            },
+            "frmBookRoom:txtBookTo": {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            //addRoomToCart();
+//            $("#frmUserLogin\\:btnLoginParams").click();
+            //form.submit();
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
+
 function validateFormUserLogin() {
 
     $('#frmUserLogin').validate({
@@ -650,5 +705,4 @@ jQuery.extend(jQuery.validator.messages, {
     max: jQuery.validator.format("Vui lòng nhập giá trị nhỏ hơn hoặc bằng {0}."),
     min: jQuery.validator.format("Vui lòng nhập giá trị lơn hơn hoặc bằng {0}.")
 });
-
 

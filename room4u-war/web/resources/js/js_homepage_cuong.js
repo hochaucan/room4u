@@ -88,6 +88,7 @@ function checkSendRequire(data) {
              var message = $("#frmRegisterRoom\\:txtRequireResult").text();
              if (message === "success") {
                  growlmessage("<span class='glyphicon glyphicon-ok'></span> Đăng ký phòng thành công!", 350, "success");
+                 $("#user_register_room_modal").modal("toggle");
              }else if (message === "requiredlogin") {
                  growlmessage("<span class='glyphicon glyphicon-ban-circle'></span> Bạn vui lòng đăng nhập!</span>", 350, "info");
              }else {
