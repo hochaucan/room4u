@@ -212,22 +212,14 @@ public class CustomerController {
     public void delete(Customer c) {
         if(c.getCustId() == uid){
             notifyMessage("Không thể xóa tài khoản đang login");
-//            FacesContext.getCurrentInstance().addMessage(
-//                    null,
-//                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-//                            "Cảnh báo",
-//                            "Không thể xóa tài khoản đang login"));
+
             return;
         }
         if (checkAdminRole()) {
             this.customerFacade.remove(c);
         } else {
             notifyMessage("Cần ít nhất 1 tài khoản admin tồn tại trên hệ thống.");
-//            FacesContext.getCurrentInstance().addMessage(
-//                    null,
-//                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-//                            "Cảnh báo",
-//                            "Cần ít nhất 1 tài khoản admin tồn tại trên hệ thống."));
+
         }
     }
 
