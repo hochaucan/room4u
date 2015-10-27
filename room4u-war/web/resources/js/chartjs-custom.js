@@ -72,6 +72,12 @@ $(document).ready(function() {
                 strokeColor : "rgba(151,187,205,1)",
                 data : [28,48,40,19,96,27,100]
             }
+            ,
+            {
+                fillColor : "rgba(255,187,205,0.5)",
+                strokeColor : "rgba(151,187,205,1)",
+                data : [128,48,40,19,96,27,100]
+            }
         ]
 
     };
@@ -125,7 +131,7 @@ $(document).ready(function() {
     new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
     new Chart(document.getElementById("radar").getContext("2d")).Radar(radarChartData);
     new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chartData);
-    new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
+//    new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
     new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);
 
 

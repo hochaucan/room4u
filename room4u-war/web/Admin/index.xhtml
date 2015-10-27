@@ -10,6 +10,33 @@
         <ui:composition template="./../template/AdminTemplate.xhtml">
 
             <ui:define name="content">
+                <script type="text/javascript">
+                        $(document).ready(function() {
+                            var barChartData1 = {
+                                labels: [#{customerBean.barLabel}],
+                                datasets: [
+                                    {
+                                        fillColor: "rgba(220,220,220,0.5)",
+                                strokeColor: "rgba(220,220,220,1)",
+                                data: [65, 59, 90, 81, 56, 55, 40]
+                            },
+                            {
+                                fillColor: "rgba(151,187,205,0.5)",
+                                strokeColor: "rgba(151,187,205,1)",
+                                data: [28, 48, 40, 19, 96, 27, 100]
+                            }
+                            ,
+                            {
+                                fillColor: "rgba(255,187,205,0.5)",
+                                strokeColor: "rgba(151,187,205,1)",
+                                data: [128, 48, 40, 19, 96, 27, 100]
+                            }
+                        ]
+
+                    };
+                    new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData1);
+                });
+            </script>
                 <div class="container">
                     <div class="col-lg-12">
                         <section class="panel">
