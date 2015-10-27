@@ -112,43 +112,42 @@
                                         </span>
 
                                     </div>
-                                    <div class="col-md-3">
-                                        <label class="col-md-2">Giá </label>
-                                        <span  class="col-md-5 roomdetail_price" style="font-weight: bold;color:#e38d13">  #{landlord.curAccom.price}</span>đồng
-
+                                    <div class="col-md-5">
+                                        Giá:  <span  class="roomdetail_price" style="font-weight: bold;color:#2196f3">  #{landlord.curAccom.price} </span> đồng/ngày
+                                        <span  class="roomdetail_price_number" style="display: none">  #{landlord.curAccom.price}</span>
                                     </div>
                                 </div>
                                 <div class="row bookRoom" >
-                                    <h:form id="frmBookRoom">
-                                        <div class='col-md-5'>
-                                            <div class="form-group">
-                                                <lable class="col-md-2">Từ</lable>
-                                                <div class='input-group date col-md-10' id='dtpBookFrom'>
-                                                    <h:inputText id="txtBookFrom" readonly="true"  class="form-control" />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                </div>
+
+                                    <div class='col-md-5'>
+                                        <div class="form-group">
+                                            <lable class="col-md-2">Từ</lable>
+                                            <div class='input-group date col-md-10' id='dtpBookFrom'>
+                                                <h:inputText id="txtBookFrom" readonly="true"  class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
                                             </div>
                                         </div>
-                                        <div class='col-md-5'>
-                                            <div class="form-group">
-                                                <lable class="col-md-2">Đến </lable>
+                                    </div>
+                                    <div class='col-md-5'>
+                                        <div class="form-group">
+                                            <lable class="col-md-2">Đến </lable>
 
-                                                <div class='input-group date col-md-10' id='dtpBookTo'>
-                                                    <h:inputText id="txtBookTo" readonly="true"  class="form-control" />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                </div>
+                                            <div class='input-group date col-md-10' id='dtpBookTo'>
+                                                <h:inputText id="txtBookTo" readonly="true"  class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col-md-2">
-                                            <input type="submit" class="btn btn-primary" id="btnBookRoom" value="Đặt phòng"/>
-                                            <!--<h:commandButton id="btnBookRoom" value="Đặt phòng"></h:commandButton>-->
-                                        </div>
-                                    </h:form>
+                                    <div class="col-md-2">
+                                        <input type="submit" class="btn btn-primary" id="btnBookRoom" value="Đặt phòng"/>
+                                        <!--<h:commandButton id="btnBookRoom" value="Đặt phòng"></h:commandButton>-->
+                                    </div>
+
                                 </div>
 
                                 <div class="row">
@@ -167,14 +166,18 @@
                                             </tbody>
 
                                         </table> 
-                                        <div class="col-md-2" style="float:right">
-                                            <h:commandButton class="btn btn-primary"  id="btnConfirmBookRoom" value="Xác nhận" >
-                                                <f:ajax  execute="@form"   render="txtBookRoomResult" listener="#{landlord.bookRoom()}" onevent="checkUserLoginForBookRoom"/>
-                                            </h:commandButton>
-                                            <h:outputText id="txtBookRoomResult" value="#{landlord.bookRoomResult}"  style="display:none"/>
-                                        </div>
+                                        <div class="col-md-12 totalRoomPrice"></div>
+                                        <h:form id="frmBookRoom">
+                                            <h:inputText id="txtBookRoomDataJson" value="#{landlord.bookRoomDataJson}" style="display: none"/>
+                                            <div class="col-md-2" style="float:right">
+                                                <h:commandButton class="btn btn-primary"  id="btnConfirmBookRoom" value="Xác nhận" >
+                                                    <f:ajax  execute="@form"   render="txtBookRoomResult" listener="#{landlord.bookRoom()}" onevent="checkUserLoginForBookRoom"/>
+                                                </h:commandButton>
+                                                <h:outputText id="txtBookRoomResult" value="#{landlord.bookRoomResult}"  style="display:none"/>
+                                            </div>
+                                        </h:form>
                                         <div class="col-md-1" style="float:right">
-                                            <input type="button" id="btnRemoveAllCart" class="btn btn-default" value="Hủy" />
+                                            <input type="button" id="btnRemoveAllCart" onclick="removeAllCart()" class="btn btn-default" value="Hủy" />
                                         </div>
 
                                     </div>

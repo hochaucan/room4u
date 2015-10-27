@@ -38,6 +38,11 @@ html, body {
     /*width: 100%;*/
     margin: 0 auto;
 }
+.totalRoomPrice{
+    color: #2196f3;
+    float:right;
+    font-weight: bold;
+}
 .bookRoom lable{
     /*text-align: right;*/
     padding-left: 0px;
@@ -72,8 +77,8 @@ html, body {
     padding:0px;
     border: none;
     border-radius: 2px;
-/*    width: 360px;
-    height: 200px;*/
+    /*    width: 360px;
+        height: 200px;*/
     -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     box-shadow: 0 1px 4px rgba(0,0,0,0.3)
 }
