@@ -320,33 +320,35 @@
                                                     <th>Ngày đăng</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" />
-                                                <ui:repeat var="room" value="#{landlord.displayRoomProfile()}" varStatus="status">
-                                                    <tr>
-                                                        <td>#{room.accomId}</td>
-                                                        <td><img style="width: 60px"  class="main_image" src="#{room.images}" alt=""/></td>
-                                                        <td>#{room.accomName}</td>
-                                                        <td>#{room.address}</td>
-                                                        <td>#{room.createdDate}</td>
-                                                        <td>
-                                                            <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>-->
-                                                            <!--<h:inputText id="txtUpdatedAccomId"  style="display: none"/>-->
-                                                            <h:form id="frmUpdateAccom">
+                                            <h:form id="frmUpdateAccom">
+                                                <tbody>
+                                                    <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" />
+                                                    <ui:repeat var="room" value="#{landlord.displayRoomProfile()}" varStatus="status">
+                                                        <tr>
+                                                            <td>#{room.accomId}</td>
+                                                            <td><img style="width: 60px"  class="main_image" src="#{room.images}" alt=""/></td>
+                                                            <td>#{room.accomName}</td>
+                                                            <td>#{room.address}</td>
+                                                            <td>#{room.createdDate}</td>
+                                                            <td>
+                                                                <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>-->
+                                                                <!--<h:inputText id="txtUpdatedAccomId"  style="display: none"/>-->
+
                                                                 <h:commandButton class="btn btn-primary"  value="Sửa" >
                                                                     <f:ajax execute="@form" render="txtUpdateRoomResult" listener ="#{landlord.displayAccomUpdate(room)}" onevent="updateAccomSuccess" />
                                                                 </h:commandButton>
 
-                                                            </h:form>
 
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-primary" onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                        </td>
-                                                    </tr>
-                                                </ui:repeat>
 
-                                            </tbody>
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-primary" onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                            </td>
+                                                        </tr>
+                                                    </ui:repeat>
+
+                                                </tbody>
+                                            </h:form>
                                         </table> 
                                     </h:panelGroup>
                                 </div>
@@ -569,9 +571,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
 
                 <!--Delete FAQ model-->
                 <div class="modal fade" id="DeleteReq" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">

@@ -117,57 +117,58 @@
                                         <span  class="roomdetail_price_number" style="display: none">  #{landlord.curAccom.price}</span>
                                     </div>
                                 </div>
-                                <div class="row bookRoom" >
+                                <h:form id="frmBookRoom">
+                                    <div class="row bookRoom" >
 
-                                    <div class='col-md-5'>
-                                        <div class="form-group">
-                                            <lable class="col-md-2">Từ</lable>
-                                            <div class='input-group date col-md-10' id='dtpBookFrom'>
-                                                <h:inputText id="txtBookFrom" readonly="true"  class="form-control" />
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
+                                        <div class='col-md-5'>
+                                            <div class="form-group">
+                                                <lable class="col-md-2">Từ</lable>
+                                                <div class='input-group date col-md-10' id='dtpBookFrom'>
+                                                    <h:inputText id="txtBookFrom" readonly="true"  class="form-control" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-5'>
-                                        <div class="form-group">
-                                            <lable class="col-md-2">Đến </lable>
+                                        <div class='col-md-5'>
+                                            <div class="form-group">
+                                                <lable class="col-md-2">Đến </lable>
 
-                                            <div class='input-group date col-md-10' id='dtpBookTo'>
-                                                <h:inputText id="txtBookTo" readonly="true"  class="form-control" />
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
+                                                <div class='input-group date col-md-10' id='dtpBookTo'>
+                                                    <h:inputText id="txtBookTo" readonly="true"  class="form-control" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-2">
+                                            <input type="submit" class="btn btn-primary" id="btnBookRoom" value="Đặt phòng"/>
+                                            <!--<h:commandButton id="btnBookRoom" value="Đặt phòng"></h:commandButton>-->
+                                        </div>
+
                                     </div>
 
-                                    <div class="col-md-2">
-                                        <input type="submit" class="btn btn-primary" id="btnBookRoom" value="Đặt phòng"/>
-                                        <!--<h:commandButton id="btnBookRoom" value="Đặt phòng"></h:commandButton>-->
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 roomdetail_cart" style="display: none">
+                                            <table class="table table-responsive table-hover ">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Số TT</th>
+                                                        <th>Từ ngày</th>
+                                                        <th>Đến ngày</th>
+                                                        <th>Thành tiền</th>
 
-                                </div>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
 
-                                <div class="row">
-                                    <div class="col-md-12 roomdetail_cart" style="display: none">
-                                        <table class="table table-responsive table-hover ">
-                                            <thead>
-                                                <tr>
-                                                    <th>Số TT</th>
-                                                    <th>Từ ngày</th>
-                                                    <th>Đến ngày</th>
-                                                    <th>Thành tiền</th>
+                                            </table> 
+                                            <div class="col-md-12 totalRoomPrice"></div>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-
-                                        </table> 
-                                        <div class="col-md-12 totalRoomPrice"></div>
-                                        <h:form id="frmBookRoom">
                                             <h:inputText id="txtBookRoomDataJson" value="#{landlord.bookRoomDataJson}" style="display: none"/>
                                             <div class="col-md-2" style="float:right">
                                                 <h:commandButton class="btn btn-primary"  id="btnConfirmBookRoom" value="Xác nhận" >
@@ -175,16 +176,16 @@
                                                 </h:commandButton>
                                                 <h:outputText id="txtBookRoomResult" value="#{landlord.bookRoomResult}"  style="display:none"/>
                                             </div>
-                                        </h:form>
-                                        <div class="col-md-1" style="float:right">
-                                            <input type="button" id="btnRemoveAllCart" onclick="removeAllCart()" class="btn btn-default" value="Hủy" />
+
+                                            <div class="col-md-1" style="float:right">
+                                                <input type="button" id="btnRemoveAllCart" onclick="removeAllCart()" class="btn btn-default" value="Hủy" />
+                                            </div>
+
                                         </div>
 
+
                                     </div>
-
-
-                                </div>
-
+                                </h:form>
                                 <div class="row roomdetail_description">
                                     <strong class="col-md-12" style="margin-bottom: 15px">#{landlord.curAccom.accomName}</strong>
                                     <strong class="col-md-12" style="margin-bottom: 15px">#{landlord.curAccom.address}</strong>

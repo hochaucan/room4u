@@ -26,13 +26,6 @@ $(function () {
     //$('.collapse').collapse()
 });
 
-//function commaSeparateNumber(val) {
-//    while (/(\d+)(\d{3})/.test(val.toString())) {
-//        val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
-//    }
-//    return val;
-//}
-
 function assignDeletedComment(render) {
     var deletedComId = $(render).closest("tr").find("td:eq(0)").html();
     $("#frmDeletedCom\\:txtDeletedComId").val(deletedComId);
@@ -81,7 +74,7 @@ function updateAccomSuccess(data) {
             // ...
             break;
         case "success": // After update of HTML DOM based on ajax response..
-            var message = $("#txtUpdateRoomResult").text();
+            var message = $("#frmUpdateAccom\\:txtUpdateRoomResult").text();
             // alert(message)
             if (message !== "") {
 
@@ -171,7 +164,7 @@ function addRoomToCart() {
             if (fromDate === cart[i].FromDate && ToDate === cart[i].ToDate) {
                 isDuplicated = true;
             }
-        }   
+        }
 
         if (!isDuplicated) {
             cart.push({"FromDate": fromDate, "ToDate": ToDate, "Price": price * (dateCount + 1)});
@@ -189,7 +182,7 @@ function cartRender() {
 //            html += "<tr><td>" + cart[i].No + '</td><td>' + cart[i].FromDate + '</td><td>' + cart[i].ToDate + '</td><td><a class="btn btn-default"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
         html += "<tr><td>" + (i + 1) + '</td><td>' + cart[i].FromDate + '</td><td>'
                 + cart[i].ToDate + '</td><td class="cartPriceItem">'
-                + cart[i].Price + '</td><td><a onclick="removeCartItem(this)"  style="cursor:pointer"><span class="glyphicon glyphicon-trash deleteCartItem" ></span></a></td></tr>';
+                + parseInt(cart[i].Price) + '</td><td><a onclick="removeCartItem(this)"  style="cursor:pointer"><span class="glyphicon glyphicon-trash deleteCartItem" ></span></a></td></tr>';
         totalPrice += parseInt(cart[i].Price);
     }
 
@@ -256,13 +249,6 @@ function getBookRoomDateRange() {
     });
 }
 
-
-//    $(".deleteCartItem").each(function(){
-//        $(this).click(function(){
-//            $(this).closest("tbody").remove("tr");
-//        });
-//    });
-
 function roomRating() {
     $(".auto-submit-star").each(function () {
         var cbValue = $(this).val();
@@ -277,18 +263,6 @@ function roomRating() {
         callback: function (value, link) {
             $("#frmRoomRating\\:roomRatingSelected").val(value);
             $("#frmRoomRating\\:btnBookRating").click();
-
-// 'this' is the hidden form element holding the current value
-            // 'value' is the value selected
-            // 'element' points to the link element that received the click.
-
-//alert("The value selected was '" + value + "'\n\nWith this callback function I can automatically submit the form with this code:\nthis.form.submit();");
-
-// To submit the form automatically:
-            //this.form.submit();
-
-            // To submit the form via ajax:
-            //$(this.form).ajaxSubmit();
         }
     });
 }
