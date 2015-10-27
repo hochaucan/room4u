@@ -32,4 +32,6 @@ public interface CustomerFacadeLocal {
 
     int count();
 
+    public int countAdminRole(int id);
+
 }
