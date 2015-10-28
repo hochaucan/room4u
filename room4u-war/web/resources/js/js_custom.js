@@ -1,10 +1,10 @@
 $(function () {
     SetActiveMenu();
-    // alert(window.location.href.replace("Admin", ""));
+    //alert("Can")
+    createRoomAddressArray()
 });
-//Google Map API
-// In the following example, markers appear when the user clicks on the map.
-// Each marker is labeled with a single alphabetical character.
+
+
 
 // Set Active Menu
 function SetActiveMenu() {
@@ -22,6 +22,14 @@ function SetActiveMenu() {
 
     });
 
+}
+var roomAddressArr = new Array();
+var selectedRoomAddressArr = new Array();
+function createRoomAddressArray() {
+    $(".txtRoomAddress").each(function () {
+        roomAddressArr.push($(this).text());
+    });
+    //alert(roomAddressArr);
 }
 
 var map;
@@ -210,15 +218,16 @@ function distanceService(radius) {
     //var origin1 = '546A, Hung Phu, Phuong 9, Quan 8, TP Ho Chi Minh, Vietnam'//{lat: 55.93, lng: -3.118};
     var yourLocation = {lat: curLat, lng: curLong};
     //var origin2 = 'Greenwich, England';
-    var destinationA = "'Khu dan cu EHOME3, TP Ho Chi Minh'"//'Stockholm, Sweden';
-    var destinationB = "'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam'";
-    var destinationC = "'5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam'";
+    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
+    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
+    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
     var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
     var desArr = new Array();
     desArr.push(destinationA);
     desArr.push(destinationB);
     desArr.push(destinationC);
-   // alert(desArr)
+    desArr.push(destinationD);
+    // alert(desArr)
     var destinationIcon = 'https://chart.googleapis.com/chart?' +
             'chst=d_map_pin_letter&chld=D|FF0000|000000';
     var originIcon = 'https://chart.googleapis.com/chart?' +
@@ -227,7 +236,7 @@ function distanceService(radius) {
     var service = new google.maps.DistanceMatrixService;
     service.getDistanceMatrix({
         origins: [yourLocation],
-        destinations: desArr, //[destinationA, destinationB, destinationC, destinationD],
+        destinations: roomAddressArr, //[destinationA, destinationB, destinationC, destinationD],
         travelMode: google.maps.TravelMode.DRIVING,
         unitSystem: google.maps.UnitSystem.METRIC,
         avoidHighways: false,
@@ -265,12 +274,15 @@ function distanceService(radius) {
                 for (var j = 0; j < results.length; j++) {
 
                     // Just get room around current location with radius
-                    if (parseFloat(results[j].distance.text).toFixed(2) <= parseInt(radius)) {
+//                    if (parseFloat(results[j].distance.text).toFixed(2) <= parseInt(radius)) {
+                    if (parseInt(results[j].distance.text.replace(".", "")) <= parseInt(radius)) {
                         geocoder.geocode({'address': destinationList[j]},
                         showGeocodedAddressOnMap(true));
                         outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
                                 ': ' + results[j].distance.text + ' in ' +
                                 results[j].duration.text + '<br>';
+                        
+                       
                     }
                 }
             }

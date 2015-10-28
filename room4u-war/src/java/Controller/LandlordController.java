@@ -390,6 +390,11 @@ public class LandlordController {
         }
     }
 
+    public int getCommentsByAccomId(int accomId) {
+
+        return commentsFacade.findCommentsByAccomId(accomId).size();
+    }
+
     public List<Accommodation> displayRoom() {
 
         return accommodationFacade.findAll();
@@ -518,6 +523,16 @@ public class LandlordController {
         return "roomdetail";
     }
 
+    public int displayRating(int accomId) {
+        List<Rating> ratings = ratingFacade.findByAccRoomId(accomId);
+        int sumRateScore = 0;
+        for (Rating rate : ratings) {
+            sumRateScore += rate.getScore();
+        }
+
+        return ratings.size() > 0 ? sumRateScore / ratings.size() : 0;
+    }
+
     public List<OrderRoom> displayOrderRoomByUser() {
         return order1Facade.findOrderRoomByUser(customerBean.getCurCust().getCustId());
     }
@@ -639,10 +654,14 @@ public class LandlordController {
             Customer cust = customerBean.getCurCust();
             room.setCustId(cust);
             room.setAddress(houseNumber
-                    + " " + street + " " + ward + " " + district + " " + city);
+                    + " " + street + "phường " + ward + "quận " + district + " " + city);
+            
+//             room.setAddress(houseNumber
+//                    + "| " + street + "|phường " + ward + "|quận " + district + "| " + city);
+            
             room.setCreatedDate(date);
 
-            room.setCreatedBy("Can");
+            room.setCreatedBy(customerBean.getCurCust().getCustName());
 
             // Store Image File name as json string.
             RoomImage roomImage = new RoomImage();

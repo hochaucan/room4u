@@ -84,10 +84,10 @@
                                     <span class="col-md-1">#{room.noOfToilet}</span>
                                     <span class="col-md-1"/>
                                     <img class="col-md-1" src="resources/images/comment.png" title="Nhận xét" alt=""/>
-                                    <span class="col-md-1">#{room.commentsList.size()}</span>
+                                    <span class="col-md-1">#{landlord.getCommentsByAccomId(room.accomId)}</span>
                                     <img class="col-md-1" src="resources/images/rating.png" title="Đánh giá" alt=""/>
-                                    <span class="col-md-1">2</span>
-
+                                    <span class="col-md-1">#{landlord.displayRating(room.accomId)}</span>
+                                    <span class="txtRoomAddress">#{room.address}-#{room.accomId}</span>
                                     <!--<img class="col-md-1" src="resources/images/sharing.png" title="Chia sẻ" alt=""/>-->
                                 </div>
                             </div>
