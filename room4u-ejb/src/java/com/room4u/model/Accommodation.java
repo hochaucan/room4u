@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -94,14 +95,14 @@ public class Accommodation implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "CreatedBy")
     private String createdBy;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accommodation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accomId", fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetailList;
-    @OneToMany(mappedBy = "accomId")
+    @OneToMany(mappedBy = "accomId", fetch = FetchType.LAZY)
     private List<Comments> commentsList;
-    @OneToMany(mappedBy = "accomId")
+    @OneToMany(mappedBy = "accomId", fetch = FetchType.LAZY)
     private List<Rating> ratingList;
     @JoinColumn(name = "CustId", referencedColumnName = "CustId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer custId;
 
     public Accommodation() {

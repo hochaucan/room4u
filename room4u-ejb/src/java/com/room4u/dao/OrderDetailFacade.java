@@ -6,9 +6,11 @@
 package com.room4u.dao;
 
 import com.room4u.model.OrderDetail;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class OrderDetailFacade extends AbstractFacade<OrderDetail> implements OrderDetailFacadeLocal {
+
     @PersistenceContext(unitName = "room4u-ejbPU")
     private EntityManager em;
 
@@ -27,5 +30,12 @@ public class OrderDetailFacade extends AbstractFacade<OrderDetail> implements Or
     public OrderDetailFacade() {
         super(OrderDetail.class);
     }
-    
+
+    @Override
+    public List<OrderDetail> findOrderDetailByOrderId(int orderId) {
+        Query q = em.createQuery("SELECT a FROM OrderDetail a WHERE a.orderId.orderId = :u");
+        q.setParameter("u", orderId);
+        return q.getResultList();
+    }
+
 }

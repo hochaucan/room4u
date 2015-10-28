@@ -5,7 +5,7 @@
  */
 package com.room4u.dao;
 
-
+import com.room4u.model.Customer;
 import com.room4u.model.OrderRoom;
 import java.util.List;
 import javax.ejb.Local;
@@ -27,8 +27,10 @@ public interface OrderRoomFacadeLocal {
 
     List<OrderRoom> findAll();
 
+    List<OrderRoom> findOrderRoomByUser(int custId);
+
     List<OrderRoom> findRange(int[] range);
 
     int count();
-    
+
 }

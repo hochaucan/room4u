@@ -7,16 +7,16 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
-        
+
         <ui:composition template="./template/Room4uTemplate.xhtml">
             <script type="text/javascript">
-                        $(document).ready(function() {
-            //             alert("#{customerBean.curCust.custName}");
-                            var barChartData1 = {
-                                labels: ["January", "February", "March", "April", "May", "June", "July"],
-                                datasets: [
-                                    {
-                                        fillColor: "rgba(220,220,220,0.5)",
+                $(document).ready(function () {
+                    //             alert("#{customerBean.curCust.custName}");
+                    var barChartData1 = {
+                        labels: ["January", "February", "March", "April", "May", "June", "July"],
+                        datasets: [
+                            {
+                                fillColor: "rgba(220,220,220,0.5)",
                                 strokeColor: "rgba(220,220,220,1)",
                                 data: [65, 59, 90, 81, 56, 55, 40]
                             },
@@ -71,7 +71,9 @@
                                         <a href="#yourPostedRoom" class="list-group-item" data-toggle="tab" aria-expanded="false">
                                             <span class="glyphicon glyphicon-hand-right"></span>Phòng của bạn
                                         </a>
-
+                                        <a href="#yourCustomerOrder" class="list-group-item" data-toggle="tab" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-hand-right"></span>Khách hàng đặt phòng
+                                        </a>
                                         <a href="#yourComment" class="list-group-item" data-toggle="tab" aria-expanded="false">
                                             <span class="glyphicon glyphicon-hand-right"></span>Bình luận
                                         </a>
@@ -86,6 +88,7 @@
                     <div class="col-md-9">
                         <div class="panel panel-default">
                             <div class="panel-body">
+                                <!--Tab personal Info-->
                                 <div class="tab-pane fade active in" id="personalInfo">
                                     <legend>Thông tin cá nhân</legend>
                                     <h:form id="frmUserUpdate" class="form-horizontal" enctype="multipart/form-data" >
@@ -144,6 +147,7 @@
 
 
                                 </div>
+                                <!--Tab change password-->
                                 <div class="tab-pane fade active " id="personalPass">
                                     <h:form id="frmChangePassword" class="form-horizontal">
 
@@ -177,120 +181,42 @@
                                         </div>
                                     </h:form>
                                 </div>
+                                <!--Tab Ordered Room-->
                                 <div class="tab-pane fade active " id="orderedRoom">
-                                    <legend>Danh sách phòng đã đặt</legend>
-                                    <table class="table table-responsive table-hover ">
-                                        <thead>
-                                            <tr>
-                                                <th>Số TT</th>
-                                                <th>Số hóa đơn</th>
-                                                <th>Hình</th>
-                                                <th>Tên phòng</th>
-                                                <th>Địa chỉ</th>
-                                                <th>Tình trạng</th>
+                                    <legend>Danh sách bạn đặt phòng</legend>
+                                    <h:panelGroup id="pgDeleteRoomOrder">
+                                        <table class="table table-responsive table-hover ">
+                                            <thead>
+                                                <tr>
+                                                    <th>Số hóa đơn</th>
+                                                    <th>Tổng giá</th>
+                                                    <th>Ngày đặt</th>
 
-                                                <th>Ngày đặt</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ui:repeat var="roomOrder" value="#{landlord.displayOrderRoomByUser()}">
+                                                    <h:panelGroup rendered="#{roomOrder.status != 'Đã xóa'}">
+                                                        <tr>
+                                                            <td>#{roomOrder.orderId}</td>
+                                                            <td class="thousandComma">#{roomOrder.totalPrice}</td>
+                                                            <td>#{roomOrder.orderDate}</td>
 
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
+                                                            <td>
+                                                                <a  class="btn btn-primary" data-toggle="modal" data-target="#roomOrderView" ><span class="glyphicon glyphicon-eye-open"></span></a>
+                                                            </td>
+                                                            <td>
+                                                                <a  class="btn btn-primary" onclick="assignDeletedRoomOrderId(this)"  data-toggle="modal" data-target="#roomOrderDelete" ><span class="glyphicon glyphicon-trash"></span></a>
+                                                            </td>
 
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-                                            </tr>
-                                            <tr >
-                                                <td>4</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-                                            </tr>
-                                            <tr >
-                                                <td>5</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-
-                                            </tr>
-                                            <tr >
-                                                <td>7</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-                                                <td>Column content</td>
-
-                                                <td>
-                                                    <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </td>
-
-                                            </tr>
-                                        </tbody>
-                                    </table> 
+                                                        </tr>
+                                                    </h:panelGroup>
+                                                </ui:repeat>
+                                            </tbody>
+                                        </table> 
+                                    </h:panelGroup>
                                 </div>
-                                <!--require room model-->
+                                <!--Tab Registered Room-->
                                 <div class="tab-pane fade active " id="yourRequiredRoom">
                                     <legend>Danh sách đăng ký phòng</legend>
                                     <f:view>
@@ -333,7 +259,7 @@
                                         </h:form>
                                     </f:view>
                                 </div>
-
+                                <!--Tab Posted Room-->
                                 <div class="tab-pane fade active " id="yourPostedRoom">
                                     <legend>Danh sách phòng của bạn</legend>
                                     <h:panelGroup id="pgDeleteRoom">
@@ -379,7 +305,42 @@
                                         </table> 
                                     </h:panelGroup>
                                 </div>
+                                <!--Tab Customer Order-->
+                                <div class="tab-pane fade active " id="yourCustomerOrder">
+                                    <legend>Danh sách Hóa Đơn</legend>
+                                    <h:panelGroup id="pgDeleteCustomerOrderRoom">
+                                        <table class="table table-responsive table-hover ">
+                                            <thead>
+                                                <tr>
+                                                    <th>Số hóa đơn</th>
+                                                    <th>Tổng giá</th>
+                                                    <th>Ngày đặt</th>
+                                                    <th>Tình trạng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ui:repeat var="roomOrder" value="#{landlord.displayOrderRoomByUser()}">
 
+                                                    <tr>
+                                                        <td>#{roomOrder.orderId}</td>
+                                                        <td class="thousandComma">#{roomOrder.totalPrice}</td>
+                                                        <td>#{roomOrder.orderDate}</td>
+                                                        <td>#{roomOrder.status}</td>
+                                                        <td>
+                                                            <a  class="btn btn-primary" data-toggle="modal" data-target="#roomOrderView" ><span class="glyphicon glyphicon-eye-open"></span></a>
+                                                        </td>
+                                                        <td>
+                                                            <a  class="btn btn-primary" onclick="assignDeletedCustomerOrderId(this)"  data-toggle="modal" data-target="#roomCustomerOrderDelete" ><span class="glyphicon glyphicon-trash"></span></a>
+                                                        </td>
+
+                                                    </tr>
+
+                                                </ui:repeat>
+                                            </tbody>
+                                        </table> 
+                                    </h:panelGroup>
+                                </div>
+                                <!--Tab Comment-->
                                 <div class="tab-pane fade active " id="yourComment">
                                     <h:form id="frmUpdateCom">
                                         <!--<h:panelGroup id="refeshCom">-->
@@ -423,7 +384,7 @@
                                         <!--</h:panelGroup>-->
                                     </h:form>
                                 </div>
-
+                                <!--Tab Report-->
                                 <div class="tab-pane fade active " id="yourReport">
                                     <legend>Báo cáo</legend>
                                     <!--<img src="./resources/images/r2.jpg"/>-->
@@ -474,6 +435,113 @@
                     <!-- /.modal-dialog --> 
                 </div>
 
+                <!--Modal Order Room delete-->
+                <div class="modal fade" id="roomOrderDelete" tabindex="-1" role="dialog" aria-labelledby="myDelete" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h:form id="frmDeletedRoomOrder" class="form-horizontal">
+                                <h:inputText id="txtDeletedRoomOrderId" value="#{landlord.deletedRoomOrderId}" style="display: none"/>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title custom_align" id="Heading">Xóa thông tin Hóa Đơn</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa hóa đơn này?</div>
+                                </div>
+                                <div class="modal-footer " style="text-align: right">
+
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+
+                                    <h:commandLink class="btn btn-primary"  >
+                                        <i class="glyphicon glyphicon-ok-sign"/>
+                                        Xác nhận
+                                        <f:ajax execute="@form" render="pgDeleteRoomOrder pgDeleteCustomerOrderRoom txtDeletedRoomOrderResult" listener="#{landlord.deleteRoomOrder()}" onevent="deleteRoomOrderSuccess"/>
+                                    </h:commandLink>
+                                    <h:outputText id="txtDeletedRoomOrderResult" value="#{landlord.deletedRoomOrderResult}" style="display:none" />
+                                </div>
+                            </h:form>
+                        </div>
+                        <!-- /.modal-content --> 
+                    </div>
+                    <!-- /.modal-dialog --> 
+                </div>
+
+                <!--Modal Customer Order Room Delete-->
+                <div class="modal fade" id="roomCustomerOrderDelete" tabindex="-1" role="dialog" aria-labelledby="myDelete" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h:form id="frmDeleteCustomerOrderRoomDelete" class="form-horizontal">
+                                <h:inputText id="txtDeletedCustomerOrderRoomId" value="#{landlord.deletedCustomerOrderRoomOrderId}" style="display: none"/>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title custom_align" id="Heading">Xóa thông tin Hóa Đơn</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa hóa đơn này?</div>
+                                </div>
+                                <div class="modal-footer " style="text-align: right">
+
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+
+                                    <h:commandLink class="btn btn-primary"  >
+                                        <i class="glyphicon glyphicon-ok-sign"/>
+                                        Xác nhận
+                                        <f:ajax execute="@form" render="pgDeleteCustomerOrderRoom txtDeletedCustomerOrderRoomResult" listener="#{landlord.deleteCustomerOrderRoom()}" onevent="deleteCustomerOrderRoomSuccess"/>
+                                    </h:commandLink>
+                                    <h:outputText id="txtDeletedCustomerOrderRoomResult" value="#{landlord.deletedCustomerOrderRoomResult}" style="display:none" />
+                                </div>
+                            </h:form>
+                        </div>
+                        <!-- /.modal-content --> 
+                    </div>
+                    <!-- /.modal-dialog --> 
+                </div>
+
+                <!--Modal Order Room View-->
+                <div class="modal fade" id="roomOrderView" tabindex="-1" role="dialog" aria-labelledby="myDelete" aria-hidden="true">
+                    <div class="modal-dialog" style="width: 70%">
+                        <div class="modal-content">
+                            <h:form id="frmRoomOrderView" class="form-horizontal">
+                                <h:inputText id="txtViewRoomOrderId" value="#{landlord.deletedRoomOrderId}" style="display: none"/>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title custom_align" id="Heading">Danh sách ngày đặt</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <table class="table table-responsive table-hover ">
+                                        <thead>
+                                            <tr>
+                                                <th>Phòng</th>
+                                                <th>Từ ngày</th>
+                                                <th>Đến ngày</th>
+                                                <th>Giá</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ui:repeat var="roomOrderDetail" value="#{landlord.displayOrderDetailByOrderId(15)}">
+                                                <tr>
+                                                    <td ><h:link outcome="#{landlord.displayRoomDetail(roomOrderDetail.accomId.accomId)}"> <img style="width:80px" class="main_image"  src="#{roomOrderDetail.accomId.images}"/></h:link></td>
+                                                    <td>#{roomOrderDetail.bookedFromDate}</td>
+                                                    <td>#{roomOrderDetail.bookedToDate}</td>
+                                                    <td class="thousandComma">#{roomOrderDetail.price}</td>
+                                                </tr>
+                                            </ui:repeat>
+                                        </tbody>
+                                    </table> 
+
+
+                                </div>
+                                <div class="modal-footer " style="text-align: right">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                                </div>
+                            </h:form>
+                        </div>
+                        <!-- /.modal-content --> 
+                    </div>
+                    <!-- /.modal-dialog --> 
+                </div>
+
                 <!--Modal room delete-->
                 <div class="modal fade" id="roomDelete" tabindex="-1" role="dialog" aria-labelledby="myDelete" aria-hidden="true">
                     <div class="modal-dialog">
@@ -485,7 +553,7 @@
                                     <h4 class="modal-title custom_align" id="Heading">Xóa thông tin phòng</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa tài khoản này?</div>
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa phòng này?</div>
                                 </div>
                                 <div class="modal-footer " style="text-align: right">
 
@@ -609,76 +677,76 @@
                     </div>
                 </div>
 
-                
+
                 <!--require room model-->
                 <div class="tab-pane fade active " id="yourRequiredRoom">
-                                    <legend>Danh sách đăng ký phòng</legend>
-                                    <f:view>
-                                        <h:form>
-                                            <h:dataTable value="#{custReq.requiresByCusID}" var="item" class="table table-responsive table-hover">
-                                                <h:column>
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Số đăng ký"/>
-                                                    </f:facet>
-                                                    <h:outputText value="#{item.custReqId}"/>
-                                                </h:column>
-                                                <h:column>
-                                                    <h:inputHidden id="hdaddress" value="#{custReq.getAddress(item.requirement)}"/>
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Địa chỉ đăng ký"/>
-                                                    </f:facet>
-                                                    <h:outputText id="txtAddress" value="#{custReq.getaddress}"/>
-                                                </h:column>
-                                                <h:column>
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Bán kính"/>
-                                                    </f:facet>
-                                                    <h:outputText id="txtRadius" value="#{custReq.getrad}"/>
-                                                </h:column>
-                                                <h:column>
-                                                   <f:facet name="header">
-                                                        <h:outputText value="Ngày đăng ký"/>
-                                                   </f:facet>
-                                                   <h:outputText value="#{item.createdDate}">
-                                                       <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                                   </h:outputText>
-                                                </h:column>
-                                                <h:column>
-                                                   <f:facet name="header">
-                                                        <h:outputText value="Xóa"/>
-                                                   </f:facet>
-                                                    <a class="btn btn-primary" onclick="displayReqDelete(this)"  data-toggle="modal" data-target="#DeleteReq"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                                </h:column>
-                                            </h:dataTable>
-                                        </h:form>
-                                     </f:view>
-                                </div>
-
-
-<!--Delete FAQ model-->
-                <div class="modal fade" id="DeleteReq" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <h:form id="frmDeleteReq" class="form-horizontal" enctype="multipart/form-data" >
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa đăng ký này</h4>
-                        </div>
-                        <div class="form-group">
-                            <h:inputHidden  id="hdReqIdDel" value="#{custReq.cusreqDel}"/>
-                        </div>
-                        <div class="modal-body">
-                            <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa đăng ký này?</div>
-                        </div>
-                        <div class="modal-footer " style="text-align: right">
-
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
-                            <h:commandButton action="#{custReq.deleteReq()}"  class="btn btn-primary" value="Xác nhận"/>
-                        </div>
-                    </h:form>
+                    <legend>Danh sách đăng ký phòng</legend>
+                    <f:view>
+                        <h:form>
+                            <h:dataTable value="#{custReq.requiresByCusID}" var="item" class="table table-responsive table-hover">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Số đăng ký"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.custReqId}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:inputHidden id="hdaddress" value="#{custReq.getAddress(item.requirement)}"/>
+                                    <f:facet name="header">
+                                        <h:outputText value="Địa chỉ đăng ký"/>
+                                    </f:facet>
+                                    <h:outputText id="txtAddress" value="#{custReq.getaddress}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Bán kính"/>
+                                    </f:facet>
+                                    <h:outputText id="txtRadius" value="#{custReq.getrad}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Ngày đăng ký"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.createdDate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Xóa"/>
+                                    </f:facet>
+                                    <a class="btn btn-primary" onclick="displayReqDelete(this)"  data-toggle="modal" data-target="#DeleteReq"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </f:view>
                 </div>
-            </div>
-        </div>
+
+
+                <!--Delete FAQ model-->
+                <div class="modal fade" id="DeleteReq" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h:form id="frmDeleteReq" class="form-horizontal" enctype="multipart/form-data" >
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa đăng ký này</h4>
+                                </div>
+                                <div class="form-group">
+                                    <h:inputHidden  id="hdReqIdDel" value="#{custReq.cusreqDel}"/>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa đăng ký này?</div>
+                                </div>
+                                <div class="modal-footer " style="text-align: right">
+
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                                    <h:commandButton action="#{custReq.deleteReq()}"  class="btn btn-primary" value="Xác nhận"/>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
             </ui:define>
 
         </ui:composition>

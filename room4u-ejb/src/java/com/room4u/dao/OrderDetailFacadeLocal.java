@@ -17,7 +17,7 @@ import javax.ejb.Local;
 public interface OrderDetailFacadeLocal {
 
     void create(OrderDetail orderDetail);
-
+    
     void edit(OrderDetail orderDetail);
 
     void remove(OrderDetail orderDetail);
@@ -25,9 +25,10 @@ public interface OrderDetailFacadeLocal {
     OrderDetail find(Object id);
 
     List<OrderDetail> findAll();
+    List<OrderDetail> findOrderDetailByOrderId(int orderId);
 
     List<OrderDetail> findRange(int[] range);
 
     int count();
-    
+
 }

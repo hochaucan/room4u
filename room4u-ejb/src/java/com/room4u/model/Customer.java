@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,7 +49,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByNotified", query = "SELECT c FROM Customer c WHERE c.notified = :notified"),
     @NamedQuery(name = "Customer.findByIsActived", query = "SELECT c FROM Customer c WHERE c.isActived = :isActived")})
 public class Customer implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,18 +98,18 @@ public class Customer implements Serializable {
     private String notified;
     @Column(name = "IsActived")
     private Boolean isActived;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custID", fetch = FetchType.LAZY)
     private List<OrderRoom> orderRoomList;
     @JoinColumn(name = "RoleId", referencedColumnName = "RoleId")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private UserRole roleId;
-    @OneToMany(mappedBy = "custId")
+    @OneToMany(mappedBy = "custId", fetch = FetchType.LAZY)
     private List<Comments> commentsList;
-    @OneToMany(mappedBy = "custID")
+    @OneToMany(mappedBy = "custID", fetch = FetchType.LAZY)
     private List<CustomerRequire> customerRequireList;
-    @OneToMany(mappedBy = "custId")
+    @OneToMany(mappedBy = "custId", fetch = FetchType.LAZY)
     private List<Rating> ratingList;
-    @OneToMany(mappedBy = "custId")
+    @OneToMany(mappedBy = "custId", fetch = FetchType.LAZY)
     private List<Accommodation> accommodationList;
 
     public Customer() {
@@ -287,5 +287,5 @@ public class Customer implements Serializable {
     public String toString() {
         return "com.room4u.model.Customer[ custId=" + custId + " ]";
     }
-
+    
 }

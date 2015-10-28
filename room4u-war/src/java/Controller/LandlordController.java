@@ -15,15 +15,12 @@ import com.room4u.dao.CustomerFacadeLocal;
 import com.room4u.dao.OrderRoomFacadeLocal;
 import com.room4u.dao.OrderDetailFacadeLocal;
 import com.room4u.dao.RatingFacadeLocal;
-
 import com.room4u.model.Accommodation;
 import com.room4u.model.Comments;
 import com.room4u.model.Customer;
-
 import com.room4u.model.OrderDetail;
 import com.room4u.model.OrderRoom;
 import com.room4u.model.Rating;
-
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import com.sun.org.apache.xerces.internal.impl.dv.xs.DecimalDV;
 import java.io.File;
@@ -75,13 +72,13 @@ public class LandlordController {
     private OrderRoomFacadeLocal order1Facade;
     @EJB
     private CommentsFacadeLocal commentsFacade;
-
-    //@Inject
-    // Logger log;
     @EJB
     private CustomerFacadeLocal customerFacade;
     @EJB
     private AccommodationFacadeLocal accommodationFacade;
+
+    //@Inject
+    // Logger log;
     @ManagedProperty(value = "#{customerBean}")
     private CustomerController customerBean;
 
@@ -101,6 +98,52 @@ public class LandlordController {
     private Accommodation curAccom, curAccomUpdate = null;
     private String UpdateRoomResult;
     private String bookRoomDataJson;
+    private String deletedRoomResult;
+    private String deletedRoomOrderResult;
+    private String deletedCustomerOrderRoomResult;
+
+    public String getDeletedCustomerOrderRoomResult() {
+        return deletedCustomerOrderRoomResult;
+    }
+
+    public void setDeletedCustomerOrderRoomResult(String deletedCustomerOrderRoomResult) {
+        this.deletedCustomerOrderRoomResult = deletedCustomerOrderRoomResult;
+    }
+
+    public String getDeletedRoomOrderResult() {
+        return deletedRoomOrderResult;
+    }
+
+    public void setDeletedRoomOrderResult(String deletedRoomOrderResult) {
+        this.deletedRoomOrderResult = deletedRoomOrderResult;
+    }
+    private String deletedComResult;
+    private String deletedAccomId;
+    private String deletedComId;
+    private String deletedRoomOrderId;
+    private String deletedCustomerOrderRoomOrderId;
+
+    public String getDeletedCustomerOrderRoomOrderId() {
+        return deletedCustomerOrderRoomOrderId;
+    }
+
+    public void setDeletedCustomerOrderRoomOrderId(String deletedCustomerOrderRoomOrderId) {
+        this.deletedCustomerOrderRoomOrderId = deletedCustomerOrderRoomOrderId;
+    }
+
+    public String getDeletedRoomOrderId() {
+        return deletedRoomOrderId;
+    }
+
+    public void setDeletedRoomOrderId(String deletedRoomOrderId) {
+        this.deletedRoomOrderId = deletedRoomOrderId;
+    }
+    private String slider1, slider2, slider3;
+    private int commentsCount;
+    private String bookRoomResult;
+    private String roomRatingSelected;
+    private int displayRate;
+    private String commentMessage;
 
     public String getBookRoomDataJson() {
         return bookRoomDataJson;
@@ -117,8 +160,6 @@ public class LandlordController {
     public void setUpdateRoomResult(String UpdateRoomResult) {
         this.UpdateRoomResult = UpdateRoomResult;
     }
-    private String deletedAccomId;
-    private String deletedComId;
 
     public String getDeletedComId() {
         return deletedComId;
@@ -127,8 +168,6 @@ public class LandlordController {
     public void setDeletedComId(String deletedComId) {
         this.deletedComId = deletedComId;
     }
-    private String deletedRoomResult;
-    private String deletedComResult;
 
     public String getDeletedComResult() {
         return deletedComResult;
@@ -161,13 +200,6 @@ public class LandlordController {
     public void setCurAccomUpdate(Accommodation curAccomUpdate) {
         this.curAccomUpdate = curAccomUpdate;
     }
-
-    private String slider1, slider2, slider3;
-    private int commentsCount;
-    private String bookRoomResult;
-    private String roomRatingSelected;
-    private int displayRate;
-    private String commentMessage;
 
     public String getCommentMessage() {
         return commentMessage;
@@ -381,9 +413,6 @@ public class LandlordController {
                 comResult.add(comItem);
             }
         }
-
-        //int custId = customerBean.getCurCust().getCustId();
-        //return commentsFacade.findCommentsByUser(custId);
         return comResult;
     }
 
@@ -414,8 +443,6 @@ public class LandlordController {
         } else {
             deletedComResult = "false";
         }
-
-        // return deletedRoomResult;
     }
 
     public void deleteRoom() {
@@ -427,8 +454,32 @@ public class LandlordController {
         } else {
             deletedRoomResult = "false";
         }
+    }
 
-        // return deletedRoomResult;
+    public void deleteRoomOrder() {
+        deletedRoomOrderResult = "";
+        OrderRoom roomOrder = order1Facade.find(Integer.parseInt(deletedRoomOrderId));
+        if (roomOrder != null) {
+            roomOrder.setStatus("Đã xóa");
+            order1Facade.edit(roomOrder);
+//            order1Facade.remove(roomOrder);
+            deletedRoomOrderResult = "success";
+        } else {
+            deletedRoomOrderResult = "false";
+        }
+    }
+
+    public void deleteCustomerOrderRoom() {
+        deletedCustomerOrderRoomResult = "";
+        OrderRoom roomOrder = order1Facade.find(Integer.parseInt(deletedCustomerOrderRoomOrderId));
+        if (roomOrder != null) {
+            // roomOrder.setStatus("Đã xóa");
+            order1Facade.remove(roomOrder);
+//            order1Facade.remove(roomOrder);
+            deletedCustomerOrderRoomResult = "success";
+        } else {
+            deletedCustomerOrderRoomResult = "false";
+        }
     }
 
     public String displayRoomDetail(int id) {
@@ -467,6 +518,14 @@ public class LandlordController {
         return "roomdetail";
     }
 
+    public List<OrderRoom> displayOrderRoomByUser() {
+        return order1Facade.findOrderRoomByUser(customerBean.getCurCust().getCustId());
+    }
+
+    public List<OrderDetail> displayOrderDetailByOrderId(int orderId) {
+        return orderDetailFacade.findOrderDetailByOrderId(orderId);
+    }
+
     public void bookRoom() {
         bookRoomResult = "";
         if (customerBean.getCurCust() == null) {
@@ -477,22 +536,44 @@ public class LandlordController {
         try {
 
             OrderRoom order = new OrderRoom();
-            //    OrderDetail orderDetail = new OrderDetail();
+
             Gson gson = new Gson();
             BookRoom or = new BookRoom();
-
             java.lang.reflect.Type token = new TypeToken<Collection<BookRoom>>() {
             }.getType();
 
-            Collection<BookRoom> result = gson.fromJson(bookRoomDataJson, token);
+            Collection<BookRoom> bookRoomDetail = gson.fromJson(bookRoomDataJson, token);
+            int TotalPrice = 0;
+            for (BookRoom br : bookRoomDetail) {
+                TotalPrice += br.getPrice();
+            }
 
-            //  OrderRoom bookRoomData = gson.fromJson(bookRoomDataJson, OrderRoom.class);
             order.setOrderId(1);
-            order.setCustID(curAccom.getCustId());
-            order.setTotalPrice(new BigDecimal(curAccom.getPrice(), MathContext.DECIMAL64));
+            order.setCustID(customerBean.getCurCust());
+            order.setTotalPrice(new BigDecimal(TotalPrice, MathContext.DECIMAL64));
             order.setOrderDate(new Date());
             order.setStatus("Đã đặt phòng");
             order1Facade.create(order);
+            int orderId = order.getOrderId();
+
+            for (BookRoom br : bookRoomDetail) {
+                OrderDetail orderDetail = new OrderDetail();
+//                OrderDetailPK orderDetailPk = new OrderDetailPK();
+//                orderDetailPk.setOrderId(orderId);
+//                orderDetailPk.setAccomId(curAccom.getAccomId());
+                //   OrderDe orderDetail = new OrderDetail();
+//                orderDetail.setOrderDetailPK(orderDetailPk);
+                orderDetail.setOrderDetailId(1);
+                orderDetail.setOrderId(order);
+                orderDetail.setAccomId(curAccom);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                Date fromDate = formatter.parse(br.getFromDate());
+                Date toDate = formatter.parse(br.getToDate());
+                orderDetail.setBookedFromDate(fromDate);
+                orderDetail.setBookedToDate(toDate);
+                orderDetail.setPrice(new BigDecimal(br.getPrice(), MathContext.DECIMAL64));
+                orderDetailFacade.create(orderDetail);
+            }
             bookRoomResult = "success";
 
         } catch (Exception ex) {

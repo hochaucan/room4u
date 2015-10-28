@@ -8,9 +8,13 @@ package com.room4u.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -18,6 +22,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,15 +34,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OrderDetail.findAll", query = "SELECT o FROM OrderDetail o"),
-    @NamedQuery(name = "OrderDetail.findByOrderId", query = "SELECT o FROM OrderDetail o WHERE o.orderDetailPK.orderId = :orderId"),
-    @NamedQuery(name = "OrderDetail.findByAccomId", query = "SELECT o FROM OrderDetail o WHERE o.orderDetailPK.accomId = :accomId"),
+    @NamedQuery(name = "OrderDetail.findByOrderDetailId", query = "SELECT o FROM OrderDetail o WHERE o.orderDetailId = :orderDetailId"),
     @NamedQuery(name = "OrderDetail.findByPrice", query = "SELECT o FROM OrderDetail o WHERE o.price = :price"),
     @NamedQuery(name = "OrderDetail.findByBookedFromDate", query = "SELECT o FROM OrderDetail o WHERE o.bookedFromDate = :bookedFromDate"),
     @NamedQuery(name = "OrderDetail.findByBookedToDate", query = "SELECT o FROM OrderDetail o WHERE o.bookedToDate = :bookedToDate")})
 public class OrderDetail implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected OrderDetailPK orderDetailPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "OrderDetailId")
+    private Integer orderDetailId;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Price")
     private BigDecimal price;
@@ -47,30 +55,26 @@ public class OrderDetail implements Serializable {
     @Column(name = "BookedToDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date bookedToDate;
-    @JoinColumn(name = "AccomId", referencedColumnName = "AccomId", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Accommodation accommodation;
-    @JoinColumn(name = "OrderId", referencedColumnName = "OrderId", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private OrderRoom orderRoom;
+    @JoinColumn(name = "AccomId", referencedColumnName = "AccomId")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Accommodation accomId;
+    @JoinColumn(name = "OrderId", referencedColumnName = "OrderId")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private OrderRoom orderId;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(OrderDetailPK orderDetailPK) {
-        this.orderDetailPK = orderDetailPK;
+    public OrderDetail(Integer orderDetailId) {
+        this.orderDetailId = orderDetailId;
     }
 
-    public OrderDetail(int orderId, int accomId) {
-        this.orderDetailPK = new OrderDetailPK(orderId, accomId);
+    public Integer getOrderDetailId() {
+        return orderDetailId;
     }
 
-    public OrderDetailPK getOrderDetailPK() {
-        return orderDetailPK;
-    }
-
-    public void setOrderDetailPK(OrderDetailPK orderDetailPK) {
-        this.orderDetailPK = orderDetailPK;
+    public void setOrderDetailId(Integer orderDetailId) {
+        this.orderDetailId = orderDetailId;
     }
 
     public BigDecimal getPrice() {
@@ -97,26 +101,26 @@ public class OrderDetail implements Serializable {
         this.bookedToDate = bookedToDate;
     }
 
-    public Accommodation getAccommodation() {
-        return accommodation;
+    public Accommodation getAccomId() {
+        return accomId;
     }
 
-    public void setAccommodation(Accommodation accommodation) {
-        this.accommodation = accommodation;
+    public void setAccomId(Accommodation accomId) {
+        this.accomId = accomId;
     }
 
-    public OrderRoom getOrderRoom() {
-        return orderRoom;
+    public OrderRoom getOrderId() {
+        return orderId;
     }
 
-    public void setOrderRoom(OrderRoom orderRoom) {
-        this.orderRoom = orderRoom;
+    public void setOrderId(OrderRoom orderId) {
+        this.orderId = orderId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (orderDetailPK != null ? orderDetailPK.hashCode() : 0);
+        hash += (orderDetailId != null ? orderDetailId.hashCode() : 0);
         return hash;
     }
 
@@ -127,7 +131,7 @@ public class OrderDetail implements Serializable {
             return false;
         }
         OrderDetail other = (OrderDetail) object;
-        if ((this.orderDetailPK == null && other.orderDetailPK != null) || (this.orderDetailPK != null && !this.orderDetailPK.equals(other.orderDetailPK))) {
+        if ((this.orderDetailId == null && other.orderDetailId != null) || (this.orderDetailId != null && !this.orderDetailId.equals(other.orderDetailId))) {
             return false;
         }
         return true;
@@ -135,7 +139,7 @@ public class OrderDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "com.room4u.model.OrderDetail[ orderDetailPK=" + orderDetailPK + " ]";
+        return "com.room4u.model.OrderDetail[ orderDetailId=" + orderDetailId + " ]";
     }
     
 }

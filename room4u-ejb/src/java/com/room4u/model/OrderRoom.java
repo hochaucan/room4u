@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,7 +47,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrderRoom.findByStatus", query = "SELECT o FROM OrderRoom o WHERE o.status = :status"),
     @NamedQuery(name = "OrderRoom.findByOrderDate", query = "SELECT o FROM OrderRoom o WHERE o.orderDate = :orderDate")})
 public class OrderRoom implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,10 +72,10 @@ public class OrderRoom implements Serializable {
     @Column(name = "OrderDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderRoom")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId", fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetailList;
     @JoinColumn(name = "CustID", referencedColumnName = "CustId")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Customer custID;
 
     public OrderRoom() {
@@ -182,5 +182,5 @@ public class OrderRoom implements Serializable {
     public String toString() {
         return "com.room4u.model.OrderRoom[ orderId=" + orderId + " ]";
     }
-
+    
 }

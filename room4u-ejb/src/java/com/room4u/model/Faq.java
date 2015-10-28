@@ -36,7 +36,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Faq.findByAnswer", query = "SELECT f FROM Faq f WHERE f.answer = :answer"),
     @NamedQuery(name = "Faq.findByDate", query = "SELECT f FROM Faq f WHERE f.date = :date")})
 public class Faq implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -117,5 +116,5 @@ public class Faq implements Serializable {
     public String toString() {
         return "com.room4u.model.Faq[ id=" + id + " ]";
     }
-
+    
 }

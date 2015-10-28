@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Rating.findByRateId", query = "SELECT r FROM Rating r WHERE r.rateId = :rateId"),
     @NamedQuery(name = "Rating.findByScore", query = "SELECT r FROM Rating r WHERE r.score = :score")})
 public class Rating implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +43,10 @@ public class Rating implements Serializable {
     @Column(name = "Score")
     private Integer score;
     @JoinColumn(name = "AccomId", referencedColumnName = "AccomId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Accommodation accomId;
     @JoinColumn(name = "CustId", referencedColumnName = "CustId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer custId;
 
     public Rating() {
@@ -112,5 +112,5 @@ public class Rating implements Serializable {
     public String toString() {
         return "com.room4u.model.Rating[ rateId=" + rateId + " ]";
     }
-
+    
 }

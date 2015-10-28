@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CustomerRequire implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "CustReqId")
@@ -53,7 +54,7 @@ public class CustomerRequire implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @JoinColumn(name = "CustID", referencedColumnName = "CustId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer custID;
 
     public CustomerRequire() {

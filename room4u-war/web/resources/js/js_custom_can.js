@@ -9,6 +9,7 @@ $(function () {
     validateFormBookRoom();
     getBookRoomDateRange();
     roomRating();
+    renderReceipt();
 
     //Add booked date to cart
     addRoomToCart();
@@ -29,6 +30,18 @@ $(function () {
 function assignDeletedComment(render) {
     var deletedComId = $(render).closest("tr").find("td:eq(0)").html();
     $("#frmDeletedCom\\:txtDeletedComId").val(deletedComId);
+}
+
+function assignDeletedRoomOrderId(render) {
+
+    var deletedRoomOrderId = $(render).closest("tr").find("td:eq(0)").html();
+    $("#frmDeletedRoomOrder\\:txtDeletedRoomOrderId").val(deletedRoomOrderId);
+
+}
+
+function assignDeletedCustomerOrderId(render) {
+    var deletedCustomerOrderId = $(render).closest("tr").find("td:eq(0)").html();
+    $("#frmDeleteCustomerOrderRoomDelete\\:txtDeletedCustomerOrderRoomId").val(deletedCustomerOrderId);
 }
 
 function assignDeletedAccomId(render) {
@@ -101,6 +114,68 @@ function updateAccomSuccess(data) {
     }
 }
 
+function deleteCustomerOrderRoomSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmDeleteCustomerOrderRoomDelete\\:txtDeletedCustomerOrderRoomResult").text();
+            // alert(message)
+            if (message === "success") {
+                //  renderRoomImageHomePage();
+                renderReceipt();
+                $('#roomCustomerOrderDelete').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa hóa đơn thành công", 300, "success");
+                // window.location.reload();
+            }
+
+
+            break;
+    }
+}
+
+function deleteRoomOrderSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmDeletedRoomOrder\\:txtDeletedRoomOrderResult").text();
+            // alert(message)
+            if (message === "success") {
+                //  renderRoomImageHomePage();
+                renderReceipt();
+                $('#roomOrderDelete').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa hóa đơn thành công", 300, "success");
+                // window.location.reload();
+            }
+
+
+            break;
+    }
+}
+
+function renderReceipt() {
+    $(".thousandComma").digits();
+    $("#pgDeleteCustomerOrderRoom").find("tr").find("td:eq(3)").each(function () {
+        //$(this).prev("td").prev("td").digits();
+        if ($(this).html() === "Đã xóa") {
+            $(this).closest("tr").css("opacity", "0.7");
+//            $(this).next("td").find("a").addClass("disabled");
+//            $(this).next("td").next("td").find("a").addClass("disabled");
+        }
+    });
+}
+
 function deleteAccomSuccess(data) {
     var status = data.status;
     switch (status) {
@@ -114,9 +189,10 @@ function deleteAccomSuccess(data) {
             var message = $("#frmDeletedAccom\\:txtDeletedRoomResult").text();
             // alert(message)
             if (message === "success") {
-                renderRoomImageHomePage();
+              
                 $('#roomDelete').modal('toggle');
                 growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa phòng thành công", 300, "success");
+                  renderRoomImageHomePage();
                 // window.location.reload();
             }
 
@@ -283,6 +359,9 @@ function checkUserLoginForBookRoom(data) {
             if (message === "success") {
 // $('#user_login_modal').modal('toggle');
                 growlmessage("<span class='glyphicon glyphicon-ok'></span> Đặt phòng thành công!", 350, "success");
+                $(".roomdetail_cart").css("display", "none");
+                $("#frmBookRoom\\:txtBookFrom").val("");
+                $("#frmBookRoom\\:txtBookTo").val("");
                 //window.location.reload();
             } else if (message === "requiredlogin") {
                 growlmessage("<span class='glyphicon glyphicon-ban-circle'></span> Bạn vui lòng đăng nhập!</span>", 350, "info");
@@ -676,7 +755,9 @@ function setActiveMenuSidebar() {
     $("#yourPostedRoom").css("display", "none");
     $("#yourReport").css("display", "none");
     $("#yourComment").css("display", "none");
-     $("#yourRequiredRoom").css("display", "none");
+    $("#yourRequiredRoom").css("display", "none");
+    $("#yourCustomerOrder").css("display", "none");
+
 
     $(".profileSidebarMenu").find("a").each(function () {
         $(this).click(function () {
@@ -688,7 +769,8 @@ function setActiveMenuSidebar() {
             $("#yourPostedRoom").css("display", "none");
             $("#yourReport").css("display", "none");
             $("#yourComment").css("display", "none");
-             $("#yourRequiredRoom").css("display", "none");
+            $("#yourRequiredRoom").css("display", "none");
+            $("#yourCustomerOrder").css("display", "none");
 
             var tabId = $(this).attr("href"); //.replaceAll("#", "");
             $(tabId).css("display", "inline");

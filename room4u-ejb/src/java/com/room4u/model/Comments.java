@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +39,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Comments.findByContent", query = "SELECT c FROM Comments c WHERE c.content = :content"),
     @NamedQuery(name = "Comments.findByAnswer", query = "SELECT c FROM Comments c WHERE c.answer = :answer")})
 public class Comments implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,10 +56,10 @@ public class Comments implements Serializable {
     @Column(name = "Answer")
     private String answer;
     @JoinColumn(name = "AccomId", referencedColumnName = "AccomId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Accommodation accomId;
     @JoinColumn(name = "CustId", referencedColumnName = "CustId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer custId;
 
     public Comments() {
@@ -141,5 +141,5 @@ public class Comments implements Serializable {
     public String toString() {
         return "com.room4u.model.Comments[ comId=" + comId + " ]";
     }
-
+    
 }
