@@ -217,6 +217,7 @@ public class CustomerController {
         }else{
             this.customerFacade.remove(c);
         }
+        paginator = new RepeatPaginator(this.getCustList());
         return "customer";
     }
 
