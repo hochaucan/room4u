@@ -131,6 +131,12 @@ public class SendMailController extends Authenticator{
 //    }
    
    public void sendMailSupport() {
+       if(content.trim().equals("") || name.trim().equals("") || email.trim().equals(""))
+       {
+           sendMailResult = "false";
+       }
+       else
+       {
         final String username = "room4u.FAT2.HCM@gmail.com";
         final String password = "123456?a";
 
@@ -162,6 +168,7 @@ public class SendMailController extends Authenticator{
                     sendMailResult= "false";
 			throw new RuntimeException(e);
 		}
+       }
    }
 
     /**

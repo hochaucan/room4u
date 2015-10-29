@@ -4,6 +4,7 @@
 import ViewModel.RoomImage;
  import com.google.gson.Gson;
  import com.room4u.dao.CustomerFacade;
+import com.room4u.dao.CustomerFacadeLocal;
  import com.room4u.dao.CustomerRequireFacadeLocal;
  import com.room4u.model.Customer;
  import com.room4u.model.CustomerRequire;
@@ -25,6 +26,8 @@ import java.util.List;
  @ManagedBean(name = "custReq")
  @SessionScoped
  public class CustomerRequireController {
+    @EJB
+    private CustomerFacadeLocal customerFacade;
      @EJB
      private CustomerRequireFacadeLocal customerRequireFacade;
      
@@ -32,6 +35,8 @@ import java.util.List;
      private CustomerController customerBean;
  
      CustomerRequire curCustReq;
+     
+     Customer curCust;
      
      private String requireResult;
      private String latt;
@@ -104,6 +109,7 @@ import java.util.List;
     
     public List<CustomerRequire> getRequires()
     {
+        
         return customerRequireFacade.findAll();
     }
     
@@ -268,4 +274,19 @@ import java.util.List;
         this.CusreqDel = CusreqDel;
     }
      
+    public Customer findByID(Customer c)
+    {
+        int id = c.getCustId();
+        curCust = new Customer();
+        curCust = customerFacade.find(id);
+        return curCust;
+    }
+
+    public Customer getCurCust() {
+        return curCust;
+    }
+
+    public void setCurCust(Customer curCust) {
+        this.curCust = curCust;
+    }
  }
