@@ -1,7 +1,11 @@
 $(function () {
     SetActiveMenu();
     //alert("Can")
-    createRoomAddressArray()
+    createRoomAddressArray();
+//    alert($(".AccomAddress").text())
+//    getLongAddressBaseOnLngLat($(".AccomAddress").text(), 0);
+
+    
 });
 
 // Set Active Menu
@@ -165,6 +169,8 @@ function initMap() {
         map.fitBounds(bounds);
     });
     // [END region_getplaces]
+    
+    assignLongAddressForRoom($(".AccomAddress").text());
 }
 ;
 
@@ -197,11 +203,38 @@ function getLongAddressBaseOnLngLat(lngLat, radius) {
             $("#frmRegisterRoom\\:hdlong").val(lng);
             $("#frmRegisterRoom\\:hdrad").val(radius);
             $("#frmRegisterRoom\\:hdaddress").val(results[0].formatted_address);
+            $(".AccomAddress").text("results[0].formatted_address");
 //
 //            $("#frmRegisterRoom\\:hdlatt").val(lat);
 //            $("#frmRegisterRoom\\:hdlong").val(lng);
 //            $("#frmRegisterRoom\\:hdrad").val(radius);
 //            $("#frmRegisterRoom\\:hdaddress").val(results[0].formatted_address);
+        }
+    });
+}
+
+function assignLongAddressForRoom(lngLat) {
+alert("Can")
+    // Get address base on Lat and Lng
+    var geocoder = new google.maps.Geocoder();
+    //alert("can")
+    geocoder.geocode({
+        "latLng": lngLat
+    }, function (results, status) {
+        console.log(results, status);
+        if (status == google.maps.GeocoderStatus.OK) {
+            console.log(results);
+            var lat = results[0].geometry.location.lat(),
+                    lng = results[0].geometry.location.lng(),
+                    placeName = results[0].address_components[0].long_name,
+                    latlng = new google.maps.LatLng(lat, lng);
+
+            // var radius = $("#sltRadius").val();
+//            $("#homepage_registerroom_info").html("Bạn muốn đăng ký phòng trong vòng bán kính <strong class='registerRoomRadius'>" + radius + "</strong> Km từ vị trí</br><strong>"
+//                    + results[0].formatted_address + "</strong>?");
+
+            $(".AccomAddress").text(results[0].formatted_address);
+
         }
     });
 }
@@ -232,11 +265,11 @@ function distanceService(radius) {
     var bounds = new google.maps.LatLngBounds;
     //var origin1 = '546A, Hung Phu, Phuong 9, Quan 8, TP Ho Chi Minh, Vietnam'//{lat: 55.93, lng: -3.118};
     var yourLocation = {lat: curLat, lng: curLong};
-    //var origin2 = 'Greenwich, England';
-//    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
-//    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
-//    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
-//    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
+    var origin2 = 'Greenwich, England';
+    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
+    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
+    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
+    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
 //    var desArr = new Array();
 //    desArr.push(destinationA);
 //    desArr.push(destinationB);
