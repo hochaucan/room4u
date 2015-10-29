@@ -218,15 +218,15 @@ function distanceService(radius) {
     //var origin1 = '546A, Hung Phu, Phuong 9, Quan 8, TP Ho Chi Minh, Vietnam'//{lat: 55.93, lng: -3.118};
     var yourLocation = {lat: curLat, lng: curLong};
     //var origin2 = 'Greenwich, England';
-    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
-    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
-    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
-    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
-    var desArr = new Array();
-    desArr.push(destinationA);
-    desArr.push(destinationB);
-    desArr.push(destinationC);
-    desArr.push(destinationD);
+//    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
+//    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
+//    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
+//    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
+//    var desArr = new Array();
+//    desArr.push(destinationA);
+//    desArr.push(destinationB);
+//    desArr.push(destinationC);
+//    desArr.push(destinationD);
     // alert(desArr)
     var destinationIcon = 'https://chart.googleapis.com/chart?' +
             'chst=d_map_pin_letter&chld=D|FF0000|000000';
@@ -278,11 +278,11 @@ function distanceService(radius) {
                     if (parseInt(results[j].distance.text.replace(".", "")) <= parseInt(radius)) {
                         geocoder.geocode({'address': destinationList[j]},
                         showGeocodedAddressOnMap(true));
-                        outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+                        outputDiv.innerHTML += '<div class="row"><div class="col-md-12"><span class="glyphicon glyphicon-home" style="color: #0c84e4;"></span> Từ ' + originList[i] + ' <span class="glyphicon glyphicon-arrow-right" style="color: #0c84e4;"></span>  ' + destinationList[j] +
                                 ': ' + results[j].distance.text + ' in ' +
-                                results[j].duration.text + '<br>';
-                        
-                       
+                                results[j].duration.text + '</div></div>';
+
+
                     }
                 }
             }

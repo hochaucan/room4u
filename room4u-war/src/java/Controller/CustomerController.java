@@ -72,7 +72,7 @@ public class CustomerController {
     public void setUid(int uid) {
         this.uid = uid;
     }
-    
+
     public String getBarLabel() {
         return barLabel;
     }
@@ -210,7 +210,7 @@ public class CustomerController {
     }
 
     public void delete(Customer c) {
-        if(c.getCustId() == uid){
+        if (c.getCustId() == uid) {
             notifyMessage("Không thể xóa tài khoản đang login");
 
             return;
@@ -303,7 +303,7 @@ public class CustomerController {
             }
             outputStream.close();
             inputStream.close();
-            
+
             c.setImages(fileName);
 
             c.setCustId(0);
@@ -313,6 +313,11 @@ public class CustomerController {
             UserRole ur = new UserRole(roleId);
             c.setRoleId(ur);
             customerFacade.create(c);
+
+            accName = c.getAccountCustomer();
+            password = c.getPassword();
+            checkLogin();
+            
 
         } catch (Exception ex) {
             printStackTrace();

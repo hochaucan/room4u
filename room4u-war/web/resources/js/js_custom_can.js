@@ -189,10 +189,10 @@ function deleteAccomSuccess(data) {
             var message = $("#frmDeletedAccom\\:txtDeletedRoomResult").text();
             // alert(message)
             if (message === "success") {
-              
+
                 $('#roomDelete').modal('toggle');
                 growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa phòng thành công", 300, "success");
-                  renderRoomImageHomePage();
+                renderRoomImageHomePage();
                 // window.location.reload();
             }
 
@@ -450,27 +450,36 @@ function validateFormRegisterUser() {
                 required: true
             },
             "frmUserRegister:txtCustPass": {
-                minlength: 3,
-                maxlength: 200,
-                required: true
+//                minlength: 3,
+//                maxlength: 200,
+                rangelength: [4, 10],
+                required: true, 
+//                pattern: /^AR\d{4}$/
+            },
+            "frmUserRegister:txtCustPassConfirm": {
+                equalTo: "#frmUserRegister\\:txtCustPass"
             },
             "frmUserRegister:txtCustEmail": {
                 required: true,
                 email: true
             },
             "frmUserRegister:txtCustPhone": {
-                number: true,
-                required: true
+//                number: true,
+                required: true,
+//                pattern: /^(09\d{8})|(01\d{9})$/
             },
             "frmUserRegister:fileCustThumbnail": {
                 required: true
             }
         },
         messages: {
-            "frmPostRoom:roomThumbnail": {
-//                required: 'Chọn hình làm đại diện',
+            "frmUserRegister:txtCustPass": {
+                rangelength: 'Vui lòng nhập từ 4 đến 10 ký tự',
 //                accept: 'Not an image!'
             }
+//            "frmUserRegister:txtCustPhone": {
+//                pattern: "Nhập sô điện thoại Việt Nam"
+//            }
         },
         submitHandler: function (form) {
 
@@ -479,7 +488,7 @@ function validateFormRegisterUser() {
 //            setTimeout(function () {
 //                $.bootstrapGrowl("Đã gửi đăng ký. Vui lòng kiểm tra email để kích hoạt tài khoản.", {type: 'success'});
 //            }, 1000);
-            form.submit();
+            //form.submit();
 
 //            var url = '<?php echo SET_SUBSCRIBER; ?>';
 //            var datastring = $("form").serialize();
