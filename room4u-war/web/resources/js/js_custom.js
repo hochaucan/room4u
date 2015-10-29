@@ -4,8 +4,6 @@ $(function () {
     createRoomAddressArray()
 });
 
-
-
 // Set Active Menu
 function SetActiveMenu() {
     var path = window.location.pathname;
@@ -21,15 +19,14 @@ function SetActiveMenu() {
         });
 
     });
-
 }
 var roomAddressArr = new Array();
 var selectedRoomAddressArr = new Array();
+
 function createRoomAddressArray() {
     $(".txtRoomAddress").each(function () {
         roomAddressArr.push($(this).text());
     });
-    //alert(roomAddressArr);
 }
 
 var map;
@@ -62,7 +59,7 @@ function initMap() {
             //getLongAddressBaseOnLngLat("(" + position.coords.latitude + "," + position.coords.longitude + ")");
 
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Your current location.');
+            infoWindow.setContent('Vị trí của bạn');
             map.setCenter(pos);
         }, function () {
             handleLocationError(true, infoWindow, map.getCenter());
@@ -95,7 +92,6 @@ function initMap() {
     });
 
 
-
 //Street View
     panorama = new google.maps.StreetViewPanorama(
             document.getElementById('street-view'),
@@ -113,7 +109,7 @@ function initMap() {
 
 
 
-    // Searchbox
+    // SEARCH BOX
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
@@ -169,8 +165,6 @@ function initMap() {
         map.fitBounds(bounds);
     });
     // [END region_getplaces]
-
-
 }
 ;
 
@@ -202,12 +196,33 @@ function getLongAddressBaseOnLngLat(lngLat, radius) {
             $("#frmRegisterRoom\\:hdlatt").val(lat);
             $("#frmRegisterRoom\\:hdlong").val(lng);
             $("#frmRegisterRoom\\:hdrad").val(radius);
-            +$("#frmRegisterRoom\\:hdaddress").val(results[0].formatted_address);
-
-            $("#frmRegisterRoom\\:hdlatt").val(lat);
-            $("#frmRegisterRoom\\:hdlong").val(lng);
-            $("#frmRegisterRoom\\:hdrad").val(radius);
             $("#frmRegisterRoom\\:hdaddress").val(results[0].formatted_address);
+//
+//            $("#frmRegisterRoom\\:hdlatt").val(lat);
+//            $("#frmRegisterRoom\\:hdlong").val(lng);
+//            $("#frmRegisterRoom\\:hdrad").val(radius);
+//            $("#frmRegisterRoom\\:hdaddress").val(results[0].formatted_address);
+        }
+    });
+}
+
+function getLngLatBaseOnAddress() {
+    // Get address base on Lat and Lng
+    var geocoder = new google.maps.Geocoder();
+    var address = $("#frmPostRoom\\:hourseNumber").val() + " " + $("#frmPostRoom\\:roomStreet").val() + " ,phường "
+            + $("#frmPostRoom\\:roomWard").val() + " ,quận "
+            + $("#frmPostRoom\\:roomDistrict").val() + " "
+            + $("#frmPostRoom\\:roomCity").val();
+    //alert(address)
+    geocoder.geocode({
+        "address": address
+    }, function (results, status) {
+        console.log(results, status);
+        if (status == google.maps.GeocoderStatus.OK) {
+            console.log(results);
+            $("#frmPostRoom\\:txtRoomFullAddress").val(results[0].geometry.location);
+            $("#frmPostRoom\\:btnSubmitPostRoom").click();
+            $("#modal_post_room").modal("toggle");
         }
     });
 }

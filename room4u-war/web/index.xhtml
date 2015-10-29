@@ -11,7 +11,7 @@
 
         <ui:composition template="./template/Room4uTemplate.xhtml">
             <ui:define name="content">
-
+               
                 <div class="row" style="margin-top: 0px">
 
                     <div class="col-md-2 col-xs-12" style="text-align: left;padding-right:0px">
@@ -21,17 +21,16 @@
                                 <span class="glyphicon glyphicon-registration-mark"></span>Đăng ký phòng
                             </h:commandLink>
                         </h:form>
-                        <!--<a href="#" class="btn btn-success"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-registration-mark"></span>Đăng ký phòng</a>-->
                     </div>
 
                     <div class="col-md-2 col-xs-12" style="text-align: left">
                         <h:form>
-                            <h:commandLink rendered="#{customerBean.curCust!=null and (customerBean.roleId== 2)}" class="btn btn-danger"  p:data-toggle="modal" p:data-target="#modal_post_room">
+                            <h:commandLink  rendered="#{customerBean.curCust!=null and (customerBean.roleId== 2)}" class="btn btn-danger"  p:data-toggle="modal" p:data-target="#modal_post_room">
                                 <f:ajax execute="@form" render="@form"/>
                                 <span class="glyphicon glyphicon-upload"></span>Đăng phòng         
                             </h:commandLink>
                         </h:form>
-                        <!--<a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#modal_post_room"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>-->
+                        
                     </div>
                     <div class="col-md-8 col-xs-12">
                         <label  class="col-md-6 col-xs-6 control-label" style="text-align: right;margin-top: 10px;padding: 0px">Bán kính</label>
@@ -56,9 +55,8 @@
                 </div>
 
                 <!--Google Map-->
-                <input id="pac-input" style="margin-top: 20px" class="controls" type="text" placeholder="Search Box"></input>
                 <div class="row" style="margin: 15px 0 15px 0">
-
+                    <input id="pac-input" style="margin-top: 20px" class="controls" type="text" placeholder="Search Box"></input>
                     <div id="map" class="col-md-7 col-xs-12 panel"></div>
                     <!--Street View-->
                     <div id="street-view" class="col-md-5 col-xs-12 panel" style="height:300px"></div>
@@ -126,6 +124,7 @@
                                         </div>
                                     </div>
                                 </div>-->
+
 
             </ui:define>
         </ui:composition>

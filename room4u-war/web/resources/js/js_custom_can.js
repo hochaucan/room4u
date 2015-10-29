@@ -13,6 +13,7 @@ $(function () {
 
     //Add booked date to cart
     addRoomToCart();
+//    renderFindAddressTool();
 
     // Add thousand comma to Room Price
 //    $(".roomdetail_price").digits();
@@ -20,12 +21,20 @@ $(function () {
 //    var priceWithThousand = commaSeparateNumber($(".roomdetail_price").html())
 //    $(".roomdetail_price").html(priceWithThousand);
 
-//    cleanModal();
+    cleanModal();
     $('#slider').nivoSlider();
 
     //Collapse in FAQ page
     //$('.collapse').collapse()
 });
+
+//function renderFindAddressTool() {
+////    $("#modal_post_room").on('show.bs.modal', function () {
+//        //alert("Can")
+//      //alert($("#pac-input").val());hpAddressSearchBox
+//      $("#pac-input").appendTo(".postRoomAddress");
+////    });
+//}
 
 function assignDeletedComment(render) {
     var deletedComId = $(render).closest("tr").find("td:eq(0)").html();
@@ -453,7 +462,7 @@ function validateFormRegisterUser() {
 //                minlength: 3,
 //                maxlength: 200,
                 rangelength: [4, 10],
-                required: true, 
+                required: true,
 //                pattern: /^AR\d{4}$/
             },
             "frmUserRegister:txtCustPassConfirm": {
@@ -531,8 +540,6 @@ function validateFormPostRoom() {
                 minlength: 3,
                 maxlength: 200,
                 required: true
-
-
             },
             "frmPostRoom:roomPrice": {
                 number: true,
@@ -598,30 +605,12 @@ function validateFormPostRoom() {
 //                accept: 'Not an image!'
             }
         },
-//        submitHandler: function (form) {
-//
-//            setTimeout(function () {
-//                $.bootstrapGrowl("This is another test.", {type: 'success'});
-//            }, 1000);
-//
+        submitHandler: function (form) {
+            getLngLatBaseOnAddress();
+//           $("#frmPostRoom\\:btnSubmitPostRoom").click();
 //            form.submit();
-//
-////            var url = '<?php echo SET_SUBSCRIBER; ?>';
-////            var datastring = $("form").serialize();
-////            alert(datastring);
-////            return false;
-////            $.ajax({
-////                type: "POST",
-////                url: url,
-////                data: datastring,
-////                success: function (data) {
-////                    //alert(data); return false;
-////                    form.submit();
-////                }
-////            });
-////            return false;
-//
-//        },
+
+        },
         highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');
         },
@@ -751,10 +740,21 @@ function validateFormChangePassword() {
 }
 
 function cleanModal() {
-    $(".modal").on('hide.bs.modal', function () {
-        $(this).find("#frmPostRoom")[0].reset();
+//    $("#modal_post_room").on('hide.bs.modal', function () {
+//        $(this).find("#frmPostRoom")[0].reset();
+//    });
+
+    $("#user_login_modal").on('hide.bs.modal', function () {
+        $(this).find("#frmUserLogin")[0].reset();
     });
+
+    $("#user_register_modal").on('hide.bs.modal', function () {
+        $(this).find("#frmUserRegister")[0].reset();
+    });
+
 }
+
+
 
 function setActiveMenuSidebar() {
 

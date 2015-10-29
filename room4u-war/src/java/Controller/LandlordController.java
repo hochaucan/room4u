@@ -101,6 +101,15 @@ public class LandlordController {
     private String deletedRoomResult;
     private String deletedRoomOrderResult;
     private String deletedCustomerOrderRoomResult;
+    private String roomFullAddress;
+
+    public String getRoomFullAddress() {
+        return roomFullAddress;
+    }
+
+    public void setRoomFullAddress(String roomFullAddress) {
+        this.roomFullAddress = roomFullAddress;
+    }
 
     public String getDeletedCustomerOrderRoomResult() {
         return deletedCustomerOrderRoomResult;
@@ -653,11 +662,13 @@ public class LandlordController {
             room.setAccomId(1);
             Customer cust = customerBean.getCurCust();
             room.setCustId(cust);
-            room.setAddress(houseNumber
-                    + " " + street + "phường " + ward + "quận " + district + " " + city);
+//            room.setAddress(houseNumber
+//                    + " " + street + "phường " + ward + "quận " + district + " " + city);
             
 //             room.setAddress(houseNumber
 //                    + "| " + street + "|phường " + ward + "|quận " + district + "| " + city);
+            
+            room.setAddress(roomFullAddress);
             
             room.setCreatedDate(date);
 
