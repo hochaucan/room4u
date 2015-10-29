@@ -33,6 +33,7 @@ function createRoomAddressArray() {
     });
 }
 
+
 var map;
 var markers = [];
 var panorama;
@@ -93,6 +94,7 @@ function initMap() {
                 });
         //alert(event.latLng)
         getLongAddressBaseOnLngLat(event.latLng, $("#sltRadius").val());
+//        assignLongAddressForRoom(event.latLng)
 //       getLongAddressBaseOnLngLat("(10.747218, 106.68909299999996)", $("#sltRadius").val());
     });
 
@@ -171,7 +173,7 @@ function initMap() {
     });
     // [END region_getplaces]
 
-//    assignLongAddressForRoom("(106.68909299999996, 10.747218)");
+    assignLongAddressForRoom($(".AccomAddress").text());
 }
 ;
 
@@ -217,7 +219,7 @@ function getLongAddressBaseOnLngLat(lngLat, radius) {
 function assignLongAddressForRoom(lngLat) {
 // Get address base on Lat and Lng
     var geocoder = new google.maps.Geocoder();
-    alert(lngLat)
+    //alert(lngLat)
     geocoder.geocode({
         "latLng": lngLat
     }, function (results, status) {
@@ -233,7 +235,7 @@ function assignLongAddressForRoom(lngLat) {
 //            $("#homepage_registerroom_info").html("Bạn muốn đăng ký phòng trong vòng bán kính <strong class='registerRoomRadius'>" + radius + "</strong> Km từ vị trí</br><strong>"
 //                    + results[0].formatted_address + "</strong>?");
             alert(results[0].formatted_address);
-//            $(".AccomAddress").text(results[0].formatted_address);
+            $(".AccomAddress").html((results[0].formatted_address));
 
         }
     });
@@ -254,6 +256,7 @@ function getLngLatBaseOnAddress() {
         if (status == google.maps.GeocoderStatus.OK) {
             console.log(results);
             $("#frmPostRoom\\:txtRoomFullAddress").val(results[0].geometry.location);
+            //alert(results[0].geometry.location)
             $("#frmPostRoom\\:btnSubmitPostRoom").click();
             $("#modal_post_room").modal("toggle");
         }
