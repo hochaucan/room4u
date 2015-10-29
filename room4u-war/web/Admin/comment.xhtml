@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -21,101 +22,80 @@
                     <div class="row">
                         <div class="col-md-12">
                             <legend>Danh sách bình luận</legend>
-                            <h:form>
-                                <table class="table table-responsive table-hover ">
-                                    <thead>
-                                        <tr>
-                                            <th>STT</th>
-                                            <th>Tên phòng</th>
-                                            <th>Tên khách hàng</th>
-                                            <th>Nội dung</th>
-                                            <th>Trả lời</th>
-                                            <th>Ngày</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
+                            <f:view>
+                                <h:form>
+                                    <h:dataTable value="#{landlord.allComments}" var="item" class="table table-bordred table-striped">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="STT"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.comId}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Tên phòng"/>
+                                            </f:facet>
+                                            <h:outputText value="#{landlord.displayAccName(item.accomId)}"/>
+                                            <h:outputText value="#{landlord.curAcc}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Tên khách hàng"/>
+                                            </f:facet>
+                                            <h:outputText value="#{landlord.displayCusName(item.custId)}"/>
+                                            <h:outputText value="#{landlord.curCus}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nội dung"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.content}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trả lời"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.answer}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Ngày"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.comDate}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Xóa"/>
+                                            </f:facet>
+                                            <a class="btn btn-primary" onclick="displayComDelete(this)"  data-toggle="modal" data-target="#DeleteCom"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                        </h:column>
+                                    </h:dataTable>
+                                </h:form>
+                            </f:view>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="DeleteCom" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h:form id="frmDeleteCom" class="form-horizontal" enctype="multipart/form-data" >
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa đăng ký này</h4>
+                                </div>
+                                <div class="form-group">
+                                    <h:inputHidden  id="hdComIdDel" value="#{landlord.deletedComId}"/>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa đăng ký này?</div>
+                                </div>
+                                <div class="modal-footer " style="text-align: right">
 
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-                                        </tr>
-                                        <tr >
-                                            <td>4</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-                                        </tr>
-                                        <tr >
-                                            <td>5</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-
-                                        </tr>
-                                        <tr >
-                                            <td>7</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-                                </table> 
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                                    <h:commandButton action="#{landlord.deleteComment()}"  class="btn btn-primary" value="Xác nhận"/>
+                                </div>
                             </h:form>
                         </div>
                     </div>
