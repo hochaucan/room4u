@@ -209,29 +209,53 @@ public class CustomerController {
         return "index";
     }
 
-    public void delete(Customer c) {
+    public String delete(Customer c) {
         if (c.getCustId() == uid) {
             notifyMessage("Không thể xóa tài khoản đang login");
-
-            return;
-        }
-        if (checkAdminRole()) {
+        }else if (c.getCustId() == 1){
+            notifyMessage("Không cho phép xóa tài khoản admin");
+        }else{
             this.customerFacade.remove(c);
-        } else {
-            notifyMessage("Cần ít nhất 1 tài khoản admin tồn tại trên hệ thống.");
-
         }
-    }
-
-    public String edit(Customer c) {
-        this.c = c;
-        return "edit";
+        return "customer";
     }
 
     public String edit() {
-        this.customerFacade.edit(this.c);
-        this.c = new Customer();
-        return "index";
+        if(image != null){
+            try {
+                Date date = new Date();
+                DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+                Part itemFile = image;
+                InputStream inputStream = itemFile.getInputStream();
+                String fileName = dateFormat.format(date) + getFilename(itemFile);
+                File file = new File("C:/room4u/images/" + fileName);
+                FileOutputStream outputStream = new FileOutputStream(file);
+
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+
+                byte[] buffer = new byte[6096];
+                int bytesRead = 0;
+                while (true) {
+                    bytesRead = inputStream.read(buffer);
+                    if (bytesRead > 0) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    } else {
+                        break;
+                    }
+                }
+                outputStream.close();
+                inputStream.close();
+
+                curCust.setImages(fileName);
+
+            } catch (Exception ex) {
+                printStackTrace();
+            }
+        }
+        this.customerFacade.edit(this.curCust);
+        return null;
     }
 
     public String validateRegisterAccount() {
