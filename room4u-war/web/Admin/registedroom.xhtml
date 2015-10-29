@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -21,99 +22,83 @@
                     <div class="row">
                         <div class="col-md-12">
                             <legend>Danh sách đăng ký phòng</legend>
-                            <h:form>
-                                <table class="table table-responsive table-hover ">
-                                    <thead>
-                                        <tr>
-                                            <th>STT</th>
-                                            <th>Khách hàng</th>
-                                            <th>Vị trí</th>
-                                            <th>Người đăng ký</th>
-                                            <th>Ngày đăng ký</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
+                            <f:view>
+                              <h:form>
+                                    <h:dataTable value="#{custReq.requires}" var="item">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="STT"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.custReqId}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <h:inputHidden value="#{custReq.findByID(item.custID)}"/>
+                                            <f:facet name="header">
+                                                <h:outputText value="Khách Hàng"/>
+                                            </f:facet>
+                                            <h:outputText value="#{custReq.curCust.custName}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <h:inputHidden value="#{custReq.getAddress(item.requirement)}"/>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Vị trí"/>
+                                                </f:facet>
+                                            <h:outputText value="#{custReq.getaddress}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Bán kính"/>
+                                            </f:facet>
+                                            <h:outputText value="#{custReq.getrad}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Người đăng ký"/>
+                                            </f:facet>
+                                            <h:outputText value="#{custReq.curCust.accountCustomer}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="CreatedDate"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.createdDate}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Xóa"/>
+                                            </f:facet>
+                                            <a class="btn btn-primary" onclick="displayReqDelete(this)"  data-toggle="modal" data-target="#DeleteReq"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                        </h:column>
+                                    </h:dataTable>
+                                </h:form>
+                            </f:view>
 
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                           
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                         
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-                                        </tr>
-                                        <tr >
-                                            <td>4</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                          
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-                                        </tr>
-                                        <tr >
-                                            <td>5</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                          
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                          
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--Delete customer request-->
+                <div class="modal fade" id="DeleteReq" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h:form id="frmDeleteReq" class="form-horizontal" enctype="multipart/form-data" >
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa đăng ký này</h4>
+                                </div>
+                                <div class="form-group">
+                                    <h:inputHidden  id="hdReqIdDel" value="#{custReq.cusreqDel}"/>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa đăng ký này?</div>
+                                </div>
+                                <div class="modal-footer " style="text-align: right">
 
-                                        </tr>
-                                        <tr >
-                                            <td>7</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                         
-                                            <td>
-                                                <a class="btn btn-primary"  data-toggle="modal" data-target="#customerDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-                                </table> 
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                                    <h:commandButton action="#{custReq.deleteReq()}"  class="btn btn-primary" value="Xác nhận"/>
+                                </div>
                             </h:form>
                         </div>
                     </div>
