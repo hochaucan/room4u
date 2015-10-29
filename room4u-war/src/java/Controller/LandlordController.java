@@ -727,6 +727,7 @@ public class LandlordController {
     {
         Gson gson = new Gson();
         RoomImage roomImage = gson.fromJson(images, RoomImage.class);
+        curThumbnail = roomImage.getThumbnail();
         curImages1 = roomImage.getSlider1();
         curImages2 = roomImage.getSlider2();
         curImages3 = roomImage.getSlider3();
@@ -756,6 +757,45 @@ public class LandlordController {
         this.curImages3 = curImages3;
     }
     
-    String curImages1,curImages2,curImages3;
+    String curImages1,curImages2,curImages3,curThumbnail;
 
+    public String getCurThumbnail() {
+        return curThumbnail;
+    }
+
+    public void setCurThumbnail(String curThumbnail) {
+        this.curThumbnail = curThumbnail;
+    }
+
+    public String curAcc,curCus;
+
+    public void displayAccName(Accommodation acc)
+    {
+        curAcc = acc.getAccomName();
+    }
+    
+    public void displayCusName(Customer cus)
+    {
+        curCus = cus.getCustName();
+    }
+    public String getCurAcc() {
+        return curAcc;
+    }
+
+    public void setCurAcc(String curAcc) {
+        this.curAcc = curAcc;
+    }
+
+    public String getCurCus() {
+        return curCus;
+    }
+
+    public void setCurCus(String curCus) {
+        this.curCus = curCus;
+    }
+    
+    public List<Comments> getAllComments()
+    {
+        return commentsFacade.findAll();
+    }
 }
