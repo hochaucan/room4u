@@ -239,7 +239,7 @@
                             <!--<input type="button" value="Testing" onclick="getLngLatBaseOnAddress()"/>-->
                             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                             <h:commandButton  class="btn btn-primary" value="Đăng bài"/>
-                            <h:commandButton id="btnSubmitPostRoom"  class="btn btn-primary" value="Submit Đăng bài">
+                            <h:commandButton style="display: none" id="btnSubmitPostRoom"  class="btn btn-primary" value="Submit Đăng bài">
                                 <f:ajax execute="@form" render="@form" listener="#{landlord.createRoom()}"/>
                             </h:commandButton>
                         </div>
