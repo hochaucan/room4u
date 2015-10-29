@@ -261,10 +261,10 @@ function getLngLatBaseOnAddress() {
                     latlng = new google.maps.LatLng(lat, lng);
 
             $("#frmPostRoom\\:txtRoomFullAddress").val(latlng);
-//            $("#frmPostRoom\\:txtRoomFullAddress").val(results[0].geometry.location);
-            alert(results[0].formatted_address)
-//            $("#frmPostRoom\\:btnSubmitPostRoom").click();
-//            $("#modal_post_room").modal("toggle");
+            $("#frmPostRoom\\:txtRoomFullAddress").val(results[0].geometry.location);
+//            alert(lat)
+            $("#frmPostRoom\\:btnSubmitPostRoom").click();
+            $("#modal_post_room").modal("toggle");
         }
     });
 }

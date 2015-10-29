@@ -201,7 +201,7 @@ function deleteAccomSuccess(data) {
 
                 $('#roomDelete').modal('toggle');
                 growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa phòng thành công", 300, "success");
-                renderRoomImageHomePage();
+//                renderRoomImageHomePage();
                 // window.location.reload();
             }
 

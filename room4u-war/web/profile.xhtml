@@ -261,8 +261,9 @@
                                 </div>
                                 <!--Tab Posted Room-->
                                 <div class="tab-pane fade active " id="yourPostedRoom">
+                                      <h:form id="frmUpdateAccom">
                                     <legend>Danh sách phòng của bạn</legend>
-                                    <h:panelGroup id="pgDeleteRoom">
+                                    <!--<h:panelGroup id="pgDeleteRoom">-->
                                         <table class="table table-responsive table-hover ">
                                             <thead>
                                                 <tr>
@@ -273,7 +274,7 @@
                                                     <th>Ngày đăng</th>
                                                 </tr>
                                             </thead>
-                                            <h:form id="frmUpdateAccom">
+                                          
                                                 <tbody>
                                                     <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" />
                                                     <ui:repeat var="room" value="#{landlord.displayRoomProfile()}" varStatus="status">
@@ -301,9 +302,10 @@
                                                     </ui:repeat>
 
                                                 </tbody>
-                                            </h:form>
+                                           
                                         </table> 
-                                    </h:panelGroup>
+                                         </h:form>
+                                    <!--</h:panelGroup>-->
                                 </div>
                                 <!--Tab Customer Order-->
                                 <div class="tab-pane fade active " id="yourCustomerOrder">
@@ -547,7 +549,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <h:form id="frmDeletedAccom" class="form-horizontal">
-                                <h:inputText id="txtDeletedAccomId" value="#{landlord.deletedAccomId}" style="display: none"/>
+                                <h:inputText id="txtDeletedAccomId" value="#{landlord.deletedAccomId}" style="display: none" />
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title custom_align" id="Heading">Xóa thông tin phòng</h4>
@@ -562,7 +564,7 @@
                                     <h:commandLink class="btn btn-primary"  >
                                         <i class="glyphicon glyphicon-ok-sign"/>
                                         Xác nhận
-                                        <f:ajax execute="@form" render="pgDeleteRoom txtDeletedRoomResult" listener="#{landlord.deleteRoom()}" onevent="deleteAccomSuccess"/>
+                                        <f:ajax execute="@form" render="frmUpdateAccom txtDeletedRoomResult" listener="#{landlord.deleteRoom()}" onevent="deleteAccomSuccess"/>
                                     </h:commandLink>
                                     <h:outputText id="txtDeletedRoomResult" value="#{landlord.deletedRoomResult}" style="display:none" />
                                 </div>
