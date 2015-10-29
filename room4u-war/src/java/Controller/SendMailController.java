@@ -159,7 +159,7 @@ public class SendMailController extends Authenticator{
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(username));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("tranminhcuong6691@gmail.com"));
+				InternetAddress.parse("room4u.ad@gmail.com"));
 			message.setSubject("Need support form customer: " + name);
 			message.setText(content + "\r\nEmail reply: " + email);
 			Transport.send(message);
