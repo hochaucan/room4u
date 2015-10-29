@@ -250,15 +250,21 @@ function getLngLatBaseOnAddress() {
             + $("#frmPostRoom\\:roomCity").val();
     //alert(address)
     geocoder.geocode({
-        "address": address
+        "address": "167 Dương Bá Trạc, phường 1,Quận 8, Hồ Chí Minh, Việt Nam"//address
     }, function (results, status) {
         console.log(results, status);
         if (status == google.maps.GeocoderStatus.OK) {
             console.log(results);
-            $("#frmPostRoom\\:txtRoomFullAddress").val(results[0].geometry.location);
-            //alert(results[0].geometry.location)
-            $("#frmPostRoom\\:btnSubmitPostRoom").click();
-            $("#modal_post_room").modal("toggle");
+            var lat = results[0].geometry.location.lat(),
+                    lng = results[0].geometry.location.lng(),
+                    placeName = results[0].address_components[0].long_name,
+                    latlng = new google.maps.LatLng(lat, lng);
+
+            $("#frmPostRoom\\:txtRoomFullAddress").val(latlng);
+//            $("#frmPostRoom\\:txtRoomFullAddress").val(results[0].geometry.location);
+            alert(results[0].formatted_address)
+//            $("#frmPostRoom\\:btnSubmitPostRoom").click();
+//            $("#modal_post_room").modal("toggle");
         }
     });
 }
