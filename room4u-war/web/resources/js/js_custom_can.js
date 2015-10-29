@@ -445,6 +445,11 @@ function setActiveMenu() {
     });
 }
 
+//validate khoang trong - space
+jQuery.validator.addMethod("noSpace", function (value, element) {
+    return value.indexOf(" ") < 0 && value != "";
+}, "Username không được có khoảng trắng");
+
 function validateFormRegisterUser() {
     $('#frmUserRegister').validate({
         rules: {
@@ -456,7 +461,9 @@ function validateFormRegisterUser() {
             "frmUserRegister:txtCustAccount": {
                 minlength: 3,
                 maxlength: 200,
-                required: true
+                required: true,
+                noSpace: true
+                
             },
             "frmUserRegister:txtCustPass": {
 //                minlength: 3,
@@ -473,12 +480,12 @@ function validateFormRegisterUser() {
                 email: true
             },
             "frmUserRegister:txtCustPhone": {
-//                number: true,
+                number: true,
                 required: true,
-//                pattern: /^(09\d{8})|(01\d{9})$/
+                pattern: /^(09\d{8})|(01\d{9})||([3-7]\d{7})$/
             },
             "frmUserRegister:fileCustThumbnail": {
-                required: true
+                required: true,
             }
         },
         messages: {
@@ -491,7 +498,7 @@ function validateFormRegisterUser() {
 //            }
         },
         submitHandler: function (form) {
-
+            form.submit();
 
 
 //            setTimeout(function () {
