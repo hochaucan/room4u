@@ -8,7 +8,10 @@ $(function () {
 
 });
 
-
+function displayReqDelete(render) {
+    var id = $(render).closest("tr").find("td:eq(0)").html();
+    $("#frmDeleteReq\\:hdReqIdDel").val(id);
+}
 
 function displayFAQUpdate(render) {
     //alert(   $(render).html());"
