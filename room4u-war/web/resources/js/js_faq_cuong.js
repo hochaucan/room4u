@@ -13,6 +13,11 @@ function displayReqDelete(render) {
     $("#frmDeleteReq\\:hdReqIdDel").val(id);
 }
 
+function displayRoomDelete(render) {
+    var id = $(render).closest("tr").find("td:eq(0)").html();
+    $("#frmDeleteRoom\\:hdRoomIdDel").val(id);
+}
+
 function displayFAQUpdate(render) {
     //alert(   $(render).html());"
     var id = $(render).closest("tr").find("td:eq(0)").html();
