@@ -722,5 +722,40 @@ public class LandlordController {
         }
         return null;
     }
+    
+    public void displayRoomImages(String images)
+    {
+        Gson gson = new Gson();
+        RoomImage roomImage = gson.fromJson(images, RoomImage.class);
+        curImages1 = roomImage.getSlider1();
+        curImages2 = roomImage.getSlider2();
+        curImages3 = roomImage.getSlider3();
+    }
+
+    public String getCurImages1() {
+        return curImages1;
+    }
+
+    public void setCurImages1(String curImages1) {
+        this.curImages1 = curImages1;
+    }
+
+    public String getCurImages2() {
+        return curImages2;
+    }
+
+    public void setCurImages2(String curImages2) {
+        this.curImages2 = curImages2;
+    }
+
+    public String getCurImages3() {
+        return curImages3;
+    }
+
+    public void setCurImages3(String curImages3) {
+        this.curImages3 = curImages3;
+    }
+    
+    String curImages1,curImages2,curImages3;
 
 }
