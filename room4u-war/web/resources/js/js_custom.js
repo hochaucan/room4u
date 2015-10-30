@@ -2,10 +2,6 @@ $(function () {
     SetActiveMenu();
     //alert("Can")
     createRoomAddressArray();
-//    alert($(".AccomAddress").text())
-//    getLongAddressBaseOnLngLat($(".AccomAddress").text(), 0);
-
-
 });
 
 // Set Active Menu
@@ -24,8 +20,6 @@ function SetActiveMenu() {
 
     });
 }
-var roomAddressArr = new Array();
-var selectedRoomAddressArr = new Array();
 
 function createRoomAddressArray() {
     $(".txtRoomAddress").each(function () {
@@ -33,7 +27,8 @@ function createRoomAddressArray() {
     });
 }
 
-
+var roomAddressArr = new Array();
+var selectedRoomAddressArr = new Array();
 var map;
 var markers = [];
 var panorama;
@@ -114,13 +109,18 @@ function initMap() {
 
     });
 
+    searchBoxForRoomFinding()
+    searchBoxForRoom();
 
+    assignLongAddressForRoom($(".AccomAddress").text());
+}
 
+function searchBoxForRoomFinding() {
     // SEARCH BOX
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    //  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function () {
@@ -165,17 +165,63 @@ function initMap() {
             if (place.geometry.viewport) {
                 // Only geocodes have viewport.
                 bounds.union(place.geometry.viewport);
+//                map.setZoom(10);
             } else {
                 bounds.extend(place.geometry.location);
+                map.setZoom(10);
             }
         });
         map.fitBounds(bounds);
     });
     // [END region_getplaces]
-
-    assignLongAddressForRoom($(".AccomAddress").text());
 }
-;
+
+function searchBoxForRoom() {
+    var input = document.getElementById('txtRoomAddress');
+//     var input = document.getElementById('pac-input');
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+//    autocomplete.bindTo('bounds', map);
+
+//    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
+        map: map
+    });
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+    });
+
+    autocomplete.addListener('place_changed', function () {
+        infowindow.close();
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            return;
+        }
+
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+        }
+
+        // Set the position of the marker using the place ID and location.
+        marker.setPlace({
+            placeId: place.place_id,
+            location: place.geometry.location
+        });
+        marker.setVisible(true);
+
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                'Place ID: ' + place.place_id + '<br>' +
+                place.formatted_address);
+        infowindow.open(map, marker);
+        
+        $("#frmPostRoom\\:txtRoomFullAddress").val( place.place_id )
+    });
+}
 
 function registerRoomChangeRadius() {
     $(".registerRoomRadius").html($("#sltRadius").val());
@@ -244,11 +290,12 @@ function assignLongAddressForRoom(lngLat) {
 function getLngLatBaseOnAddress() {
     // Get address base on Lat and Lng
     var geocoder = new google.maps.Geocoder();
-    var address = $("#frmPostRoom\\:hourseNumber").val() + " " + $("#frmPostRoom\\:roomStreet").val() + " ,phường "
-            + $("#frmPostRoom\\:roomWard").val() + " ,quận "
-            + $("#frmPostRoom\\:roomDistrict").val() + " "
-            + $("#frmPostRoom\\:roomCity").val();
-    //alert(address)
+//    var address = $("#frmPostRoom\\:hourseNumber").val() + " " + $("#frmPostRoom\\:roomStreet").val() + " ,phường "
+//            + $("#frmPostRoom\\:roomWard").val() + " ,quận "
+//            + $("#frmPostRoom\\:roomDistrict").val() + " "
+//            + $("#frmPostRoom\\:roomCity").val();
+    var address = $("#txtRoomAddress").val();
+//alert(address)
     geocoder.geocode({
         "address": "167 Dương Bá Trạc, phường 1,Quận 8, Hồ Chí Minh, Việt Nam"//address
     }, function (results, status) {
@@ -273,12 +320,12 @@ function distanceService(radius) {
     deleteMarkers();
     var bounds = new google.maps.LatLngBounds;
     //var origin1 = '546A, Hung Phu, Phuong 9, Quan 8, TP Ho Chi Minh, Vietnam'//{lat: 55.93, lng: -3.118};
-    var yourLocation = {lat: curLat, lng: curLong};
-    var origin2 = 'Greenwich, England';
-    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
-    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
-    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
-    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
+    var yourLocation = {lat: curLat, lng: curLong};// 'ChIJDSpFFuwtdTERrI6ne4XceEM'
+//    var origin2 = 'Greenwich, England';
+//    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
+//    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
+//    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
+//    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
 //    var desArr = new Array();
 //    desArr.push(destinationA);
 //    desArr.push(destinationB);
@@ -326,6 +373,7 @@ function distanceService(radius) {
 
             for (var i = 0; i < originList.length; i++) {
                 var results = response.rows[i].elements;
+                // geocoder.geocode({'address': originList[i]},
                 geocoder.geocode({'address': originList[i]},
                 showGeocodedAddressOnMap(false));
                 for (var j = 0; j < results.length; j++) {

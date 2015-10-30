@@ -5,6 +5,23 @@
     src:url('../../resources/fonts/Metro Normal.ttf');
 }
 
+
+/*Start - google search box on Boostrap Modal*/
+.pac-container {
+    background-color: #FFF;
+    z-index: 20;
+    position: fixed;
+    display: inline-block;
+    float: left;
+}
+.modal{
+    z-index: 20;   
+}
+.modal-backdrop{
+    z-index: 10;        
+}​
+/*End - google search box on Boostrap Modal*/
+
 .row{
 
     margin-top: 15px; 

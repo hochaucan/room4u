@@ -11,7 +11,7 @@
 
         <ui:composition template="./template/Room4uTemplate.xhtml">
             <ui:define name="content">
-               
+
                 <div class="row" style="margin-top: 0px">
 
                     <div class="col-md-2 col-xs-12" style="text-align: left;padding-right:0px">
@@ -30,33 +30,39 @@
                                 <span class="glyphicon glyphicon-upload"></span>Đăng phòng         
                             </h:commandLink>
                         </h:form>
-                        
+
                     </div>
                     <div class="col-md-8 col-xs-12">
-                        <label  class="col-md-6 col-xs-6 control-label" style="text-align: right;margin-top: 10px;padding: 0px">Bán kính</label>
-                        <div class="col-md-4 col-xs-4">
-                            <select class="form-control" id="sltRadius" onchange="registerRoomChangeRadius()">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="16">16</option>
-                                <option value="21">21</option>
-                            </select>
-
+                        <!--Googlel Search Box-->
+                        <div class="col-md-7">
+                            <input  id="pac-input" class="form-control"  type="text" placeholder="Địa điểm"></input>
                         </div>
-                        <h:form>
-                            <div class="col-md-2 col-xs-2" style="padding-right: 0;text-align: right">
-                                <button type="button" id="btnSearch"  class="btn btn-primary">Tìm kiếm</button>
+
+                        <div class="col-md-5" style="padding-right: 0px;text-align: right;">
+                            <label  class="control-label col-md-3" style="margin-top: 8px;padding: 0px">Bán kính</label>
+                            <div class="col-md-4">
+                                <select class="form-control col-md-1" id="sltRadius" onchange="registerRoomChangeRadius()">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>    
+                                    <option value="5">5</option>
+                                    <option value="16">16</option>
+                                    <option value="21">21</option>
+                                </select>
                             </div>
-                        </h:form>
+                            <h:form>
+                                <!--<div class="col-md-2 col-xs-2" style="padding-right: 0;text-align: right">-->
+                                <button type="button" id="btnSearch"  class="btn btn-primary">Tìm kiếm</button>
+                                <!--</div>-->
+                            </h:form>
+                        </div>
+
                     </div>
                 </div>
 
                 <!--Google Map-->
                 <div class="row" style="margin: 15px 0 15px 0">
-                    <input id="pac-input" style="margin-top: 20px" class="controls" type="text" placeholder="Search Box"></input>
                     <div id="map" class="col-md-7 col-xs-12 panel"></div>
                     <!--Street View-->
                     <div id="street-view" class="col-md-5 col-xs-12 panel" style="height:300px"></div>
@@ -124,6 +130,115 @@
                                         </div>
                                     </div>
                                 </div>-->
+
+
+                <!--Modal post room-->
+                <div class="modal fade" id="modal_post_room" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document" style="width: 60%;margin: auto">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">ĐĂNG PHÒNG</h4>
+                               
+                            </div>
+                            <h:form id="frmPostRoom" class="form-horizontal"  enctype="multipart/form-data"  >
+                                <div class="modal-body">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="inputName" class="col-lg-3 control-label">Tên phòng</label>
+                                            <div class="col-lg-9">
+                                                <h:inputText id="accomName"  value="#{landlord.room.accomName}" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputPrice" class="col-lg-3 control-label">Giá phòng</label>
+                                            <div class="col-lg-9">
+                                                <h:inputText id="roomPrice" value="#{landlord.room.price}" class="form-control"  />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputAddress" class="col-lg-3 control-label">Địa chỉ</label>
+                                            
+                                            <div class="col-lg-9">
+                                                 <input  id="txtRoomAddress" class="form-control"  type="text" required="true" ></input>
+<!--                                                <h:inputText id="hourseNumber" value="#{landlord.houseNumber}" class="form-control"  p:placeholder="Số nhà"/>
+                                                <h:inputText id="roomStreet" value="#{landlord.street}"  class="form-control"  p:placeholder="Đường" />
+                                                <h:inputText id="roomWard"  value="#{landlord.ward}"  class="form-control"  p:placeholder="Phường"/>
+                                                <h:inputText id="roomDistrict" value="#{landlord.district}"  class="form-control"  p:placeholder="Quận"/>
+                                                <h:inputText id="roomCity" value="#{landlord.city}"  class="form-control"  p:placeholder="Thành phố" />-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="textArea"  class="col-lg-3 control-label">Mô tả</label>
+                                            <div class="col-lg-9">
+                                                <h:inputTextarea id="roomDescription" class="form-control" value="#{landlord.room.description}" rows="5" />
+                                                <span class="help-block">Giới thiệu tổng quan về phòng</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputBed"  class="col-lg-3 control-label">Số giường</label>
+                                            <div class="col-lg-9">
+                                                <h:inputText id="numberOfBed"  value="#{landlord.room.noOfBed}" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputPerson" class="col-lg-3 control-label">Số người</label>
+                                            <div class="col-lg-9">
+                                                <h:inputText id="numberOfPerson" value="#{landlord.room.noOfPersons}" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputToilet" class="col-lg-3 control-label">Số toilet</label>
+                                            <div class="col-lg-9">
+                                                <h:inputText id="roomToilet"  value="#{landlord.room.noOfToilet}" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
+                                            <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
+                                            <div class="col-lg-9">
+                                                <h:inputFile  id="roomThumbnail" value="#{landlord.thumbnail}" ></h:inputFile>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputImage" class="col-lg-3 control-label">Hình 1</label>
+                                            <div class="col-lg-9">
+                                                <h:inputFile id="roomFile1" value="#{landlord.file1}" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputImage" class="col-lg-3 control-label">Hình 2</label>
+                                            <div class="col-lg-9">
+                                                <h:inputFile id="roomFile2" value="#{landlord.file2}" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputImage" class="col-lg-3 control-label">Hình 3</label>
+                                            <div class="col-lg-9">
+                                                <h:inputFile id="roomFile3" value="#{landlord.file3}" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <h:inputText id="txtRoomFullAddress" value="#{landlord.roomFullAddress}"/>
+                                </div>
+                                <div class="modal-footer" style="text-align: right">
+                                    <input type="button" value="Testing" onclick="getLngLatBaseOnAddress()"/>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                    <h:commandButton  class="btn btn-primary" value="Đăng bài"/>
+                                    <h:commandButton style="display: none" id="btnSubmitPostRoom"  class="btn btn-primary" value="Submit Đăng bài">
+                                        <f:ajax execute="@form" render="@form" listener="#{landlord.createRoom()}"/>
+                                    </h:commandButton>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
 
 
             </ui:define>

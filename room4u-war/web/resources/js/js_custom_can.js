@@ -11,16 +11,12 @@ $(function () {
     roomRating();
     renderReceipt();
     validateFormEditRoom();
-
-    //Add booked date to cart
     addRoomToCart();
 //    renderFindAddressTool();
 
-    // Add thousand comma to Room Price
-//    $(".roomdetail_price").digits();
-    //alert($(".roomdetail_price").html())
-//    var priceWithThousand = commaSeparateNumber($(".roomdetail_price").html())
-//    $(".roomdetail_price").html(priceWithThousand);
+
+
+
 
     cleanModal();
     $('#slider').nivoSlider();
@@ -502,6 +498,7 @@ function validateFormRegisterUser() {
 //                maxlength: 200,
                 rangelength: [4, 10],
                 required: true,
+                noSpace: true
 //                pattern: /^AR\d{4}$/
             },
             "frmUserRegister:txtCustPassConfirm": {
@@ -664,25 +661,28 @@ function validateFormPostRoom() {
                 max: 1000000000,
                 required: true
             },
-            "frmPostRoom:hourseNumber": {
+            "txtRoomAddress": {
                 required: true
             },
-            "frmPostRoom:roomStreet": {
-                minlength: 3,
-                required: true
-            },
-            "frmPostRoom:roomWard": {
-                minlength: 1,
-                required: true
-            },
-            "frmPostRoom:roomDistrict": {
-                minlength: 1,
-                required: true
-            },
-            "frmPostRoom:roomCity": {
-                minlength: 1,
-                required: true
-            },
+//            "frmPostRoom:hourseNumber": {
+//                required: true
+//            },
+//            "frmPostRoom:roomStreet": {
+//                minlength: 3,
+//                required: true
+//            },
+//            "frmPostRoom:roomWard": {
+//                minlength: 1,
+//                required: true
+//            },
+//            "frmPostRoom:roomDistrict": {
+//                minlength: 1,
+//                required: true
+//            },
+//            "frmPostRoom:roomCity": {
+//                minlength: 1,
+//                required: true
+//            },
             "frmPostRoom:roomDescription": {
                 minlength: 3,
                 required: true
@@ -723,8 +723,9 @@ function validateFormPostRoom() {
             }
         },
         submitHandler: function (form) {
-            getLngLatBaseOnAddress();
-//           $("#frmPostRoom\\:btnSubmitPostRoom").click();
+//            getLngLatBaseOnAddress();
+            $("#frmPostRoom\\:btnSubmitPostRoom").click();
+            $("#modal_post_room").modal("toggle");
 //            form.submit();
 
         },
