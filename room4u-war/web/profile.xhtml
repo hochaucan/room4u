@@ -257,7 +257,13 @@
                                                 </h:column>
                                                 <h:column>
                                                     <f:facet name="header">
-                                                        <h:outputText value="Xóa"/>
+                                                      
+                                                    </f:facet>
+                                                    <a  class="btn btn-primary" data-toggle="modal" data-target="#mdMachedRoom" ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                       
                                                     </f:facet>
                                                     <a class="btn btn-primary" onclick="displayReqDelete(this)"  data-toggle="modal" data-target="#DeleteReq"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
                                                 </h:column>
@@ -551,6 +557,53 @@
                                     </table> 
 
 
+                                </div>
+                                <div class="modal-footer " style="text-align: right">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                                </div>
+                            </h:form>
+                        </div>
+                        <!-- /.modal-content --> 
+                    </div>
+                    <!-- /.modal-dialog --> 
+                </div>
+
+                <!--Modal Mached Room-->
+                <div class="modal fade" id="mdMachedRoom" tabindex="-1" role="dialog" aria-labelledby="myDelete" aria-hidden="true">
+                    <div class="modal-dialog" style="width: 70%">
+                        <div class="modal-content">
+                            <h:form id="frmMatchedRoom" class="form-horizontal">
+                                <h:inputText id="txtRegisterRoomId"  style="display: none"/>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title custom_align" id="Heading">Danh sách phòng theo yêu cầu</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-responsive table-hover ">
+                                        <thead>
+                                            <tr>
+                                                <th>Hình</th>
+                                                <th>Địa chỉ</th>
+                                                <th>Giá</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+<!--                                            <ui:repeat var="roomOrderDetail" value="#{landlord.displayOrderDetailByOrderId(15)}">
+                                                <tr>
+                                                    <td ><h:link outcome="#{landlord.displayRoomDetail(roomOrderDetail.accomId.accomId)}"> <img style="width:80px" class="main_image"  src="#{roomOrderDetail.accomId.images}"/></h:link></td>
+                                                    <td>  <h:outputText value="#{roomOrderDetail.bookedFromDate}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                        </h:outputText>
+                                                    </td>
+                                                    <td> <h:outputText value="#{roomOrderDetail.bookedToDate}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                        </h:outputText>
+                                                    </td>
+                                                    <td class="thousandComma">#{roomOrderDetail.price}</td>
+                                                </tr>
+                                            </ui:repeat>-->
+                                        </tbody>
+                                    </table> 
                                 </div>
                                 <div class="modal-footer " style="text-align: right">
                                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
