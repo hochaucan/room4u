@@ -43,6 +43,10 @@ html, body {
     float:right;
     font-weight: bold;
 }
+.adminRoomImage{
+    width:25%;
+    height: 8%
+}
 .bookRoom lable{
     /*text-align: right;*/
     padding-left: 0px;

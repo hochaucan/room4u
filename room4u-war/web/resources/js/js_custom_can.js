@@ -401,7 +401,7 @@ function LoginEventHandler(data) {
                 //growlmessage("Đăng nhập thành công!", 350);
                 window.location.reload();
             } else {
-                growlmessage("Tài khoản hoặc mật khẩu không đúng!", 350, "danger");
+                growlmessage("Tài khoản hoặc mật khẩu không đúng!", 370, "info");
             }
             break;
     }
