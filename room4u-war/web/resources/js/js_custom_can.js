@@ -10,6 +10,7 @@ $(function () {
     getBookRoomDateRange();
     roomRating();
     renderReceipt();
+    validateFormEditRoom();
 
     //Add booked date to cart
     addRoomToCart();
@@ -100,12 +101,17 @@ function updateAccomSuccess(data) {
             // alert(message)
             if (message !== "") {
 
+                var accomId = jQuery.parseJSON(message).accomId;
                 var accomName = jQuery.parseJSON(message).accomName;
                 var accomDescription = jQuery.parseJSON(message).description;
                 var accomPrice = jQuery.parseJSON(message).price;
                 var accomNoOfBed = jQuery.parseJSON(message).noOfBed;
                 var accomNoOfPerson = jQuery.parseJSON(message).noOfPersons;
                 var accomNoOfToilet = jQuery.parseJSON(message).noOfToilet;
+                var thumbnail = jQuery.parseJSON(jQuery.parseJSON(message).images).thumbnail;
+                var image1 = jQuery.parseJSON(jQuery.parseJSON(message).images).slider1;
+                var image2 = jQuery.parseJSON(jQuery.parseJSON(message).images).slider2;
+                var image3 = jQuery.parseJSON(jQuery.parseJSON(message).images).slider3;
 
                 $("#frmEditAccom\\:updateAccomName").val(accomName);
                 $("#frmEditAccom\\:updateRoomDescription").val(accomDescription);
@@ -113,12 +119,38 @@ function updateAccomSuccess(data) {
                 $("#frmEditAccom\\:updateRoomNumberOfBed").val(accomNoOfBed);
                 $("#frmEditAccom\\:updateRoomNumOfPerson").val(accomNoOfPerson);
                 $("#frmEditAccom\\:updateRoomNumToilet").val(accomNoOfToilet);
+                $("#frmEditAccom\\:txtCurrentUpdateRomId").val(accomId);
 
+                $("#imgRoomThumbnailDisplay").attr("src", "/room4u-war/images/" + thumbnail);
+                $("#imgRoomImage1Display").attr("src", "/room4u-war/images/" + image1);
+                $("#imgRoomImage2Display").attr("src", "/room4u-war/images/" + image2);
+                $("#imgRoomImage3Display").attr("src", "/room4u-war/images/" + image3);
 
                 $('#roomEdit').modal('toggle');
 //                window.location.reload();
             }
 
+            break;
+    }
+}
+
+function editRoomSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmEditAccom\\:txteditRoomSuccess").text();
+            // alert(message)
+            if (message === "success") {
+                $('#roomEdit').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Cập nhật thành công", 300, "success");
+                // window.location.reload();
+            }
             break;
     }
 }
@@ -463,7 +495,7 @@ function validateFormRegisterUser() {
                 maxlength: 200,
                 required: true,
                 noSpace: true
-                
+
             },
             "frmUserRegister:txtCustPass": {
 //                minlength: 3,
@@ -539,6 +571,84 @@ function validateFormRegisterUser() {
         }
     });
 }
+
+
+function validateFormEditRoom() {
+    $('#frmEditAccom').validate({
+        rules: {
+            "frmEditAccom:updateAccomName": {
+                minlength: 3,
+                maxlength: 200,
+                required: true
+            },
+            "frmEditAccom:updateRoomPrice": {
+                number: true,
+                min: 0,
+                max: 1000000000,
+                required: true
+            },
+            "frmEditAccom:updateRoomDescription": {
+                minlength: 3,
+                required: true
+            },
+            "frmEditAccom:updateRoomNumberOfBed": {
+                digits: true,
+                min: 0,
+                required: true
+            },
+            "frmEditAccom:updateRoomNumOfPerson": {
+                digits: true,
+                min: 0,
+                required: true
+            },
+            "frmEditAccom:updateRoomNumToilet": {
+                digits: true,
+                min: 0,
+                required: true
+            },
+//            "frmPostRoom:roomThumbnail": {
+//                required: true
+////                accept: "image/jpg,image/jpeg,image/png,image/gif"
+//            },
+//            "frmPostRoom:roomFile1": {
+//                required: true
+//            },
+//            "frmPostRoom:roomFile2": {
+//                required: true
+//            },
+//            "frmPostRoom:roomFile3": {
+//                required: true
+//            }
+        },
+        messages: {
+//            "frmPostRoom:roomThumbnail": {
+//                required: 'Chọn hình làm đại diện',
+//                accept: 'Not an image!'
+//            }
+        },
+        submitHandler: function (form) {
+            $("#frmEditAccom\\:btnEditRoomSubmit").click();
+//            form.submit();
+
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
+
 
 function validateFormPostRoom() {
     $('#frmPostRoom').validate({

@@ -38,7 +38,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -430,9 +432,113 @@ public class LandlordController {
         return comResult;
     }
 
+    public void editRoom() {
+        try {
+            Accommodation acc = accommodationFacade.find(curAccomUpdate.getAccomId());
+            if (acc != null) {
+                acc.setAccomName(curAccomUpdate.getAccomName());
+                acc.setDescription(curAccomUpdate.getDescription());
+                acc.setNoOfBed(curAccomUpdate.getNoOfBed());
+                acc.setNoOfPersons(curAccomUpdate.getNoOfPersons());
+                acc.setNoOfPersons(curAccomUpdate.getNoOfToilet());
+                acc.setPrice(curAccomUpdate.getPrice());
+
+                //Change room images
+//                roomImageFileNames = new ArrayList<>();
+                Map<String, String> fileNames = new HashMap<String, String>();
+                Map<String, Part> files = new HashMap<String, Part>();
+                if (thumbnail != null) {
+                    files.put("thumbnail", thumbnail);
+                }
+                if (file1 != null) {
+                    files.put("file1", file1);
+                }
+                if (file2 != null) {
+                    files.put("file2", file2);
+                }
+                if (file3 != null) {
+                    files.put("file3", file3);
+                }
+
+                // Uploading room image 
+                for (String key : files.keySet()) {
+                    Part itemFile = files.get(key);
+//                    System.out.println("Key = " + key + ", Value = " + value);
+
+//                for (Part itemFile : files) {
+                    Date dateForFileName = new Date();
+                    DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+                    InputStream inputStream = itemFile.getInputStream();
+                    String fileName = dateFormat.format(dateForFileName) + getFilename(itemFile);
+//                    roomImageFileNames.add(fileName);
+
+                    if (key.equals("thumbnail")) {
+                        fileNames.put(key, fileName);
+                    }
+                    if (key.equals("file1")) {
+                        fileNames.put(key, fileName);
+                    }
+                    if (key.equals("file2")) {
+                        fileNames.put(key, fileName);
+                    }
+                    if (key.equals("file3")) {
+                        fileNames.put(key, fileName);
+                    }
+
+                    File file = new File("C:/room4u/images/" + fileName);
+                    FileOutputStream outputStream = new FileOutputStream(file);
+
+                    if (!file.exists()) {
+                        file.createNewFile();
+                    }
+
+                    byte[] buffer = new byte[1000000];
+                    int bytesRead = 0;
+                    while (true) {
+                        bytesRead = inputStream.read(buffer);
+                        if (bytesRead > 0) {
+                            outputStream.write(buffer, 0, bytesRead);
+                        } else {
+                            break;
+                        }
+                    }
+                    outputStream.close();
+                    inputStream.close();
+//                }
+                }
+                Gson gson = new Gson();
+                RoomImage roomImage = new RoomImage();
+                roomImage = gson.fromJson(acc.getImages(), RoomImage.class);
+
+                if (fileNames.get("thumbnail") != null) {
+                    roomImage.setThumbnail(fileNames.get("thumbnail"));
+                }
+                if (fileNames.get("file1") != null) {
+                    roomImage.setSlider1(fileNames.get("file1"));
+                }
+                if (fileNames.get("file2") != null) {
+                    roomImage.setSlider2(fileNames.get("file2"));
+                }
+                if (fileNames.get("file3") != null) {
+                    roomImage.setSlider3(fileNames.get("file3"));
+                }
+
+                String jsonImage = gson.toJson(roomImage);
+                acc.setImages(jsonImage);
+                accommodationFacade.edit(acc);
+                UpdateRoomResult = "success";
+            }
+        } catch (Exception ex) {
+            UpdateRoomResult = "false";
+            printStackTrace();
+        }
+    }
+
     public void displayAccomUpdate(Accommodation acc) {
         // curAccomUpdate = null;
         curAccomUpdate = new Accommodation();
+        curAccomUpdate.setAccomId(acc.getAccomId());
         curAccomUpdate.setAccomName(acc.getAccomName());
         curAccomUpdate.setDescription(acc.getDescription());
         curAccomUpdate.setAddress(acc.getAddress());
@@ -440,12 +546,17 @@ public class LandlordController {
         curAccomUpdate.setNoOfPersons(acc.getNoOfPersons());
         curAccomUpdate.setNoOfToilet(acc.getNoOfToilet());
         curAccomUpdate.setPrice(acc.getPrice());
-
+        curAccomUpdate.setImages(acc.getImages());
         Gson gson = new Gson();
+//        RoomImage ri = new RoomImage();
+//        ri = gson.fromJson(acc.getImages(), RoomImage.class);
+//        curThumbnail = ri.getThumbnail();
+//        curImages1 = ri.getSlider1();
+//        curImages2 = ri.getSlider2();
+//        curImages3 = ri.getSlider3();
+
         String jsonRoom = gson.toJson(curAccomUpdate);
-
         UpdateRoomResult = jsonRoom;
-
     }
 
     public void deleteComment() {
@@ -664,12 +775,11 @@ public class LandlordController {
             room.setCustId(cust);
 //            room.setAddress(houseNumber
 //                    + " " + street + "phường " + ward + "quận " + district + " " + city);
-            
+
 //             room.setAddress(houseNumber
 //                    + "| " + street + "|phường " + ward + "|quận " + district + "| " + city);
-            
             room.setAddress(roomFullAddress);
-            
+
             room.setCreatedDate(date);
 
             room.setCreatedBy(customerBean.getCurCust().getCustName());
@@ -722,9 +832,8 @@ public class LandlordController {
         }
         return null;
     }
-    
-    public void displayRoomImages(String images)
-    {
+
+    public void displayRoomImages(String images) {
         Gson gson = new Gson();
         RoomImage roomImage = gson.fromJson(images, RoomImage.class);
         curThumbnail = roomImage.getThumbnail();
@@ -756,8 +865,8 @@ public class LandlordController {
     public void setCurImages3(String curImages3) {
         this.curImages3 = curImages3;
     }
-    
-    String curImages1,curImages2,curImages3,curThumbnail;
+
+    String curImages1, curImages2, curImages3, curThumbnail;
 
     public String getCurThumbnail() {
         return curThumbnail;
@@ -767,17 +876,16 @@ public class LandlordController {
         this.curThumbnail = curThumbnail;
     }
 
-    public String curAcc,curCus;
+    public String curAcc, curCus;
 
-    public void displayAccName(Accommodation acc)
-    {
+    public void displayAccName(Accommodation acc) {
         curAcc = acc.getAccomName();
     }
-    
-    public void displayCusName(Customer cus)
-    {
+
+    public void displayCusName(Customer cus) {
         curCus = cus.getCustName();
     }
+
     public String getCurAcc() {
         return curAcc;
     }
@@ -793,9 +901,8 @@ public class LandlordController {
     public void setCurCus(String curCus) {
         this.curCus = curCus;
     }
-    
-    public List<Comments> getAllComments()
-    {
+
+    public List<Comments> getAllComments() {
         return commentsFacade.findAll();
     }
 }

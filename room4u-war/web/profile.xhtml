@@ -282,7 +282,7 @@
                                             </thead>
 
                                             <tbody>
-                                                <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" />
+                                                <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" style="display: none"/>
                                                 <ui:repeat var="room" value="#{landlord.displayRoomProfile()}" varStatus="status">
                                                     <tr>
                                                         <td>#{room.accomId}</td>
@@ -298,17 +298,10 @@
                                                             </h:outputText>
                                                         </td>
                                                         <td>
-                                                            <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>-->
-                                                            <!--<h:inputText id="txtUpdatedAccomId"  style="display: none"/>-->
-
                                                             <h:commandButton class="btn btn-primary" value="Sửa">
                                                                 <!--<span class="glyphicon glyphicon-pencil"></span>-->
-                                                                
                                                                 <f:ajax execute="@form" render="@form" listener ="#{landlord.displayAccomUpdate(room)}" onevent="updateAccomSuccess" />
                                                             </h:commandButton>
-
-
-
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-primary" onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
@@ -612,6 +605,7 @@
 
                                 <div class="modal-body">
                                     <fieldset>
+                                        <h:inputText id="txtCurrentUpdateRomId" value="#{landlord.curAccomUpdate.accomId}" style="display: none"/>
                                         <div class="form-group">
                                             <label for="inputName" class="col-lg-3 control-label">Tên phòng</label>
                                             <div class="col-lg-9">
@@ -625,18 +619,6 @@
                                                 <h:inputText id="updateRoomPrice" value="#{landlord.curAccomUpdate.price}" class="form-control"  />
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="inputAddress" class="col-lg-3 control-label">Địa chỉ</label>
-                                            <div class="col-lg-9">
-                                                <h:inputText id="updateHourseNumber" value="#{landlord.houseNumber}" class="form-control"  p:placeholder="Số nhà"/>
-                                                <h:inputText id="updateRoomStreet" value="#{landlord.street}"  class="form-control"  p:placeholder="Đường" />
-                                                <h:inputText id="updateRoomWard"  value="#{landlord.ward}"  class="form-control"  p:placeholder="Phường"/>
-                                                <h:inputText id="updateRoomDistrict" value="#{landlord.district}"  class="form-control"  p:placeholder="Quận"/>
-                                                <h:inputText id="updateRoomCity" value="#{landlord.city}"  class="form-control"  p:placeholder="Thành phố" />
-                                            </div>
-
-                                        </div>
-
                                         <div class="form-group">
                                             <label for="textArea"  class="col-lg-3 control-label">Mô tả</label>
                                             <div class="col-lg-9">
@@ -671,25 +653,28 @@
                                             <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
                                             <div class="col-lg-9">
                                                 <h:inputFile  id="updateRoomNumThumbnail" value="#{landlord.thumbnail}" ></h:inputFile>
-
+                                                <img class="adminRoomImage" id="imgRoomThumbnailDisplay"  src="" alt="" height="150px" width="200px"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputImage" class="col-lg-3 control-label">Hình 1</label>
                                             <div class="col-lg-9">
                                                 <h:inputFile id="updateRoomNumFile1" value="#{landlord.file1}" />
+                                                <img class="adminRoomImage"  id="imgRoomImage1Display"  src="" alt="" height="150px" width="200px"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputImage" class="col-lg-3 control-label">Hình 2</label>
                                             <div class="col-lg-9">
                                                 <h:inputFile id="updateRoomNumFile2" value="#{landlord.file2}" />
+                                                <img class="adminRoomImage"  id="imgRoomImage2Display"  src="" alt="" height="150px" width="200px"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputImage" class="col-lg-3 control-label">Hình 3</label>
                                             <div class="col-lg-9">
                                                 <h:inputFile id="updateRoomNumFile3" value="#{landlord.file3}" />
+                                                <img class="adminRoomImage"  id="imgRoomImage3Display"  src="" alt="" height="150px" width="200px"/>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -697,7 +682,11 @@
                                 </div>
                                 <div class="modal-footer" style="text-align: right">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                                    <h:commandButton action="#{landlord.editRoom()}" class="btn btn-primary" value="Sửa bài"/>
+                                    <h:commandButton class="btn btn-primary" value="Cập nhật"/>
+                                    <h:commandButton id="btnEditRoomSubmit"  class="btn btn-primary" value="Sửa bài">
+                                        <f:ajax execute="@form" render="frmUpdateAccom txteditRoomSuccess" listener="#{landlord.editRoom()}" onevent="editRoomSuccess"/>
+                                    </h:commandButton>
+                                    <h:outputText id="txteditRoomSuccess" value="#{landlord.updateRoomResult}" style="display: none"/>
                                 </div>
                             </h:form>
                         </div>
