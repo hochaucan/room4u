@@ -126,9 +126,9 @@
                                                     <label for="role" class="col-lg-3 control-label">Vai trò</label>
                                                     <div class="col-lg-9">
                                                     <!--<h:inputText id="role"  value="#{customerBean.roleId}" class="form-control" />-->
-                                                        <h:selectOneMenu value="#{customerBean.roleId}" class="">
+                                                        <h:selectOneMenu value="#{customerBean.currentRoleID}" class="">
                                                             <f:selectItem itemValue="2" itemLabel="Người cho thuê" />
-                                                            <f:selectItem itemValue="3" itemLabel="Người thuê phòng" />
+                                                            <f:selectItem itemValue="3" itemLabel="Người cần thuê" />
                                                         </h:selectOneMenu>
                                                     </div>
                                                 </div>
@@ -143,7 +143,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <!--                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>-->
-                                            <h:commandButton action="#{customerBean.createUser()}"  class="btn btn-primary" value="Cập nhật"/>
+                                            <h:commandButton action="#{customerBean.edit()}"  class="btn btn-primary" value="Cập nhật"/>
                                         </div>
                                     </h:form>
 
@@ -159,20 +159,20 @@
                                             <div class="form-group">
                                                 <label for="txtCurentPass" class="col-lg-3 control-label">Mật khẩu hiện tại</label>
                                                 <div class="col-lg-9">
-                                                    <h:inputText id="txtCurentPass" value="#{customerBean.oldPassword}" class="form-control" />
+                                                    <h:inputSecret id="txtCurentPass" value="#{customerBean.oldPassword}" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="txtNewPass" class="col-lg-3 control-label">Mật khẩu mới</label>
                                                 <div class="col-lg-9">
-                                                    <h:inputText id="txtNewPass" value="#{customerBean.newPassword}" class="form-control" />
+                                                    <h:inputSecret id="txtNewPass" value="#{customerBean.newPassword}" class="form-control" />
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="txtConfirmNewPass" class="col-lg-3 control-label">Xác nhận mật khẩu mới</label>
                                                 <div class="col-lg-9">
-                                                    <h:inputText id="txtConfirmNewPass" value="#{customerBean.confirmPassword}" class="form-control"  />
+                                                    <h:inputSecret id="txtConfirmNewPass" value="#{customerBean.confirmPassword}" class="form-control"  />
                                                 </div>
                                             </div>
                                         </fieldset>

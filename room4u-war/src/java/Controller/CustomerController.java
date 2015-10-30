@@ -84,6 +84,14 @@ public class CustomerController {
     public String getOldPassword() {
         return oldPassword;
     }
+    
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
 
     public String getNewPassword() {
         return newPassword;
@@ -159,6 +167,14 @@ public class CustomerController {
 
     public void setIsAuthenticated(boolean isAuthenticated) {
         this.isAuthenticated = isAuthenticated;
+    }
+    
+    public int getCurrentRoleID(){
+        return curCust == null || curCust.getRoleId() == null ? 2 :curCust.getRoleId().getRoleId();
+    }
+    public void setCurrentRoleID(int rid){
+        UserRole ur = new UserRole();
+        ur.setRoleId(rid);
     }
 
     private Customer c = new Customer();
@@ -352,7 +368,7 @@ public class CustomerController {
 
     public void changePassword() {
         if (curCust.getPassword().equals(oldPassword)) {
-            if (newPassword == confirmPassword) {
+            if (newPassword.equals(confirmPassword)) {
                 curCust.setPassword(newPassword);
                 customerFacade.edit(curCust);
             } else {
@@ -397,5 +413,6 @@ public class CustomerController {
             return 0;
         }
     }
+
 
 }
