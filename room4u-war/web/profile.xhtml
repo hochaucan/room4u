@@ -209,10 +209,10 @@
                                                             </td>
 
                                                             <td>
-                                                                <a  class="btn btn-primary" data-toggle="modal" data-target="#roomOrderView" ><span class="glyphicon glyphicon-eye-open"></span></a>
+                                                                <a  class="btn btn-primary" data-toggle="modal" data-target="#roomOrderView" ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>
                                                             </td>
                                                             <td>
-                                                                <a  class="btn btn-primary" onclick="assignDeletedRoomOrderId(this)"  data-toggle="modal" data-target="#roomOrderDelete" ><span class="glyphicon glyphicon-trash"></span></a>
+                                                                <a  class="btn btn-primary" onclick="assignDeletedRoomOrderId(this)"  data-toggle="modal" data-target="#roomOrderDelete" ><span class="glyphicon glyphicon-trash"></span>Xóa</a>
                                                             </td>
 
                                                         </tr>
@@ -301,8 +301,10 @@
                                                             <!--<a class="btn btn-primary"  data-toggle="modal" data-target="#customerEdit" ><span class="glyphicon glyphicon-pencil"></span> Sửa</a>-->
                                                             <!--<h:inputText id="txtUpdatedAccomId"  style="display: none"/>-->
 
-                                                            <h:commandButton class="btn btn-primary"  value="Sửa" >
-                                                                <f:ajax execute="@form" render="txtUpdateRoomResult" listener ="#{landlord.displayAccomUpdate(room)}" onevent="updateAccomSuccess" />
+                                                            <h:commandButton class="btn btn-primary" value="Sửa">
+                                                                <!--<span class="glyphicon glyphicon-pencil"></span>-->
+                                                                
+                                                                <f:ajax execute="@form" render="@form" listener ="#{landlord.displayAccomUpdate(room)}" onevent="updateAccomSuccess" />
                                                             </h:commandButton>
 
 
@@ -340,10 +342,10 @@
                                                         <td>#{roomOrder.orderId}</td>
                                                         <td class="thousandComma">#{roomOrder.totalPrice}</td>
                                                         <td>
-                                                               <h:outputText value="#{roomOrder.orderDate}">
+                                                            <h:outputText value="#{roomOrder.orderDate}">
                                                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                                                             </h:outputText>
-                                                           </td>
+                                                        </td>
                                                         <td>#{roomOrder.status}</td>
                                                         <td>
                                                             <a  class="btn btn-primary" data-toggle="modal" data-target="#roomOrderView" ><span class="glyphicon glyphicon-eye-open"></span></a>
@@ -541,8 +543,14 @@
                                             <ui:repeat var="roomOrderDetail" value="#{landlord.displayOrderDetailByOrderId(15)}">
                                                 <tr>
                                                     <td ><h:link outcome="#{landlord.displayRoomDetail(roomOrderDetail.accomId.accomId)}"> <img style="width:80px" class="main_image"  src="#{roomOrderDetail.accomId.images}"/></h:link></td>
-                                                    <td>#{roomOrderDetail.bookedFromDate}</td>
-                                                    <td>#{roomOrderDetail.bookedToDate}</td>
+                                                    <td>  <h:outputText value="#{roomOrderDetail.bookedFromDate}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                        </h:outputText>
+                                                    </td>
+                                                    <td> <h:outputText value="#{roomOrderDetail.bookedToDate}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                        </h:outputText>
+                                                    </td>
                                                     <td class="thousandComma">#{roomOrderDetail.price}</td>
                                                 </tr>
                                             </ui:repeat>
