@@ -45,4 +45,10 @@ public class CustomerFacade extends AbstractFacade<Customer> implements Customer
         return count;
     }
 
+    public List<Customer> findCustByEmail(String email) {
+        Query q = em.createQuery("SELECT a FROM Customer a WHERE a.email = :email");
+        q.setParameter("email", email);
+        return q.getResultList();
+    }
+    
 }

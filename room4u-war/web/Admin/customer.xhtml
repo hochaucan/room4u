@@ -68,9 +68,11 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Chức năng"/>
                                                 </f:facet>
-                                                <p:commandButton action="#{customerBean.delete(item)}" value="Xóa"  
+                                                <a class="btn btn-primary" onclick="displayDeleteCustomer(this)"  data-toggle="modal" 
+                                                   data-target="#deleteCust"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+<!--                                                <p:commandButton action="" value="Xóa"  
                                                                  onclick="return confirm('Bạn có chắc chắn xóa tài khoản này?')"
-                                                                 styleClass="btn btn-primary glyphicon glyphicon-trash"/>
+                                                                 styleClass="btn btn-primary glyphicon glyphicon-trash"/>-->
                                             </h:column>
 
                                         </h:dataTable>
@@ -100,7 +102,31 @@
 
                     <!--<a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#customerEdit"><span class="glyphicon glyphicon-upload"></span>Đăng phòng</a>-->
                 </div>
+                
+                <!--Modal delete customer-->
+                <div class="modal fade" id="deleteCust" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h:form id="frmDeleteCustomer" class="form-horizontal" enctype="multipart/form-data" >
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title custom_align" id="Heading">Xác nhận xóa tài khoản</h4>
+                                </div>
+                                <div class="form-group">
+                                    <h:inputHidden  id="hdCustDeleteId" value="#{customerBean.customerDeleteId}"/>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span> Bạn có chắc chắn xóa FAQ này?</div>
+                                </div>
+                                <div class="modal-footer " style="text-align: right">
 
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                                    <h:commandButton action="#{customerBean.delete()}"  class="btn btn-primary" value="Xác nhận"/>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
               
             </ui:define>
 
