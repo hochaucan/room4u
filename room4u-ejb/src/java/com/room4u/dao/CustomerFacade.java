@@ -46,10 +46,9 @@ public class CustomerFacade extends AbstractFacade<Customer> implements Customer
     }
 
     @Override
-    public List<Customer> findCustByEmail(String email, String username) {
-        Query q = em.createQuery("SELECT a FROM Customer a WHERE a.email = :email OR a.accountCustomer=:_username");
-        q.setParameter("email", email);
-        q.setParameter("_username", username);
+    public List<Customer> findCustByUserName(String username) {
+        Query q = em.createQuery("SELECT a FROM Customer a WHERE a.accountCustomer=:_username");
+       q.setParameter("_username", username);
         return q.getResultList();
     }
     

@@ -34,7 +34,7 @@ public interface CustomerFacadeLocal {
 
     public int countAdminRole(int id);
 
-    public List<Customer> findCustByEmail(String email, String username);
+    public List<Customer> findCustByUserName(String username);
 
     public int updatePassword(int id, String pwd);
 

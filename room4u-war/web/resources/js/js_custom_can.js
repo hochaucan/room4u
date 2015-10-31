@@ -6,6 +6,7 @@ $(function () {
     setActiveMenuSidebar();
     validateFormChangePassword();
     validateFormRegisterUser();
+    validateFormEditUser();
     validateFormBookRoom();
     getBookRoomDateRange();
     roomRating();
@@ -51,6 +52,98 @@ function assignDeletedAccomId(render) {
     var deletedAccomId = $(render).closest("tr").find("td:eq(1)").html();
     $("#frmDeletedAccom\\:txtDeletedAccomId").val(deletedAccomId);
 
+}
+
+function editUserSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmUserUpdate\\:txtEditUserResult").text();
+            // alert(message)
+            if (message === "success") {
+//                $('#frmUserRegister').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Cập nhật tài khoản thành công", 350, "success");
+
+//                window.location.reload();
+            } else if (message === "existEmail") {
+                growlmessage("<span class='glyphicon glyphicon-remove'></span>Email đã tồn tại", 300, "info");
+            }
+            else {
+                growlmessage("<span class='glyphicon glyphicon-remove'> Lỗi cập nhật tài khoản", 300, "info");
+            }
+            break;
+    }
+}
+
+function createUserSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmUserRegister\\:txtCreateUserResult").text();
+            // alert(message)
+            if (message === "success") {
+                $('#user_register_modal').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Đăng ký tài khoản thành công", 350, "success");
+                window.location.reload();
+            }
+            else if (message === "existEmail") {
+                growlmessage("<span class='glyphicon glyphicon-remove'></span>Email đã tồn tại", 350, "info");
+                validateFormRegisterUser();
+//                $("#user_register_modal").on('hide.bs.modal', function () {
+//                    $(this).find("#user_register_modal")[0].reset();
+//                });
+
+            }
+            else if (message === "existUsername") {
+                growlmessage("</span>Tài khoản đã tồn tại", 350, "info");
+                validateFormRegisterUser();
+//                $(this).find("#user_register_modal")[0].reset();
+            }
+            else {
+                growlmessage("<span class='glyphicon glyphicon-remove'>Lỗi tạo tài khoản", 300, "info");
+            }
+            break;
+    }
+}
+
+function changePasswordSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmChangePassword\\:txtChangePasswordResult").text();
+            // alert(message)
+            if (message === "success") {
+//                $('#mdDeleteCom').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Đổi mật khẩu thành công", 300, "success");
+            } 
+            else if(message === "passnotcorrect"){
+                growlmessage("<span class='glyphicon glyphicon-remove'>Mật khẩu cũ không đúng", 300, "info");
+            }           
+            else {
+                growlmessage("<span class='glyphicon glyphicon-remove'> Lỗi xóa bình luận", 300, "info");
+            }
+
+
+            break;
+    }
 }
 
 function deleteComSuccess(data) {
@@ -508,11 +601,11 @@ function validateFormRegisterUser() {
                 number: true,
                 required: true,
                 minlength: 10,
-                maxlength: 11,
+                maxlength: 11
 //                pattern: /^(09\d{8})|(01\d{9})||([3-7]\d{7})$/
             },
             "frmUserRegister:fileCustThumbnail": {
-                required: true,
+                required: true
             }
         },
         messages: {
@@ -570,6 +663,56 @@ function validateFormRegisterUser() {
     });
 }
 
+function validateFormEditUser() {
+    $('#frmUserUpdate').validate({
+        rules: {
+            "frmUserUpdate:txtCustName": {
+                minlength: 3,
+                maxlength: 200,
+                required: true
+            },
+            "frmUserUpdate:txtCustEmail": {
+                required: true,
+                email: true
+            },
+            "frmUserUpdate:txtCustPhone": {
+                number: true,
+                required: true,
+                minlength: 10,
+                maxlength: 11
+//                pattern: /^(09\d{8})|(01\d{9})||([3-7]\d{7})$/
+            }
+        },
+        messages: {
+            "frmUserRegister:txtCustPass": {
+                rangelength: 'Vui lòng nhập từ 4 đến 10 ký tự',
+//                accept: 'Not an image!'
+            }
+//            "frmUserRegister:txtCustPhone": {
+//                pattern: "Nhập sô điện thoại Việt Nam"
+//            }
+        },
+        submitHandler: function (form) {
+//            alert("can")
+            $("#frmUserUpdate\\:btnEditUser").click();
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
 
 function validateFormEditRoom() {
     $('#frmEditAccom').validate({
@@ -825,22 +968,20 @@ function validateFormChangePassword() {
     validate = $("#frmChangePassword").validate({
         rules: {
             "frmChangePassword:txtCurentPass": {
-//                minlength: 1,
-//                maxlength: 200,
-                required: true
+                required: true,
             },
             "frmChangePassword:txtNewPass": {
-//                number: true,
-//                min: 0,
-//                max: 1000000000,
-                required: true
+                rangelength: [4, 10],
+                required: true,
+                noSpace: true
             },
             "frmChangePassword:txtConfirmNewPass": {
-//                number: true,
-//                min: 0,
-//                max: 1000000000,
-                required: true
+                equalTo: "#frmChangePassword\\:txtNewPass"
             }
+        },
+        submitHandler: function (form) {
+           $("#frmChangePassword\\:btnChangePassword").click();
+            //form.submit();
         },
         highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');

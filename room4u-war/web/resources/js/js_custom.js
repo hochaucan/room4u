@@ -162,10 +162,6 @@ function setMapLocationByAddress(address) {
     var geocoder = new google.maps.Geocoder;
     var infowindow = new google.maps.InfoWindow;
 
-//    var placeId = document.getElementById('txtAccomAddress').value;
-    //var placeId = _placeId;//"ChIJQxW28VUudTERe2V2Vy5E9tA";//$("#txtAccomAddress").text();
-    //alert(placeId)
-
 //    geocoder.geocode({'placeId': placeId}, function (results, status) {
     geocoder.geocode({'address': address}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {

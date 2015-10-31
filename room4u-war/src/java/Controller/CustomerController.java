@@ -64,6 +64,15 @@ public class CustomerController {
     private String recipientAddress;
     private String createUserResult;
     private String editUserResult;
+    private String changePasswordResult;
+
+    public String getChangePasswordResult() {
+        return changePasswordResult;
+    }
+
+    public void setChangePasswordResult(String changePasswordResult) {
+        this.changePasswordResult = changePasswordResult;
+    }
 
     public String getEditUserResult() {
         return editUserResult;
@@ -290,23 +299,14 @@ public class CustomerController {
     public void setExistEmail(String existEmail) {
         this.existEmail = existEmail;
     }
+
     public String edit() {
+        editUserResult = "";
         List<Customer> lc = customerFacade.findEmail(curCust.getEmail());
 
-        if(curCust.getEmail().equals(existEmail)){
-            
+        if (lc != null && !curCust.getEmail().equals(existEmail)) {
+            return editUserResult = "existEmail";
         }
-        
-        if (lc != null && lc.size() > 1) {
-            return createUserResult = "false";
-        }
-        
-//            else {
-//                if (lc.size() == 1 && lc.get(0).getCustId() != curCust.getCustId()) {
-//                    notifyMessage("trung email");
-//                    return null;
-//                }
-//            }
 
         if (image != null) {
             try {
@@ -339,10 +339,13 @@ public class CustomerController {
 
             } catch (Exception ex) {
                 printStackTrace();
+                editUserResult = "false";
             }
         }
         this.customerFacade.edit(this.curCust);
-        return null;
+        existEmail = curCust.getEmail();
+        editUserResult = "success";
+        return editUserResult;
     }
 
 //    public String edit() {
@@ -407,6 +410,7 @@ public class CustomerController {
                 sess.setAttribute("isauthenticated", isAuthenticated);
                 roleId = curCust.getRoleId().getRoleId();
                 uid = curCust.getCustId();
+                existEmail = curCust.getEmail();
                 return curCust;
             }
         } catch (Exception ex) {
@@ -427,12 +431,15 @@ public class CustomerController {
 
     public String createUser() {
         createUserResult = "";
+        List<Customer> checkMail = customerFacade.findEmail(c.getEmail());
+        List<Customer> lc = customerFacade.findCustByUserName(c.getAccountCustomer());
 
-        List<Customer> lc = customerFacade.findCustByEmail(c.getEmail(), c.getAccountCustomer());
+        if (checkMail != null && checkMail.size() > 0) {
+            return createUserResult = "existEmail";
+        }
+
         if (lc != null && lc.size() > 0) {
-//            notifyMessage("trung email");
-
-            return createUserResult = "false";
+            return createUserResult = "existUsername";
         }
 
         try {
@@ -482,22 +489,28 @@ public class CustomerController {
         return "index?faces-redirect=true";
     }
 
-    public void changePassword() {
-        if (curCust.getPassword().equals(oldPassword)) {
-            if (newPassword.equals(confirmPassword)) {
-                curCust.setPassword(newPassword);
-                customerFacade.edit(curCust);
-            } else {
-                notifyMessage("Mật khẩu xác nhận không đúng");
+    public String changePassword() {
+
+        changePasswordResult = "";
+        try {
+            if (!curCust.getPassword().equals(oldPassword)) {
+                return changePasswordResult = "passnotcorrect";
             }
-        } else {
-            notifyMessage("Sai mật khẩu");
+            curCust.setPassword(newPassword);
+            customerFacade.edit(curCust);
+            changePasswordResult = "success";
+        } catch (Exception ex) {
+            changePasswordResult = "false";
+            printStackTrace();
         }
+
+        return changePasswordResult;
     }
 
     @PostConstruct
     public void init() {
         paginator = new RepeatPaginator(this.getCustList());
+
     }
 
     public void notifyMessage(String message) {

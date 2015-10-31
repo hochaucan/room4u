@@ -46,16 +46,18 @@
                     <div class="col-md-3">
                         <div class="list-group">
                             <div class="panel panel-default">
-                                <div class="panel-heading profileImage" >
-                                    <h:graphicImage value="/images/#{customerBean.curCust.images}"/><br/>
-                                    <h:outputLabel value="#{customerBean.curCust.custName}" /><br/>
-                                    <span style="font-size: 12px;color:#8F8F8F">Đăng ký ngày 
-                                        <h:outputText value="#{customerBean.curCust.registerDate}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                        </h:outputText>                                      
+                                <h:panelGroup  id="profileImage" >
+                                    <div class="panel-heading profileImage">
+                                        <h:graphicImage value="/images/#{customerBean.curCust.images}"/><br/>
+                                        <h:outputLabel value="#{customerBean.curCust.custName}" /><br/>
+                                        <span style="font-size: 12px;color:#8F8F8F">Đăng ký ngày 
+                                            <h:outputText value="#{customerBean.curCust.registerDate}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                            </h:outputText>                                      
 
-                                    </span>
-                                </div>
+                                        </span>
+                                    </div>
+                                </h:panelGroup>
                                 <div class="panel-body profileSidebarMenu">
                                     <a href="#personalInfo" class="list-group-item active" data-toggle="tab" aria-expanded="false">
                                         <span class="glyphicon glyphicon-hand-right"></span>Thông tin cá nhân
@@ -112,7 +114,6 @@
                                                 <div class="form-group">
                                                     <label for="txtCustEmail" class="col-lg-3 control-label">Email</label>
                                                     <div class="col-lg-9">
-                                                        <h:inputText id="txtCustExistEmail"  value="#{customerBean.curCust.email}" class="form-control" />
                                                         <h:inputText id="txtCustEmail"  value="#{customerBean.curCust.email}" class="form-control" />
                                                     </div>
                                                 </div>
@@ -120,17 +121,6 @@
                                                     <label for="txtCustPhone" class="col-lg-3 control-label">Điện thoại</label>
                                                     <div class="col-lg-9">
                                                         <h:inputText id="txtCustPhone"  value="#{customerBean.curCust.phone}" class="form-control" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="role" class="col-lg-3 control-label">Vai trò</label>
-                                                    <div class="col-lg-9">
-                                                    <!--<h:inputText id="role"  value="#{customerBean.roleId}" class="form-control" />-->
-                                                        <h:selectOneMenu value="#{customerBean.currentRoleID}" class="">
-                                                            <f:selectItem itemValue="2" itemLabel="Người cho thuê" />
-                                                            <f:selectItem itemValue="3" itemLabel="Người cần thuê"  />
-                                                        </h:selectOneMenu>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -143,13 +133,11 @@
                                             </fieldset>
                                         </div>
                                         <div class="modal-footer">
-                                            <!--                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>-->
-                                            <!--<h:commandButton action="#{customerBean.edit()}"  class="btn btn-primary" value="Cập nhật"/>-->
                                             <h:commandButton class="btn btn-primary" value="Cập nhật"/>
-                                            <h:commandButton id="btnEditUser"  class="btn btn-primary" value="Cập nhật Submit">
-                                                <f:ajax execute="@form" render="@form" listener="#{customerBean.edit()}" onevent="editUserSuccess"/>
+                                            <h:commandButton style="display: none" id="btnEditUser"  class="btn btn-primary" value="Cập nhật Submit">
+                                                <f:ajax execute="@form" render="homepage_menu_right profileImage" listener="#{customerBean.edit()}" onevent="editUserSuccess"/>
                                             </h:commandButton>
-                                            <h:outputText id="txtEditUserResult" value="#{customerBean.editUserResult}"/>
+                                            <h:outputText style="display: none" id="txtEditUserResult" value="#{customerBean.editUserResult}"/>
                                         </div>
                                     </h:form>
 
@@ -185,7 +173,11 @@
 
                                         <div class="modal-footer" style="text-align: right">
                                             <!--<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>-->
-                                            <h:commandButton class="btn btn-primary" action="#{customerBean.changePassword()}" value="Đổi mật khẩu"/>
+                                            <h:commandButton class="btn btn-primary" value="Đổi mật khẩu"/>
+                                            <h:commandButton id="btnChangePassword" class="btn btn-primary"  value="Đổi mật khẩu Submit">
+                                                <f:ajax execute="@form" render="@form" listener="#{customerBean.changePassword()}" onevent="changePasswordSuccess"/>
+                                            </h:commandButton>
+                                            <h:outputText id="txtChangePasswordResult" value="#{customerBean.changePasswordResult}"/>
                                         </div>
                                     </h:form>
                                 </div>

@@ -43,6 +43,7 @@
     </h:head>
 
     <h:body>
+         <h:panelGroup id="homepage_menu_right">
         <h:form>
             <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
@@ -65,51 +66,52 @@
                             <li><a href="./faq.jsf">FAQ</a></li>
                             <!--<li><a data-toggle="modal" data-target="#userLoginModal"  href="#" >Testing</a></li>-->
                         </ul>
+                       
+                            <ul  class="nav navbar-nav navbar-right homepage_menu_right">
 
-                        <ul class="nav navbar-nav navbar-right homepage_menu_right">
+                                <li > 
+                                    <h:commandLink action="./profile.jsf" rendered="#{customerBean.curCust != null}" >
+                                        <h:outputText value="#{customerBean.curCust.roleId.roleName}"></h:outputText> 
+                                        <h:graphicImage  style="margin:0 8px" value="/images/#{customerBean.curCust.images}" />
+                                        <h:outputText value="#{customerBean.curCust.custName}"></h:outputText>
+                                    </h:commandLink>
+                                    <!--<a   href="./profile.jsf">Người cho thuê <img src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/> Nick Ho</a>-->
+                                </li>
+                                <li>
+                                    <h:commandLink rendered="#{customerBean.curCust == null}" p:data-toggle="modal" p:data-target="#user_login_modal" >
+                                        <span class="glyphicon glyphicon-user"></span> Đăng nhập
+                                        <f:ajax execute="@form" render="@form" />
+                                    </h:commandLink>
+                                    <!--<a data-toggle="modal" data-target="#user_login_modal"  href="#"><span class="glyphicon glyphicon-user"></span> Đăng nhập</a>-->
+                                </li>
+                                <li>
+                                    <h:commandLink rendered="#{customerBean.curCust == null}"  p:data-toggle="modal" p:data-target="#user_register_modal">
+                                        <f:ajax execute="@form" render="@form"/>
+                                        <span class="glyphicon glyphicon-registration-mark"></span> Đăng ký
+                                    </h:commandLink>
+                                    <!--<a data-toggle="modal" data-target="#user_register_modal" href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a>-->
+                                </li>
+                                <li>
+                                    <h:commandLink rendered="#{customerBean.curCust == null}" p:data-target="#pwdModal" p:data-toggle="modal">
+                                        <span class="glyphicon glyphicon-lock"></span> Quên mật khẩu
+                                        <f:ajax execute="@form" render="@form" />
+                                    </h:commandLink>
+                                </li>
+                                <li>
+                                    <h:link  outcome="./Admin/index.jsf" rendered="#{customerBean.curCust != null and customerBean.curCust.roleId.roleId == 1 }"><span class="glyphicon glyphicon-cog"></span> Quản lý</h:link>
 
-                            <li > 
-                                <h:commandLink action="./profile.jsf" rendered="#{customerBean.curCust != null}" >
-                                    <h:outputText value="#{customerBean.curCust.roleId.roleName}"></h:outputText> 
-                                    <h:graphicImage  style="margin:0 8px" value="/images/#{customerBean.curCust.images}" />
-                                    <h:outputText value="#{customerBean.curCust.custName}"></h:outputText>
-                                </h:commandLink>
-                                <!--<a   href="./profile.jsf">Người cho thuê <img src="./resources/images/upload/20151013170402happiness_love-wallpaper-1366x768.jpg"/> Nick Ho</a>-->
-                            </li>
-                            <li>
-                                <h:commandLink rendered="#{customerBean.curCust == null}" p:data-toggle="modal" p:data-target="#user_login_modal" >
-                                    <span class="glyphicon glyphicon-user"></span> Đăng nhập
-                                    <f:ajax execute="@form" render="@form" />
-                                </h:commandLink>
-                                <!--<a data-toggle="modal" data-target="#user_login_modal"  href="#"><span class="glyphicon glyphicon-user"></span> Đăng nhập</a>-->
-                            </li>
-                            <li>
-                                <h:commandLink rendered="#{customerBean.curCust == null}"  p:data-toggle="modal" p:data-target="#user_register_modal">
-                                    <f:ajax execute="@form" render="@form"/>
-                                    <span class="glyphicon glyphicon-registration-mark"></span> Đăng ký
-                                </h:commandLink>
-                                <!--<a data-toggle="modal" data-target="#user_register_modal" href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a>-->
-                            </li>
-                            <li>
-                                <h:commandLink rendered="#{customerBean.curCust == null}" p:data-target="#pwdModal" p:data-toggle="modal">
-                                    <span class="glyphicon glyphicon-lock"></span> Quên mật khẩu
-                                    <f:ajax execute="@form" render="@form" />
-                                </h:commandLink>
-                            </li>
-                            <li>
-                                <h:link  outcome="./Admin/index.jsf" rendered="#{customerBean.curCust != null and customerBean.curCust.roleId.roleId == 1 }"><span class="glyphicon glyphicon-cog"></span> Quản lý</h:link>
+                                </li>
 
-                            </li>
-
-                            <li><h:commandLink rendered="#{customerBean.curCust != null}" action="#{customerBean.logout()}"><span class="glyphicon glyphicon-log-out"></span> Log out</h:commandLink></li>
+                                <li><h:commandLink rendered="#{customerBean.curCust != null}" action="#{customerBean.logout()}"><span class="glyphicon glyphicon-log-out"></span> Log out</h:commandLink></li>
 
 
-                        </ul>
+                            </ul>
+                       
                     </div>
                 </div>
             </nav>
         </h:form>
-
+ </h:panelGroup>
         <div class="container">
 
             <div class="row">
@@ -271,10 +273,10 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                             <h:commandButton class="btn btn-primary" value="Đăng ký"/>
-                            <h:commandButton id="btnCreateUser"  class="btn btn-primary" value="Đăng ký Submit">
+                            <h:commandButton style="display: none" id="btnCreateUser"  class="btn btn-primary" value="Đăng ký Submit">
                                 <f:ajax execute="@form" render="@form" listener="#{customerBean.createUser()}" onevent="createUserSuccess"/>
                             </h:commandButton>
-                            <h:outputText id="txtCreateUserResult" value="#{customerBean.createUserResult}"/>
+                            <h:outputText style="display: none" id="txtCreateUserResult" value="#{customerBean.createUserResult}"/>
                         </div>
                     </h:form>
                 </div>
@@ -314,7 +316,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!--modal forget password-->
         <div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
@@ -324,27 +326,27 @@
                         <h1 class="text-center">Room4U</h1>
                     </div>
                     <h:form id="frmForgetPwd" class="form-horizontal">
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="text-center">
-                                        <p>Nếu bạn quên mật khẩu đăng nhập, sử dụng form bên dưới để phục hồi mật khẩu.</p>
-                                        <div class="panel-body">
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <h:inputText id="txtCustEmail" class="form-control input-lg" value="#{customerBean.recipientAddress}" />
-                                                    <!--<input class="form-control input-lg" placeholder="Nhập địa chỉ mail" name="email" type="email"/>-->
-                                                </div>
-                                            </fieldset>
-                                            <h:commandButton action="#{customerBean.resetPassword(customerBean.recipientAddress)}" 
-                                                             class="btn btn-lg btn-primary btn-block" value="Gửi"/>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="text-center">
+                                            <p>Nếu bạn quên mật khẩu đăng nhập, sử dụng form bên dưới để phục hồi mật khẩu.</p>
+                                            <div class="panel-body">
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <h:inputText id="txtCustEmail" class="form-control input-lg" value="#{customerBean.recipientAddress}" />
+                                                        <!--<input class="form-control input-lg" placeholder="Nhập địa chỉ mail" name="email" type="email"/>-->
+                                                    </div>
+                                                </fieldset>
+                                                <h:commandButton action="#{customerBean.resetPassword(customerBean.recipientAddress)}" 
+                                                                 class="btn btn-lg btn-primary btn-block" value="Gửi"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </h:form>
                     <br/>
                     <div class="modal-footer">
