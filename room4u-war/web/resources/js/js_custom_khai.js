@@ -86,6 +86,12 @@ $(function() {
   		}, $msgShowTime);
     }
 });
+
+function displayDeleteCustomer(render) {
+    var id = $(render).closest("tr").find("td:eq(0)").html();
+    $("#frmDeleteCustomer\\:hdCustDeleteId").val(id);
+}
+
 // End | Form Dang Ky & Dang Nhap
 //====================================
 //====================================
