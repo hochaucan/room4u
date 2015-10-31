@@ -105,7 +105,7 @@
                                                 <div class="form-group">
                                                     <label for="txtCustAccount" class="col-lg-3 control-label">Tên đăng nhập</label>
                                                     <div class="col-lg-9">
-                                                        <h:inputText id="txtCustAccount" autocomplete="false"  value="#{customerBean.curCust.accountCustomer}" class="form-control" />
+                                                        <h:inputText id="txtCustAccount" disabled="true" autocomplete="false"  value="#{customerBean.curCust.accountCustomer}" class="form-control" />
                                                     </div>
                                                 </div>
 
@@ -128,7 +128,7 @@
                                                     <!--<h:inputText id="role"  value="#{customerBean.roleId}" class="form-control" />-->
                                                         <h:selectOneMenu value="#{customerBean.currentRoleID}" class="">
                                                             <f:selectItem itemValue="2" itemLabel="Người cho thuê" />
-                                                            <f:selectItem itemValue="3" itemLabel="Người cần thuê" />
+                                                            <f:selectItem itemValue="3" itemLabel="Người cần thuê"  />
                                                         </h:selectOneMenu>
                                                     </div>
                                                 </div>
@@ -136,7 +136,7 @@
                                                     <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
                                                     <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
                                                     <div class="col-lg-9">
-                                                        <h:inputFile id="fileCustThumbnail" value="#{customerBean.curCust.images}"></h:inputFile>
+                                                        <h:inputFile id="fileCustThumbnail" value="#{customerBean.image}"></h:inputFile>
                                                     </div>
                                                 </div>
                                             </fieldset>

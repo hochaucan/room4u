@@ -60,6 +60,24 @@ public class CustomerController {
     private int uid;
     private List<String> pageList;
     private RepeatPaginator paginator;
+    private String customerDeleteId;
+    private String recipientAddress;
+
+    public String getRecipientAddress() {
+        return recipientAddress;
+    }
+
+    public void setRecipientAddress(String recipientAddress) {
+        this.recipientAddress = recipientAddress;
+    }
+
+    public String getCustomerDeleteId() {
+        return customerDeleteId;
+    }
+
+    public void setCustomerDeleteId(String customerDeleteId) {
+        this.customerDeleteId = customerDeleteId;
+    }
 
     public RepeatPaginator getPaginator() {
         return paginator;
@@ -218,6 +236,12 @@ public class CustomerController {
     public List<Customer> getCustList() {
         return this.customerFacade.findAll();
     }
+    
+    public void resetPassword(String email){
+        SendMailController smc = new SendMailController();
+        smc.sendMailSupport(email);
+//        Customer resetCust = customerFacade.find(uid)
+    }
 
     public String add() {
         this.customerFacade.create(this.c);
@@ -225,13 +249,14 @@ public class CustomerController {
         return "index";
     }
 
-    public String delete(Customer c) {
-        if (c.getCustId() == uid) {
+    public String delete() {
+        Customer cust = customerFacade.find(Integer.parseInt(customerDeleteId));
+        if (cust.getCustId() == uid) {
             notifyMessage("Không thể xóa tài khoản đang login");
-        }else if (c.getCustId() == 1){
+        }else if (cust.getCustId() == 1){
             notifyMessage("Không cho phép xóa tài khoản admin");
         }else{
-            this.customerFacade.remove(c);
+            this.customerFacade.remove(cust);
         }
         paginator = new RepeatPaginator(this.getCustList());
         return "customer";
