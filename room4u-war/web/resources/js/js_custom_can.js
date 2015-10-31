@@ -12,10 +12,7 @@ $(function () {
     renderReceipt();
     validateFormEditRoom();
     addRoomToCart();
-//    renderFindAddressTool();
-
-
-
+    renderRoomAddressInRoomDetail();
 
 
     cleanModal();
@@ -25,13 +22,12 @@ $(function () {
     //$('.collapse').collapse()
 });
 
-//function renderFindAddressTool() {
-////    $("#modal_post_room").on('show.bs.modal', function () {
-//        //alert("Can")
-//      //alert($("#pac-input").val());hpAddressSearchBox
-//      $("#pac-input").appendTo(".postRoomAddress");
-////    });
-//}
+function renderRoomAddressInRoomDetail() {
+    var roomAddressJson = $("#txtAccomAddress").text();
+    if (roomAddressJson !== "") {
+        $("#txtAccomAddress").text(JSON.parse(roomAddressJson).fullAddress);
+    }
+}
 
 function assignDeletedComment(render) {
     var deletedComId = $(render).closest("tr").find("td:eq(0)").html();

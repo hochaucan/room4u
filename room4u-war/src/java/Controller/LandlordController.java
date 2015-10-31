@@ -6,6 +6,7 @@
 package Controller;
 
 import ViewModel.BookRoom;
+import ViewModel.RoomAddress;
 import ViewModel.RoomImage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -104,6 +105,15 @@ public class LandlordController {
     private String deletedRoomOrderResult;
     private String deletedCustomerOrderRoomResult;
     private String roomFullAddress;
+    private String roomPlaceId;
+
+    public String getRoomPlaceId() {
+        return roomPlaceId;
+    }
+
+    public void setRoomPlaceId(String roomPlaceId) {
+        this.roomPlaceId = roomPlaceId;
+    }
 
     public String getRoomFullAddress() {
         return roomFullAddress;
@@ -724,6 +734,8 @@ public class LandlordController {
 //        log.log(Level.INFO, "filename:{0}", file.getName());
 //        log.log(Level.INFO, "submitted filename:{0}", file.getSubmittedFileName());
 
+            Gson gson = new Gson();
+            Date date = new Date();
             roomImageFileNames = new ArrayList<>();
             List<Part> files = new ArrayList<Part>();
 
@@ -769,7 +781,7 @@ public class LandlordController {
             }
 //            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Room is created!"));
 
-            Date date = new Date();
+            
             room.setAccomId(1);
             Customer cust = customerBean.getCurCust();
             room.setCustId(cust);
@@ -778,7 +790,11 @@ public class LandlordController {
 
 //             room.setAddress(houseNumber
 //                    + "| " + street + "|phường " + ward + "|quận " + district + "| " + city);
-            room.setAddress(roomFullAddress);
+            RoomAddress roomAddress = new RoomAddress();
+            roomAddress.setPlaceId(roomPlaceId);
+            roomAddress.setFullAddress(roomFullAddress);
+            
+            room.setAddress(gson.toJson(roomAddress));
 
             room.setCreatedDate(date);
 
@@ -792,7 +808,7 @@ public class LandlordController {
             roomImage.setSlider2(roomImageFileNames.get(2));
             roomImage.setSlider3(roomImageFileNames.get(3));
 
-            Gson gson = new Gson();
+            
             String jsonImage = gson.toJson(roomImage);
             room.setImages(jsonImage);
 

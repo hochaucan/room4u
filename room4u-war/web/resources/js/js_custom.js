@@ -55,9 +55,7 @@ function initMap() {
             };
             curLong = position.coords.longitude;
             curLat = position.coords.latitude;
-
             //getLongAddressBaseOnLngLat("(" + position.coords.latitude + "," + position.coords.longitude + ")");
-
             infoWindow.setPosition(pos);
             infoWindow.setContent('Vị trí của bạn');
             map.setCenter(pos);
@@ -69,7 +67,6 @@ function initMap() {
         handleLocationError(false, infoWindow, map.getCenter());
     }
 
-
     // This event listener will call addMarker() when the map is clicked.
     map.addListener('click', function (event) {
         deleteMarkers();
@@ -77,8 +74,7 @@ function initMap() {
         // alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
         long = curLong = event.latLng.lng();
         lat = curLat = event.latLng.lat();
-        //alert(long+" " +lat)
-
+        
         // Click to see Street View
         panorama = new google.maps.StreetViewPanorama(
                 document.getElementById('street-view'),
@@ -89,10 +85,7 @@ function initMap() {
                 });
         //alert(event.latLng)
         getLongAddressBaseOnLngLat(event.latLng, $("#sltRadius").val());
-//        assignLongAddressForRoom(event.latLng)
-//       getLongAddressBaseOnLngLat("(10.747218, 106.68909299999996)", $("#sltRadius").val());
     });
-
 
 //Street View
     panorama = new google.maps.StreetViewPanorama(
@@ -109,10 +102,41 @@ function initMap() {
 
     });
 
-    searchBoxForRoomFinding()
+    searchBoxForRoomFinding();
     searchBoxForRoom();
+//    geocodePlaceId();
+}
 
-    assignLongAddressForRoom($(".AccomAddress").text());
+function geocodePlaceId() {
+    var geocoder = new google.maps.Geocoder;
+//    var infowindow = new google.maps.InfoWindow;
+    
+//    var placeId = document.getElementById('txtAccomAddress').value;
+    var placeId = "ChIJQxW28VUudTERe2V2Vy5E9tA";//$("#txtAccomAddress").text();
+    //alert(placeId)
+    
+    geocoder.geocode({'placeId': placeId}, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              //  alert(results[0].formatted_address)
+             // alert("can")
+                $("#txtAccomAddress").text(results[0].formatted_address);
+                
+//                map.setZoom(11);
+//                map.setCenter(results[0].geometry.location);
+//                var marker = new google.maps.Marker({
+//                    map: map,
+//                    position: results[0].geometry.location
+//                });
+//                infowindow.setContent(results[0].formatted_address);
+//                infowindow.open(map, marker);
+            } else {
+                window.alert('No results found');
+            }
+        } else {
+            window.alert('Geocoder failed due to: ' + status);
+        }
+    });
 }
 
 function searchBoxForRoomFinding() {
@@ -177,7 +201,7 @@ function searchBoxForRoomFinding() {
 }
 
 function searchBoxForRoom() {
-    var input = document.getElementById('txtRoomAddress');
+    var input = document.getElementById('frmPostRoom:txtRoomAddress');
 //     var input = document.getElementById('pac-input');
 
     var autocomplete = new google.maps.places.Autocomplete(input);
@@ -218,8 +242,8 @@ function searchBoxForRoom() {
                 'Place ID: ' + place.place_id + '<br>' +
                 place.formatted_address);
         infowindow.open(map, marker);
-        
-        $("#frmPostRoom\\:txtRoomFullAddress").val( place.place_id )
+
+        $("#frmPostRoom\\:txtRoomFullAddress").val(place.place_id)
     });
 }
 
@@ -258,31 +282,6 @@ function getLongAddressBaseOnLngLat(lngLat, radius) {
 //            $("#frmRegisterRoom\\:hdlong").val(lng);
 //            $("#frmRegisterRoom\\:hdrad").val(radius);
 //            $("#frmRegisterRoom\\:hdaddress").val(results[0].formatted_address);
-        }
-    });
-}
-
-function assignLongAddressForRoom(lngLat) {
-// Get address base on Lat and Lng
-    var geocoder = new google.maps.Geocoder();
-    //alert(lngLat)
-    geocoder.geocode({
-        "latLng": lngLat
-    }, function (results, status) {
-        console.log(results, status);
-        if (status == google.maps.GeocoderStatus.OK) {
-            console.log(results);
-            var lat = results[0].geometry.location.lat(),
-                    lng = results[0].geometry.location.lng(),
-                    placeName = results[0].address_components[0].long_name,
-                    latlng = new google.maps.LatLng(lat, lng);
-
-            // var radius = $("#sltRadius").val();
-//            $("#homepage_registerroom_info").html("Bạn muốn đăng ký phòng trong vòng bán kính <strong class='registerRoomRadius'>" + radius + "</strong> Km từ vị trí</br><strong>"
-//                    + results[0].formatted_address + "</strong>?");
-            alert(results[0].formatted_address);
-            $(".AccomAddress").html((results[0].formatted_address));
-
         }
     });
 }
@@ -402,8 +401,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             'Error: Your browser doesn\'t support geolocation.');
 }
 
-// Adds a marker to the map.
-// Adds a marker to the map and push to the array.
 function addMarker(location) {
     var marker = new google.maps.Marker({
         position: location,

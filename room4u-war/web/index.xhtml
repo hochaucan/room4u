@@ -139,7 +139,7 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title" id="myModalLabel">ĐĂNG PHÒNG</h4>
-                               
+
                             </div>
                             <h:form id="frmPostRoom" class="form-horizontal"  enctype="multipart/form-data"  >
                                 <div class="modal-body">
@@ -159,14 +159,10 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="inputAddress" class="col-lg-3 control-label">Địa chỉ</label>
-                                            
+
                                             <div class="col-lg-9">
-                                                 <input  id="txtRoomAddress" class="form-control"  type="text" required="true" ></input>
-<!--                                                <h:inputText id="hourseNumber" value="#{landlord.houseNumber}" class="form-control"  p:placeholder="Số nhà"/>
-                                                <h:inputText id="roomStreet" value="#{landlord.street}"  class="form-control"  p:placeholder="Đường" />
-                                                <h:inputText id="roomWard"  value="#{landlord.ward}"  class="form-control"  p:placeholder="Phường"/>
-                                                <h:inputText id="roomDistrict" value="#{landlord.district}"  class="form-control"  p:placeholder="Quận"/>
-                                                <h:inputText id="roomCity" value="#{landlord.city}"  class="form-control"  p:placeholder="Thành phố" />-->
+                                                <h:inputText value="#{landlord.roomFullAddress}"  id="txtRoomAddress" class="form-control"  required="true" ></h:inputText>
+
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -225,10 +221,10 @@
                                             </div>
                                         </div>
                                     </fieldset>
-                                    <h:inputText id="txtRoomFullAddress" value="#{landlord.roomFullAddress}"/>
+                                    <h:inputText id="txtRoomFullAddress" value="#{landlord.roomPlaceId}" style="display: none"/>
                                 </div>
                                 <div class="modal-footer" style="text-align: right">
-                                    <input type="button" value="Testing" onclick="getLngLatBaseOnAddress()"/>
+                                    <!--<input type="button" value="Testing" onclick="getLngLatBaseOnAddress()"/>-->
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                                     <h:commandButton  class="btn btn-primary" value="Đăng bài"/>
                                     <h:commandButton style="display: none" id="btnSubmitPostRoom"  class="btn btn-primary" value="Submit Đăng bài">
