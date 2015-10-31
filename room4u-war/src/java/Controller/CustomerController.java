@@ -264,6 +264,16 @@ public class CustomerController {
     }
 
     public String edit() {
+        List<Customer> lc = customerFacade.findCustByEmail(curCust.getEmail());
+        if(lc.size() > 1){
+            notifyMessage("trung email");
+            return null;
+        }else{
+            if(lc.size() == 1 && lc.get(0).getCustId()!=curCust.getCustId()){
+                notifyMessage("trung email");
+                return null;
+            }
+        }
         if (image != null) {
             try {
                 Date date = new Date();
@@ -345,6 +355,11 @@ public class CustomerController {
     }
 
     public String createUser() {
+        List<Customer> lc = customerFacade.findCustByEmail(curCust.getEmail());
+        if(lc.size() > 0){
+            notifyMessage("trung email");
+            return null;
+        }
         try {
             Date date = new Date();
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
