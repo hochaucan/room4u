@@ -91,6 +91,12 @@
                                 <!--<a data-toggle="modal" data-target="#user_register_modal" href="#"><span class="glyphicon glyphicon-registration-mark"></span> Đăng ký</a>-->
                             </li>
                             <li>
+                                <h:commandLink rendered="#{customerBean.curCust == null}" p:data-target="#pwdModal" p:data-toggle="modal">
+                                    <span class="glyphicon glyphicon-lock"></span> Quên mật khẩu
+                                    <f:ajax execute="@form" render="@form" />
+                                </h:commandLink>
+                            </li>
+                            <li>
                                 <h:link  outcome="./Admin/index.jsf" rendered="#{customerBean.curCust != null and customerBean.curCust.roleId.roleId == 1 }"><span class="glyphicon glyphicon-cog"></span> Quản lý</h:link>
 
                             </li>
@@ -301,6 +307,48 @@
                         </div>
                     </h:form>
 
+                </div>
+            </div>
+        </div>
+        
+        <!--modal forget password-->
+        <div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h1 class="text-center">Room4U</h1>
+                    </div>
+                    <h:form id="frmForgetPwd" class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <p>Nếu bạn quên mật khẩu đăng nhập, sử dụng form bên dưới để phục hồi mật khẩu.</p>
+                                        <div class="panel-body">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <h:inputText id="txtCustEmail" class="form-control input-lg" value="#{customerBean.recipientAddress}" />
+                                                    <!--<input class="form-control input-lg" placeholder="Nhập địa chỉ mail" name="email" type="email"/>-->
+                                                </div>
+                                            </fieldset>
+                                            <h:commandButton action="#{customerBean.resetPassword(customerBean.recipientAddress)}" 
+                                                             class="btn btn-lg btn-primary btn-block" value="Gửi"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </h:form>
+                    <br/>
+                    <div class="modal-footer">
+                        <div class="col-md-12">
+                            <dir></dir>
+                            <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>-->
+                        </div>	
+                    </div>
                 </div>
             </div>
         </div>
