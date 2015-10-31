@@ -102,7 +102,7 @@ public class CustomerController {
     public String getOldPassword() {
         return oldPassword;
     }
-    
+
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;
     }
@@ -186,11 +186,12 @@ public class CustomerController {
     public void setIsAuthenticated(boolean isAuthenticated) {
         this.isAuthenticated = isAuthenticated;
     }
-    
-    public int getCurrentRoleID(){
-        return curCust == null || curCust.getRoleId() == null ? 2 :curCust.getRoleId().getRoleId();
+
+    public int getCurrentRoleID() {
+        return curCust == null || curCust.getRoleId() == null ? 2 : curCust.getRoleId().getRoleId();
     }
-    public void setCurrentRoleID(int rid){
+
+    public void setCurrentRoleID(int rid) {
         UserRole ur = new UserRole();
         ur.setRoleId(rid);
     }
@@ -236,10 +237,10 @@ public class CustomerController {
     public List<Customer> getCustList() {
         return this.customerFacade.findAll();
     }
-    
-    public void resetPassword(String email){
+
+    public void resetPassword(String email) {
         SendMailController smc = new SendMailController();
-        smc.sendMailSupport(email);
+        smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
 //        Customer resetCust = customerFacade.find(uid)
     }
 
@@ -253,9 +254,9 @@ public class CustomerController {
         Customer cust = customerFacade.find(Integer.parseInt(customerDeleteId));
         if (cust.getCustId() == uid) {
             notifyMessage("Không thể xóa tài khoản đang login");
-        }else if (cust.getCustId() == 1){
+        } else if (cust.getCustId() == 1) {
             notifyMessage("Không cho phép xóa tài khoản admin");
-        }else{
+        } else {
             this.customerFacade.remove(cust);
         }
         paginator = new RepeatPaginator(this.getCustList());
@@ -263,7 +264,7 @@ public class CustomerController {
     }
 
     public String edit() {
-        if(image != null){
+        if (image != null) {
             try {
                 Date date = new Date();
                 DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -383,7 +384,6 @@ public class CustomerController {
             accName = c.getAccountCustomer();
             password = c.getPassword();
             checkLogin();
-            
 
         } catch (Exception ex) {
             printStackTrace();
@@ -438,6 +438,5 @@ public class CustomerController {
             return 0;
         }
     }
-
 
 }

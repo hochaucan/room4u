@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controller;
 
 import java.util.Properties;
@@ -24,13 +23,14 @@ import javax.mail.internet.MimeMessage;
  */
 @ManagedBean(name = "sendMail")
 @SessionScoped
-public class SendMailController extends Authenticator{
+public class SendMailController extends Authenticator {
 
     private String content;
     private String email;
     private String name;
     private Session mailSession;
     private String sendMailResult;
+
     /**
      * Creates a new instance of SendMailController
      */
@@ -78,7 +78,7 @@ public class SendMailController extends Authenticator{
     public void setName(String name) {
         this.name = name;
     }
-   
+
 //   public void sendMailSupport() {
 //    // OUR EMAIL SETTINGS
 //    String host = "smtp.gmail.com";// Gmail
@@ -129,47 +129,47 @@ public class SendMailController extends Authenticator{
 //        }
 //
 //    }
-   
-   public void sendMailSupport() {
-       if(content.trim().equals("") || name.trim().equals("") || email.trim().equals(""))
-       {
-           sendMailResult = "false";
-       }
-       else
-       {
-        final String username = "room4u.FAT2.HCM@gmail.com";
-        final String password = "123456?a";
+    public void sendMailSupport(String emailAddress, String subject, String content) {
+        if (content.trim().equals("") || name.trim().equals("") || email.trim().equals("")) {
+            sendMailResult = "false";
+        } else {
+            final String username = "room4u.FAT2.HCM@gmail.com";
+            final String password = "123456?a";
 
-	Properties props = new Properties();
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-	props.put("mail.smtp.auth", "true");
-	props.put("mail.smtp.starttls.enable", "true");
-	props.put("mail.smtp.host", "smtp.gmail.com");
-	props.put("mail.smtp.port", "587");
+            Properties props = new Properties();
+            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
 
-	Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		  });
+            Session session = Session.getInstance(props,
+                    new javax.mail.Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(username, password);
+                        }
+                    });
 
-		try {
+            try {
 
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(username));
-			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("room4u.ad@gmail.com"));
-			message.setSubject("Need support form customer: " + name);
-			message.setText(content + "\r\nEmail reply: " + email);
-			Transport.send(message);
-                        sendMailResult = "success";
-		} catch (MessagingException e) {
-                    sendMailResult= "false";
-			throw new RuntimeException(e);
-		}
-       }
-   }
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(username));
+//			message.setRecipients(Message.RecipientType.TO,
+//				InternetAddress.parse("room4u.ad@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(emailAddress));
+//                message.setSubject("Need support form customer: " + name);
+                message.setSubject(subject);
+//                message.setText(content + "\r\nEmail reply: " + email);
+                message.setText(content + "\r\nEmail reply: " + email);
+                Transport.send(message);
+                sendMailResult = "success";
+            } catch (MessagingException e) {
+                sendMailResult = "false";
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     /**
      * @return the sendMailResult
