@@ -9,6 +9,7 @@ import com.room4u.model.Customer;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -51,4 +52,12 @@ public class CustomerFacade extends AbstractFacade<Customer> implements Customer
         return q.getResultList();
     }
     
+    public int updatePassword(int id, String pwd){
+        int result = 0;
+        Query q = em.createQuery("UPDATE Customer c SET c.password = :pwd WHERE c.custId = :id");
+        q.setParameter("id", id);
+        q.setParameter("pwd", pwd);
+        result = q.executeUpdate();
+        return result;
+    }
 }
