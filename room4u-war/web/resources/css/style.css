@@ -22,10 +22,7 @@
 }​
 /*End - google search box on Boostrap Modal*/
 
-.row{
 
-    margin-top: 15px; 
-}
 .homepage_logo{
     color: #fff!important;
 }
@@ -181,7 +178,9 @@ html, body {
 #street-view{
     height: 17.6em!important;
 }
-
+.row{
+    margin-top: 15px!important; 
+}
 @media (max-width:768px) {
     .homepage_box .panel-body img{
         padding: 10px 0 12px 12px;

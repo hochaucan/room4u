@@ -22,8 +22,10 @@ function SetActiveMenu() {
 }
 
 function createRoomAddressArray() {
+
     $(".txtRoomAddress").each(function () {
-        roomAddressArr.push($(this).text());
+        var address = JSON.parse($(this).text()).fullAddress;
+        roomAddressArr.push(address);
     });
 }
 
@@ -74,7 +76,7 @@ function initMap() {
         // alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
         long = curLong = event.latLng.lng();
         lat = curLat = event.latLng.lat();
-        
+
         // Click to see Street View
         panorama = new google.maps.StreetViewPanorama(
                 document.getElementById('street-view'),
@@ -100,28 +102,72 @@ function initMap() {
         var radius = $("#sltRadius").val();
         distanceService(radius);
 
+        // Hide all room
+        $(".homepage_box").css("display", "none");
     });
 
     searchBoxForRoomFinding();
     searchBoxForRoom();
 //    geocodePlaceId();
+//    geocodePlaceIdFromAddress('546A Hưng Phú, phường 9, Hồ Chí Minh, Việt Nam');
+}
+
+var searchRoomResult = new Array();
+function geocodePlaceIdFromAddress(address) {
+    var request = {
+//        location: map.getCenter(),
+//        radius: '500',
+        query: address
+    };
+    var service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback);
+}
+
+function callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+//        searchRoomResult.push(results[0].place_id);
+
+        var placeId = results[0].place_id;
+       // alert(placeId)
+        $(".homepage_box").each(function () {
+//            alert($(this).find(".txtRoomAddress").text())
+            var roomPlaceId = JSON.parse($(this).find(".txtRoomAddress").text()).placeId;
+//            alert(roomPlaceId)
+            if (placeId === roomPlaceId) {
+                $(this).css("display", "inline");
+            }
+        });
+
+
+
+//         alert(searchRoomResult)
+
+//          alert(results[0].place_id)
+//        var marker = new google.maps.Marker({
+//            map: map,
+//            place: {
+//                placeId: results[0].place_id,
+//                location: results[0].geometry.location
+//            }
+//        });
+    }
 }
 
 function geocodePlaceId() {
     var geocoder = new google.maps.Geocoder;
 //    var infowindow = new google.maps.InfoWindow;
-    
+
 //    var placeId = document.getElementById('txtAccomAddress').value;
     var placeId = "ChIJQxW28VUudTERe2V2Vy5E9tA";//$("#txtAccomAddress").text();
     //alert(placeId)
-    
+
     geocoder.geocode({'placeId': placeId}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[0]) {
-              //  alert(results[0].formatted_address)
-             // alert("can")
+                //  alert(results[0].formatted_address)
+                // alert("can")
                 $("#txtAccomAddress").text(results[0].formatted_address);
-                
+
 //                map.setZoom(11);
 //                map.setCenter(results[0].geometry.location);
 //                var marker = new google.maps.Marker({
@@ -386,12 +432,16 @@ function distanceService(radius) {
                                 ': ' + results[j].distance.text + ' in ' +
                                 results[j].duration.text + '</div></div>';
 
-
+                        geocodePlaceIdFromAddress(destinationList[j]);
                     }
                 }
             }
+
+
         }
     });
+
+
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {

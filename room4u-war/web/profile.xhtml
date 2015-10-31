@@ -257,13 +257,13 @@
                                                 </h:column>
                                                 <h:column>
                                                     <f:facet name="header">
-                                                      
+
                                                     </f:facet>
                                                     <a  class="btn btn-primary" data-toggle="modal" data-target="#mdMachedRoom" ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>
                                                 </h:column>
                                                 <h:column>
                                                     <f:facet name="header">
-                                                       
+
                                                     </f:facet>
                                                     <a class="btn btn-primary" onclick="displayReqDelete(this)"  data-toggle="modal" data-target="#DeleteReq"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
                                                 </h:column>
@@ -279,10 +279,15 @@
                                         <table class="table table-responsive table-hover ">
                                             <thead>
                                                 <tr>
+                                                    <th><h:commandLink class="btn btn-primary" >
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                            Xóa
+                                                        </h:commandLink>
+                                                    </th>
                                                     <th>STT</th>
                                                     <th>Hình</th>
                                                     <th>Tên phòng</th>
-                                                    <th>Địa chỉ</th>
+                                                    <!--<th>Địa chỉ</th>-->
                                                     <th>Ngày đăng</th>
                                                 </tr>
                                             </thead>
@@ -291,13 +296,14 @@
                                                 <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" style="display: none"/>
                                                 <ui:repeat var="room" value="#{landlord.displayRoomProfile()}" varStatus="status">
                                                     <tr>
+                                                        <td><input class="cbRoom" type="checkbox"></input></td>
                                                         <td>#{room.accomId}</td>
                                                         <td>
                                                             <h:outputText value="#{landlord.displayRoomImages(room.images)}"/>
                                                             <img style="width: 60px" src="/room4u-war/images/#{landlord.curThumbnail}" alt=""/>
                                                         </td>
                                                         <td>#{room.accomName}</td>
-                                                        <td>#{room.address}</td>
+                                                        <!--<td>#{room.address}</td>-->
                                                         <td>
                                                             <h:outputText value="#{room.createdDate}">
                                                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />

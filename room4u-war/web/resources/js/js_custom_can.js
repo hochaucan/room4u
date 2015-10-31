@@ -48,7 +48,7 @@ function assignDeletedCustomerOrderId(render) {
 
 function assignDeletedAccomId(render) {
 
-    var deletedAccomId = $(render).closest("tr").find("td:eq(0)").html();
+    var deletedAccomId = $(render).closest("tr").find("td:eq(1)").html();
     $("#frmDeletedAccom\\:txtDeletedAccomId").val(deletedAccomId);
 
 }
@@ -721,7 +721,9 @@ function validateFormPostRoom() {
         submitHandler: function (form) {
 //            getLngLatBaseOnAddress();
             $("#frmPostRoom\\:btnSubmitPostRoom").click();
-            $("#modal_post_room").modal("toggle");
+//            $("#modal_post_room").modal("toggle");
+            window.location.reload();
+
 //            form.submit();
 
         },
