@@ -62,6 +62,24 @@ public class CustomerController {
     private RepeatPaginator paginator;
     private String customerDeleteId;
     private String recipientAddress;
+    private String createUserResult;
+    private String editUserResult;
+
+    public String getEditUserResult() {
+        return editUserResult;
+    }
+
+    public void setEditUserResult(String editUserResult) {
+        this.editUserResult = editUserResult;
+    }
+
+    public String getCreateUserResult() {
+        return createUserResult;
+    }
+
+    public void setCreateUserResult(String createUserResult) {
+        this.createUserResult = createUserResult;
+    }
 
     public String getRecipientAddress() {
         return recipientAddress;
@@ -239,14 +257,9 @@ public class CustomerController {
     }
 
     public void resetPassword(String email) {
-        List<Customer> lc = customerFacade.findCustByEmail(email);
-        if(lc != null && lc.size() > 0){
-            Customer resetCust = lc.get(0);
-            resetCust.setPassword("ROOM4U");
-            customerFacade.updatePassword(resetCust.getCustId(), resetCust.getPassword());
-            SendMailController smc = new SendMailController();
-            smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
-        }
+        SendMailController smc = new SendMailController();
+        smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
+//        Customer resetCust = customerFacade.find(uid)
     }
 
     public String add() {
@@ -268,20 +281,33 @@ public class CustomerController {
         return "customer";
     }
 
+    private String existEmail;
+
+    public String getExistEmail() {
+        return existEmail;
+    }
+
+    public void setExistEmail(String existEmail) {
+        this.existEmail = existEmail;
+    }
     public String edit() {
-        List<Customer> lc = customerFacade.findCustByEmail(curCust.getEmail());
-        if(lc!=null)
-        {
-            if(lc.size() > 1){
-                notifyMessage("trung email");
-                return null;
-            }else{
-                if(lc.size() == 1 && lc.get(0).getCustId()!=curCust.getCustId()){
-                    notifyMessage("trung email");
-                    return null;
-                }
-            }
+        List<Customer> lc = customerFacade.findEmail(curCust.getEmail());
+
+        if(curCust.getEmail().equals(existEmail)){
+            
         }
+        
+        if (lc != null && lc.size() > 1) {
+            return createUserResult = "false";
+        }
+        
+//            else {
+//                if (lc.size() == 1 && lc.get(0).getCustId() != curCust.getCustId()) {
+//                    notifyMessage("trung email");
+//                    return null;
+//                }
+//            }
+
         if (image != null) {
             try {
                 Date date = new Date();
@@ -319,6 +345,43 @@ public class CustomerController {
         return null;
     }
 
+//    public String edit() {
+//        if (image != null) {
+//            try {
+//                Date date = new Date();
+//                DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+//                Part itemFile = image;
+//                InputStream inputStream = itemFile.getInputStream();
+//                String fileName = dateFormat.format(date) + getFilename(itemFile);
+//                File file = new File("C:/room4u/images/" + fileName);
+//                FileOutputStream outputStream = new FileOutputStream(file);
+//
+//                if (!file.exists()) {
+//                    file.createNewFile();
+//                }
+//
+//                byte[] buffer = new byte[6096];
+//                int bytesRead = 0;
+//                while (true) {
+//                    bytesRead = inputStream.read(buffer);
+//                    if (bytesRead > 0) {
+//                        outputStream.write(buffer, 0, bytesRead);
+//                    } else {
+//                        break;
+//                    }
+//                }
+//                outputStream.close();
+//                inputStream.close();
+//
+//                curCust.setImages(fileName);
+//
+//            } catch (Exception ex) {
+//                printStackTrace();
+//            }
+//        }
+//        this.customerFacade.edit(this.curCust);
+//        return null;
+//    }
     public String validateRegisterAccount() {
         //return this.customerFacade.validateRegusterAccount(accName, mail) ? "index" : "registerFail";
         return "index";
@@ -363,11 +426,15 @@ public class CustomerController {
     }
 
     public String createUser() {
-        List<Customer> lc = customerFacade.findCustByEmail(c.getEmail());
-        if(lc!=null && lc.size() > 0){
-            notifyMessage("trung email");
-            return null;
+        createUserResult = "";
+
+        List<Customer> lc = customerFacade.findCustByEmail(c.getEmail(), c.getAccountCustomer());
+        if (lc != null && lc.size() > 0) {
+//            notifyMessage("trung email");
+
+            return createUserResult = "false";
         }
+
         try {
             Date date = new Date();
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -406,12 +473,13 @@ public class CustomerController {
 
             accName = c.getAccountCustomer();
             password = c.getPassword();
+            createUserResult = "success";
             checkLogin();
-
         } catch (Exception ex) {
+            createUserResult = "false";
             printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     public void changePassword() {

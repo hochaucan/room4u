@@ -1,7 +1,7 @@
 $(function () {
     SetActiveMenu();
     //alert("Can")
-    createRoomAddressArray();
+//    createRoomAddressArray();
 });
 
 // Set Active Menu
@@ -100,16 +100,21 @@ function initMap() {
 
     $("#btnSearch").click(function () {
         var radius = $("#sltRadius").val();
+        roomAddressArr = [];
+        createRoomAddressArray();
         distanceService(radius);
-
         // Hide all room
         $(".homepage_box").css("display", "none");
     });
 
     searchBoxForRoomFinding();
     searchBoxForRoom();
-//    geocodePlaceId();
-//    geocodePlaceIdFromAddress('546A Hưng Phú, phường 9, Hồ Chí Minh, Việt Nam');
+
+// Set Map location for room detail
+    if ($("#txtAccomAddress").text() !== "") {
+        setMapLocationByAddress($("#txtAccomAddress").text());
+    }
+
 }
 
 var searchRoomResult = new Array();
@@ -128,7 +133,7 @@ function callback(results, status) {
 //        searchRoomResult.push(results[0].place_id);
 
         var placeId = results[0].place_id;
-       // alert(placeId)
+        // alert(placeId)
         $(".homepage_box").each(function () {
 //            alert($(this).find(".txtRoomAddress").text())
             var roomPlaceId = JSON.parse($(this).find(".txtRoomAddress").text()).placeId;
@@ -153,29 +158,30 @@ function callback(results, status) {
     }
 }
 
-function geocodePlaceId() {
+function setMapLocationByAddress(address) {
     var geocoder = new google.maps.Geocoder;
-//    var infowindow = new google.maps.InfoWindow;
+    var infowindow = new google.maps.InfoWindow;
 
 //    var placeId = document.getElementById('txtAccomAddress').value;
-    var placeId = "ChIJQxW28VUudTERe2V2Vy5E9tA";//$("#txtAccomAddress").text();
+    //var placeId = _placeId;//"ChIJQxW28VUudTERe2V2Vy5E9tA";//$("#txtAccomAddress").text();
     //alert(placeId)
 
-    geocoder.geocode({'placeId': placeId}, function (results, status) {
+//    geocoder.geocode({'placeId': placeId}, function (results, status) {
+    geocoder.geocode({'address': address}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[0]) {
                 //  alert(results[0].formatted_address)
                 // alert("can")
-                $("#txtAccomAddress").text(results[0].formatted_address);
+//                $("#txtAccomAddress").text(results[0].formatted_address);
 
-//                map.setZoom(11);
-//                map.setCenter(results[0].geometry.location);
-//                var marker = new google.maps.Marker({
-//                    map: map,
-//                    position: results[0].geometry.location
-//                });
-//                infowindow.setContent(results[0].formatted_address);
-//                infowindow.open(map, marker);
+                map.setZoom(15);
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+                infowindow.setContent(results[0].formatted_address);
+                infowindow.open(map, marker);
             } else {
                 window.alert('No results found');
             }
@@ -367,10 +373,10 @@ function distanceService(radius) {
     //var origin1 = '546A, Hung Phu, Phuong 9, Quan 8, TP Ho Chi Minh, Vietnam'//{lat: 55.93, lng: -3.118};
     var yourLocation = {lat: curLat, lng: curLong};// 'ChIJDSpFFuwtdTERrI6ne4XceEM'
 //    var origin2 = 'Greenwich, England';
-//    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
-//    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
-//    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
-//    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
+    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
+    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
+    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
+    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
 //    var desArr = new Array();
 //    desArr.push(destinationA);
 //    desArr.push(destinationB);

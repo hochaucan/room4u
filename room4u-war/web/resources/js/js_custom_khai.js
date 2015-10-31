@@ -1,7 +1,7 @@
 //====================================
 // Begin | Form Dang Ky & Dang Nhap
-$(function() {
-    
+$(function () {
+
     var $formLogin = $('#login-form');
     var $formLost = $('#lost-form');
     var $formRegister = $('#register-form');
@@ -11,10 +11,10 @@ $(function() {
     var $msgShowTime = 2000;
 
     $("form").submit(function () {
-        switch(this.id) {
+        switch (this.id) {
             case "login-form":
-                var $lg_username=$('#login_username').val();
-                var $lg_password=$('#login_password').val();
+                var $lg_username = $('#login_username').val();
+                var $lg_password = $('#login_password').val();
                 if ($lg_username == "ERROR") {
                     msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "Login error");
                 } else {
@@ -23,7 +23,7 @@ $(function() {
                 return false;
                 break;
             case "lost-form":
-                var $ls_email=$('#lost_email').val();
+                var $ls_email = $('#lost_email').val();
                 if ($ls_email == "ERROR") {
                     msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", "Send error");
                 } else {
@@ -32,9 +32,9 @@ $(function() {
                 return false;
                 break;
             case "register-form":
-                var $rg_username=$('#register_username').val();
-                var $rg_email=$('#register_email').val();
-                var $rg_password=$('#register_password').val();
+                var $rg_username = $('#register_username').val();
+                var $rg_email = $('#register_email').val();
+                var $rg_password = $('#register_password').val();
                 if ($rg_username == "ERROR") {
                     msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "Register error");
                 } else {
@@ -47,57 +47,116 @@ $(function() {
         }
         return false;
     });
-    
-    $('#login_register_btn').click( function () { modalAnimate($formLogin, $formRegister) });
-    $('#register_login_btn').click( function () { modalAnimate($formRegister, $formLogin); });
-    $('#login_lost_btn').click( function () { modalAnimate($formLogin, $formLost); });
-    $('#lost_login_btn').click( function () { modalAnimate($formLost, $formLogin); });
-    $('#lost_register_btn').click( function () { modalAnimate($formLost, $formRegister); });
-    $('#register_lost_btn').click( function () { modalAnimate($formRegister, $formLost); });
-    
-    function modalAnimate ($oldForm, $newForm) {
+
+    $('#login_register_btn').click(function () {
+        modalAnimate($formLogin, $formRegister)
+    });
+    $('#register_login_btn').click(function () {
+        modalAnimate($formRegister, $formLogin);
+    });
+    $('#login_lost_btn').click(function () {
+        modalAnimate($formLogin, $formLost);
+    });
+    $('#lost_login_btn').click(function () {
+        modalAnimate($formLost, $formLogin);
+    });
+    $('#lost_register_btn').click(function () {
+        modalAnimate($formLost, $formRegister);
+    });
+    $('#register_lost_btn').click(function () {
+        modalAnimate($formRegister, $formLost);
+    });
+
+    function modalAnimate($oldForm, $newForm) {
         var $oldH = $oldForm.height();
         var $newH = $newForm.height();
-        $divForms.css("height",$oldH);
-        $oldForm.fadeToggle($modalAnimateTime, function(){
-            $divForms.animate({height: $newH}, $modalAnimateTime, function(){
+        $divForms.css("height", $oldH);
+        $oldForm.fadeToggle($modalAnimateTime, function () {
+            $divForms.animate({height: $newH}, $modalAnimateTime, function () {
                 $newForm.fadeToggle($modalAnimateTime);
             });
         });
     }
-    
-    function msgFade ($msgId, $msgText) {
-        $msgId.fadeOut($msgAnimateTime, function() {
+
+    function msgFade($msgId, $msgText) {
+        $msgId.fadeOut($msgAnimateTime, function () {
             $(this).text($msgText).fadeIn($msgAnimateTime);
         });
     }
-    
+
     function msgChange($divTag, $iconTag, $textTag, $divClass, $iconClass, $msgText) {
         var $msgOld = $divTag.text();
         msgFade($textTag, $msgText);
         $divTag.addClass($divClass);
         $iconTag.removeClass("glyphicon-chevron-right");
         $iconTag.addClass($iconClass + " " + $divClass);
-        setTimeout(function() {
+        setTimeout(function () {
             msgFade($textTag, $msgOld);
             $divTag.removeClass($divClass);
             $iconTag.addClass("glyphicon-chevron-right");
             $iconTag.removeClass($iconClass + " " + $divClass);
-  		}, $msgShowTime);
+        }, $msgShowTime);
     }
 });
 
-function displayDeleteCustomer(render) {
-    var id = $(render).closest("tr").find("td:eq(0)").html();
-    $("#frmDeleteCustomer\\:hdCustDeleteId").val(id);
+function editUserSuccess(data){
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmUserUpdate\\:txtEditUserResult").text();
+            // alert(message)
+            if (message === "success") {
+//                $('#frmUserRegister').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Cap nhat tài khoản thành công", 350, "success");
+
+                window.location.reload();
+            } else {
+                growlmessage("Lỗi cap nhat tài khoản", 300, "danger");
+            }
+
+
+            break;
+    }
 }
+function createUserSuccess(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmUserRegister\\:txtCreateUserResult").text();
+            // alert(message)
+            if (message === "success") {
+                $('#user_register_modal').modal('toggle');
+                growlmessage("<span class='glyphicon glyphicon-ok'></span>Đăng ký tài khoản thành công", 350, "success");
+
+                window.location.reload();
+            } else {
+                growlmessage("Lỗi tạo tài khoản", 300, "danger");
+            }
+
+
+            break;
+    }
+}
+
 
 // End | Form Dang Ky & Dang Nhap
 //====================================
 //====================================
 // Begin | Form Quang ly tai khoan
-$(document).ready(function(){
-$("#mytable #checkall").click(function () {
+$(document).ready(function () {
+    $("#mytable #checkall").click(function () {
         if ($("#mytable #checkall").is(':checked')) {
             $("#mytable input[type=checkbox]").each(function () {
                 $(this).prop("checked", true);
@@ -109,7 +168,7 @@ $("#mytable #checkall").click(function () {
             });
         }
     });
-    
+
     $("[data-toggle=tooltip]").tooltip();
 });
 // End | Form Quan ly tai khoan

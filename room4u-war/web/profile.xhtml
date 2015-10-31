@@ -112,6 +112,7 @@
                                                 <div class="form-group">
                                                     <label for="txtCustEmail" class="col-lg-3 control-label">Email</label>
                                                     <div class="col-lg-9">
+                                                        <h:inputText id="txtCustExistEmail"  value="#{customerBean.curCust.email}" class="form-control" />
                                                         <h:inputText id="txtCustEmail"  value="#{customerBean.curCust.email}" class="form-control" />
                                                     </div>
                                                 </div>
@@ -143,7 +144,12 @@
                                         </div>
                                         <div class="modal-footer">
                                             <!--                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>-->
-                                            <h:commandButton action="#{customerBean.edit()}"  class="btn btn-primary" value="Cập nhật"/>
+                                            <!--<h:commandButton action="#{customerBean.edit()}"  class="btn btn-primary" value="Cập nhật"/>-->
+                                            <h:commandButton class="btn btn-primary" value="Cập nhật"/>
+                                            <h:commandButton id="btnEditUser"  class="btn btn-primary" value="Cập nhật Submit">
+                                                <f:ajax execute="@form" render="@form" listener="#{customerBean.edit()}" onevent="editUserSuccess"/>
+                                            </h:commandButton>
+                                            <h:outputText id="txtEditUserResult" value="#{customerBean.editUserResult}"/>
                                         </div>
                                     </h:form>
 

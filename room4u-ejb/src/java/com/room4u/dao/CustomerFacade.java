@@ -9,7 +9,6 @@ import com.room4u.model.Customer;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -46,13 +45,21 @@ public class CustomerFacade extends AbstractFacade<Customer> implements Customer
         return count;
     }
 
-    public List<Customer> findCustByEmail(String email) {
+    @Override
+    public List<Customer> findCustByEmail(String email, String username) {
+        Query q = em.createQuery("SELECT a FROM Customer a WHERE a.email = :email OR a.accountCustomer=:_username");
+        q.setParameter("email", email);
+        q.setParameter("_username", username);
+        return q.getResultList();
+    }
+    
+    public List<Customer> findEmail(String email) {
         Query q = em.createQuery("SELECT a FROM Customer a WHERE a.email = :email");
         q.setParameter("email", email);
         return q.getResultList();
     }
     
-    public int updatePassword(int id, String pwd){
+        public int updatePassword(int id, String pwd){
         int result = 0;
         Query q = em.createQuery("UPDATE Customer c SET c.password = :pwd WHERE c.custId = :id");
         q.setParameter("id", id);
@@ -60,4 +67,5 @@ public class CustomerFacade extends AbstractFacade<Customer> implements Customer
         result = q.executeUpdate();
         return result;
     }
+
 }

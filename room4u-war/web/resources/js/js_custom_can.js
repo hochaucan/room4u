@@ -2,7 +2,7 @@ $(function () {
     setActiveMenu();
     validateFormPostRoom();
     validateFormUserLogin();
-    renderRoomImageHomePage();
+//    renderRoomImageHomePage();
     setActiveMenuSidebar();
     validateFormChangePassword();
     validateFormRegisterUser();
@@ -507,7 +507,9 @@ function validateFormRegisterUser() {
             "frmUserRegister:txtCustPhone": {
                 number: true,
                 required: true,
-                pattern: /^(09\d{8})|(01\d{9})||([3-7]\d{7})$/
+                minlength: 10,
+                maxlength: 11,
+//                pattern: /^(09\d{8})|(01\d{9})||([3-7]\d{7})$/
             },
             "frmUserRegister:fileCustThumbnail": {
                 required: true,
@@ -523,7 +525,10 @@ function validateFormRegisterUser() {
 //            }
         },
         submitHandler: function (form) {
-            form.submit();
+//            alert("can")
+            $("#frmUserRegister\\:btnCreateUser").click();
+//            window.location.reload();
+            // form.submit();
 
 
 //            setTimeout(function () {
@@ -721,8 +726,8 @@ function validateFormPostRoom() {
         submitHandler: function (form) {
 //            getLngLatBaseOnAddress();
             $("#frmPostRoom\\:btnSubmitPostRoom").click();
-//            $("#modal_post_room").modal("toggle");
-            window.location.reload();
+            $("#modal_post_room").modal("toggle");
+            // window.location.reload();
 
 //            form.submit();
 
@@ -834,7 +839,6 @@ function validateFormChangePassword() {
 //                number: true,
 //                min: 0,
 //                max: 1000000000,
-                equalTo: "#frmChangePassword\\:txtNewPass",
                 required: true
             }
         },
