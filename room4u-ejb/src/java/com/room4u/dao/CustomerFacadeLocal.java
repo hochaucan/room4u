@@ -36,4 +36,6 @@ public interface CustomerFacadeLocal {
 
     public List<Customer> findCustByEmail(String email);
 
+    public int updatePassword(int id, String pwd);
+
 }

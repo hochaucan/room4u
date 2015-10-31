@@ -239,9 +239,14 @@ public class CustomerController {
     }
 
     public void resetPassword(String email) {
-        SendMailController smc = new SendMailController();
-        smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
-//        Customer resetCust = customerFacade.find(uid)
+        List<Customer> lc = customerFacade.findCustByEmail(email);
+        if(lc != null && lc.size() > 0){
+            Customer resetCust = lc.get(0);
+            resetCust.setPassword("ROOM4U");
+            customerFacade.updatePassword(resetCust.getCustId(), resetCust.getPassword());
+            SendMailController smc = new SendMailController();
+            smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
+        }
     }
 
     public String add() {
@@ -265,13 +270,16 @@ public class CustomerController {
 
     public String edit() {
         List<Customer> lc = customerFacade.findCustByEmail(curCust.getEmail());
-        if(lc.size() > 1){
-            notifyMessage("trung email");
-            return null;
-        }else{
-            if(lc.size() == 1 && lc.get(0).getCustId()!=curCust.getCustId()){
+        if(lc!=null)
+        {
+            if(lc.size() > 1){
                 notifyMessage("trung email");
                 return null;
+            }else{
+                if(lc.size() == 1 && lc.get(0).getCustId()!=curCust.getCustId()){
+                    notifyMessage("trung email");
+                    return null;
+                }
             }
         }
         if (image != null) {
@@ -355,8 +363,8 @@ public class CustomerController {
     }
 
     public String createUser() {
-        List<Customer> lc = customerFacade.findCustByEmail(curCust.getEmail());
-        if(lc.size() > 0){
+        List<Customer> lc = customerFacade.findCustByEmail(c.getEmail());
+        if(lc!=null && lc.size() > 0){
             notifyMessage("trung email");
             return null;
         }
