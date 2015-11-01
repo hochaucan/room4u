@@ -23,6 +23,46 @@ $(function () {
     //$('.collapse').collapse()
 });
 
+function deleteAllReceiptResult(data) {
+    var status = data.status;
+    switch (status) {
+        case "begin": // Before the ajax request is sent.
+            // ...
+            break;
+        case "complete": // After the ajax response is arrived.
+            // ...
+            break;
+        case "success": // After update of HTML DOM based on ajax response..
+            var message = $("#frmDeleteReceipt\\:txtdeleteAllReceiptResult").text();
+            // alert(message)
+            if (message === "success") {
+                growlmessage("<span class='glyphicon glyphicon-ok'></span> Xóa hóa đơn thành công", 350, "success");
+            } else if (message === "notcheckbox") {
+               
+                growlmessage("<span class='glyphicon glyphicon-remove'></span> Bạn chưa chọn mục để xóa", 300, "info");
+            }
+            else {
+               
+                growlmessage("<span class='glyphicon glyphicon-remove'> Lỗi xóa hóa đơn", 300, "info");
+            }
+             renderReceipt();
+            break;
+    }
+}
+
+function deleteAllReceipt(render) {
+    var idArr = new Array();
+    $(render).closest("table").find(".cbSelected").each(function () {
+        if ($(this).prop("checked") === true) {
+//            alert($(this).closest("td").next("td").html());
+            idArr.push($(this).closest("td").next("td").html());
+        }
+    });
+
+    $("#frmDeleteReceipt\\:txtIdArr").val(idArr);
+    $("#frmDeleteReceipt\\:btnDeleteAllReceiptSubmit").click();
+}
+
 function renderRoomAddressInRoomDetail() {
     var roomAddressJson = $("#txtAccomAddress").text();
     if (roomAddressJson !== "") {
@@ -43,7 +83,7 @@ function assignDeletedRoomOrderId(render) {
 }
 
 function assignDeletedCustomerOrderId(render) {
-    var deletedCustomerOrderId = $(render).closest("tr").find("td:eq(0)").html();
+    var deletedCustomerOrderId = $(render).closest("tr").find("td:eq(1)").html();
     $("#frmDeleteCustomerOrderRoomDelete\\:txtDeletedCustomerOrderRoomId").val(deletedCustomerOrderId);
 }
 
@@ -133,10 +173,10 @@ function changePasswordSuccess(data) {
             if (message === "success") {
 //                $('#mdDeleteCom').modal('toggle');
                 growlmessage("<span class='glyphicon glyphicon-ok'></span>Đổi mật khẩu thành công", 300, "success");
-            } 
-            else if(message === "passnotcorrect"){
+            }
+            else if (message === "passnotcorrect") {
                 growlmessage("<span class='glyphicon glyphicon-remove'>Mật khẩu cũ không đúng", 300, "info");
-            }           
+            }
             else {
                 growlmessage("<span class='glyphicon glyphicon-remove'> Lỗi xóa bình luận", 300, "info");
             }
@@ -257,6 +297,7 @@ function deleteCustomerOrderRoomSuccess(data) {
                 renderReceipt();
                 $('#roomCustomerOrderDelete').modal('toggle');
                 growlmessage("<span class='glyphicon glyphicon-ok'></span>Xóa hóa đơn thành công", 300, "success");
+
                 // window.location.reload();
             }
 
@@ -292,7 +333,7 @@ function deleteRoomOrderSuccess(data) {
 
 function renderReceipt() {
     $(".thousandComma").digits();
-    $("#pgDeleteCustomerOrderRoom").find("tr").find("td:eq(3)").each(function () {
+    $("#frmDeleteReceipt\\:pgDeleteCustomerOrderRoom").find("tr").find("td:eq(4)").each(function () {
         //$(this).prev("td").prev("td").digits();
         if ($(this).html() === "Đã xóa") {
             $(this).closest("tr").css("opacity", "0.7");
@@ -488,6 +529,7 @@ function checkUserLoginForBookRoom(data) {
                 $(".roomdetail_cart").css("display", "none");
                 $("#frmBookRoom\\:txtBookFrom").val("");
                 $("#frmBookRoom\\:txtBookTo").val("");
+                cart = [];
                 //window.location.reload();
             } else if (message === "requiredlogin") {
                 growlmessage("<span class='glyphicon glyphicon-ban-circle'></span> Bạn vui lòng đăng nhập!</span>", 350, "info");
@@ -980,7 +1022,7 @@ function validateFormChangePassword() {
             }
         },
         submitHandler: function (form) {
-           $("#frmChangePassword\\:btnChangePassword").click();
+            $("#frmChangePassword\\:btnChangePassword").click();
             //form.submit();
         },
         highlight: function (element) {

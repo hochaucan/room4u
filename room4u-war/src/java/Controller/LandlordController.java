@@ -106,6 +106,24 @@ public class LandlordController {
     private String deletedCustomerOrderRoomResult;
     private String roomFullAddress;
     private String roomPlaceId;
+    private String allReceiptId;
+    private String deleteAllReceiptResult;
+
+    public String getDeleteAllReceiptResult() {
+        return deleteAllReceiptResult;
+    }
+
+    public void setDeleteAllReceiptResult(String deleteAllReceiptResult) {
+        this.deleteAllReceiptResult = deleteAllReceiptResult;
+    }
+
+    public String getAllReceiptId() {
+        return allReceiptId;
+    }
+
+    public void setAllReceiptId(String allReceiptId) {
+        this.allReceiptId = allReceiptId;
+    }
 
     public String getRoomPlaceId() {
         return roomPlaceId;
@@ -442,6 +460,29 @@ public class LandlordController {
         return comResult;
     }
 
+    public String deleteAllReceipt() {
+        if (allReceiptId.equals("")) {
+            return deleteAllReceiptResult = "notcheckbox";
+        } else {
+
+            try {
+                String[] ids = allReceiptId.split(",");
+                for (String id : ids) {
+                    OrderRoom od = order1Facade.find(Integer.parseInt(id));
+                    if (od != null) {
+                        order1Facade.remove(od);
+                    }
+                }
+                deleteAllReceiptResult = "success";
+            } catch (Exception ex) {
+                deleteAllReceiptResult = "false";
+                printStackTrace();
+            }
+        }
+        return deleteAllReceiptResult;
+
+    }
+
     public void editRoom() {
         try {
             Accommodation acc = accommodationFacade.find(curAccomUpdate.getAccomId());
@@ -684,10 +725,10 @@ public class LandlordController {
 
             Gson gson = new Gson();
             BookRoom or = new BookRoom();
-            java.lang.reflect.Type token = new TypeToken<Collection<BookRoom>>() {
+            java.lang.reflect.Type token = new TypeToken<List<BookRoom>>() {
             }.getType();
 
-            Collection<BookRoom> bookRoomDetail = gson.fromJson(bookRoomDataJson, token);
+            List<BookRoom> bookRoomDetail = gson.fromJson(bookRoomDataJson, token);
             int TotalPrice = 0;
             for (BookRoom br : bookRoomDetail) {
                 TotalPrice += br.getPrice();
@@ -781,7 +822,6 @@ public class LandlordController {
             }
 //            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Room is created!"));
 
-            
             room.setAccomId(1);
             Customer cust = customerBean.getCurCust();
             room.setCustId(cust);
@@ -793,7 +833,7 @@ public class LandlordController {
             RoomAddress roomAddress = new RoomAddress();
             roomAddress.setPlaceId(roomPlaceId);
             roomAddress.setFullAddress(roomFullAddress);
-            
+
             room.setAddress(gson.toJson(roomAddress));
 
             room.setCreatedDate(date);
@@ -808,7 +848,6 @@ public class LandlordController {
             roomImage.setSlider2(roomImageFileNames.get(2));
             roomImage.setSlider3(roomImageFileNames.get(3));
 
-            
             String jsonImage = gson.toJson(roomImage);
             room.setImages(jsonImage);
 
