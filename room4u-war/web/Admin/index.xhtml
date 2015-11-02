@@ -10,115 +10,234 @@
         <ui:composition template="./../template/AdminTemplate.xhtml">
 
             <ui:define name="content">
-                <script type="text/javascript">
-                        $(document).ready(function() {
-                            var barChartData1 = {
-                                labels: [#{customerBean.barLabel}],
-                                datasets: [
-                                    {
-                                        fillColor: "rgba(220,220,220,0.5)",
-                                strokeColor: "rgba(220,220,220,1)",
-                                data: [65, 59, 90, 81, 56, 55, 40]
-                            },
-                            {
-                                fillColor: "rgba(151,187,205,0.5)",
-                                strokeColor: "rgba(151,187,205,1)",
-                                data: [28, 48, 40, 19, 96, 27, 100]
-                            }
-                            ,
-                            {
-                                fillColor: "rgba(255,187,205,0.5)",
-                                strokeColor: "rgba(151,187,205,1)",
-                                data: [128, 48, 40, 19, 96, 27, 100]
-                            }
-                        ]
 
-                    };
-                    new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData1);
-                });
-            </script>
                 <div class="container">
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                <h3>General Chart</h3>
+                                <h3>Báo cáo tổng quát</h3>
                             </header>
                             <div class="panel-body">
-                                <div class="tab-pane" id="chartjs">
-                                    <div class="row">
-                                        <!-- Line -->
-                                        <div class="col-lg-6">
-                                            <section class="panel">
-                                                <header class="panel-heading">
-                                                    Line
-                                                </header>
-                                                <div class="panel-body text-center">
-                                                    <canvas id="line" height="300" width="450"></canvas>
-                                                </div>
-                                            </section>
-                                        </div>                      
-                                        <!-- Bar -->
-                                        <div class="col-lg-6">
-                                            <section class="panel">
-                                                <header class="panel-heading">
-                                                    Bar
-                                                </header>
-                                                <div class="panel-body text-center">
-                                                    <canvas id="bar" height="300" width="500"></canvas>
-                                                </div>
-                                            </section>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <!-- Radar -->
-                                        <div class="col-lg-6">
-                                            <section class="panel">
-                                                <header class="panel-heading">
-                                                    Radar
-                                                </header>
-                                                <div class="panel-body text-center">
-                                                    <canvas id="radar" height="300" width="400"></canvas>
-                                                </div>
-                                            </section>
-                                        </div>
-                                        <!-- Polar Area -->
-                                        <div class="col-lg-6">
-                                            <section class="panel">
-                                                <header class="panel-heading">
-                                                    Polar Area
-                                                </header>
-                                                <div class="panel-body text-center">
-                                                    <canvas id="polarArea" height="300" width="400"></canvas>
-                                                </div>
-                                            </section>
-                                        </div>
-                                    </div>
-                                    <div class="row">
 
-                                        <!-- Pie -->
-                                        <div class="col-lg-6">
-                                            <section class="panel">
-                                                <header class="panel-heading">
-                                                    Pie
-                                                </header>
-                                                <div class="panel-body text-center">
-                                                    <canvas id="pie" height="300" width="400"></canvas>
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <fieldset>
+                                            <legend>Báo cáo tình trạng đặt phòng</legend>
+                                            <h:form id="frmOrderRoomReport">
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputEmail" class="col-lg-3 control-label">Tháng</label>
+                                                    <div class='input-group date col-md-9' id='dtpBookDate'>
+                                                        <h:inputText id="txtBookDate" required="true" requiredMessage="Không để trống"  class="form-control" value="#{report.reportDate}"/>
+
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+
                                                 </div>
-                                            </section>
-                                        </div>
-                                        <!-- Doughnut -->
-                                        <div class="col-lg-6">
-                                            <section class="panel">
-                                                <header class="panel-heading">
-                                                    Doughnut
-                                                </header>
-                                                <div class="panel-body text-center">
-                                                    <canvas id="doughnut" height="300" width="400"></canvas>
+                                                <div class="form-group col-md-6">
+                                                    <label for="select" class="col-lg-5 control-label">Tình trạng đơn hàng</label>
+                                                    <div class="col-lg-7">
+                                                        <select class="form-control" id="slRoomOrderStatus" onchange="assignOrderStatus(this)">
+                                                            <option value="1">Tất cả</option>
+                                                            <option value="2">Đã đặt phòng</option>
+                                                            <option value="3">Đã xóa</option>
+
+                                                        </select>
+                                                        <h:inputText style="display: none" id="txtOrderRoomStatus" value="#{report.status}"/>
+                                                    </div>
                                                 </div>
-                                            </section>
-                                        </div>
+                                                <div class="form-group col-md-2">
+                                                    <h:commandLink target="_blank"  action="#{report.bookRoomByMonth()}"  class="btn btn-primary" value="Hiển thị"/>
+                                                </div>
+                                            </h:form>
+                                        </fieldset>
+
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <fieldset>
+                                            <legend>Báo cáo đăng phòng</legend>
+                                            <h:form id="frmPostRoomReport">
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputEmail" class="col-lg-3 control-label">Tháng</label>
+                                                    <div class='input-group date col-md-9' id='dtpPostDate'>
+                                                        <h:inputText id="txtPostDate" required="true" requiredMessage="Không để trống"  class="form-control" value="#{report.reportPostDate}"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <h:commandLink target="_blank"  action="#{report.postRoomByMonth()}"  class="btn btn-primary" value="Hiển thị"/>
+                                                </div>
+                                            </h:form>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <fieldset>
+                                            <legend>Báo cáo bình luận và đánh giá phòng</legend>
+                                            <h:form id="frmCommentRoomReport">
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputEmail" class="col-lg-3 control-label">Tháng</label>
+                                                    <div class='input-group date col-md-9' id='dtpCommentDate'>
+                                                        <h:inputText id="txtCommetDate" required="true" requiredMessage="Không để trống"  class="form-control" value="#{report.reportCommentDate}"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <h:commandLink target="_blank"  action="#{report.commentRoomByMonth()}"  class="btn btn-primary" value="Hiển thị"/>
+                                                </div>
+                                            </h:form>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    
+                                            <fieldset>
+                                                <legend>Báo cáo tài khoản đăng ký</legend>
+                                                <h:form id="frmRegisterUserReport">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputEmail" class="col-lg-3 control-label">Tháng</label>
+                                                        <div class='input-group date col-md-9' id='dtpUserDate'>
+                                                            <h:inputText id="txtUserDate" required="true" requiredMessage="Không để trống"  class="form-control" value="#{report.reportUserDate}"/>
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <h:commandLink target="_blank"  action="#{report.registerCustomerByMonth()}"  class="btn btn-primary" value="Hiển thị"/>
+                                                    </div>
+                                                </h:form>
+
+                                            </fieldset>
+                                      
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    
+                                            <fieldset>
+                                                <legend>Báo cáo khách hàng đăng ký phòng</legend>
+                                                  <h:form id="frmRegisterRoomReport">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputEmail" class="col-lg-3 control-label">Tháng</label>
+                                                        <div class='input-group date col-md-9' id='dtpRegisterRoomDate'>
+                                                            <h:inputText id="txtRegisterRoomDate" required="true" requiredMessage="Không để trống"  class="form-control" value="#{report.registerRoomDate}"/>
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <h:commandLink target="_blank"  action="#{report.registerRoomByMonth()}"  class="btn btn-primary" value="Hiển thị"/>
+                                                    </div>
+                                                </h:form>
+
+                                            </fieldset>
+                                     
+                                    </div>
+                                </div>
+
+
+
+                                <!--                                <div class="tab-pane" id="chartjs">
+                                                                    <div class="row">
+                                                                         Line 
+                                                                        <div class="col-lg-6">
+                                                                            <section class="panel">
+                                                                                <header class="panel-heading">
+                                                                                    Line
+                                                                                </header>
+                                                                                <div class="panel-body text-center">
+                                                                                    <canvas id="line" height="300" width="450"></canvas>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>                      
+                                                                         Bar 
+                                                                        <div class="col-lg-6">
+                                                                            <section class="panel">
+                                                                                <header class="panel-heading">
+                                                                                    Bar
+                                                                                </header>
+                                                                                <div class="panel-body text-center">
+                                                                                    <canvas id="bar" height="300" width="500"></canvas>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                         Radar 
+                                                                        <div class="col-lg-6">
+                                                                            <section class="panel">
+                                                                                <header class="panel-heading">
+                                                                                    Radar
+                                                                                </header>
+                                                                                <div class="panel-body text-center">
+                                                                                    <canvas id="radar" height="300" width="400"></canvas>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                         Polar Area 
+                                                                        <div class="col-lg-6">
+                                                                            <section class="panel">
+                                                                                <header class="panel-heading">
+                                                                                    Polar Area
+                                                                                </header>
+                                                                                <div class="panel-body text-center">
+                                                                                    <canvas id="polarArea" height="300" width="400"></canvas>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                
+                                                                         Pie 
+                                                                        <div class="col-lg-6">
+                                                                            <section class="panel">
+                                                                                <header class="panel-heading">
+                                                                                    Pie
+                                                                                </header>
+                                                                                <div class="panel-body text-center">
+                                                                                    <canvas id="pie" height="300" width="400"></canvas>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                         Doughnut 
+                                                                        <div class="col-lg-6">
+                                                                            <section class="panel">
+                                                                                <header class="panel-heading">
+                                                                                    Doughnut
+                                                                                </header>
+                                                                                <div class="panel-body text-center">
+                                                                                    <canvas id="doughnut" height="300" width="400"></canvas>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
                             </div>
                         </section>
                     </div>

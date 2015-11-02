@@ -129,7 +129,7 @@ public class SendMailController extends Authenticator {
 //        }
 //
 //    }
-    public void sendMailSupport(String emailAddress, String subject, String content) {
+    public void sendMailSupportContact() {
         if (content.trim().equals("") || name.trim().equals("") || email.trim().equals("")) {
             sendMailResult = "false";
         } else {
@@ -154,13 +154,9 @@ public class SendMailController extends Authenticator {
 
                 Message message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(username));
-//			message.setRecipients(Message.RecipientType.TO,
-//				InternetAddress.parse("room4u.ad@gmail.com"));
                 message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(emailAddress));
-//                message.setSubject("Need support form customer: " + name);
-                message.setSubject(subject);
-//                message.setText(content + "\r\nEmail reply: " + email);
+                        InternetAddress.parse("room4u.ad@gmail.com"));
+                message.setSubject("Need support form customer: " + name);
                 message.setText(content + "\r\nEmail reply: " + email);
                 Transport.send(message);
                 sendMailResult = "success";
@@ -170,6 +166,89 @@ public class SendMailController extends Authenticator {
             }
         }
     }
+
+    public void sendMailSupport(String emailAddress, String subject, String content) {
+        if (content.trim().equals("") || subject.trim().equals("") || emailAddress.trim().equals("")) {
+            sendMailResult = "false";
+        } else {
+            final String username = "room4u.FAT2.HCM@gmail.com";
+            final String password = "123456?a";
+
+            Properties props = new Properties();
+            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
+            Session session = Session.getInstance(props,
+                    new javax.mail.Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(username, password);
+                        }
+                    });
+
+            try {
+
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(username));
+//   message.setRecipients(Message.RecipientType.TO,
+//    InternetAddress.parse("room4u.ad@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(emailAddress));
+//                message.setSubject("Need support form customer: " + name);
+                message.setSubject(subject);
+//                message.setText(content + "\r\nEmail reply: " + email);
+                message.setText(content + "\r\nEmail reply: " + username);
+                Transport.send(message);
+                sendMailResult = "success";
+            } catch (MessagingException e) {
+                sendMailResult = "false";
+                throw new RuntimeException(e);
+            }
+        }
+    }
+//    public void sendMailSupport(String emailAddress, String subject, String content) {
+//        if (content.trim().equals("") || name.trim().equals("") || email.trim().equals("")) {
+//            sendMailResult = "false";
+//        } else {
+//            final String username = "room4u.FAT2.HCM@gmail.com";
+//            final String password = "123456?a";
+//
+//            Properties props = new Properties();
+//            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+//            props.put("mail.smtp.auth", "true");
+//            props.put("mail.smtp.starttls.enable", "true");
+//            props.put("mail.smtp.host", "smtp.gmail.com");
+//            props.put("mail.smtp.port", "587");
+//
+//            Session session = Session.getInstance(props,
+//                    new javax.mail.Authenticator() {
+//                        protected PasswordAuthentication getPasswordAuthentication() {
+//                            return new PasswordAuthentication(username, password);
+//                        }
+//                    });
+//
+//            try {
+//
+//                Message message = new MimeMessage(session);
+//                message.setFrom(new InternetAddress(username));
+////			message.setRecipients(Message.RecipientType.TO,
+////				InternetAddress.parse("room4u.ad@gmail.com"));
+//                message.setRecipients(Message.RecipientType.TO,
+//                        InternetAddress.parse(emailAddress));
+////                message.setSubject("Need support form customer: " + name);
+//                message.setSubject(subject);
+////                message.setText(content + "\r\nEmail reply: " + email);
+//                message.setText(content + "\r\nEmail reply: " + email);
+//                Transport.send(message);
+//                sendMailResult = "success";
+//            } catch (MessagingException e) {
+//                sendMailResult = "false";
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
 
     /**
      * @return the sendMailResult

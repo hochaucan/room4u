@@ -266,11 +266,21 @@ public class CustomerController {
     }
 
     public void resetPassword(String email) {
-        SendMailController smc = new SendMailController();
-        smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
-//        Customer resetCust = customerFacade.find(uid)
+        List<Customer> lc = customerFacade.findEmail(email);
+        if (lc != null && lc.size() > 0) {
+            Customer resetCust = lc.get(0);
+            resetCust.setPassword("ROOM4U");
+            customerFacade.updatePassword(resetCust.getCustId(), resetCust.getPassword());
+            SendMailController smc = new SendMailController();
+            smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
+        }
     }
 
+//    public void resetPassword(String email) {
+//        SendMailController smc = new SendMailController();
+//        smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
+////        Customer resetCust = customerFacade.find(uid)
+//    }
     public String add() {
         this.customerFacade.create(this.c);
         this.c = new Customer();
@@ -304,7 +314,7 @@ public class CustomerController {
         editUserResult = "";
         List<Customer> lc = customerFacade.findEmail(curCust.getEmail());
 
-        if (lc != null && !curCust.getEmail().equals(existEmail)) {
+        if (lc != null && !curCust.getEmail().equals(existEmail) ) {
             return editUserResult = "existEmail";
         }
 

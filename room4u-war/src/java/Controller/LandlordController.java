@@ -108,6 +108,24 @@ public class LandlordController {
     private String roomPlaceId;
     private String allReceiptId;
     private String deleteAllReceiptResult;
+    private String roomOrderId;
+    private String getRoomOrderIdResult;
+
+    public String getGetRoomOrderIdResult() {
+        return getRoomOrderIdResult;
+    }
+
+    public void setGetRoomOrderIdResult(String getRoomOrderIdResult) {
+        this.getRoomOrderIdResult = getRoomOrderIdResult;
+    }
+
+    public String getRoomOrderId() {
+        return roomOrderId;
+    }
+
+    public void setRoomOrderId(String roomOrderId) {
+        this.roomOrderId = roomOrderId;
+    }
 
     public String getDeleteAllReceiptResult() {
         return deleteAllReceiptResult;
@@ -708,8 +726,28 @@ public class LandlordController {
         return order1Facade.findOrderRoomByUser(customerBean.getCurCust().getCustId());
     }
 
-    public List<OrderDetail> displayOrderDetailByOrderId(int orderId) {
-        return orderDetailFacade.findOrderDetailByOrderId(orderId);
+    public List<OrderDetail> orderdetailList;
+
+    public List<OrderDetail> getOrderdetailList() {
+        return orderdetailList;
+    }
+
+    public void setOrderdetailList(List<OrderDetail> orderdetailList) {
+        this.orderdetailList = orderdetailList;
+    }
+
+    public String displayOrderDetailByOrderId() {
+
+//        return orderDetailFacade.findOrderDetailByOrderId(roomOrderId != null ? Integer.parseInt(roomOrderId) : 0);
+        String id = roomOrderId;
+        if (id != null) {
+            getRoomOrderIdResult = "success";
+            orderdetailList = orderDetailFacade.findOrderDetailByOrderId(Integer.parseInt(id));
+        } else {
+            getRoomOrderIdResult = "false";
+            orderdetailList = orderDetailFacade.findOrderDetailByOrderId(0);
+        }
+        return getRoomOrderIdResult;
     }
 
     public void bookRoom() {

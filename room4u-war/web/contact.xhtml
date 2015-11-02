@@ -6,7 +6,7 @@
       xmlns:pf="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
     <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
 
     <h:outputScript name="./js/jquery.rating.js"></h:outputScript>
@@ -62,9 +62,9 @@
 
                             </div>
                             <div class="modal-footer" style="text-align: right">
-                                            <h:commandButton class="btn btn-primary"  id="btnSendMail" value="Xác nhận" >
-                                                <f:ajax  execute="@form"   render="txtSendMailResult" listener="#{sendMail.sendMailSupport()}" onevent="checkSendMail"/>
-                                            </h:commandButton>
+                                <h:commandButton class="btn btn-primary"  id="btnSendMail" value="Xác nhận" >
+                                    <f:ajax  execute="@form"   render="txtSendMailResult" listener="#{sendMail.sendMailSupportContact()}" onevent="checkSendMail"/>
+                                </h:commandButton>
                                 <h:outputText id="txtSendMailResult" value="#{sendMail.sendMailResult}"  style="display:none"/>
                             </div>
                         </h:form>

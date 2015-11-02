@@ -81,9 +81,9 @@
                                         <a href="#yourComment" class="list-group-item" data-toggle="tab" aria-expanded="false">
                                             <span class="glyphicon glyphicon-hand-right"></span>Bình luận
                                         </a>
-                                        <a href="#yourReport" class="list-group-item" data-toggle="tab" aria-expanded="false">
-                                            <span class="glyphicon glyphicon-hand-right"></span>Báo cáo
-                                        </a>
+                                        <!--                                        <a href="#yourReport" class="list-group-item" data-toggle="tab" aria-expanded="false">
+                                                                                    <span class="glyphicon glyphicon-hand-right"></span>Báo cáo
+                                                                                </a>-->
                                     </h:panelGroup>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                                 <div class="form-group">
                                                     <label for="txtCustEmail" class="col-lg-3 control-label">Email</label>
                                                     <div class="col-lg-9">
-                                                        <h:inputText id="txtCustEmail"  value="#{customerBean.curCust.email}" class="form-control" />
+                                                        <h:inputText disabled="true" id="txtCustEmail"  value="#{customerBean.curCust.email}" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -177,7 +177,7 @@
                                             <h:commandButton style="display: none" id="btnChangePassword" class="btn btn-primary"  value="Đổi mật khẩu Submit">
                                                 <f:ajax execute="@form" render="@form" listener="#{customerBean.changePassword()}" onevent="changePasswordSuccess"/>
                                             </h:commandButton>
-                                            <h:outputText id="txtChangePasswordResult" value="#{customerBean.changePasswordResult}"/>
+                                            <h:outputText style="display: none" id="txtChangePasswordResult" value="#{customerBean.changePasswordResult}"/>
                                         </div>
                                     </h:form>
                                 </div>
@@ -207,7 +207,7 @@
                                                             </td>
 
                                                             <td>
-                                                                <a  class="btn btn-primary" data-toggle="modal" data-target="#roomOrderView" ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>
+                                                                <a onclick="assignRoomOrderDetailId2(this)" class="btn btn-primary"  ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>
                                                             </td>
                                                             <td>
                                                                 <a  class="btn btn-primary" onclick="assignDeletedRoomOrderId(this)"  data-toggle="modal" data-target="#roomOrderDelete" ><span class="glyphicon glyphicon-trash"></span>Xóa</a>
@@ -219,6 +219,19 @@
                                             </tbody>
                                         </table> 
                                     </h:panelGroup>
+
+
+
+                                    <h:form id="frmOrderRoom">
+                                        <h:commandButton style="display: none" id="btnRoomOrderIdSubmit2" >
+                                            <f:ajax execute="txtRoomOrderId2" render="txtGetRoomOrderIdResult2 frmRoomOrderView" listener="#{landlord.displayOrderDetailByOrderId()}" onevent="getRoomOrderDetailList2" />
+                                        </h:commandButton>
+                                        <h:inputText style="display: none" id="txtRoomOrderId2" value="#{landlord.roomOrderId}"/>
+                                        <h:outputText style="display: none"  id="txtGetRoomOrderIdResult2" value="#{landlord.getRoomOrderIdResult}"/>
+                                    </h:form>
+
+
+
                                 </div>
                                 <!--Tab Registered Room-->
                                 <div class="tab-pane fade active " id="yourRequiredRoom">
@@ -277,11 +290,11 @@
                                         <table class="table table-responsive table-hover ">
                                             <thead>
                                                 <tr>
-                                                    <th><h:commandLink class="btn btn-primary" >
-                                                            <span class="glyphicon glyphicon-trash"></span>
-                                                            Xóa
-                                                        </h:commandLink>
-                                                    </th>
+                                                    <!--                                                    <th><h:commandLink class="btn btn-primary" >
+                                                                                                                <span class="glyphicon glyphicon-trash"></span>
+                                                                                                                Xóa
+                                                                                                            </h:commandLink>
+                                                                                                        </th>-->
                                                     <th>STT</th>
                                                     <th>Hình</th>
                                                     <th>Tên phòng</th>
@@ -294,7 +307,7 @@
                                                 <h:outputText id="txtUpdateRoomResult" value="#{landlord.updateRoomResult}" style="display: none"/>
                                                 <ui:repeat var="room" value="#{landlord.displayRoomProfile()}" varStatus="status">
                                                     <tr>
-                                                        <td><input class="cbRoom" type="checkbox"></input></td>
+                                                        <!--<td><input class="cbRoom" type="checkbox"></input></td>-->
                                                         <td>#{room.accomId}</td>
                                                         <td>
                                                             <h:outputText value="#{landlord.displayRoomImages(room.images)}"/>
@@ -334,7 +347,7 @@
                                             <h:inputText style="display: none" id="txtIdArr" value="#{landlord.allReceiptId}"/>
                                             <h:outputText style="display: none" id="txtdeleteAllReceiptResult" value="#{landlord.deleteAllReceiptResult}"/>
                                             <h:commandButton style="display: none" id="btnDeleteAllReceiptSubmit" value="Delete Receipt Submit">
-                                                <f:ajax execute="@form" render="@form" listener="#{landlord.deleteAllReceipt()}" onevent="deleteAllReceiptResult"/>
+                                                <f:ajax execute="@form" render="@form pgDeleteRoomOrder" listener="#{landlord.deleteAllReceipt()}" onevent="deleteAllReceiptResult"/>
                                             </h:commandButton>
 
                                             <table class="table table-responsive table-hover ">
@@ -368,7 +381,10 @@
                                                             </td>
                                                             <td>#{roomOrder.status}</td>
                                                             <td>
-                                                                <a  class="btn btn-primary" data-toggle="modal" data-target="#roomOrderView" ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>
+
+                                                                <!--                                                                <a onclick="assignRoomOrderDetailId(this)" class="btn btn-primary" data-toggle="modal" data-target="#roomOrderView" ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>-->
+                                                                <a onclick="assignRoomOrderDetailId(this)" class="btn btn-primary" ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>
+
                                                             </td>
                                                             <td>
                                                                 <a  class="btn btn-primary" onclick="assignDeletedCustomerOrderId(this)"  data-toggle="modal" data-target="#roomCustomerOrderDelete" ><span class="glyphicon glyphicon-trash"></span>Xóa</a>
@@ -382,6 +398,11 @@
                                             </table> 
 
                                         </h:panelGroup>
+                                        <h:commandButton style="display: none" class="btnRoomOrderIdSubmit" >
+                                            <f:ajax execute="txtRoomOrderId" render="txtGetRoomOrderIdResult frmRoomOrderView" listener="#{landlord.displayOrderDetailByOrderId()}" onevent="getRoomOrderDetailList" />
+                                        </h:commandButton>
+                                        <h:inputText style="display: none" id="txtRoomOrderId" value="#{landlord.roomOrderId}"/>
+                                        <h:outputText style="display: none" id="txtGetRoomOrderIdResult" value="#{landlord.getRoomOrderIdResult}"/>
                                     </h:form>
                                 </div>
                                 <!--Tab Comment-->
@@ -530,7 +551,7 @@
                                     <h:commandLink class="btn btn-primary"  >
                                         <i class="glyphicon glyphicon-ok-sign"/>
                                         Xác nhận
-                                        <f:ajax execute="@form" render="pgDeleteCustomerOrderRoom txtDeletedCustomerOrderRoomResult" listener="#{landlord.deleteCustomerOrderRoom()}" onevent="deleteCustomerOrderRoomSuccess"/>
+                                        <f:ajax execute="@form" render="pgDeleteCustomerOrderRoom txtDeletedCustomerOrderRoomResult pgDeleteRoomOrder frmDeleteReceipt" listener="#{landlord.deleteCustomerOrderRoom()}" onevent="deleteCustomerOrderRoomSuccess"/>
                                     </h:commandLink>
                                     <h:outputText id="txtDeletedCustomerOrderRoomResult" value="#{landlord.deletedCustomerOrderRoomResult}" style="display:none" />
                                 </div>
@@ -563,7 +584,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <ui:repeat var="roomOrderDetail" value="#{landlord.displayOrderDetailByOrderId(15)}">
+                                            <ui:repeat var="roomOrderDetail" value="#{landlord.orderdetailList}">
                                                 <tr>
                                                     <td ><h:link outcome="#{landlord.displayRoomDetail(roomOrderDetail.accomId.accomId)}"> <img style="width:80px" class="main_image"  src="#{roomOrderDetail.accomId.images}"/></h:link></td>
                                                     <td>  <h:outputText value="#{roomOrderDetail.bookedFromDate}">
@@ -612,20 +633,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-<!--                                            <ui:repeat var="roomOrderDetail" value="#{landlord.displayOrderDetailByOrderId(15)}">
-                                                <tr>
-                                                    <td ><h:link outcome="#{landlord.displayRoomDetail(roomOrderDetail.accomId.accomId)}"> <img style="width:80px" class="main_image"  src="#{roomOrderDetail.accomId.images}"/></h:link></td>
-                                                    <td>  <h:outputText value="#{roomOrderDetail.bookedFromDate}">
-                                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                                        </h:outputText>
-                                                    </td>
-                                                    <td> <h:outputText value="#{roomOrderDetail.bookedToDate}">
-                                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                                        </h:outputText>
-                                                    </td>
-                                                    <td class="thousandComma">#{roomOrderDetail.price}</td>
-                                                </tr>
-                                            </ui:repeat>-->
+
                                         </tbody>
                                     </table> 
                                 </div>
