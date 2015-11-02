@@ -722,8 +722,22 @@ public class LandlordController {
         return ratings.size() > 0 ? sumRateScore / ratings.size() : 0;
     }
 
+    public List<OrderRoom> displayOrderRoomByUserByAccom() {
+//        List<OrderRoom> ordersByUser = order1Facade.findOrderRoomByUser(customerBean.getCurCust().getCustId());
+        List<OrderRoom> ordersByUser = order1Facade.findAll();
+        List<OrderRoom> orderRoomResults = new ArrayList<OrderRoom>();
+        for (OrderRoom od : ordersByUser) {
+            if (od.getOrderDetailList().get(0).getAccomId().getCustId().getCustId().equals(customerBean.getCurCust().getCustId())) {
+                orderRoomResults.add(od);
+            }
+        }
+
+        return orderRoomResults;
+    }
+
     public List<OrderRoom> displayOrderRoomByUser() {
         return order1Facade.findOrderRoomByUser(customerBean.getCurCust().getCustId());
+
     }
 
     public List<OrderDetail> orderdetailList;

@@ -362,11 +362,12 @@
                                                         <th>Tổng giá</th>
                                                         <th>Ngày đặt</th>
                                                         <th>Tình trạng</th>
+                                                        <th>Khách hàng</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
-                                                    <ui:repeat var="roomOrder" value="#{landlord.displayOrderRoomByUser()}">
+                                                    <ui:repeat var="roomOrder" value="#{landlord.displayOrderRoomByUserByAccom()}">
 
                                                         <tr>
                                                             <td><input class="cbSelected" type="checkbox"></input>
@@ -380,6 +381,7 @@
                                                                 </h:outputText>
                                                             </td>
                                                             <td>#{roomOrder.status}</td>
+                                                            <td>#{roomOrder.custID.custName}</td>
                                                             <td>
 
                                                                 <!--                                                                <a onclick="assignRoomOrderDetailId(this)" class="btn btn-primary" data-toggle="modal" data-target="#roomOrderView" ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>-->
