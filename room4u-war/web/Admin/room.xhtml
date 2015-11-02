@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-        
+
 
         <ui:composition template="./../template/AdminTemplate.xhtml">
             <ui:define name="title">
@@ -28,7 +28,9 @@
                                             <f:facet name="header">
                                                 <h:outputText value="STT"/>
                                             </f:facet>
-                                            <h:outputText value="#{item.accomId}"/>
+                                            <h:commandLink action="#{landlord.displayRoomDetail(item.accomId)}" >
+                                                <h:outputText value="#{item.accomId}"/>
+                                            </h:commandLink>
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
@@ -85,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="modal fade" id="DeleteRoom" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">

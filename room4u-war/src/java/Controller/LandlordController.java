@@ -452,6 +452,15 @@ public class LandlordController {
         return commentsFacade.findCommentsByAccomId(accomId).size();
     }
 
+    public String displayRoomJson() {
+        Gson gson = new Gson();
+        List<Accommodation> rooms = accommodationFacade.findAll();
+        if (rooms.size() > 0) {
+            return gson.toJson(rooms);
+        }
+        return "";
+    }
+
     public List<Accommodation> displayRoom() {
 
         return accommodationFacade.findAll();

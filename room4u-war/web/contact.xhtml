@@ -28,22 +28,22 @@
                     <div class="col-md-5">
                         <div id="map" class="col-md-12 col-xs-12 panel"></div>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-7 panel">
                         <h:form id="frmContact" class="form-horizontal"  enctype="multipart/form-data"  >
-                            <div class="modal-body">
+                            <div class="modal-body ">
 
                                 <fieldset>
 
                                     <div class="form-group">
                                         <label for="contactName" class="col-md-2 control-label">Tên bạn</label>
-                                        <div class="col-md-8">
+                                        <div class="col-md-10">
                                             <h:inputText id="contactName" value="#{sendMail.name}" class="form-control" />
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="contactEmail"  class="col-md-2 control-label">Email</label>
-                                        <div class="col-md-8">
+                                        <div class="col-md-10">
                                             <h:inputText id="contactEmail" value="#{sendMail.email}" class="form-control" />
 
                                         </div>
@@ -51,7 +51,7 @@
 
                                     <div class="form-group">
                                         <label for="contactContent"  class="col-md-2 control-label">Nội dung</label>
-                                        <div class="col-md-8">
+                                        <div class="col-md-10">
                                             <h:inputTextarea id="contactContent" value="#{sendMail.content}" class="form-control"  rows="5" />
 
                                         </div>

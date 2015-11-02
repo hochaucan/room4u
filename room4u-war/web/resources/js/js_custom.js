@@ -21,6 +21,161 @@ function SetActiveMenu() {
     });
 }
 
+var addressArray = new Array();
+function createFullRoomArray(render) {
+    var registerAddress = $(render).closest("tr").find("td:eq(1)").text();
+    var radius = $(render).closest("tr").find("td:eq(2)").text();
+    addressArray = [];
+//    alert(registerAddress)
+    var roomsJsom = $("#frmRegisterRoomByUser\\:txtFullRoom").text();
+    $.each(JSON.parse(roomsJsom), function (idx, obj) {
+//        alert(JSON.parse(obj.address).fullAddress);
+        addressArray.push(JSON.parse(obj.address).fullAddress);
+    });
+//    alert(radius)
+    registerRoomDistanceService(registerAddress, radius);
+}
+
+function registerRoomDistanceService(registerAddress, radius) {
+    var bounds = new google.maps.LatLngBounds;
+    var yourLocation = "18D Nguyễn Thị Minh Khai, Đa Kao, Quận 1, Hồ Chí Minh, Việt Nam"//registerAddress;//{lat: curLat, lng: curLong};// 'ChIJDSpFFuwtdTERrI6ne4XceEM'
+    var destinationIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=D|FF0000|000000';
+    var originIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=O|FFFF00|000000';
+    var geocoder = new google.maps.Geocoder;
+    var service = new google.maps.DistanceMatrixService;
+//    alert(radius)
+    service.getDistanceMatrix({
+        origins: [yourLocation],
+        destinations: addressArray, //[destinationA, destinationB, destinationC, destinationD],
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false
+    }, function (response, status) {
+        if (status !== google.maps.DistanceMatrixStatus.OK) {
+            alert('Error was: ' + status);
+        } else {
+            var originList = response.originAddresses;
+            var destinationList = response.destinationAddresses;
+//            var outputDiv = document.getElementById('output');
+//            outputDiv.innerHTML = '';
+//            //deleteMarkers(markersArray);
+//
+            var showGeocodedAddressOnMap = function (asDestination) {
+                var icon = asDestination ? destinationIcon : originIcon;
+                return function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        map.fitBounds(bounds.extend(results[0].geometry.location));
+                        markers.push(new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location,
+                            icon: icon
+                        }));
+                    } else {
+                        alert('Geocode was not successful due to: ' + status);
+                    }
+                };
+            };
+
+            $("#frmMatchedRoom").find("tbody").html("");
+            var roomsJsom = $("#frmRegisterRoomByUser\\:txtFullRoom").text();
+
+            for (var i = 0; i < originList.length; i++) {
+                var results = response.rows[i].elements;
+                // geocoder.geocode({'address': originList[i]},
+                geocoder.geocode({'address': originList[i]},
+                showGeocodedAddressOnMap(false));
+                for (var j = 0; j < results.length; j++) {
+
+                    // Just get room around current location with radius
+//                    if (parseFloat(results[j].distance.text).toFixed(2) <= parseInt(radius)) {
+//                    if (parseInt(results[j].distance.text.replace(".", "")) <= parseInt(radius)) {
+                    geocoder.geocode({'address': destinationList[j]},
+                    showGeocodedAddressOnMap(true));
+//                        outputDiv.innerHTML += '<div class="row"><div class="col-md-12"><span class="glyphicon glyphicon-home" style="color: #0c84e4;"></span> Từ ' + originList[i] + ' <span class="glyphicon glyphicon-arrow-right" style="color: #0c84e4;"></span>  ' + destinationList[j] +
+//                                ': ' + results[j].distance.text + ' in ' +
+//                                results[j].duration.text + '</div></div>';
+
+//                        geocodePlaceIdFromAddress(destinationList[j]);
+//                        
+//                            alert(parseInt(results[j].distance.text))
+                    if (parseInt(results[j].distance.text) <= parseInt(radius)) {
+
+//                        $.each(JSON.parse(roomsJsom), function (idx, obj) {
+//                            var requestAddress = $.trim(JSON.parse(obj.address).fullAddress);
+//                            var expectedAddress = $.trim(destinationList[j]);
+//
+//                            if (requestAddress = expectedAddress) {
+//                                var html = "<tr><td>" + destinationList[j]
+//                                        + "</td><td>" + results[j].distance.text + "</td><td>"
+//                                        + results[j].duration.text + "</td></tr>";
+//                                $("#frmMatchedRoom").find("tbody").append(html);
+//
+//                            }
+//                        });
+
+
+                        var html = "<tr><td>" + destinationList[j]
+                                + "</td><td>" + results[j].distance.text + "</td><td>"
+                                + results[j].duration.text + "</td></tr>";
+                        $("#frmMatchedRoom").find("tbody").append(html);
+
+
+//                       geocodePlaceIdFromAddress2(destinationList[j]);
+                    }
+//                        alert(destinationList[j]);
+//                    }
+                }
+            }
+
+            $("#mdMachedRoom").modal("toggle");
+
+        }
+    });
+
+}
+
+
+
+
+
+
+function geocodePlaceIdFromAddress2(address) {
+    var request = {
+//        location: map.getCenter(),
+//        radius: '500',
+        query: address
+    };
+    var service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback2);
+}
+
+function callback2(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+//        searchRoomResult.push(results[0].place_id);
+
+        var placeId = results[0].place_id;
+        alert(placeId)
+//        $(".homepage_box").each(function () {
+////            alert($(this).find(".txtRoomAddress").text())
+//            var roomPlaceId = JSON.parse($(this).find(".txtRoomAddress").text()).placeId;
+////            alert(roomPlaceId)
+//            if (placeId === roomPlaceId) {
+//                $(this).css("display", "inline");
+//            }
+//        });
+    }
+}
+
+
+
+
+
+
+
+
 function createRoomAddressArray() {
 
     $(".txtRoomAddress").each(function () {
