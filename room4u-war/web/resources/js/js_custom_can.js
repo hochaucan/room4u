@@ -2,7 +2,7 @@ $(function () {
     setActiveMenu();
     validateFormPostRoom();
     validateFormUserLogin();
-    renderRoomImageHomePage();
+//    renderRoomImageHomePage();
     setActiveMenuSidebar();
     validateFormChangePassword();
     validateFormRegisterUser();
@@ -14,6 +14,14 @@ $(function () {
     validateFormEditRoom();
     addRoomToCart();
     renderRoomAddressInRoomDetail();
+    renderDataTable("#frmRegisterRoomByUser table");
+
+//    ValidateSingleInput(oInput);
+//    renderDataTable("#frmDeleteReceipt");
+//    $("#tbReceipt").DataTable();
+//    $("#tbYouOrderRoom").DataTable();
+//    renderDataTable("#frmUpdateCom table");
+
 
 //    $("#roomOrderDetail").val('#{landlord.displayOrderDetailByOrderId(1049)}')
 
@@ -21,15 +29,56 @@ $(function () {
 //        $(this).val($(this).closest("tr").find("td:eq(1)").text());
 //    })
 
-
+//    cleanModal();
 
     $(".currency").digits();
-    cleanModal();
+
     $('#slider').nivoSlider();
 
     //Collapse in FAQ page
     //$('.collapse').collapse()
 });
+
+var _validFileExtensions = [".jpg", ".gif"];
+function ValidateSingleInput(oInput) {
+    if (oInput.type === "file") {
+        var sFileName = oInput.value;
+        if (sFileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() === sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+
+            if (!blnValid) {
+                //alert("Xin vui lòng chọn file hình là " + _validFileExtensions.join(" hoặc "));
+                alert("Xin vui lòng chọn file hình là JPG hoặc GIF");
+                oInput.value = "";
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+function renderDataTable(table) {
+    $(table).DataTable({
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+        "language": {
+            "lengthMenu": "Chọn _MENU_ dòng mỗi trang",
+            "zeroRecords": "Không có dữ liệu",
+            "info": "Trang _PAGE_ of _PAGES_",
+            "infoEmpty": "Không có dữ liệu",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        }
+    });
+}
+
+
 
 function assignRoomOrderDetailId(render) {
 
@@ -168,7 +217,7 @@ function editUserSuccess(data) {
         case "success": // After update of HTML DOM based on ajax response..
             var message = $("#frmUserUpdate\\:txtEditUserResult").text();
             // alert(message)
-            if (message === "success") {
+            if (message == "success") {
 //                $('#frmUserRegister').modal('toggle');
                 growlmessage("<span class='glyphicon glyphicon-ok'></span>Cập nhật tài khoản thành công", 350, "success");
 
@@ -724,30 +773,6 @@ function validateFormRegisterUser() {
         submitHandler: function (form) {
 //            alert("can")
             $("#frmUserRegister\\:btnCreateUser").click();
-//            window.location.reload();
-            // form.submit();
-
-
-//            setTimeout(function () {
-//                $.bootstrapGrowl("Đã gửi đăng ký. Vui lòng kiểm tra email để kích hoạt tài khoản.", {type: 'success'});
-//            }, 1000);
-            //form.submit();
-
-//            var url = '<?php echo SET_SUBSCRIBER; ?>';
-//            var datastring = $("form").serialize();
-//            alert(datastring);
-//            return false;
-//            $.ajax({
-//                type: "POST",
-//                url: url,
-//                data: datastring,
-//                success: function (data) {
-//                    //alert(data); return false;
-//                    form.submit();
-//                }
-//            });
-//            return false;
-
         },
         highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');
@@ -838,17 +863,20 @@ function validateFormEditRoom() {
             },
             "frmEditAccom:updateRoomNumberOfBed": {
                 digits: true,
-                min: 0,
+                min: 1,
+                max: 10,
                 required: true
             },
             "frmEditAccom:updateRoomNumOfPerson": {
                 digits: true,
-                min: 0,
+                min: 1,
+                max: 50,
                 required: true
             },
             "frmEditAccom:updateRoomNumToilet": {
                 digits: true,
-                min: 0,
+                min: 1,
+                max: 10,
                 required: true
             },
 //            "frmPostRoom:roomThumbnail": {
@@ -866,10 +894,18 @@ function validateFormEditRoom() {
 //            }
         },
         messages: {
-//            "frmPostRoom:roomThumbnail": {
-//                required: 'Chọn hình làm đại diện',
-//                accept: 'Not an image!'
-//            }
+            "frmEditAccom:updateRoomNumberOfBed": {
+                min: "Không nhập dưới 1",
+                max: "Không nhập hơn 10",
+            },
+            "frmEditAccom:updateRoomNumOfPerson": {
+                min: "Không nhập dưới 1",
+                max: "Không nhập hơn 50",
+            },
+            "frmEditAccom:updateRoomNumToilet": {
+                min: "Không nhập dưới 1",
+                max: "Không nhập hơn 10",
+            },
         },
         submitHandler: function (form) {
             $("#frmEditAccom\\:btnEditRoomSubmit").click();
@@ -894,7 +930,6 @@ function validateFormEditRoom() {
     });
 }
 
-
 function validateFormPostRoom() {
     $('#frmPostRoom').validate({
         rules: {
@@ -906,48 +941,32 @@ function validateFormPostRoom() {
             "frmPostRoom:roomPrice": {
                 number: true,
                 min: 0,
-                max: 1000000000,
+                max: 50000000,
                 required: true
             },
-            "txtRoomAddress": {
+            "frmPostRoom:txtRoomAddress": {
                 required: true
             },
-//            "frmPostRoom:hourseNumber": {
-//                required: true
-//            },
-//            "frmPostRoom:roomStreet": {
-//                minlength: 3,
-//                required: true
-//            },
-//            "frmPostRoom:roomWard": {
-//                minlength: 1,
-//                required: true
-//            },
-//            "frmPostRoom:roomDistrict": {
-//                minlength: 1,
-//                required: true
-//            },
-//            "frmPostRoom:roomCity": {
-//                minlength: 1,
-//                required: true
-//            },
             "frmPostRoom:roomDescription": {
                 minlength: 3,
                 required: true
             },
             "frmPostRoom:numberOfBed": {
                 digits: true,
-                min: 0,
+                min: 1,
+                max: 10,
                 required: true
             },
             "frmPostRoom:numberOfPerson": {
                 digits: true,
-                min: 0,
+                min: 1,
+                max: 50,
                 required: true
             },
             "frmPostRoom:roomToilet": {
                 digits: true,
-                min: 0,
+                min: 1,
+                max: 10,
                 required: true
             },
             "frmPostRoom:roomThumbnail": {
@@ -965,10 +984,22 @@ function validateFormPostRoom() {
             }
         },
         messages: {
-            "frmPostRoom:roomThumbnail": {
-//                required: 'Chọn hình làm đại diện',
-//                accept: 'Not an image!'
-            }
+            "frmPostRoom:roomPrice": {
+                min: "Xin vui lòng nhập giá không thấp hơn 0 VNĐ",
+                max: "Xin vui lòng nhập giá không cao hơn 50.000.000 VNĐ"
+            },
+            "frmPostRoom:numberOfBed": {
+                min: "Không nhập dưới 1",
+                max: "Không nhập hơn 10",
+            },
+            "frmPostRoom:numberOfPerson": {
+                min: "Không nhập dưới 1",
+                max: "Không nhập hơn 50",
+            },
+            "frmPostRoom:roomToilet": {
+                min: "Không nhập dưới 1",
+                max: "Không nhập hơn 10",
+            },
         },
         submitHandler: function (form) {
 //            getLngLatBaseOnAddress();
@@ -1105,20 +1136,20 @@ function validateFormChangePassword() {
     });
 }
 
-function cleanModal() {
-//    $("#modal_post_room").on('hide.bs.modal', function () {
-//        $(this).find("#frmPostRoom")[0].reset();
+//function cleanModal() {
+////    $("#modal_post_room").on('hide.bs.modal', function () {
+////        $(this).find("#frmPostRoom")[0].reset();
+////    });
+//
+//    $("#user_login_modal").on('hide.bs.modal', function () {
+//        $(this).find("#frmUserLogin")[0].reset();
 //    });
-
-    $("#user_login_modal").on('hide.bs.modal', function () {
-        $(this).find("#frmUserLogin")[0].reset();
-    });
-
-    $("#user_register_modal").on('hide.bs.modal', function () {
-        $(this).find("#frmUserRegister")[0].reset();
-    });
-
-}
+//
+//    $("#user_register_modal").on('hide.bs.modal', function () {
+//        $(this).find("#frmUserRegister")[0].reset();
+//    });
+//
+//}
 
 
 

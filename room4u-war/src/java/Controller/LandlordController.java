@@ -735,9 +735,19 @@ public class LandlordController {
 //        List<OrderRoom> ordersByUser = order1Facade.findOrderRoomByUser(customerBean.getCurCust().getCustId());
         List<OrderRoom> ordersByUser = order1Facade.findAll();
         List<OrderRoom> orderRoomResults = new ArrayList<OrderRoom>();
+
         for (OrderRoom od : ordersByUser) {
-            if (od.getOrderDetailList().get(0).getAccomId().getCustId().getCustId().equals(customerBean.getCurCust().getCustId())) {
-                orderRoomResults.add(od);
+
+            if (od.getOrderDetailList().size() > 0) {
+                if (od.getOrderDetailList().get(0).getAccomId() != null) {
+                    Accommodation acc = od.getOrderDetailList().get(0).getAccomId();
+
+                    if (acc != null) {
+                        if (acc.getCustId().getCustId().equals(customerBean.getCurCust().getCustId())) {
+                            orderRoomResults.add(od);
+                        }
+                    }
+                }
             }
         }
 

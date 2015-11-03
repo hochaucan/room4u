@@ -272,7 +272,7 @@ public class CustomerController {
             resetCust.setPassword("ROOM4U");
             customerFacade.updatePassword(resetCust.getCustId(), resetCust.getPassword());
             SendMailController smc = new SendMailController();
-            smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu của bạn được cập nhật mới là 'ROOM4U'");
+            smc.sendMailSupport(email, "Lấy lại mật khẩu", "Mật khẩu bạn cập nhật mới là 'ROOM4U'");
         }
     }
 

@@ -1,6 +1,8 @@
 $(function () {
     SetActiveMenu()
     getDate();
+//    alert("can")
+    validateFormAddFAQ();
 
 // Adding comma to the price
 
@@ -20,7 +22,70 @@ $(function () {
 
 //     $(".registerRoomAddress").text(JSON.parse($(".registerRoomAddress").text()).address)
     $(".currency").digits();
+
+    renderDataTable("#frmAdminPostRoom\\:tbAdminPostRoom");
+    renderDataTable("#frmAdminRegisterRoom table");
+    renderDataTable("#frmAdminComment table");
+
 });
+
+function validateFormAddFAQ() {
+    
+    
+     $('#frmAddFAQ').validate({
+        rules: {
+            "frmAddFAQ:txtQuestion": {
+                minlength: 3,
+                maxlength: 200,
+                required: true
+            },
+            "frmAddFAQ:txtAnswer": {
+                minlength: 3,
+                maxlength: 200,
+                required: true,
+                noSpace: true
+
+            }
+        },
+        messages: {
+           
+        },
+        submitHandler: function (form) {
+
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+}
+
+
+function renderDataTable(table) {
+    $(table).DataTable({
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+        "language": {
+            "lengthMenu": "Chọn _MENU_ dòng mỗi trang",
+            "zeroRecords": "Không có dữ liệu",
+            "info": "Trang _PAGE_ of _PAGES_",
+            "infoEmpty": "Không có dữ liệu",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        }
+    });
+}
+
 
 function assignOrderStatus(render) {
 //    alert($("#slRoomOrderStatus option:selected").text())

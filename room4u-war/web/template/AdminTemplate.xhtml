@@ -13,12 +13,15 @@
         <!--CSS-->
         <h:outputStylesheet  name="./css/bootstrap.min.css"/>
         <h:outputStylesheet  name="./css/bootstrap-datetimepicker.min.css"/>
+        <h:outputStylesheet  name="./css/jquery.dataTables.min.css"/>
         <h:outputStylesheet name="./css/style.css"/>
         <!--SCRIPT-->
         <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap.min.js"></h:outputScript>
         <h:outputScript name="./js/moment.min.js"></h:outputScript>
         <h:outputScript name="./js/bootstrap-datetimepicker.min.js"></h:outputScript>
+        <h:outputScript name="./js/jquery.dataTables.min.js"></h:outputScript>
+        <h:outputScript name="./js/jquery.validate.min.js"></h:outputScript>
         <!--        <h:outputScript name="./js/Chart.min.js"></h:outputScript>
                 <h:outputScript name="./js/chartjs-custom.js"></h:outputScript>-->
         <h:outputScript name="./js/js_custom_admin.js"></h:outputScript>
@@ -52,7 +55,8 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li >
-                                <h:commandLink rendered="#{customerController.curCust !=null}" action="#{customerController.logout()}"><span class="glyphicon glyphicon-log-out"></span> Log out</h:commandLink>
+                                
+                                <li><h:commandLink rendered="#{customerBean.curCust != null}" action="#{customerBean.logout()}"><span class="glyphicon glyphicon-log-out"></span> Log out</h:commandLink></li>
                             </li>
 
                         </ul>

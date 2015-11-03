@@ -1,10 +1,10 @@
 $(function () {
 
-    validateFormAddFAQ();
+//    validateFormAddFAQ();
     validateFormUpdateFAQ();
     checkUpdateValues();
+//alert("can")
 
-    $('#slider').nivoSlider();
 
 });
 
@@ -41,36 +41,7 @@ function displayFAQDelete(render) {
     $("#frmDeleteFAQ\\:hdFaqIdDel").val(id);
 }
 
-function validateFormAddFAQ() {
-    $('#frmAddFAQ').validate({
-        rules: {
-            "frmAddFAQ:txtQuestion": {
-                minlength: 3,
-                maxlength: 200,
-                required: true
-            },
-            "frmAddFAQ:txtAnswer": {
-                minlength: 3,
-                maxlength: 200,
-                required: true
-            },
-            highlight: function (element) {
-                $(element).closest('.form-group').addClass('has-error');
-            },
-            unhighlight: function (element) {
-                $(element).closest('.form-group').removeClass('has-error');
-            },
-            errorElement: 'span',
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) {
-                if (element.parent('.input-group').length) {
-                    error.insertAfter(element.parent());
-                } else {
-                    error.insertAfter(element);
-                }
-            }
-        }});
-}
+
 
 function validateFormUpdateFAQ() {
 
@@ -86,23 +57,24 @@ function validateFormUpdateFAQ() {
                 minlength: 3,
                 maxlength: 200,
                 required: true
-            },
-            highlight: function (element) {
-                $(element).closest('.form-group').addClass('has-error');
-            },
-            unhighlight: function (element) {
-                $(element).closest('.form-group').removeClass('has-error');
-            },
-            errorElement: 'span',
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) {
-                if (element.parent('.input-group').length) {
-                    error.insertAfter(element.parent());
-                } else {
-                    error.insertAfter(element);
-                }
             }
-        }});
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
 }
 
 // Custom message for Jquery validation

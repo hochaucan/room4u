@@ -13,10 +13,12 @@
         <!--CSS-->
         <h:outputStylesheet  name="./css/bootstrap.min.css"/>
         <h:outputStylesheet  name="./css/bootstrap-datetimepicker.min.css"/>
+         
         <h:outputStylesheet  name="./css/light.css"/>
         <h:outputStylesheet name="./css/jquery.rating.css"/>
         <h:outputStylesheet name="./css/style.css"/>
         <h:outputStylesheet name="./css/rating.css"/>
+        <h:outputStylesheet  name="./css/jquery.dataTables.min.css"/>
 
         <!--SCRIPT-->
         <h:outputScript name="./js/jquery-1.10.2.min.js"></h:outputScript>
@@ -28,6 +30,7 @@
         <h:outputScript name="./js/bootstrap-datetimepicker.min.js"></h:outputScript>
         <h:outputScript name="./js/jquery.validate.min.js"></h:outputScript>
         <h:outputScript name="./js/jquery.bootstrap-growl.min.js"></h:outputScript>
+        <h:outputScript name="./js/jquery.dataTables.min.js"></h:outputScript>
         <!--<h:outputScript name="./js/jquery.total-storage.js"></h:outputScript>-->
 
         <h:outputScript name="./js/js_custom.js"></h:outputScript>
@@ -263,7 +266,7 @@
                                     <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
                                     <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
                                     <div class="col-lg-9">
-                                        <h:inputFile id="fileCustThumbnail" value="#{customerBean.image}" ></h:inputFile>
+                                        <h:inputFile onchange="ValidateSingleInput(this)"  id="fileCustThumbnail" value="#{customerBean.image}" ></h:inputFile>
 
                                     </div>
                                 </div>

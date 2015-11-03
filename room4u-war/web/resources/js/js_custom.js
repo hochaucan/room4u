@@ -118,7 +118,7 @@ function registerRoomDistanceService(registerAddress, radius) {
 
 
                         var html = "<tr><td>" + destinationList[j]
-                                + "</td><td>" + results[j].distance.text + "</td><td>"
+                                + "</td><td>" + parseInt(results[j].distance.text) + " Km</td><td>"
                                 + results[j].duration.text + "</td></tr>";
                         $("#frmMatchedRoom").find("tbody").append(html);
 

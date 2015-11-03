@@ -201,26 +201,26 @@
                                             <label for="inputImage" class="col-lg-3 control-label">Hình đại diện</label>
                                             <!--<input type="file" id="fileinput" multiple="multiple" accept="image/*" />-->
                                             <div class="col-lg-9">
-                                                <h:inputFile  id="roomThumbnail" value="#{landlord.thumbnail}" ></h:inputFile>
+                                                <h:inputFile onchange="ValidateSingleInput(this)"  id="roomThumbnail" value="#{landlord.thumbnail}" ></h:inputFile>
 
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputImage" class="col-lg-3 control-label">Hình 1</label>
                                             <div class="col-lg-9">
-                                                <h:inputFile id="roomFile1" value="#{landlord.file1}" />
+                                                <h:inputFile onchange="ValidateSingleInput(this)"  id="roomFile1" value="#{landlord.file1}" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputImage" class="col-lg-3 control-label">Hình 2</label>
                                             <div class="col-lg-9">
-                                                <h:inputFile id="roomFile2" value="#{landlord.file2}" />
+                                                <h:inputFile onchange="ValidateSingleInput(this)"  id="roomFile2" value="#{landlord.file2}" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputImage" class="col-lg-3 control-label">Hình 3</label>
                                             <div class="col-lg-9">
-                                                <h:inputFile id="roomFile3" value="#{landlord.file3}" />
+                                                <h:inputFile onchange="ValidateSingleInput(this)"  id="roomFile3" value="#{landlord.file3}" />
                                             </div>
                                         </div>
                                     </fieldset>

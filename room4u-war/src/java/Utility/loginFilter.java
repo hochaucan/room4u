@@ -127,6 +127,8 @@ public class loginFilter implements Filter {
 //            String contextPath = ((HttpServletRequest) request).getContextPath();
 //            ((HttpServletResponse) response).sendRedirect(contextPath + "/index.jsf");
 //        }
+        
+        
         if (debug) {
             log("loginFilter:doFilter()");
         }
