@@ -1,4 +1,7 @@
 $(function () {
+    
+//    $('.scroll').jscroll();jscroll
+    
     setActiveMenu();
     validateFormPostRoom();
     validateFormUserLogin();

@@ -18,6 +18,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class AccommodationFacade extends AbstractFacade<Accommodation> implements AccommodationFacadeLocal {
+
     @PersistenceContext(unitName = "room4u-ejbPU")
     private EntityManager em;
 
@@ -32,9 +33,15 @@ public class AccommodationFacade extends AbstractFacade<Accommodation> implement
 
     @Override
     public List<Accommodation> findAccomByUser(int userId) {
-        Query q = em.createQuery("SELECT b FROM Accommodation b WHERE b.custId.custId = :_userId ");
+        Query q = em.createQuery("SELECT b FROM Accommodation b WHERE b.custId.custId = :_userId ORDER BY b.accomId DESC ");
         q.setParameter("_userId", userId);
         return q.getResultList();
     }
-    
+
+    @Override
+    public List<Accommodation> findAllWithSortDesc() {
+        Query q = em.createQuery("SELECT b FROM Accommodation b  ORDER BY b.accomId DESC ");
+        return q.getResultList();
+    }
+
 }

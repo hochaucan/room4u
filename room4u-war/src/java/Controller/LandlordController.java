@@ -463,7 +463,8 @@ public class LandlordController {
 
     public List<Accommodation> displayRoom() {
 
-        return accommodationFacade.findAll();
+//        return accommodationFacade.findAll();
+         return accommodationFacade.findAllWithSortDesc();
     }
 
     public List<Accommodation> displayRoomProfile() {

@@ -108,7 +108,7 @@ public class loginFilter implements Filter {
         
 //        HttpServletRequest req = (HttpServletRequest) request;
 //        HttpServletResponse res = (HttpServletResponse) response;
-//
+////
 //        HttpSession sess = (HttpSession) req.getSession(false);
 //        if (sess.getAttribute("username") == null) {
 //            res.sendRedirect(req.getContextPath() + "/");

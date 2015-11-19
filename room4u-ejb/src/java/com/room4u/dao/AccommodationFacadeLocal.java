@@ -32,5 +32,7 @@ public interface AccommodationFacadeLocal {
     List<Accommodation> findRange(int[] range);
 
     int count();
+
+    public List<Accommodation> findAllWithSortDesc();
     
 }
