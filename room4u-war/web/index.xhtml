@@ -13,7 +13,7 @@
 
                 <div class="row" style="margin-top: 0px">
 
-                    <div class="col-md-2 col-xs-12" style="text-align: left;padding-right:0px">
+                    <div class="col-md-2 col-xs-6" style="text-align: left;padding-right:0px">
                         <h:form>
                             <h:commandLink  rendered="#{customerBean.curCust!=null and (customerBean.roleId== 3  or customerBean.roleId== 2)}"  class="btn btn-success"  p:data-toggle="modal" p:data-target="#user_register_room_modal">
                                 <f:ajax execute="@form" render="@form"/>
@@ -22,7 +22,7 @@
                         </h:form>
                     </div>
 
-                    <div class="col-md-2 col-xs-12" style="text-align: left">
+                    <div class="col-md-2 col-xs-6 btnHomePage_postroom">
                         <h:form>
                             <h:commandLink  rendered="#{customerBean.curCust!=null and (customerBean.roleId== 2)}" class="btn btn-danger"  p:data-toggle="modal" p:data-target="#modal_post_room">
                                 <f:ajax execute="@form" render="@form"/>
@@ -31,19 +31,19 @@
                         </h:form>
 
                     </div>
-                    <div class="col-md-8 col-xs-12">
+                    <div class="col-md-8 col-xs-12 homepage_searchbox">
                         <!--Googlel Search Box-->
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <input  id="pac-input" class="form-control"  type="text" placeholder="Địa điểm"></input>
                         </div>
 
-                        <div class="col-md-5 homepage_searching">
+                        <div class="col-md-6 homepage_searching">
                             <div class="col-md-4 col-xs-4 lable">
                                 Bán kính
                             </div>
                             <!--                            <label  class="control-label col-md-3" style="margin-top: 8px;padding: 0px">Bán kính</label>-->
-                            <div class="col-md-4 col-xs-4">
-                                <select class="form-control col-md-1" id="sltRadius" onchange="registerRoomChangeRadius()">
+                            <div class="col-md-4 col-xs-3">
+                                <select  class="form-control col-md-1" id="sltRadius" onchange="registerRoomChangeRadius()">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -51,7 +51,7 @@
                                     <option value="5">5</option>
                                 </select>
                             </div>
-                            <div class="col-md-4 col-xs-4">
+                            <div class="col-md-4 col-xs-5 btnHompage_Search">
                                 <h:form>
                                     <!--<div class="col-md-2 col-xs-2" style="padding-right: 0;text-align: right">-->
                                     <button type="button" id="btnSearch"  class="btn btn-primary">Tìm kiếm</button>

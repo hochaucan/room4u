@@ -191,8 +191,28 @@ html, body {
     margin-top: 10px;
 
 }
+.btnHomePage_postroom{
+    text-align: right;
+}
+.btnHompage_Search{
+    padding-right: 0px;
+}
 @media (max-width:768px) {
-
+    .homepage_box .main_image{
+        height: 100%;
+    }
+    .btnHompage_Search{
+        text-align: right;
+    }
+    .homepage_searchbox{
+        margin: 10px 0px;
+    }
+    .homepage_searchbox div{
+        padding: 0px;
+    }
+    .btn{
+        text-transform: none;
+    }
 
     .homepage_searching{
         text-align: left;
