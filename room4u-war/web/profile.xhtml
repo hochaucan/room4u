@@ -91,7 +91,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="panel panel-default">
-                            <div class="panel-body">
+                            <div class="panel-body profile_rightpane">
                                 <!--Tab personal Info-->
                                 <div class="tab-pane fade active in" id="personalInfo">
                                     <legend>Thông tin cá nhân</legend>
@@ -207,10 +207,10 @@
                                                             </td>
 
                                                             <td>
-                                                                <a onclick="assignRoomOrderDetailId2(this)" class="btn btn-primary"  ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>
+                                                                <a onclick="assignRoomOrderDetailId2(this)"  ><span class="glyphicon glyphicon-eye-open"></span></a>
                                                             </td>
                                                             <td>
-                                                                <a  class="btn btn-primary" onclick="assignDeletedRoomOrderId(this)"  data-toggle="modal" data-target="#roomOrderDelete" ><span class="glyphicon glyphicon-trash"></span>Xóa</a>
+                                                                <a  onclick="assignDeletedRoomOrderId(this)"  data-toggle="modal" data-target="#roomOrderDelete" ><span class="glyphicon glyphicon-trash"></span></a>
                                                             </td>
 
                                                         </tr>
@@ -271,14 +271,13 @@
                                                     <f:facet name="header">
 
                                                     </f:facet>
-                                                    <!--<a  class="btn btn-primary" onclick="createFullRoomArray(this)" data-toggle="modal" data-target="#mdMachedRoom" ><span class="glyphicon glyphicon-eye-open"></span>Xem</a>-->
-                                                    <a  class="btn btn-primary" onclick="createFullRoomArray(this)"><span class="glyphicon glyphicon-eye-open"></span>Xem</a>
+                                                    <a onclick="createFullRoomArray(this)"><span class="glyphicon glyphicon-eye-open"></span></a>
                                                 </h:column>
                                                 <h:column>
                                                     <f:facet name="header">
 
                                                     </f:facet>
-                                                    <a class="btn btn-primary" onclick="displayReqDelete(this)"  data-toggle="modal" data-target="#DeleteReq"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                    <a onclick="displayReqDelete(this)"  data-toggle="modal" data-target="#DeleteReq"><span class="glyphicon glyphicon-trash"></span></a>
                                                 </h:column>
                                             </h:dataTable>
 
@@ -322,13 +321,13 @@
                                                             </h:outputText>
                                                         </td>
                                                         <td>
-                                                            <h:commandButton class="btn btn-primary" value="Sửa">
+                                                            <h:commandButton class="glyphicon glyphicon-pencil" value="">
                                                                 <!--<span class="glyphicon glyphicon-pencil"></span>-->
                                                                 <f:ajax execute="@form" render="@form" listener ="#{landlord.displayAccomUpdate(room)}" onevent="updateAccomSuccess" />
                                                             </h:commandButton>
                                                         </td>
                                                         <td>
-                                                            <a class="btn btn-primary" onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span> Xóa</a>
+                                                            <a onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span></a>
                                                         </td>
                                                     </tr>
                                                 </ui:repeat>

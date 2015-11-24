@@ -198,6 +198,9 @@ html, body {
     padding-right: 0px;
 }
 @media (max-width:768px) {
+    .profile_rightpane{
+        font-size: 70%;
+    }
     .homepage_box .main_image{
         height: 100%;
     }
