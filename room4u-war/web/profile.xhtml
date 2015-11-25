@@ -240,22 +240,22 @@
                                         <h:form id="frmRegisterRoomByUser">
 
                                             <h:dataTable value="#{custReq.requiresByCusID}" var="item" class="table table-responsive table-hover">
-                                                <h:column>
+<!--                                                <h:column>
                                                     <f:facet name="header">
                                                         <h:outputText value="Số"/>
                                                     </f:facet>
                                                     <h:outputText value="#{item.custReqId}"/>
-                                                </h:column>
+                                                </h:column>-->
                                                 <h:column>
                                                     <h:inputHidden id="hdaddress" value="#{custReq.getAddress(item.requirement)}"/>
                                                     <f:facet name="header">
-                                                        <h:outputText value="Địa chỉ đăng ký"/>
+                                                        <h:outputText value="Địa chỉ"/>
                                                     </f:facet>
                                                     <h:outputText id="txtAddress" value="#{custReq.getaddress}"/>
                                                 </h:column>
                                                 <h:column>
                                                     <f:facet name="header">
-                                                        <h:outputText value="Bán kính"/>
+                                                        <h:outputText value="BK"/>
                                                     </f:facet>
                                                     <h:outputText id="txtRadius" value="#{custReq.getrad}"/>
                                                 </h:column>
@@ -295,9 +295,9 @@
                                                 <tr>
                                                     <th>STT</th>
                                                     <th>Hình</th>
-                                                    <th>Tên phòng</th>
+                                                    <th>Phòng</th>
                                                     <!--<th>Địa chỉ</th>-->
-                                                    <th>Ngày đăng</th>
+                                                    <th>Ngày</th>
                                                 </tr>
                                             </thead>
 
@@ -321,10 +321,10 @@
                                                             </h:outputText>
                                                         </td>
                                                         <td>
-                                                            <h:commandButton class="glyphicon glyphicon-pencil" value="">
-                                                                <!--<span class="glyphicon glyphicon-pencil"></span>-->
+                                                            <h:commandLink  value="">
+                                                                <span class="gl yphicon glyphicon-pencil"></span>
                                                                 <f:ajax execute="@form" render="@form" listener ="#{landlord.displayAccomUpdate(room)}" onevent="updateAccomSuccess" />
-                                                            </h:commandButton>
+                                                            </h:commandLink>
                                                         </td>
                                                         <td>
                                                             <a onclick="assignDeletedAccomId(this)"  data-toggle="modal" data-target="#roomDelete" ><span class="glyphicon glyphicon-trash"></span></a>
@@ -354,15 +354,15 @@
                                                 <thead>
                                                     <tr>
                                                         <th> 
-                                                            <a class="btn btn-danger" onclick="deleteAllReceipt(this)" type="button" id="btnDeleteAllReceipt" >
-                                                                <span class="glyphicon glyphicon-trash"></span>Xóa
+                                                            <a onclick="deleteAllReceipt(this)" type="button" id="btnDeleteAllReceipt" >
+                                                                <span style="color:red" class="glyphicon glyphicon-trash"></span>
                                                             </a>
                                                         </th>
-                                                        <th>Số hóa đơn</th>
-                                                        <th>Tổng giá</th>
+                                                        <th>HĐ</th>
+                                                        <th>Giá</th>
                                                         <th>Ngày đặt</th>
-                                                        <th>Tình trạng</th>
-                                                        <th>Khách hàng</th>
+                                                        <th>TT</th>
+                                                        <th>KH</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -416,10 +416,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
-                                                    <th>Khách hàng</th>
-                                                    <th>Tên phòng</th>
-                                                    <th>Nội dung</th>
-                                                    <th>Ngày đăng</th>
+                                                    <th>KH</th>
+                                                    <th>Phòng</th>
+                                                    <th>ND</th>
+                                                    <th>Ngày</th>
                                                     <th>Trả lời</th>
                                                 </tr>
                                             </thead>
@@ -617,7 +617,7 @@
 
                 <!--Modal Mached Room-->
                 <div class="modal fade" id="mdMachedRoom" tabindex="-1" role="dialog" aria-labelledby="myDelete" aria-hidden="true">
-                    <div class="modal-dialog" style="width: 70%">
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <h:form id="frmMatchedRoom" class="form-horizontal">
                                 <h:inputText id="txtRegisterRoomId"  style="display: none"/>
@@ -631,8 +631,8 @@
                                             <tr>
                                                 <!--<th>Hình</th>-->
                                                 <th>Địa chỉ</th>
-                                                <th>Khoảng cách đăng ký</th>
-                                                <th>Thời gian</th>
+                                                <th>BK</th>
+                                                <th>TG</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -683,7 +683,7 @@
 
                 <!--Modal room edit-->
                 <div class="modal fade" id="roomEdit" tabindex="-1" role="dialog" aria-labelledby="myEdit" aria-hidden="true">
-                    <div class="modal-dialog" role="document" style="width: 60%;margin: auto">
+                    <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -797,7 +797,7 @@
                                 <h:column>
                                     <h:inputHidden id="hdaddress" value="#{custReq.getAddress(item.requirement)}"/>
                                     <f:facet name="header">
-                                        <h:outputText value="Địa chỉ đăng ký"/>
+                                        <h:outputText value="Địa chỉ ĐK"/>
                                     </f:facet>
                                     <h:outputText id="txtAddress" value="#{custReq.getaddress}"/>
                                 </h:column>
