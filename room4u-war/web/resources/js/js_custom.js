@@ -279,23 +279,46 @@ function geocodePlaceIdFromAddress(address) {
 //        radius: '500',
         query: address
     };
+    var bounds = new google.maps.LatLngBounds;
+    var geocoder = new google.maps.Geocoder;
+    var infowindow = new google.maps.InfoWindow;
     var service = new google.maps.places.PlacesService(map);
     service.textSearch(request, function callback(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
 
-//        searchRoomResult.push(results[0].place_id);
-
             var placeId = results[0].place_id;
             // alert(placeId)
             $(".homepage_box").each(function () {
-//            alert($(this).find(".txtRoomAddress").text())
+
                 var roomPlaceId = JSON.parse($(this).find(".txtRoomAddress").text()).placeId;
-//            alert(roomPlaceId)
+//alert($(this).find(".txtRoomAddress").text())
                 if (placeId === roomPlaceId) {
                     $(this).css("display", "inline");
 
-                    addMarker(map.getCenter());
+                    geocoder.geocode({'placeId': placeId}, function (results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            map.fitBounds(bounds.extend(results[0].geometry.location));
+                            if (results[0]) {
 
+                                map.setZoom(14);
+//                                map.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location
+                                });
+                                infowindow.setContent(results[0].formatted_address);
+                                marker.addListener('click', function () {
+                                    infowindow.open(map, marker);
+                                });
+
+
+                            } else {
+                                window.alert('No results found');
+                            }
+                        } else {
+                            window.alert('Geocoder failed due to: ' + status);
+                        }
+                    });
                 }
             });
 
