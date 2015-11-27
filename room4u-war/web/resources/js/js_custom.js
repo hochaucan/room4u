@@ -280,23 +280,42 @@ function geocodePlaceIdFromAddress(address) {
         query: address
     };
     var service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, callback);
-}
+    service.textSearch(request, function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
 
-function callback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
 //        searchRoomResult.push(results[0].place_id);
 
-        var placeId = results[0].place_id;
-        // alert(placeId)
-        $(".homepage_box").each(function () {
+            var placeId = results[0].place_id;
+            // alert(placeId)
+            $(".homepage_box").each(function () {
 //            alert($(this).find(".txtRoomAddress").text())
-            var roomPlaceId = JSON.parse($(this).find(".txtRoomAddress").text()).placeId;
+                var roomPlaceId = JSON.parse($(this).find(".txtRoomAddress").text()).placeId;
 //            alert(roomPlaceId)
-            if (placeId === roomPlaceId) {
-                $(this).css("display", "inline");
-            }
-        });
+                if (placeId === roomPlaceId) {
+                    $(this).css("display", "inline");
+
+                    addMarker(map.getCenter());
+
+                }
+            });
+
+
+
+
+
+//        var infowindow = new google.maps.InfoWindow({
+//            content: address
+//        });
+//
+//        var marker = new google.maps.Marker({
+//            map: map,
+//            position: results[0].geometry.location,
+//            icon: icon
+//        });
+//
+//        marker.addListener('click', function () {
+//            infowindow.open(map, marker);
+//        });
 
 
 
@@ -310,7 +329,9 @@ function callback(results, status) {
 //                location: results[0].geometry.location
 //            }
 //        });
+        }
     }
+    );
 }
 
 function setMapLocationByAddress(address) {
@@ -524,10 +545,10 @@ function distanceService(radius) {
     //var origin1 = '546A, Hung Phu, Phuong 9, Quan 8, TP Ho Chi Minh, Vietnam'//{lat: 55.93, lng: -3.118};
     var yourLocation = {lat: curLat, lng: curLong};// 'ChIJDSpFFuwtdTERrI6ne4XceEM'
 //    var origin2 = 'Greenwich, England';
-    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
-    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
-    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
-    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
+//    var destinationA = 'Khu dan cu EHOME3, TP Ho Chi Minh'//'Stockholm, Sweden';
+//    var destinationB = 'duong D1, quan Binh Thanh, TP Ho Chi Minh, Vietnam';
+//    var destinationC = '5B Ton Duc Thang, Quan 1, TP Ho Chi Minh, Vietnam';
+//    var destinationD = '546A, Hung Phu, phuong 9, quan 8, TP Ho Chi Minh, Vietnam';
 //    var desArr = new Array();
 //    desArr.push(destinationA);
 //    desArr.push(destinationB);
@@ -557,16 +578,35 @@ function distanceService(radius) {
             outputDiv.innerHTML = '';
             //deleteMarkers(markersArray);
 
-            var showGeocodedAddressOnMap = function (asDestination) {
+            var showGeocodedAddressOnMap = function (asDestination, address) {
                 var icon = asDestination ? destinationIcon : originIcon;
                 return function (results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
                         map.fitBounds(bounds.extend(results[0].geometry.location));
-                        markers.push(new google.maps.Marker({
+
+
+                        var infowindow = new google.maps.InfoWindow({
+                            content: address
+                        });
+
+                        var marker = new google.maps.Marker({
                             map: map,
                             position: results[0].geometry.location,
                             icon: icon
-                        }));
+                        });
+
+                        marker.addListener('click', function () {
+                            infowindow.open(map, marker);
+                        });
+
+                        markers.push(marker);
+
+
+//                        markers.push(new google.maps.Marker({
+//                            map: map,
+//                            position: results[0].geometry.location,
+//                            icon: icon
+//                        }));
                     } else {
                         alert('Geocode was not successful due to: ' + status);
                     }
@@ -577,14 +617,14 @@ function distanceService(radius) {
                 var results = response.rows[i].elements;
                 // geocoder.geocode({'address': originList[i]},
                 geocoder.geocode({'address': originList[i]},
-                showGeocodedAddressOnMap(false));
+                showGeocodedAddressOnMap(false, originList[i]));
                 for (var j = 0; j < results.length; j++) {
 
                     // Just get room around current location with radius
 //                    if (parseFloat(results[j].distance.text).toFixed(2) <= parseInt(radius)) {
                     if (parseInt(results[j].distance.text.replace(".", "")) <= parseInt(radius)) {
-                        geocoder.geocode({'address': destinationList[j]},
-                        showGeocodedAddressOnMap(true));
+//                        geocoder.geocode({'address': destinationList[j]},
+//                        showGeocodedAddressOnMap(true, destinationList[j]));
                         outputDiv.innerHTML += '<div class="row"><div class="col-md-12"><span class="glyphicon glyphicon-home" style="color: #0c84e4;"></span> Từ ' + originList[i] + ' <span class="glyphicon glyphicon-arrow-right" style="color: #0c84e4;"></span>  ' + destinationList[j] +
                                 ': ' + results[j].distance.text + ' in ' +
                                 results[j].duration.text + '</div></div>';
